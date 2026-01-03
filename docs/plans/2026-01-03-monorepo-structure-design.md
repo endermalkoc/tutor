@@ -4,11 +4,38 @@
 **Status:** Approved
 **Author:** Design Session (Brainstorming)
 
+> **📚 For focused technical documentation, see [Technical Documentation](../technical/index.md)**
+>
+> This document provides the **complete monorepo structure** with detailed folder organization, configuration files, and implementation examples.
+>
+> **Note:** Many implementation details have been moved to focused technical docs:
+> - Setup instructions → [Local Development Setup](../technical/local_development_setup.md)
+> - Migration workflows → [Data Migration](../technical/data_migration.md)
+> - Environment setup → [Environment Configuration](../technical/environment_configuration.md)
+> - CI/CD details → [CI/CD Pipeline](../technical/ci_cd_pipeline.md)
+>
+> This document now focuses on **folder structure** and **architectural patterns**.
+
+---
+
+## Quick Reference
+
+| Topic | Document | Purpose |
+|-------|----------|---------|
+| **Technology Choices** | [Tech Stack](../technical/tech_stack.md) | What we use and why |
+| **System Architecture** | [Architecture Overview](../technical/architecture_overview.md) | How components interact |
+| **Database Schema** | [Data Model](../technical/data_model.md) | Tables and relationships |
+| **Security Policies** | [Security Model](../technical/security_model.md) | Auth and security |
+| **Testing Approach** | [Testing Strategy](../technical/testing_strategy.md) | Test organization |
+| **API Conventions** | [API Design](../technical/api_design.md) | tRPC patterns |
+| **CI/CD Pipeline** | [Deployment Strategy](../technical/deployment_strategy.md) | Deployment process |
+| **Implementation Guide** | [TECH_STACK.md](../TECH_STACK.md) | Setup and configuration |
+
 ---
 
 ## Overview
 
-This document outlines the complete monorepo structure for our tutor management SaaS platform, similar to TutorBird. The platform will consist of a marketing site, web application, and mobile app, all sharing common packages for maximum code reuse and type safety.
+This document outlines the **complete monorepo structure** for our tutor management SaaS platform, similar to TutorBird. The platform consists of a marketing site, web application, and mobile app, all sharing common packages for maximum code reuse and type safety.
 
 ---
 
