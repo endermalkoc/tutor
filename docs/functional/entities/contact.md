@@ -37,7 +37,12 @@ The Contact entity is a base entity that stores common contact information. User
 ### Address Information
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| Address | Text | No | Contact's physical address (street, city, state/province, postal code, country) |
+| Street Address | String | No | Street address (line 1) |
+| Street Address 2 | String | No | Apartment, suite, unit, building, floor, etc. (line 2) |
+| City | String | No | City name |
+| State | String | No | State, province, or region |
+| Zip Code | String | No | Postal code or ZIP code |
+| Country | String | No | Country name |
 
 ### Communication Preferences
 | Field | Type | Required | Description |
