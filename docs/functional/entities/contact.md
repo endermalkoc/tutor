@@ -58,6 +58,7 @@ The Contact entity is a base entity that stores common contact information. User
 ## Relationships
 
 - **User**: A User may reference a Contact (one-to-one)
+- **Tutor**: A Tutor references a Contact (one-to-one, required)
 - **Student**: A Student references a Contact (one-to-one, required)
 - **Guardian**: A Guardian references a Contact (one-to-one, required)
 
