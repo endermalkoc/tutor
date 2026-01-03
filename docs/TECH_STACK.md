@@ -122,6 +122,22 @@ Features:
 | **Vitest** | Fast unit and integration testing framework powered by Vite |
 | **Playwright** | End-to-end testing across all modern browsers |
 
+### Test Coverage Goals
+
+- **API routers**: 80%+ coverage
+- **Email templates**: 70%+ coverage
+- **Critical user flows**: 100% E2E coverage
+
+---
+
+## Development Tools
+
+| Technology | Purpose |
+|------------|---------|
+| **Prettier** | Code formatting with automatic enforcement in CI/CD |
+| **Turborepo** | Build system orchestration with intelligent caching and task pipelines |
+| **TypeScript** | Type safety across the entire stack |
+
 ---
 
 ## Search
@@ -234,8 +250,10 @@ Features:
 # Required installations
 Node.js 24.x
 pnpm 10.x
-Docker Desktop (for Supabase CLI)
+Docker Desktop (required for local Supabase development)
 ```
+
+**Note:** Docker Desktop is essential for running `supabase start` locally, which provides PostgreSQL, Auth, Storage, and Realtime services.
 
 ### Initial Setup
 
@@ -283,6 +301,44 @@ Development seed data includes:
 - Sample payments and subscriptions
 
 **Seed Script Location**: `packages/database/src/seed.ts`
+
+**⚠️ CRITICAL: Seed Script Must Create Default Organization First**
+
+Since all tables include `organization_id` with a default value for future multi-tenancy support, the seed script MUST create the default organization before any other data:
+
+```typescript
+// packages/database/src/seed.ts
+import { db } from './client';
+import { organizations, tutors, students, sessions } from './schema';
+
+const DEFAULT_ORG_ID = '00000000-0000-0000-0000-000000000001';
+
+async function seed() {
+  // 1. Create default organization FIRST
+  await db.insert(organizations).values({
+    id: DEFAULT_ORG_ID,
+    name: 'Default Organization',
+  });
+
+  // 2. Then create all other data
+  await db.insert(tutors).values([
+    { organizationId: DEFAULT_ORG_ID, name: 'John Doe', /* ... */ },
+    // ...
+  ]);
+
+  await db.insert(students).values([
+    { organizationId: DEFAULT_ORG_ID, name: 'Jane Smith', /* ... */ },
+    // ...
+  ]);
+
+  await db.insert(sessions).values([
+    { organizationId: DEFAULT_ORG_ID, tutorId: '...', /* ... */ },
+    // ...
+  ]);
+}
+
+seed().catch(console.error);
+```
 
 ### Resetting Local Database
 
@@ -505,9 +561,41 @@ jobs:
 |-------|----------------|
 | **Authentication** | Supabase Auth with JWT tokens via tRPC context |
 | **Authorization** | Row Level Security (RLS) policies in PostgreSQL |
-| **CORS** | Next.js API routes with allowed origins whitelist |
+| **CORS** | Next.js API routes with allowed origins whitelist (including Expo patterns) |
 | **Input Validation** | Zod schemas on all tRPC procedures |
 | **SQL Injection** | Drizzle ORM parameterized queries (automatic protection) |
+
+**CORS Configuration Details:**
+
+```typescript
+// apps/web/next.config.js
+const getAllowedOrigins = () => {
+  if (process.env.NODE_ENV === 'development') {
+    return [
+      'http://localhost:3000',      // Web app
+      'http://localhost:3001',      // Marketing site
+      /^exp:\/\/.*$/,               // Expo development (matches exp://192.168.x.x:xxxx)
+    ];
+  }
+  return process.env.ALLOWED_ORIGINS?.split(',') || ['https://tutorapp.com'];
+};
+
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Allow-Origin', value: getAllowedOrigins().join(',') },
+          { key: 'Access-Control-Allow-Methods', value: 'GET,POST,OPTIONS' },
+          { key: 'Access-Control-Allow-Headers', value: 'Authorization, Content-Type' },
+        ],
+      },
+    ];
+  },
+};
+```
 
 ### Application Security
 
@@ -532,6 +620,47 @@ export const protectedProcedure = publicProcedure.use(({ ctx, next }) => {
   return next({ ctx: { ...ctx, user: ctx.user } });
 });
 ```
+
+**Next.js Middleware Execution Order:**
+
+Next.js middleware executes in a specific chain. For the web app, middleware must execute in this order:
+
+1. **i18n Middleware** (first): Detects locale, rewrites URLs with locale prefix
+2. **Auth Middleware** (second): Validates authentication, redirects unauthorized users
+
+```typescript
+// apps/web/middleware.ts
+import createIntlMiddleware from 'next-intl/middleware';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+// 1. i18n middleware
+const intlMiddleware = createIntlMiddleware({
+  locales: ['en', 'es'],
+  defaultLocale: 'en',
+  localeDetection: true,
+});
+
+// 2. Auth middleware wrapper
+export default async function middleware(request: NextRequest) {
+  // First: Handle i18n
+  const response = intlMiddleware(request);
+
+  // Second: Check authentication for protected routes
+  const token = request.cookies.get('auth-token');
+  if (request.nextUrl.pathname.startsWith('/dashboard') && !token) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  return response;
+}
+
+export const config = {
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+};
+```
+
+**Note:** For the marketing app, only i18n middleware is needed (no authentication).
 
 **Row Level Security (RLS):**
 ```sql
@@ -1082,6 +1211,8 @@ EXPO_PUBLIC_API_URL=
 
 ## Version Requirements
 
+### Runtime & Framework Versions
+
 | Technology | Minimum Version |
 |------------|-----------------|
 | Node.js | 24.x |
@@ -1090,3 +1221,13 @@ EXPO_PUBLIC_API_URL=
 | React | 19.x |
 | Next.js | 16.x |
 | Expo SDK | 54+ |
+
+### Development Tool Versions
+
+| Technology | Minimum Version |
+|------------|-----------------|
+| Turborepo | 1.11.0+ |
+| Prettier | 3.2.0+ |
+| Vitest | Latest |
+| Playwright | Latest |
+| Docker Desktop | Latest (for Supabase local development) |
