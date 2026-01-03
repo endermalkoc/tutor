@@ -2,6 +2,9 @@
 
 This directory contains functional specifications for the Tutor Management SaaS platform.
 
+## Entities
+- [Entities](./entities/) - Core data models (Student, Event, Family)
+
 ## Core User Management
 - [User Management](./01-user-management.md) - User types, registration, profiles, roles & permissions
 - [Authentication & Authorization](./02-authentication-authorization.md) - Login, security, access control
@@ -21,7 +24,7 @@ This directory contains functional specifications for the Tutor Management SaaS 
 
 ## User Portals
 - [Student Portal](./10-student-portal/) - Student/parent access to sessions, resources, homework (8 modules)
-- [Tutor Portal](./11-tutor-portal/) - Comprehensive tutor business management (14 modules)
+- [Tutor Portal](./11-tutor-portal/) - Comprehensive tutor business management (15 modules)
 - [Admin Panel](./12-admin-panel.md) - Platform administration, user management, system settings
 
 ## Analytics & Reporting

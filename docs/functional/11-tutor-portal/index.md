@@ -7,6 +7,7 @@ The Tutor Portal is the primary interface for individual tutors to manage their 
 ### Business Management
 - [Dashboard](./dashboard.md) - Overview of key metrics, upcoming sessions, recent activity
 - [Student Management](./student-management.md) - Student profiles, contact information, session history
+- [Importing Students](./importing-students.md) - Bulk import students from CSV/Excel files
 - [Family Management](./family-management.md) - Parent/guardian information, family accounts, multi-student households
 
 ### Scheduling & Sessions
