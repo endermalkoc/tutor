@@ -34,17 +34,27 @@ The Contact entity is a base entity that stores common contact information. User
 | Skype Username | String | No | Skype username for online sessions |
 | FaceTime ID | String | No | FaceTime ID for online sessions |
 
+### Address Information
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| Address | Text | No | Contact's physical address (street, city, state/province, postal code, country) |
+
 ### Communication Preferences
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | Send Email Reminders | Boolean | Yes | Whether to send email reminders (default: true if email exists) |
 | Send SMS Reminders | Boolean | Yes | Whether to send SMS reminders (default: true if SMS capable) |
 
+### Additional Information
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| Private Note | Text | No | Confidential notes about the contact (not visible to the contact themselves) |
+
 ## Relationships
 
 - **User**: A User may reference a Contact (one-to-one)
 - **Student**: A Student references a Contact (one-to-one, required)
-- **Parent/Guardian**: A Parent/Guardian references a Contact (one-to-one, required)
+- **Guardian**: A Guardian references a Contact (one-to-one, required)
 
 ## Business Rules
 

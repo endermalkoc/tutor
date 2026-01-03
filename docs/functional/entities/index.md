@@ -9,8 +9,9 @@ This section defines the core data entities used throughout the platform. These 
 ## Core Entities
 
 - [Student](./student.md) - Student profile, academic details, lesson settings (references Contact)
+- [Guardian](./guardian.md) - Parent/guardian information, billing preferences, portal visibility (references Contact)
 - [Event](./event.md) - Tutoring sessions, appointments, scheduled events
-- [Family](./family.md) - Family/household grouping, parent/guardian information
+- [Family](./family.md) - Family/household grouping, links students and guardians
 
 ---
 
