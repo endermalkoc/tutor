@@ -95,8 +95,8 @@ The Student entity represents an individual student in the tutor's roster. Stude
 
 ## Business Rules
 
-1. **Email or Phone Required**: At least one contact method (email or phone) should be provided
-2. **SMS Reminders**: SMS reminders can only be enabled if SMS Capable is true
+1. **SMS Reminders**: SMS reminders can only be enabled if Phone Number is provided and SMS Capable is true
+2. **Email Reminders**: Email reminders can only be enabled if Email Address is provided
 3. **Child Student Requirements**: Child students must be linked to a Family with parent/guardian information
 4. **Active Status Validation**: Students with Active status should have upcoming or recent sessions
 5. **Price Validation**: Price must be greater than or equal to 0
