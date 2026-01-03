@@ -26,8 +26,9 @@ This document outlines the complete monorepo structure for our tutor management 
 ### Shared Packages
 1. **api**: tRPC routers - shared backend logic
 2. **database**: Drizzle ORM schemas and migrations
-3. **ui**: shadcn/ui components and custom UI elements
-4. **config**: Shared TypeScript, ESLint, and Tailwind configurations
+3. **email**: React Email templates for transactional emails
+4. **constants**: Shared constants, enums, and validation schemas
+5. **config**: Shared TypeScript, ESLint, and Tailwind configurations
 
 ### Testing Strategy
 - **Unit Tests**: Vitest across all packages and apps
@@ -44,17 +45,22 @@ tutor/
 ├── apps/
 │   ├── marketing/              # Next.js - Landing & marketing site
 │   │   ├── src/
-│   │   │   ├── app/            # Next.js App Router
-│   │   │   │   ├── page.tsx    # Landing page
-│   │   │   │   ├── pricing/
-│   │   │   │   ├── about/
-│   │   │   │   ├── blog/
-│   │   │   │   │   ├── page.tsx        # Blog index
-│   │   │   │   │   └── [slug]/page.tsx # Blog post
-│   │   │   │   └── layout.tsx
+│   │   │   ├── app/
+│   │   │   │   └── [locale]/   # i18n locale routing
+│   │   │   │       ├── page.tsx    # Landing page
+│   │   │   │       ├── pricing/
+│   │   │   │       ├── about/
+│   │   │   │       ├── blog/
+│   │   │   │       │   ├── page.tsx        # Blog index
+│   │   │   │       │   └── [slug]/page.tsx # Blog post
+│   │   │   │       └── layout.tsx
 │   │   │   ├── components/     # Marketing-specific components
 │   │   │   ├── lib/
 │   │   │   │   └── blog.ts     # MDX blog utilities
+│   │   │   ├── messages/       # i18n translations
+│   │   │   │   ├── en.json
+│   │   │   │   └── es.json
+│   │   │   ├── i18n.ts         # next-intl configuration
 │   │   │   └── styles/
 │   │   ├── content/
 │   │   │   └── blog/           # MDX blog posts
@@ -66,6 +72,7 @@ tutor/
 │   │   ├── tsconfig.json
 │   │   ├── tailwind.config.ts
 │   │   ├── next.config.js
+│   │   ├── middleware.ts       # i18n middleware
 │   │   └── playwright.config.ts
 │   │
 │   ├── web/                    # Next.js - Main web application
@@ -160,6 +167,7 @@ tutor/
 │   │   │   │   ├── sessions.ts
 │   │   │   │   ├── payments.ts
 │   │   │   │   ├── users.ts
+│   │   │   │   ├── organizations.ts
 │   │   │   │   └── index.ts
 │   │   │   ├── migrations/     # Drizzle migration files
 │   │   │   ├── client.ts       # Supabase client setup
@@ -172,27 +180,32 @@ tutor/
 │   │   ├── tsconfig.json
 │   │   └── vitest.config.ts
 │   │
-│   ├── ui/                     # Shared UI components
+│   ├── email/                  # React Email templates
 │   │   ├── src/
-│   │   │   ├── components/
+│   │   │   ├── templates/
+│   │   │   │   ├── booking-confirmation.tsx
+│   │   │   │   ├── session-reminder.tsx
+│   │   │   │   ├── cancellation.tsx
+│   │   │   │   ├── welcome.tsx
+│   │   │   │   └── password-reset.tsx
+│   │   │   ├── components/     # Reusable email components
 │   │   │   │   ├── button.tsx
-│   │   │   │   ├── card.tsx
-│   │   │   │   ├── input.tsx
-│   │   │   │   ├── select.tsx
-│   │   │   │   ├── dialog.tsx
-│   │   │   │   ├── form.tsx
-│   │   │   │   └── ...         # More shadcn/ui components
-│   │   │   ├── hooks/          # Shared React hooks
-│   │   │   │   ├── use-toast.ts
-│   │   │   │   └── use-media-query.ts
-│   │   │   ├── lib/
-│   │   │   │   └── utils.ts    # cn() helper, etc.
+│   │   │   │   ├── header.tsx
+│   │   │   │   └── footer.tsx
 │   │   │   └── index.ts
-│   │   ├── __tests__/          # Component tests
+│   │   ├── __tests__/          # Email template tests
 │   │   ├── package.json
 │   │   ├── tsconfig.json
-│   │   ├── tailwind.config.ts  # Base Tailwind config
 │   │   └── vitest.config.ts
+│   │
+│   ├── constants/              # Shared constants & enums
+│   │   ├── src/
+│   │   │   ├── roles.ts        # User roles enum
+│   │   │   ├── sessions.ts     # Session duration constants
+│   │   │   ├── payments.ts     # Payment status enums
+│   │   │   └── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
 │   │
 │   ├── config/                 # Shared configurations
 │   │   ├── eslint/
@@ -337,12 +350,20 @@ Workspace-level scripts and dependencies:
     "test": "turbo test",
     "test:e2e": "turbo test:e2e",
     "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
     "type-check": "turbo type-check",
-    "clean": "turbo clean && rm -rf node_modules"
+    "clean": "turbo clean && rm -rf node_modules",
+    "db:generate": "pnpm --filter @repo/database db:generate",
+    "db:migrate": "pnpm --filter @repo/database db:migrate",
+    "db:studio": "pnpm --filter @repo/database db:studio",
+    "db:seed": "pnpm --filter @repo/database db:seed",
+    "inngest:dev": "npx inngest-cli@latest dev"
   },
   "devDependencies": {
     "turbo": "^1.11.0",
-    "typescript": "^5.3.0"
+    "typescript": "^5.3.0",
+    "prettier": "^3.2.0"
   },
   "packageManager": "pnpm@10.0.0",
   "engines": {
@@ -390,9 +411,10 @@ and multi-tutor businesses.
 **Shared Packages:**
 1. `packages/api` - tRPC routers (shared backend logic)
 2. `packages/database` - Drizzle ORM schemas & migrations
-3. `packages/ui` - shadcn/ui components & custom UI
-4. `packages/config` - Shared configs (TS, ESLint, Tailwind)
-5. `packages/e2e` - Shared Playwright E2E tests
+3. `packages/email` - React Email templates
+4. `packages/constants` - Shared enums & constants
+5. `packages/config` - Shared configs (TS, ESLint, Tailwind)
+6. `packages/e2e` - Shared Playwright E2E tests
 
 ---
 
@@ -468,16 +490,18 @@ pnpm --filter mobile dev       # Mobile app only
 - Migrations managed via `drizzle-kit`
 
 ### UI Components
-- shadcn/ui as component foundation
-- Shared via `packages/ui`
-- Customizable and owned by the project
-- Tailwind CSS for styling
+- shadcn/ui components live in each app (no shared UI package)
+- Each app manages its own component library
+- Web apps use shadcn/ui directly
+- Mobile uses React Native Reusables
+- Tailwind CSS for web styling
 
 ### Code Sharing
 - Business logic in `packages/api` (tRPC routers)
-- UI components in `packages/ui`
+- Email templates in `packages/email`
+- Constants & enums in `packages/constants`
 - Database schema in `packages/database`
-- Import via workspace protocol: `@repo/api`, `@repo/ui`, etc.
+- Import via workspace protocol: `@repo/api`, `@repo/email`, `@repo/constants`, etc.
 
 ---
 
@@ -488,14 +512,16 @@ pnpm --filter mobile dev       # Mobile app only
 - **Packages**: Shared code consumed by apps
 
 ### When to Create a Package
-- Code used by 2+ apps
-- Logical separation of concerns (API, DB, UI)
+- Code used by 2+ apps (API, database, email templates)
+- Logical separation of concerns (API, DB, constants)
 - Shared configurations
+- Business logic that needs to be consistent across platforms
 
 ### When to Keep Code in App
-- App-specific components or logic
+- App-specific components (including UI components)
 - One-off features or pages
 - App-specific routing
+- Platform-specific implementations
 
 ---
 
@@ -541,7 +567,7 @@ NEXT_PUBLIC_API_URL=
 
 ### Test Coverage Goals
 - API routers: 80%+ coverage
-- UI components: 70%+ coverage
+- Email templates: 70%+ coverage
 - Critical user flows: 100% E2E coverage
 
 ---
@@ -557,10 +583,6 @@ NEXT_PUBLIC_API_URL=
 - iOS: TestFlight → App Store
 - Android: Internal testing → Google Play
 - OTA updates for minor changes
-
-### API (Vercel Edge Functions)
-- Deployed with `apps/web`
-- Available at `/api/trpc/*`
 
 ---
 
@@ -1180,29 +1202,6 @@ export const protectedProcedure = publicProcedure.use(({ ctx, next }) => {
 });
 ```
 
-**Rate Limiting:**
-```typescript
-// apps/web/middleware.ts
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
-
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(100, '1 m'),
-});
-
-export async function middleware(request: NextRequest) {
-  const ip = request.ip ?? '127.0.0.1';
-  const { success } = await ratelimit.limit(ip);
-
-  if (!success) {
-    return new Response('Too Many Requests', { status: 429 });
-  }
-
-  return NextResponse.next();
-}
-```
-
 **Input Validation:**
 ```typescript
 // packages/api/src/routers/sessions.ts
@@ -1267,20 +1266,116 @@ CREATE POLICY "Users can view own payments"
 
 ```typescript
 // apps/web/next.config.js
+const getAllowedOrigins = () => {
+  if (process.env.NODE_ENV === 'development') {
+    return [
+      'http://localhost:3000',      // Web app
+      'http://localhost:3001',      // Marketing site
+      /^exp:\/\/.*$/,               // Expo development (matches exp://192.168.x.x:xxxx)
+    ];
+  }
+  return process.env.ALLOWED_ORIGINS?.split(',') || ['https://tutorapp.com'];
+};
+
 module.exports = {
   async headers() {
+    const allowedOrigins = getAllowedOrigins();
+
     return [
       {
         source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          { key: 'Access-Control-Allow-Origin', value: process.env.ALLOWED_ORIGINS || 'https://tutorapp.com' },
+          { key: 'Access-Control-Allow-Origin', value: allowedOrigins.join(',') },
           { key: 'Access-Control-Allow-Methods', value: 'GET,POST,OPTIONS' },
           { key: 'Access-Control-Allow-Headers', value: 'Authorization, Content-Type' },
         ],
       },
     ];
   },
+};
+```
+
+### Middleware Execution Order
+
+Next.js middleware executes in a specific order. Here's how to chain multiple middleware functions:
+
+```typescript
+// apps/web/lib/middleware-chain.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest, NextMiddleware } from 'next/server';
+
+type MiddlewareFactory = (middleware: NextMiddleware) => NextMiddleware;
+
+export function chain(
+  functions: MiddlewareFactory[],
+  index = 0
+): NextMiddleware {
+  const current = functions[index];
+
+  if (current) {
+    const next = chain(functions, index + 1);
+    return current(next);
+  }
+
+  return () => NextResponse.next();
+}
+```
+
+```typescript
+// apps/web/middleware.ts
+import createIntlMiddleware from 'next-intl/middleware';
+import { chain } from '@/lib/middleware-chain';
+
+// 1. Internationalization middleware (must run first for locale detection)
+const intlMiddleware = createIntlMiddleware({
+  locales: ['en', 'es'],
+  defaultLocale: 'en',
+  localeDetection: true,
+});
+
+// 2. Authentication middleware
+const authMiddleware = (next: NextMiddleware) => {
+  return async (request: NextRequest) => {
+    const token = request.cookies.get('auth-token');
+
+    // Protect dashboard routes
+    if (request.nextUrl.pathname.startsWith('/dashboard') && !token) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+
+    return next(request);
+  };
+};
+
+// Chain middleware in order: i18n → auth
+export default chain([
+  (next) => (req) => intlMiddleware(req),
+  authMiddleware,
+]);
+
+export const config = {
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+};
+```
+
+**Execution Flow:**
+1. **i18n Middleware**: Detects and sets locale, rewrites URLs with locale prefix
+2. **Auth Middleware**: Checks authentication, redirects unauthorized users
+
+**For Marketing App** (no auth needed):
+```typescript
+// apps/marketing/middleware.ts
+import createIntlMiddleware from 'next-intl/middleware';
+
+export default createIntlMiddleware({
+  locales: ['en', 'es'],
+  defaultLocale: 'en',
+  localeDetection: true,
+});
+
+export const config = {
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
 };
 ```
 
@@ -1428,13 +1523,55 @@ export const authRouter = router({
 Even in v1, include `organization_id` column with default value to enable future multi-tenancy upgrade:
 
 ```sql
+CREATE TABLE organizations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  organization_id UUID NOT NULL DEFAULT 'default-org-uuid-here',
+  organization_id UUID NOT NULL DEFAULT '00000000-0000-0000-0000-000000000001' REFERENCES organizations(id),
   tutor_id UUID NOT NULL REFERENCES tutors(id),
   student_id UUID NOT NULL REFERENCES students(id),
   -- ... other columns
 );
+```
+
+**Seed Data Must Include Default Organization:**
+
+```typescript
+// packages/database/src/seed.ts
+import { db } from './client';
+import { organizations, tutors, students, sessions } from './schema';
+
+const DEFAULT_ORG_ID = '00000000-0000-0000-0000-000000000001';
+
+async function seed() {
+  // 1. Create default organization FIRST
+  await db.insert(organizations).values({
+    id: DEFAULT_ORG_ID,
+    name: 'Default Organization',
+  });
+
+  // 2. Then create all other data
+  await db.insert(tutors).values([
+    { organizationId: DEFAULT_ORG_ID, name: 'John Doe', /* ... */ },
+    // ...
+  ]);
+
+  await db.insert(students).values([
+    { organizationId: DEFAULT_ORG_ID, name: 'Jane Smith', /* ... */ },
+    // ...
+  ]);
+
+  await db.insert(sessions).values([
+    { organizationId: DEFAULT_ORG_ID, tutorId: '...', /* ... */ },
+    // ...
+  ]);
+}
+
+seed().catch(console.error);
 ```
 
 **Future Multi-Tenant Migration Path:**
@@ -2289,21 +2426,22 @@ pnpm test:e2e --env=staging
 3. **Configure Turborepo**: Create turbo.json with pipeline
 4. **Set Up TypeScript**: Configure tsconfig files across workspace
 5. **Set Up Local Development**: Install Supabase CLI, configure Docker
-6. **Initialize Database**: Create initial Drizzle schemas with search vectors
-7. **Create Seed Data**: Develop seed script for development database
+6. **Initialize Database**: Create initial Drizzle schemas (including organizations table)
+7. **Create Seed Data**: Develop seed script (MUST create default organization first)
 8. **Set Up tRPC**: Create base router and context
 9. **Configure Inngest**: Set up background job infrastructure
 10. **Configure Observability**: Set up Axiom, PostHog, Sentry, Better Stack
-11. **Set Up i18n**: Configure next-intl and i18next with initial translations
+11. **Set Up i18n**: Configure next-intl for both web and marketing apps, i18next for mobile
 12. **Configure MDX**: Set up blog content structure and rendering
-13. **Configure Environment Variables**: Set up .env files and Turborepo config
-14. **Install Dependencies**: Run `pnpm install`
-15. **Set Up Security**: Implement RLS policies, rate limiting, CORS
-16. **Configure CI/CD**: Create GitHub Actions workflows
-17. **Set Up Mobile Infrastructure**: Configure Expo Notifications, EAS
-18. **Create Example Components**: Basic shadcn/ui setup
-19. **Configure Testing**: Set up Vitest and Playwright
-20. **Documentation**: Create README and getting started guide
+13. **Create Email Templates**: Set up React Email package with base templates
+14. **Create Constants Package**: Set up shared enums and constants
+15. **Configure Environment Variables**: Set up .env files and Turborepo config
+16. **Install Dependencies**: Run `pnpm install`
+17. **Set Up Security**: Implement RLS policies, CORS, middleware chain
+18. **Configure CI/CD**: Create GitHub Actions workflows with format checking
+19. **Set Up Mobile Infrastructure**: Configure Expo Notifications, EAS
+20. **Configure Testing**: Set up Vitest and Playwright
+21. **Documentation**: Create README and getting started guide
 
 ---
 
@@ -2322,8 +2460,9 @@ pnpm test:e2e --env=staging
 
 ### Maintainability
 - **Single Source of Truth**: API logic centralized
-- **Shared Components**: UI consistency guaranteed
+- **Consistent Patterns**: Same coding patterns across apps
 - **Unified Testing**: Same test frameworks everywhere
+- **Shared Business Logic**: Email templates, constants, and validation logic
 
 ---
 
@@ -2339,7 +2478,7 @@ pnpm test:e2e --env=staging
 **Solution**: Turborepo's caching will help. Only changed packages rebuild.
 
 ### Challenge: Mobile-Web UI Differences
-**Solution**: Keep shared UI primitives generic. App-specific styling in apps.
+**Solution**: No shared UI package. Each app manages its own components. Web uses shadcn/ui, mobile uses React Native Reusables.
 
 ---
 

@@ -505,7 +505,6 @@ jobs:
 |-------|----------------|
 | **Authentication** | Supabase Auth with JWT tokens via tRPC context |
 | **Authorization** | Row Level Security (RLS) policies in PostgreSQL |
-| **Rate Limiting** | Vercel Edge Config + middleware rate limiting (100 req/min per IP) |
 | **CORS** | Next.js API routes with allowed origins whitelist |
 | **Input Validation** | Zod schemas on all tRPC procedures |
 | **SQL Injection** | Drizzle ORM parameterized queries (automatic protection) |
