@@ -223,8 +223,8 @@ NEXT_PUBLIC_APP_URL=
 
 | Technology | Minimum Version |
 |------------|-----------------|
-| Node.js | 18.x |
-| pnpm | 8.x |
-| TypeScript | 5.x |
-| React | 18.x |
-| Expo SDK | 50+ |
+| Node.js | 24.x (LTS) |
+| pnpm | 10.x |
+| TypeScript | 5.9.x |
+| React | 19.x |
+| Expo SDK | 54+ |
