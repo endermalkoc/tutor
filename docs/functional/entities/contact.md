@@ -11,8 +11,16 @@ The Contact entity is a base entity that stores common contact information. User
 | First Name | String | Yes | Contact's first name |
 | Last Name | String | Yes | Contact's last name |
 | Email Address | String | No | Contact's email address |
-| Phone Number | String | No | Contact's phone number |
-| SMS Capable | Boolean | Yes | Whether the phone number can receive SMS messages (default: false) |
+
+### Phone Numbers
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| Mobile Number | String | No | Contact's mobile phone number |
+| Mobile SMS Capable | Boolean | Yes | Whether the mobile number can receive SMS messages (default: false) |
+| Home Number | String | No | Contact's home phone number |
+| Home SMS Capable | Boolean | Yes | Whether the home number can receive SMS messages (default: false) |
+| Work Number | String | No | Contact's work phone number |
+| Work SMS Capable | Boolean | Yes | Whether the work number can receive SMS messages (default: false) |
 
 ### Personal Information
 | Field | Type | Required | Description |
@@ -40,19 +48,23 @@ The Contact entity is a base entity that stores common contact information. User
 
 ## Business Rules
 
-1. **SMS Reminders**: SMS reminders can only be enabled if Phone Number is provided and SMS Capable is true
+1. **SMS Reminders**: SMS reminders can only be enabled if at least one phone number is provided with its corresponding SMS Capable flag set to true
 2. **Email Reminders**: Email reminders can only be enabled if Email Address is provided
-3. **Phone Format**: Phone Number should follow valid phone format if provided
+3. **Phone Format**: All phone numbers (Mobile, Home, Work) should follow valid phone format if provided
 4. **Email Format**: Email Address must be valid email format if provided
+5. **SMS Capable Logic**: SMS Capable flags can only be true if the corresponding phone number is provided
 
 ## Validations
 
 - First Name and Last Name are required and must not be empty
 - Email Address must be valid email format if provided
-- Phone Number should follow valid phone format if provided
+- All phone numbers (Mobile, Home, Work) should follow valid phone format if provided
 - Birthday must be a valid date in the past if provided
-- If Send SMS Reminders is true, Phone Number must exist and SMS Capable must be true
+- If Send SMS Reminders is true, at least one phone number must exist with its SMS Capable flag set to true
 - If Send Email Reminders is true, Email Address must exist
+- If Mobile SMS Capable is true, Mobile Number must be provided
+- If Home SMS Capable is true, Home Number must be provided
+- If Work SMS Capable is true, Work Number must be provided
 
 ## Notes
 
