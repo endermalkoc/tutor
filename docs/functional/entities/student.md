@@ -1,30 +1,14 @@
 # Student Entity
 
 ## Overview
-The Student entity represents an individual student in the tutor's roster. Students can be linked to families and have various attributes for contact information, lesson preferences, and billing settings.
+The Student entity represents an individual student in the tutor's roster. Students reference a Contact entity for their personal and contact information, and include student-specific attributes for academic information, lesson preferences, and billing settings.
 
 ## Core Attributes
 
-### Basic Information
+### Contact Information
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| First Name | String | Yes | Student's first name |
-| Last Name | String | Yes | Student's last name |
-| Email Address | String | No | Student's email address |
-| Phone Number | String | No | Student's phone number |
-| SMS Capable | Boolean | Yes | Whether the phone number can receive SMS messages |
-
-### Personal Information
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| Gender | String | No | Student's gender |
-| Birthday | Date | No | Student's date of birth |
-
-### Communication Platforms
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| Skype Username | String | No | Skype username for online sessions |
-| FaceTime ID | String | No | FaceTime ID for online sessions |
+| Contact | Reference | Yes | Reference to Contact entity (contains name, email, phone, birthday, etc.) |
 
 ### Academic Information
 | Field | Type | Required | Description |
@@ -40,12 +24,6 @@ The Student entity represents an individual student in the tutor's roster. Stude
 | Referrer | String | No | How the student was referred to the tutor |
 | Status | Enum | Yes | Active, Trial, Waiting, Lead, Inactive |
 | Student Type | Enum | Yes | Adult or Child |
-
-### Communication Preferences
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| Send Email Lesson Reminders | Boolean | Yes | Whether to send email reminders for upcoming lessons |
-| Send SMS Lesson Reminders | Boolean | Yes | Whether to send SMS reminders for upcoming lessons |
 
 ### Lesson Settings
 | Field | Type | Required | Description |
@@ -63,6 +41,7 @@ The Student entity represents an individual student in the tutor's roster. Stude
 
 ## Relationships
 
+- **Contact**: A student references a Contact (one-to-one, required) - Contains name, email, phone, birthday, communication preferences
 - **Family**: A student belongs to a Family (many-to-one)
 - **Events**: A student can have many Events/sessions (one-to-many)
 - **BillingType**: References a billing type configuration
@@ -95,24 +74,27 @@ The Student entity represents an individual student in the tutor's roster. Stude
 
 ## Business Rules
 
-1. **SMS Reminders**: SMS reminders can only be enabled if Phone Number is provided and SMS Capable is true
-2. **Email Reminders**: Email reminders can only be enabled if Email Address is provided
-3. **Child Student Requirements**: Child students must be linked to a Family with parent/guardian information
-4. **Active Status Validation**: Students with Active status should have upcoming or recent sessions
-5. **Price Validation**: Price must be greater than or equal to 0
-6. **Default Duration**: Must be a positive integer (typically 15, 30, 45, 60, 90, or 120 minutes)
+1. **Contact Required**: Every student must have an associated Contact record
+2. **Child Student Requirements**: Child students (Student Type = Child) must be linked to a Family with parent/guardian information
+3. **Active Status Validation**: Students with Active status should have upcoming or recent sessions
+4. **Price Validation**: Price must be greater than or equal to 0
+5. **Default Duration**: Must be a positive integer (typically 15, 30, 45, 60, 90, or 120 minutes)
+6. **Communication Preferences**: Inherited from Contact entity (see Contact for SMS/Email reminder rules)
 
 ## Validations
 
-- First Name and Last Name are required and must not be empty
-- Email Address must be valid email format if provided
-- Phone Number should follow valid phone format if provided
-- Birthday must be a valid date in the past if provided
+- Contact reference is required
 - Price must be a valid decimal number >= 0
 - Default Duration must be a positive integer
+- Status must be one of the defined enum values
+- Student Type must be one of the defined enum values
+- Lesson Category must be one of the defined enum values
 
 ## Notes
 
 - Students can be imported in bulk via CSV/Excel (see Tutor Portal > Importing Students)
-- Communication platform IDs (Skype, FaceTime) enable quick access to online session links
+- Contact information (name, email, phone, birthday, etc.) is stored in the referenced Contact entity
+- Communication platform IDs (Skype, FaceTime) are stored in the Contact entity
+- Communication preferences (email/SMS reminders) are managed in the Contact entity
 - Student Type affects UI/UX and access control for student portal
+- A Student may or may not have an associated User account (for student portal access)
