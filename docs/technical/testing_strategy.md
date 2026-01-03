@@ -368,5 +368,5 @@ pnpm test -- --coverage
 ---
 
 For implementation examples and setup instructions, see:
-- [TECH_STACK.md](../TECH_STACK.md) - Testing framework setup
-- [Monorepo Structure Design](../plans/2026-01-03-monorepo-structure-design.md) - Test organization
+- [Tech Stack](./tech_stack.md) - Testing frameworks and tools
+- [Local Development Setup](./local_development_setup.md) - Running tests locally

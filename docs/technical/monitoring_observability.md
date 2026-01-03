@@ -282,4 +282,5 @@ return <OldBookingFlow />;
 ---
 
 For implementation details, see:
-- [TECH_STACK.md](../TECH_STACK.md) - Setup and configuration
+- [Tech Stack](./tech_stack.md) - Monitoring tools and services
+- [Infrastructure](./infrastructure.md) - Service configuration

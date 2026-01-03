@@ -12,7 +12,7 @@ The platform uses **continuous deployment** with automated pipelines for both we
 
 **Key Principles:**
 - **Automated CI/CD**: Every merge triggers deployment
-- **Preview deployments**: Every PR gets a live preview
+- **Staging deployments**: Every PR deploys to staging for testing
 - **Database migrations first**: Run migrations before deploying code
 - **Zero-downtime deployments**: Serverless ensures no service interruption
 
@@ -25,8 +25,7 @@ The platform uses **continuous deployment** with automated pipelines for both we
 | Environment | Purpose | Deployment Trigger | Database |
 |-------------|---------|-------------------|----------|
 | **Development** | Local development | Manual (`pnpm dev`) | Local Supabase |
-| **Preview** | PR review & testing | Automatic on PR | Staging database (shared) |
-| **Staging** | Pre-production testing | Manual promotion | Staging database |
+| **Staging** | PR review & pre-production testing | Automatic on PR | Staging database |
 | **Production** | Live application | Automatic on merge to `main` | Production database |
 
 ### Environment Configuration
@@ -87,9 +86,9 @@ Node.js Version: 24.x
       "developmentClient": true,
       "distribution": "internal"
     },
-    "preview": {
+    "staging": {
       "distribution": "internal",
-      "channel": "preview"
+      "channel": "staging"
     },
     "production": {
       "channel": "production"
@@ -316,7 +315,7 @@ vercel rollback
 2. GitHub Action triggers
 3. Database migrations run
 4. Vercel deployment starts
-5. Preview URL available for QA
+5. Deployment URL available for QA
 6. Production deployment completes
 7. Automatic smoke tests run
 8. Team notified via Slack
@@ -357,13 +356,13 @@ eas submit --platform all
 
 ---
 
-## Preview Deployments
+## Staging Deployments
 
-### Web App Previews (Vercel)
+### Web App Staging (Vercel)
 
 **Automatic for Every PR:**
 - Unique URL: `tutor-pr-123.vercel.app`
-- Isolated environment
+- Uses staging environment
 - Shared staging database
 - Automatic SSL certificate
 
@@ -373,15 +372,15 @@ eas submit --platform all
 - Stakeholder demos
 - E2E testing in real environment
 
-### Mobile App Previews (EAS)
+### Mobile App Staging (EAS)
 
-**Manual Preview Builds:**
+**Manual Staging Builds:**
 ```bash
-# Build preview for testing
-eas build --platform all --profile preview
+# Build staging version for testing
+eas build --platform all --profile staging
 
 # Distribute via TestFlight / Internal Testing
-eas submit --platform ios --profile preview
+eas submit --platform ios --profile staging
 ```
 
 ---
@@ -597,5 +596,5 @@ DELETE FROM __drizzle_migrations WHERE id = [migration_id];
 ---
 
 For implementation details, see:
-- [TECH_STACK.md](../TECH_STACK.md) - CI/CD pipeline configuration
-- [Monorepo Structure Design](../plans/2026-01-03-monorepo-structure-design.md) - GitHub Actions examples
+- [CI/CD Pipeline](./ci_cd_pipeline.md) - GitHub Actions workflows
+- [Environment Configuration](./environment_configuration.md) - Environment setup

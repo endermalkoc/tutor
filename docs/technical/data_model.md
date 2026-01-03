@@ -561,5 +561,5 @@ CREATE TABLE messages (
 ---
 
 For implementation details and Drizzle ORM examples, see:
-- [TECH_STACK.md](../TECH_STACK.md) - Database setup and migration commands
-- [Monorepo Structure Design](../plans/2026-01-03-monorepo-structure-design.md) - Schema organization
+- [Data Migration](./data_migration.md) - Database migration workflow
+- [Local Development Setup](./local_development_setup.md) - Database setup commands

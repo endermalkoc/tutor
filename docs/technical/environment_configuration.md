@@ -151,8 +151,8 @@ pnpm add -g vercel
 # Set production variable
 vercel env add SUPABASE_URL production
 
-# Set preview variable (for PR deployments)
-vercel env add SUPABASE_URL preview
+# Set staging variable (for PR deployments)
+vercel env add SUPABASE_URL staging
 
 # Set development variable
 vercel env add SUPABASE_URL development
@@ -160,7 +160,7 @@ vercel env add SUPABASE_URL development
 
 **Environment Scopes:**
 - **Production**: Deployed from `main` branch
-- **Preview**: PR deployments
+- **Staging**: PR deployments
 - **Development**: `vercel dev` local development
 
 ### Mobile App (EAS)
@@ -226,7 +226,7 @@ SUPABASE_URL=http://localhost:54321
 ### Staging
 
 ```env
-# Set in Vercel (preview environment)
+# Set in Vercel (staging environment)
 NODE_ENV=production
 NEXT_PUBLIC_APP_URL=https://tutor-staging.vercel.app
 SUPABASE_URL=https://staging-xxxxx.supabase.co
@@ -323,7 +323,7 @@ eas update --auto
 
 **Solutions:**
 1. Check Vercel environment variables are set
-2. Verify correct environment scope (production vs preview)
+2. Verify correct environment scope (production vs staging)
 3. Check for typos in variable names
 4. Redeploy application after adding variables
 

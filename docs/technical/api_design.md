@@ -621,6 +621,170 @@ const { data } = api.tutors.getTutor.useQuery(
 
 ---
 
+## API Versioning Strategy
+
+### Current Approach (v1)
+
+**No explicit versioning** - Single version API
+
+**Rationale:**
+- tRPC provides end-to-end type safety, making breaking changes immediately visible
+- Monorepo allows atomic updates across web and mobile
+- Control both client and server deployment
+
+**Current State:**
+```typescript
+// packages/api/src/routers/index.ts
+export const appRouter = router({
+  tutors: tutorsRouter,
+  students: studentsRouter,
+  sessions: sessionsRouter,
+  // ... other routers
+});
+```
+
+### When Breaking Changes Are Needed
+
+**Option 1: Additive Changes (Preferred)**
+
+Add new procedures alongside old ones, deprecate gracefully:
+
+```typescript
+export const tutorsRouter = router({
+  // Old procedure - keep for backward compatibility
+  getTutor: publicProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .query(async ({ ctx, input }) => {
+      // Old implementation
+    }),
+
+  // New procedure with enhanced functionality
+  getTutorDetailed: publicProcedure
+    .input(z.object({
+      id: z.string().uuid(),
+      includeReviews: z.boolean().optional(),
+      includeStats: z.boolean().optional(),
+    }))
+    .query(async ({ ctx, input }) => {
+      // New implementation with additional features
+    }),
+});
+```
+
+**Migration Path:**
+1. Add new procedure
+2. Update clients to use new procedure
+3. Monitor old procedure usage
+4. Remove old procedure after all clients migrated
+
+**Option 2: Router Namespacing**
+
+Create versioned routers for major changes:
+
+```typescript
+// packages/api/src/routers/index.ts
+export const appRouter = router({
+  // V1 routers (current)
+  tutors: tutorsRouter,
+  sessions: sessionsRouter,
+
+  // V2 routers (future breaking changes)
+  v2: router({
+    tutors: tutorsV2Router,
+    sessions: sessionsV2Router,
+  }),
+});
+
+// Usage in client
+// V1: api.tutors.getTutor({ id })
+// V2: api.v2.tutors.getTutor({ id })
+```
+
+**When to Use:**
+- Complete redesign of resource structure
+- Major data model changes
+- Significant authentication changes
+
+**Option 3: Input Schema Evolution**
+
+Evolve input schemas without breaking changes:
+
+```typescript
+// Old schema
+const oldSchema = z.object({
+  name: z.string(),
+});
+
+// New schema - backward compatible
+const newSchema = z.object({
+  name: z.string(),
+  displayName: z.string().optional(), // New optional field
+});
+
+// Handle both in implementation
+.input(newSchema)
+.mutation(async ({ ctx, input }) => {
+  const name = input.displayName || input.name; // Fallback logic
+  // ...
+});
+```
+
+### Versioning Guidelines
+
+**DO:**
+- ✅ Make changes additive when possible
+- ✅ Use optional fields for new properties
+- ✅ Provide default values for new required fields
+- ✅ Document deprecation timeline (3-6 months minimum)
+- ✅ Monitor usage of deprecated endpoints
+- ✅ Communicate changes to team before deploying
+
+**DON'T:**
+- ❌ Remove procedures without deprecation period
+- ❌ Change response shape of existing procedures
+- ❌ Change input validation to be more restrictive
+- ❌ Rename procedures (create new one instead)
+
+### Breaking Change Checklist
+
+Before making a breaking change:
+
+- [ ] Can this be done additively instead?
+- [ ] Are all clients under our control?
+- [ ] Can we deploy client and server simultaneously?
+- [ ] Have we documented the migration path?
+- [ ] Have we set a deprecation timeline?
+- [ ] Have we added monitoring for old endpoint usage?
+
+### Future Considerations (v2+)
+
+**If Multi-Tenancy or Third-Party API Access:**
+
+Consider formal versioning in URL path:
+
+```typescript
+// Route-based versioning
+export const appRouter = router({
+  v1: router({
+    tutors: tutorsV1Router,
+  }),
+  v2: router({
+    tutors: tutorsV2Router,
+  }),
+});
+
+// Client usage
+const apiV1 = createTRPCProxyClient<AppRouter['v1']>({ ... });
+const apiV2 = createTRPCProxyClient<AppRouter['v2']>({ ... });
+```
+
+**Version Sunset Policy:**
+- Minimum support: 12 months after new version release
+- Deprecation notices: 6 months before sunset
+- Final sunset: Only after usage < 1% of requests
+
+---
+
 ## Best Practices
 
 ### DO
@@ -683,5 +847,5 @@ describe('tutorsRouter', () => {
 ---
 
 For implementation examples and setup, see:
-- [TECH_STACK.md](../TECH_STACK.md) - tRPC setup and configuration
-- [Monorepo Structure Design](../plans/2026-01-03-monorepo-structure-design.md) - API package organization
+- [Tech Stack](./tech_stack.md) - tRPC and technology choices
+- [Architecture Overview](./architecture_overview.md) - API architecture and patterns

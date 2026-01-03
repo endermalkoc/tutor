@@ -233,5 +233,5 @@ The platform is built as a **monorepo** using modern, type-safe technologies opt
 ---
 
 For implementation details, setup instructions, and configuration examples, see:
-- [TECH_STACK.md](../TECH_STACK.md) - Comprehensive implementation guide
-- [Monorepo Structure Design](../plans/2026-01-03-monorepo-structure-design.md) - Detailed architecture
+- [Local Development Setup](./local_development_setup.md) - Development environment setup
+- [Architecture Overview](./architecture_overview.md) - System architecture

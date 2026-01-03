@@ -364,8 +364,8 @@ pnpm --filter mobile dev                  # Start mobile app only
 After setup is complete:
 
 1. **Explore the codebase:**
-   - Read [Monorepo Structure](../plans/2026-01-03-monorepo-structure-design.md)
    - Review [Architecture Overview](./architecture_overview.md)
+   - Read [Tech Stack](./tech_stack.md)
 
 2. **Make your first change:**
    - Create a feature branch

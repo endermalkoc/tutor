@@ -388,6 +388,6 @@ await primary.insert(sessions).values(newSession);
 
 ---
 
-For implementation details, see:
-- [TECH_STACK.md](../TECH_STACK.md) - Service setup
+For related documentation, see:
+- [Tech Stack](./tech_stack.md) - Technology and service choices
 - [Deployment Strategy](./deployment_strategy.md) - CI/CD infrastructure

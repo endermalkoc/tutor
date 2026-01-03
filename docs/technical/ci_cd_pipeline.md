@@ -244,7 +244,7 @@ jobs:
 
 **Auto-Deployment:**
 - Every push to `main` → Production deployment
-- Every PR → Preview deployment
+- Every PR → Staging deployment
 
 ---
 

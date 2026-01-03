@@ -45,9 +45,7 @@ These documents serve as **technical reference guides** that answer "what" and "
 - **What** are our testing goals?
 - **What** security policies do we enforce?
 
-For **implementation details** (how to set up, configure, or use these technologies), refer to:
-- [TECH_STACK.md](../TECH_STACK.md) - Comprehensive implementation guide
-- [Monorepo Structure Design](../plans/2026-01-03-monorepo-structure-design.md) - Detailed architecture and setup
+For **implementation details** (how to set up, configure, or use these technologies), refer to the relevant technical documents in this directory.
 
 ---
 

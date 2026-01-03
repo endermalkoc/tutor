@@ -401,31 +401,6 @@ if (signature !== digest) {
 
 ---
 
-## Compliance & Privacy
-
-### GDPR Compliance
-
-| Requirement | Implementation |
-|-------------|----------------|
-| **Right to access** | API endpoint for data export |
-| **Right to deletion** | Hard delete within 30 days |
-| **Right to portability** | JSON export of all user data |
-| **Privacy by design** | Minimal data collection |
-| **Consent management** | Cookie consent banner |
-| **Data processing agreements** | With all third-party services |
-
-### Data Processing Locations
-
-| Service | Data Location | GDPR Compliant |
-|---------|---------------|----------------|
-| **Supabase** | EU region (configurable) | Yes |
-| **Vercel** | Global edge (configurable) | Yes |
-| **Lemon Squeezy** | US/EU | Yes |
-| **Resend** | US | Yes (DPA available) |
-| **Sentry** | US | Yes (DPA available) |
-
----
-
 ## Security Best Practices
 
 ### For Developers
@@ -477,5 +452,5 @@ if (signature !== digest) {
 ---
 
 For implementation details and code examples, see:
-- [TECH_STACK.md](../TECH_STACK.md) - Security implementation guide
-- [Monorepo Structure Design](../plans/2026-01-03-monorepo-structure-design.md) - Security architecture examples
+- [API Design](./api_design.md) - API security patterns and authentication
+- [Data Model](./data_model.md) - Row Level Security implementation

@@ -460,5 +460,5 @@ persistQueryClient({
 ---
 
 For implementation details, see:
-- [TECH_STACK.md](../TECH_STACK.md) - Performance tooling setup
+- [Tech Stack](./tech_stack.md) - Performance tooling and frameworks
 - [Architecture Overview](./architecture_overview.md) - Performance characteristics

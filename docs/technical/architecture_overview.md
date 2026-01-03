@@ -387,8 +387,8 @@ See [Security Model](./security_model.md) for detailed security policies.
 
 **CI/CD:**
 1. PR opened → Run tests, linting, type-check
-2. PR merged → Deploy to preview
-3. Manual promotion → Deploy to production
+2. PR merged → Deploy to staging, then production
+3. Automated deployment to production on merge to main
 
 ---
 
@@ -436,7 +436,7 @@ See [Security Model](./security_model.md) for detailed security policies.
 | **API service outage** | 5 minutes | N/A (stateless) |
 | **Supabase platform outage** | Dependent on Supabase | Near-zero |
 
-See [TECH_STACK.md](../TECH_STACK.md) for detailed backup and disaster recovery procedures.
+See [Disaster Recovery](./disaster_recovery.md) and [Backup](./backup.md) for detailed procedures.
 
 ---
 
@@ -467,7 +467,6 @@ Current monolith is appropriate for v1. Consider breaking into services if:
 ---
 
 For implementation details, see:
-- [TECH_STACK.md](../TECH_STACK.md) - Setup and configuration
-- [Monorepo Structure Design](../plans/2026-01-03-monorepo-structure-design.md) - Detailed folder structure
 - [Data Model](./data_model.md) - Database schema and relationships
 - [Security Model](./security_model.md) - Security policies and implementation
+- [Tech Stack](./tech_stack.md) - Technology choices and setup
