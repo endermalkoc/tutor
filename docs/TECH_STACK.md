@@ -51,8 +51,10 @@ This document outlines the technology stack for our SaaS application, built with
 | Technology | Purpose |
 |------------|---------|
 | **tRPC** | End-to-end type-safe APIs without code generation |
+| **Vercel Serverless Functions** | Node.js runtime for tRPC API routes (full Node.js API support) |
 | **Supabase** | Backend-as-a-Service platform (PostgreSQL, Realtime, Edge Functions) |
 | **Drizzle ORM** | Lightweight, type-safe ORM for TypeScript |
+| **Inngest** | Background job queue for async tasks (emails, reminders, webhooks) |
 
 ---
 
@@ -102,11 +104,14 @@ Features:
 
 ---
 
-## Monitoring & Error Tracking
+## Monitoring & Observability
 
 | Technology | Purpose |
 |------------|---------|
 | **Sentry** | Application monitoring, error tracking, and performance insights |
+| **Axiom** | Structured logging and log analysis for serverless environments |
+| **PostHog** | Product analytics, feature flags, session replay, and user behavior tracking |
+| **Better Stack** | Uptime monitoring and incident management for API endpoints |
 
 ---
 
@@ -116,6 +121,33 @@ Features:
 |------------|---------|
 | **Vitest** | Fast unit and integration testing framework powered by Vite |
 | **Playwright** | End-to-end testing across all modern browsers |
+
+---
+
+## Search
+
+| Technology | Purpose |
+|------------|---------|
+| **PostgreSQL Full-Text Search** | Built-in search for tutors, students, and sessions using tsvector/tsquery |
+
+---
+
+## Internationalization (i18n)
+
+| Technology | Purpose |
+|------------|---------|
+| **next-intl** | Type-safe internationalization for Next.js applications |
+| **i18next + react-i18next** | Internationalization framework for React Native mobile app |
+| **expo-localization** | Device locale detection and localization utilities for Expo |
+
+---
+
+## Content Management
+
+| Technology | Purpose |
+|------------|---------|
+| **MDX** | Markdown with JSX for marketing blog content (stored in repository) |
+| **next-mdx-remote** | Render MDX content in Next.js with full component support |
 
 ---
 
@@ -133,10 +165,11 @@ Features:
 ┌─────────────────────────────────────────────────────────────────┐
 │                         CLIENT LAYER                            │
 ├─────────────────────────────────────────────────────────────────┤
-│  Expo React Native (iOS / Android / Web)                        │
-│  ├── shadcn/ui Components                                       │
-│  ├── Tailwind CSS                                               │
-│  └── tRPC Client                                                │
+│  Next.js Web App                │  Expo Mobile App              │
+│  ├── shadcn/ui Components       │  ├── React Native Reusables   │
+│  ├── Tailwind CSS               │  ├── Expo Router              │
+│  ├── next-intl (i18n)           │  ├── i18next (i18n)           │
+│  └── tRPC Client                │  └── tRPC Client              │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -144,32 +177,36 @@ Features:
 │                          API LAYER                              │
 ├─────────────────────────────────────────────────────────────────┤
 │  tRPC Router (Type-safe API)                                    │
-│  └── Deployed on Vercel Serverless Functions                    │
+│  └── Deployed on Vercel Serverless Functions (Node.js)          │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                       DATABASE LAYER                            │
 ├─────────────────────────────────────────────────────────────────┤
-│  Supabase                                                       │
-│  ├── PostgreSQL Database                                        │
+│  Supabase PostgreSQL                                            │
 │  ├── Drizzle ORM (Type-safe queries)                            │
 │  ├── Row Level Security (RLS)                                   │
-│  └── Realtime Subscriptions                                     │
+│  ├── Full-Text Search (tsvector/tsquery)                        │
+│  └── Realtime Subscriptions (session updates, messages)         │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                      SERVICES LAYER                             │
 ├─────────────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │
-│  │ Supabase    │  │ Supabase    │  │ Lemon Squeezy           │  │
-│  │ Auth        │  │ Storage     │  │ (Payments)              │  │
-│  └─────────────┘  └─────────────┘  └─────────────────────────┘  │
-│  ┌─────────────┐  ┌─────────────────────────────────────────┐   │
-│  │ Resend      │  │ Sentry                                  │   │
-│  │ (Email)     │  │ (Monitoring)                            │   │
-│  └─────────────┘  └─────────────────────────────────────────┘   │
+│  Auth & Storage    │  Payments  │  Communication │  Background  │
+│  ┌──────────────┐  │  ┌───────┐ │  ┌──────────┐  │  ┌────────┐ │
+│  │ Supabase     │  │  │ Lemon │ │  │ Resend   │  │  │Inngest │ │
+│  │ Auth         │  │  │Squeezy│ │  │ (Email)  │  │  │ (Jobs) │ │
+│  │ + Storage    │  │  │       │ │  │          │  │  │        │ │
+│  └──────────────┘  │  └───────┘ │  └──────────┘  │  └────────┘ │
+│                                                                  │
+│  Observability Stack                                            │
+│  ┌────────┐  ┌─────────┐  ┌──────────────┐  ┌──────────────┐   │
+│  │ Sentry │  │ Axiom   │  │ PostHog      │  │ Better Stack │   │
+│  │(Errors)│  │ (Logs)  │  │ (Analytics)  │  │  (Uptime)    │   │
+│  └────────┘  └─────────┘  └──────────────┘  └──────────────┘   │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -186,6 +223,83 @@ Features:
 │              │    │              │    │   Production)│
 └──────────────┘    └──────────────┘    └──────────────┘
 ```
+
+---
+
+## Local Development Setup
+
+### Prerequisites
+
+```bash
+# Required installations
+Node.js 24.x
+pnpm 10.x
+Docker Desktop (for Supabase CLI)
+```
+
+### Initial Setup
+
+```bash
+# 1. Clone repository
+git clone <repository-url>
+cd tutor
+
+# 2. Install dependencies
+pnpm install
+
+# 3. Install Supabase CLI
+pnpm add -g supabase
+
+# 4. Start local Supabase (PostgreSQL + Auth + Storage + Realtime)
+supabase start
+
+# This will output:
+# - API URL: http://localhost:54321
+# - DB URL: postgresql://postgres:postgres@localhost:54322/postgres
+# - Anon key: <anon-key>
+# - Service role key: <service-role-key>
+
+# 5. Copy environment variables
+cp .env.example .env.local
+
+# Update .env.local with local Supabase credentials from step 4
+
+# 6. Run database migrations
+pnpm --filter @repo/database db:migrate
+
+# 7. Seed database with test data
+pnpm --filter @repo/database db:seed
+
+# 8. Start development servers
+pnpm dev
+```
+
+### Seed Data
+
+Development seed data includes:
+- 5 sample tutors (Math, English, Science, History, Music)
+- 10 sample students
+- 20 upcoming and past sessions
+- Sample payments and subscriptions
+
+**Seed Script Location**: `packages/database/src/seed.ts`
+
+### Resetting Local Database
+
+```bash
+# Reset and reseed local database
+supabase db reset
+pnpm --filter @repo/database db:seed
+```
+
+### Local Services
+
+When running locally via `pnpm dev`:
+- **Web App**: http://localhost:3000
+- **Mobile App**: Expo DevClient (scan QR code)
+- **Marketing Site**: http://localhost:3001
+- **Supabase Studio**: http://localhost:54323
+- **Inngest Dev Server**: http://localhost:8288
 
 ---
 
@@ -453,6 +567,462 @@ CREATE POLICY "Users can view own sessions"
 
 ---
 
+## Search Implementation
+
+### PostgreSQL Full-Text Search
+
+**Use Cases:**
+- Search tutors by name, subjects, bio, qualifications
+- Search students by name, email, grade level
+- Search sessions by notes, subject, location
+
+**Implementation:**
+
+```typescript
+// packages/database/src/schema/tutors.ts
+import { sql } from 'drizzle-orm';
+
+export const tutors = pgTable('tutors', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: text('name').notNull(),
+  bio: text('bio'),
+  subjects: text('subjects').array(),
+  // Search vector (auto-updated via trigger)
+  searchVector: tsvector('search_vector'),
+});
+
+// Create search index
+CREATE INDEX tutors_search_idx ON tutors USING GIN(search_vector);
+
+// Auto-update trigger
+CREATE TRIGGER tutors_search_update
+  BEFORE INSERT OR UPDATE ON tutors
+  FOR EACH ROW EXECUTE FUNCTION
+  tsvector_update_trigger(
+    search_vector, 'pg_catalog.english',
+    name, bio, subjects
+  );
+```
+
+**Usage via tRPC:**
+
+```typescript
+// packages/api/src/routers/tutors.ts
+export const tutorsRouter = router({
+  search: publicProcedure
+    .input(z.object({ query: z.string().min(2) }))
+    .query(async ({ ctx, input }) => {
+      return ctx.db
+        .select()
+        .from(tutors)
+        .where(
+          sql`search_vector @@ plainto_tsquery('english', ${input.query})`
+        )
+        .orderBy(
+          sql`ts_rank(search_vector, plainto_tsquery('english', ${input.query})) DESC`
+        )
+        .limit(20);
+    }),
+});
+```
+
+**Future Enhancements:**
+- Add fuzzy matching for typo tolerance
+- Weighted ranking (name > subjects > bio)
+- Consider Meilisearch upgrade if search becomes critical feature
+
+---
+
+## Background Jobs Architecture
+
+### Inngest Implementation
+
+**Use Cases:**
+- Session reminders (15min, 1hr, 24hr before)
+- Email notifications (new bookings, cancellations)
+- Webhook retries (Lemon Squeezy, external APIs)
+- Report generation (weekly analytics, invoices)
+- Data cleanup (expired sessions, old notifications)
+
+**Setup:**
+
+```typescript
+// packages/api/src/inngest/client.ts
+import { Inngest } from 'inngest';
+
+export const inngest = new Inngest({
+  id: 'tutor-app',
+  eventKey: process.env.INNGEST_EVENT_KEY,
+});
+```
+
+**Example: Session Reminders**
+
+```typescript
+// packages/api/src/inngest/functions/session-reminders.ts
+import { inngest } from '../client';
+
+export const sessionReminder = inngest.createFunction(
+  { id: 'session-reminder' },
+  { event: 'session/created' },
+  async ({ event, step }) => {
+    const session = event.data;
+
+    // Schedule reminder 24 hours before
+    await step.sleep('24h-before', session.startTime - 24 * 60 * 60 * 1000);
+    await step.run('send-24h-reminder', async () => {
+      await sendPushNotification({
+        userId: session.studentId,
+        title: 'Session Tomorrow',
+        body: `Your session with ${session.tutorName} is tomorrow`,
+      });
+    });
+
+    // Schedule reminder 1 hour before
+    await step.sleep('1h-before', session.startTime - 60 * 60 * 1000);
+    await step.run('send-1h-reminder', async () => {
+      await sendPushNotification({
+        userId: session.studentId,
+        title: 'Session in 1 Hour',
+        body: `Your session starts soon`,
+      });
+    });
+  }
+);
+```
+
+**Deployment:**
+- **Development**: Inngest Dev Server (http://localhost:8288)
+- **Production**: Inngest Cloud (auto-scales, built-in retries)
+- **Webhook Endpoint**: `apps/web/app/api/inngest/route.ts`
+
+---
+
+## Observability Stack
+
+### Axiom (Structured Logging)
+
+```typescript
+// packages/api/src/lib/logger.ts
+import { Axiom } from '@axiomhq/js';
+
+const axiom = new Axiom({
+  token: process.env.AXIOM_TOKEN,
+  dataset: process.env.AXIOM_DATASET,
+});
+
+export const logger = {
+  info: (message: string, metadata?: Record<string, any>) => {
+    axiom.ingest('app-logs', [{ level: 'info', message, ...metadata }]);
+  },
+  error: (message: string, error: Error, metadata?: Record<string, any>) => {
+    axiom.ingest('app-logs', [{
+      level: 'error',
+      message,
+      error: error.message,
+      stack: error.stack,
+      ...metadata
+    }]);
+  },
+};
+
+// Usage in tRPC context
+export const createContext = async ({ req }) => {
+  logger.info('API request', {
+    path: req.url,
+    method: req.method,
+    userId: user?.id
+  });
+
+  return { db, user };
+};
+```
+
+### PostHog (Product Analytics)
+
+```typescript
+// apps/web/src/lib/analytics.ts
+import posthog from 'posthog-js';
+
+posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+  api_host: 'https://app.posthog.com',
+  capture_pageviews: true,
+  capture_pageleave: true,
+});
+
+// Track events
+export const analytics = {
+  track: (event: string, properties?: Record<string, any>) => {
+    posthog.capture(event, properties);
+  },
+  identify: (userId: string, traits?: Record<string, any>) => {
+    posthog.identify(userId, traits);
+  },
+};
+
+// Usage
+analytics.track('session_booked', {
+  tutorId,
+  studentId,
+  duration: 60
+});
+```
+
+**PostHog Features Used:**
+- Event tracking (user actions, conversions)
+- Feature flags (gradual rollouts)
+- Session replay (debugging user issues)
+- Funnel analysis (booking conversion rates)
+
+### Better Stack (Uptime Monitoring)
+
+**Monitored Endpoints:**
+- `https://tutorapp.com/api/health` (every 30s)
+- `https://tutorapp.com` (web app homepage)
+- `https://tutorapp.com/api/trpc/health` (tRPC health check)
+
+**Alerts:**
+- Slack: #alerts channel
+- Email: team@tutorapp.com
+- Incident response: Auto-create GitHub issue
+
+---
+
+## Internationalization (i18n)
+
+### Web App (next-intl)
+
+```typescript
+// apps/web/src/i18n.ts
+import { getRequestConfig } from 'next-intl/server';
+
+export default getRequestConfig(async ({ locale }) => ({
+  messages: (await import(`./messages/${locale}.json`)).default,
+}));
+
+// apps/web/src/app/[locale]/layout.tsx
+export default function LocaleLayout({
+  children,
+  params: { locale }
+}: {
+  children: React.ReactNode;
+  params: { locale: string };
+}) {
+  return (
+    <html lang={locale}>
+      <body>
+        <NextIntlClientProvider locale={locale}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}
+
+// Usage
+import { useTranslations } from 'next-intl';
+
+export default function BookingPage() {
+  const t = useTranslations('booking');
+
+  return <h1>{t('title')}</h1>; // "Book a Session"
+}
+```
+
+### Mobile App (i18next)
+
+```typescript
+// apps/mobile/src/i18n/index.ts
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import * as Localization from 'expo-localization';
+
+import en from './locales/en.json';
+import es from './locales/es.json';
+
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: { en: { translation: en }, es: { translation: es } },
+    lng: Localization.locale.split('-')[0], // 'en', 'es', etc.
+    fallbackLng: 'en',
+    interpolation: { escapeValue: false },
+  });
+
+// Usage
+import { useTranslation } from 'react-i18next';
+
+export default function BookingScreen() {
+  const { t } = useTranslation();
+
+  return <Text>{t('booking.title')}</Text>;
+}
+```
+
+**Supported Languages (v1):**
+- English (en) - Primary
+- Spanish (es)
+
+**Translation Management:**
+- JSON files in repository (`/messages/*.json`, `/locales/*.json`)
+- Future: Consider Phrase or Lokalise for translation workflow
+
+---
+
+## Content Management (Marketing Blog)
+
+### MDX Files
+
+```
+apps/marketing/content/blog/
+├── 2024-01-15-tutoring-best-practices.mdx
+├── 2024-02-10-online-learning-tips.mdx
+└── 2024-03-05-choosing-right-tutor.mdx
+```
+
+### Blog Post Structure
+
+```mdx
+---
+title: "10 Best Practices for Online Tutoring"
+description: "Proven strategies to maximize student engagement in virtual sessions"
+author: "Jane Doe"
+publishedAt: "2024-01-15"
+image: "/blog/tutoring-best-practices.jpg"
+tags: ["tutoring", "online-learning", "best-practices"]
+---
+
+# 10 Best Practices for Online Tutoring
+
+Online tutoring has transformed education...
+
+<Callout type="tip">
+  Pro tip: Always test your screen share before sessions!
+</Callout>
+```
+
+### Rendering Blog Posts
+
+```typescript
+// apps/marketing/app/blog/[slug]/page.tsx
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { getBlogPost } from '@/lib/blog';
+
+export default async function BlogPost({ params }: { params: { slug: string } }) {
+  const post = await getBlogPost(params.slug);
+
+  return (
+    <article>
+      <h1>{post.frontmatter.title}</h1>
+      <MDXRemote source={post.content} components={{ Callout }} />
+    </article>
+  );
+}
+```
+
+**Custom MDX Components:**
+- `<Callout>` - Highlighted tips/warnings
+- `<CodeBlock>` - Syntax-highlighted code
+- `<VideoEmbed>` - YouTube/Vimeo embeds
+- `<Newsletter>` - Email signup form
+
+---
+
+## Backup & Disaster Recovery
+
+### Database Backups
+
+**Supabase Automated Backups:**
+- **Frequency**: Daily backups at 02:00 UTC
+- **Retention**: 7 days (Pro plan), 30 days (Team plan)
+- **Type**: Full database snapshots
+- **Location**: Supabase infrastructure (geo-redundant)
+
+**Point-in-Time Recovery (PITR):**
+- Available on Pro plan and above
+- Restore to any point in last 7 days
+- RTO (Recovery Time Objective): ~15 minutes
+- RPO (Recovery Point Objective): 0 (real-time replication)
+
+### Manual Backups
+
+```bash
+# Export production database (pre-migration)
+pnpm --filter @repo/database db:export
+
+# Creates: backups/prod-backup-2024-01-15.sql
+```
+
+### Disaster Recovery Plan
+
+**Scenario 1: Data Corruption**
+1. Identify corruption time via Axiom logs
+2. Use PITR to restore to pre-corruption state
+3. Verify data integrity via test suite
+4. Update application to prevent recurrence
+
+**Scenario 2: Accidental Deletion**
+1. Immediately pause application (maintenance mode)
+2. Use PITR or latest backup
+3. Verify missing data restored
+4. Resume application, notify affected users
+
+**Scenario 3: Supabase Outage**
+- **Status Page**: https://status.supabase.com
+- **Fallback**: Read-only mode via cached data
+- **Communication**: Status banner on app, social media updates
+
+### Backup Testing
+
+```bash
+# Quarterly backup restore test
+# 1. Restore latest backup to staging environment
+supabase db restore --db-url $STAGING_DB_URL backups/latest.sql
+
+# 2. Run integration tests against restored data
+pnpm test:integration
+
+# 3. Verify critical user flows
+pnpm test:e2e --env=staging
+```
+
+---
+
+## Architecture Decisions
+
+### Single-Tenant (v1)
+
+**Decision**: Launch as single-tenant platform serving one tutoring business.
+
+**Rationale:**
+- Faster time to market (no multi-tenancy complexity)
+- Simpler RLS policies and data model
+- Lower infrastructure costs initially
+- Easier to validate product-market fit
+
+**Future Migration Path:**
+When expanding to multi-tenant:
+1. Add `organization_id` to all tables
+2. Update RLS policies to check organization membership
+3. Add subdomain routing (`acme.tutorapp.com`)
+4. Migrate existing data to "default organization"
+
+**Database Schema Preparation:**
+```sql
+-- Even in single-tenant v1, include org_id (default to single org)
+CREATE TABLE sessions (
+  id UUID PRIMARY KEY,
+  organization_id UUID NOT NULL DEFAULT 'default-org-uuid',
+  tutor_id UUID NOT NULL,
+  student_id UUID NOT NULL,
+  -- ...
+);
+
+-- This allows zero-downtime upgrade to multi-tenant later
+```
+
+---
+
 ## Key Benefits
 
 ### Type Safety
@@ -493,11 +1063,20 @@ LEMON_SQUEEZY_WEBHOOK_SECRET=
 # Resend
 RESEND_API_KEY=
 
-# Sentry
-SENTRY_DSN=
+# Inngest
+INNGEST_EVENT_KEY=
+INNGEST_SIGNING_KEY=
 
-# App
+# Observability
+SENTRY_DSN=
+AXIOM_TOKEN=
+AXIOM_DATASET=
+NEXT_PUBLIC_POSTHOG_KEY=
+BETTERSTACK_API_KEY=
+
+# App URLs
 NEXT_PUBLIC_APP_URL=
+EXPO_PUBLIC_API_URL=
 ```
 
 ---

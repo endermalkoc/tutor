@@ -49,9 +49,17 @@ tutor/
 │   │   │   │   ├── pricing/
 │   │   │   │   ├── about/
 │   │   │   │   ├── blog/
+│   │   │   │   │   ├── page.tsx        # Blog index
+│   │   │   │   │   └── [slug]/page.tsx # Blog post
 │   │   │   │   └── layout.tsx
 │   │   │   ├── components/     # Marketing-specific components
+│   │   │   ├── lib/
+│   │   │   │   └── blog.ts     # MDX blog utilities
 │   │   │   └── styles/
+│   │   ├── content/
+│   │   │   └── blog/           # MDX blog posts
+│   │   │       ├── 2024-01-15-welcome.mdx
+│   │   │       └── ...
 │   │   ├── public/             # Static assets
 │   │   ├── e2e/                # Marketing-specific E2E tests
 │   │   ├── package.json
@@ -62,17 +70,23 @@ tutor/
 │   │
 │   ├── web/                    # Next.js - Main web application
 │   │   ├── src/
-│   │   │   ├── app/            # App Router
-│   │   │   │   ├── (auth)/     # Auth routes (login, signup)
-│   │   │   │   ├── (dashboard)/    # Protected routes
-│   │   │   │   │   ├── students/
-│   │   │   │   │   ├── tutors/
-│   │   │   │   │   ├── sessions/
-│   │   │   │   │   ├── payments/
-│   │   │   │   │   └── settings/
-│   │   │   │   └── layout.tsx
+│   │   │   ├── app/
+│   │   │   │   └── [locale]/   # i18n locale routing
+│   │   │   │       ├── (auth)/     # Auth routes (login, signup)
+│   │   │   │       ├── (dashboard)/    # Protected routes
+│   │   │   │       │   ├── students/
+│   │   │   │       │   ├── tutors/
+│   │   │   │       │   ├── sessions/
+│   │   │   │       │   ├── payments/
+│   │   │   │       │   └── settings/
+│   │   │   │       └── layout.tsx
 │   │   │   ├── components/     # Web-specific components
 │   │   │   ├── lib/            # Utilities, tRPC client setup
+│   │   │   │   └── analytics.ts # PostHog setup
+│   │   │   ├── messages/       # i18n translations
+│   │   │   │   ├── en.json
+│   │   │   │   └── es.json
+│   │   │   ├── i18n.ts         # next-intl configuration
 │   │   │   └── styles/
 │   │   ├── public/
 │   │   ├── e2e/                # Web-specific E2E tests
@@ -81,6 +95,7 @@ tutor/
 │   │   ├── tsconfig.json
 │   │   ├── tailwind.config.ts
 │   │   ├── next.config.js
+│   │   ├── middleware.ts       # i18n + auth middleware
 │   │   ├── playwright.config.ts
 │   │   └── vitest.config.ts
 │   │
@@ -97,10 +112,16 @@ tutor/
 │       │   │   │   └── signup.tsx
 │       │   │   └── _layout.tsx
 │       │   ├── components/     # Mobile-specific components
+│       │   ├── i18n/           # i18next configuration
+│       │   │   ├── index.ts
+│       │   │   └── locales/
+│       │   │       ├── en.json
+│       │   │       └── es.json
 │       │   └── lib/            # Mobile utilities, tRPC client
 │       ├── assets/             # Images, fonts, icons
 │       ├── __tests__/          # Unit tests
 │       ├── app.json            # Expo configuration
+│       ├── eas.json            # EAS Build configuration
 │       ├── package.json
 │       ├── tsconfig.json
 │       └── vitest.config.ts
@@ -115,6 +136,14 @@ tutor/
 │   │   │   │   ├── payments.ts
 │   │   │   │   ├── auth.ts
 │   │   │   │   └── index.ts    # Combined app router
+│   │   │   ├── inngest/        # Background jobs
+│   │   │   │   ├── client.ts   # Inngest client
+│   │   │   │   └── functions/
+│   │   │   │       ├── session-reminders.ts
+│   │   │   │       ├── email-notifications.ts
+│   │   │   │       └── index.ts
+│   │   │   ├── lib/
+│   │   │   │   └── logger.ts   # Axiom logger
 │   │   │   ├── trpc.ts         # tRPC initialization
 │   │   │   ├── context.ts      # Request context (auth, db)
 │   │   │   └── index.ts
@@ -134,6 +163,8 @@ tutor/
 │   │   │   │   └── index.ts
 │   │   │   ├── migrations/     # Drizzle migration files
 │   │   │   ├── client.ts       # Supabase client setup
+│   │   │   ├── migrate.ts      # Migration runner
+│   │   │   ├── seed.ts         # Development seed data
 │   │   │   └── index.ts
 │   │   ├── __tests__/          # Schema tests
 │   │   ├── drizzle.config.ts
@@ -238,10 +269,10 @@ const tutors = await api.tutors.getAll();
 ```
 
 **API Deployment:**
-- Deployed as Vercel Serverless Functions (Node.js runtime)
+- Deployed as Vercel Serverless Functions (Node.js runtime, NOT Edge Functions)
 - Both web and mobile apps call the same endpoints
 - Environment-specific base URLs via environment variables
-- Supports full tRPC features without edge runtime limitations
+- Full Node.js API support required for tRPC, Drizzle ORM, and Inngest
 
 ---
 
@@ -819,8 +850,16 @@ LEMON_SQUEEZY_WEBHOOK_SECRET=your_webhook_secret
 # Resend
 RESEND_API_KEY=your_resend_key
 
-# Sentry
+# Inngest
+INNGEST_EVENT_KEY=your_inngest_event_key
+INNGEST_SIGNING_KEY=your_inngest_signing_key
+
+# Observability
 SENTRY_DSN=your_sentry_dsn
+AXIOM_TOKEN=your_axiom_token
+AXIOM_DATASET=app-logs
+NEXT_PUBLIC_POSTHOG_KEY=your_posthog_key
+BETTERSTACK_API_KEY=your_betterstack_key
 
 # App URLs
 NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -1372,22 +1411,899 @@ export const authRouter = router({
 
 ---
 
+## Architecture Decisions
+
+### Single-Tenant Architecture (v1)
+
+**Decision**: Launch as single-tenant platform serving one tutoring business.
+
+**Rationale:**
+- **Faster Time to Market**: No multi-tenancy complexity (org routing, data isolation)
+- **Simpler Development**: Straightforward RLS policies and data queries
+- **Lower Initial Costs**: Reduced infrastructure and testing overhead
+- **Product Validation**: Easier to validate product-market fit with one customer
+- **Team Focus**: Concentrate on core features rather than tenant management
+
+**Database Design Consideration:**
+Even in v1, include `organization_id` column with default value to enable future multi-tenancy upgrade:
+
+```sql
+CREATE TABLE sessions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  organization_id UUID NOT NULL DEFAULT 'default-org-uuid-here',
+  tutor_id UUID NOT NULL REFERENCES tutors(id),
+  student_id UUID NOT NULL REFERENCES students(id),
+  -- ... other columns
+);
+```
+
+**Future Multi-Tenant Migration Path:**
+When expanding to serve multiple organizations:
+
+1. **Schema Changes**:
+   - Remove default constraint from `organization_id`
+   - Add `organizations` table with settings
+   - Add user-to-organization membership table
+
+2. **RLS Policy Updates**:
+   ```sql
+   -- Example: Update session policy
+   CREATE POLICY "Users can only view their org's sessions"
+     ON sessions FOR SELECT
+     USING (
+       organization_id IN (
+         SELECT organization_id
+         FROM user_organizations
+         WHERE user_id = auth.uid()
+       )
+     );
+   ```
+
+3. **Routing**:
+   - Implement subdomain routing (`acme.tutorapp.com`)
+   - Add organization detection middleware
+   - Update tRPC context with organization ID
+
+4. **Data Migration**:
+   - Migrate existing data to "default organization"
+   - Zero-downtime migration using database triggers
+
+**Estimated Migration Effort**: 2-3 weeks with proper preparation
+
+---
+
+## Search Implementation
+
+### PostgreSQL Full-Text Search
+
+**Use Cases:**
+- Search tutors by name, subjects, bio, qualifications
+- Search students by name, email, grade level
+- Search sessions by notes, subject, location
+
+**Implementation in Schema:**
+
+```typescript
+// packages/database/src/schema/tutors.ts
+import { pgTable, uuid, text, tsvector, index } from 'drizzle-orm/pg-core';
+
+export const tutors = pgTable('tutors', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  organizationId: uuid('organization_id').notNull().default('default-org-uuid'),
+  name: text('name').notNull(),
+  bio: text('bio'),
+  subjects: text('subjects').array(),
+  qualifications: text('qualifications'),
+  // Auto-updated search vector
+  searchVector: tsvector('search_vector'),
+}, (table) => ({
+  searchIdx: index('tutors_search_idx').using('gin', table.searchVector),
+}));
+```
+
+**Database Triggers:**
+
+```sql
+-- Auto-update search vector on insert/update
+CREATE OR REPLACE FUNCTION tutors_search_trigger() RETURNS trigger AS $$
+BEGIN
+  NEW.search_vector :=
+    setweight(to_tsvector('english', coalesce(NEW.name,'')), 'A') ||
+    setweight(to_tsvector('english', coalesce(NEW.subjects::text,'')), 'B') ||
+    setweight(to_tsvector('english', coalesce(NEW.bio,'')), 'C') ||
+    setweight(to_tsvector('english', coalesce(NEW.qualifications,'')), 'D');
+  RETURN NEW;
+END
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER tutors_search_update
+  BEFORE INSERT OR UPDATE ON tutors
+  FOR EACH ROW
+  EXECUTE FUNCTION tutors_search_trigger();
+```
+
+**tRPC Search Endpoint:**
+
+```typescript
+// packages/api/src/routers/tutors.ts
+import { z } from 'zod';
+import { sql } from 'drizzle-orm';
+
+export const tutorsRouter = router({
+  search: publicProcedure
+    .input(z.object({
+      query: z.string().min(2).max(100),
+      limit: z.number().min(1).max(50).default(20)
+    }))
+    .query(async ({ ctx, input }) => {
+      const searchQuery = input.query.trim();
+
+      return ctx.db
+        .select({
+          id: tutors.id,
+          name: tutors.name,
+          bio: tutors.bio,
+          subjects: tutors.subjects,
+          // Relevance rank
+          rank: sql<number>`ts_rank(search_vector, plainto_tsquery('english', ${searchQuery}))`,
+        })
+        .from(tutors)
+        .where(
+          sql`search_vector @@ plainto_tsquery('english', ${searchQuery})`
+        )
+        .orderBy(sql`rank DESC`)
+        .limit(input.limit);
+    }),
+});
+```
+
+**Future Enhancements:**
+- Fuzzy matching using PostgreSQL `pg_trgm` extension
+- Configurable search weights per field
+- Search analytics tracking via PostHog
+- Consider upgrading to Meilisearch if search becomes critical feature
+
+---
+
+## Background Jobs with Inngest
+
+### Use Cases
+
+1. **Session Reminders**:
+   - 24 hours before session
+   - 1 hour before session
+   - 15 minutes before session
+
+2. **Email Notifications**:
+   - New booking confirmations
+   - Cancellation notifications
+   - Weekly tutor/student summaries
+
+3. **Webhook Processing**:
+   - Lemon Squeezy payment webhooks (with retries)
+   - External calendar sync
+
+4. **Scheduled Tasks**:
+   - Daily session cleanup (mark no-shows)
+   - Weekly analytics report generation
+   - Monthly invoice generation
+
+### Implementation
+
+**Inngest Client Setup:**
+
+```typescript
+// packages/api/src/inngest/client.ts
+import { Inngest } from 'inngest';
+
+export const inngest = new Inngest({
+  id: 'tutor-app',
+  eventKey: process.env.INNGEST_EVENT_KEY!,
+});
+
+// Event types for type safety
+export type Events = {
+  'session/created': { sessionId: string };
+  'session/cancelled': { sessionId: string; reason: string };
+  'payment/succeeded': { paymentId: string; userId: string };
+  'user/registered': { userId: string; email: string };
+};
+```
+
+**Session Reminder Function:**
+
+```typescript
+// packages/api/src/inngest/functions/session-reminders.ts
+import { inngest } from '../client';
+import { db } from '@repo/database';
+import { sessions } from '@repo/database/schema';
+import { eq } from 'drizzle-orm';
+
+export const sessionReminders = inngest.createFunction(
+  {
+    id: 'session-reminders',
+    name: 'Send Session Reminders',
+  },
+  { event: 'session/created' },
+  async ({ event, step }) => {
+    const { sessionId } = event.data;
+
+    // Fetch session details
+    const session = await step.run('fetch-session', async () => {
+      return db.query.sessions.findFirst({
+        where: eq(sessions.id, sessionId),
+        with: {
+          tutor: true,
+          student: true,
+        },
+      });
+    });
+
+    if (!session) return;
+
+    // Schedule 24-hour reminder
+    await step.sleepUntil('24h-before', new Date(session.startTime.getTime() - 24 * 60 * 60 * 1000));
+
+    await step.run('send-24h-reminder', async () => {
+      await sendPushNotification({
+        userId: session.studentId,
+        title: 'Session Tomorrow',
+        body: `Your session with ${session.tutor.name} is tomorrow at ${formatTime(session.startTime)}`,
+        data: { sessionId, type: 'reminder' },
+      });
+    });
+
+    // Schedule 1-hour reminder
+    await step.sleepUntil('1h-before', new Date(session.startTime.getTime() - 60 * 60 * 1000));
+
+    await step.run('send-1h-reminder', async () => {
+      await sendPushNotification({
+        userId: session.studentId,
+        title: 'Session in 1 Hour',
+        body: `Your session with ${session.tutor.name} starts soon`,
+        data: { sessionId, type: 'reminder' },
+      });
+    });
+  }
+);
+```
+
+**Inngest Webhook Endpoint:**
+
+```typescript
+// apps/web/app/api/inngest/route.ts
+import { serve } from 'inngest/next';
+import { inngest } from '@repo/api/inngest/client';
+import { sessionReminders } from '@repo/api/inngest/functions/session-reminders';
+import { emailNotifications } from '@repo/api/inngest/functions/email-notifications';
+
+export const { GET, POST, PUT } = serve({
+  client: inngest,
+  functions: [
+    sessionReminders,
+    emailNotifications,
+    // ... other functions
+  ],
+});
+```
+
+**Triggering Jobs from tRPC:**
+
+```typescript
+// packages/api/src/routers/sessions.ts
+export const sessionsRouter = router({
+  create: protectedProcedure
+    .input(createSessionSchema)
+    .mutation(async ({ ctx, input }) => {
+      // Create session
+      const [session] = await ctx.db.insert(sessions).values(input).returning();
+
+      // Trigger background job
+      await inngest.send({
+        name: 'session/created',
+        data: { sessionId: session.id },
+      });
+
+      return session;
+    }),
+});
+```
+
+### Local Development
+
+```bash
+# Terminal 1: Start Inngest dev server
+npx inngest-cli@latest dev
+
+# Terminal 2: Start app
+pnpm dev
+```
+
+Inngest Dev UI available at: http://localhost:8288
+
+---
+
+## Observability Implementation
+
+### Structured Logging with Axiom
+
+**Logger Setup:**
+
+```typescript
+// packages/api/src/lib/logger.ts
+import { Axiom } from '@axiomhq/js';
+
+const axiom = new Axiom({
+  token: process.env.AXIOM_TOKEN!,
+  dataset: process.env.AXIOM_DATASET || 'app-logs',
+});
+
+type LogLevel = 'info' | 'warn' | 'error' | 'debug';
+
+interface LogContext {
+  userId?: string;
+  organizationId?: string;
+  requestId?: string;
+  [key: string]: any;
+}
+
+export const logger = {
+  info: (message: string, context?: LogContext) => {
+    axiom.ingest('app-logs', [{
+      level: 'info',
+      message,
+      timestamp: new Date().toISOString(),
+      ...context,
+    }]);
+  },
+
+  error: (message: string, error: Error, context?: LogContext) => {
+    axiom.ingest('app-logs', [{
+      level: 'error',
+      message,
+      error: {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+      },
+      timestamp: new Date().toISOString(),
+      ...context,
+    }]);
+  },
+
+  warn: (message: string, context?: LogContext) => {
+    axiom.ingest('app-logs', [{
+      level: 'warn',
+      message,
+      timestamp: new Date().toISOString(),
+      ...context,
+    }]);
+  },
+};
+
+// Flush logs on serverless function shutdown
+process.on('beforeExit', async () => {
+  await axiom.flush();
+});
+```
+
+**Usage in tRPC Context:**
+
+```typescript
+// packages/api/src/context.ts
+import { logger } from './lib/logger';
+
+export const createContext = async ({ req, res }) => {
+  const requestId = req.headers.get('x-request-id') || crypto.randomUUID();
+
+  logger.info('API Request', {
+    requestId,
+    path: req.url,
+    method: req.method,
+    userAgent: req.headers.get('user-agent'),
+  });
+
+  return {
+    requestId,
+    db,
+    user: null, // Set after auth
+  };
+};
+```
+
+### Product Analytics with PostHog
+
+**Web Setup:**
+
+```typescript
+// apps/web/src/lib/analytics.ts
+import posthog from 'posthog-js';
+
+if (typeof window !== 'undefined') {
+  posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+    api_host: 'https://app.posthog.com',
+    capture_pageviews: true,
+    capture_pageleave: true,
+    session_recording: {
+      maskAllInputs: true,
+      maskTextSelector: '[data-private]',
+    },
+  });
+}
+
+export const analytics = {
+  track: (event: string, properties?: Record<string, any>) => {
+    if (typeof window !== 'undefined') {
+      posthog.capture(event, properties);
+    }
+  },
+
+  identify: (userId: string, traits?: Record<string, any>) => {
+    if (typeof window !== 'undefined') {
+      posthog.identify(userId, traits);
+    }
+  },
+
+  reset: () => {
+    if (typeof window !== 'undefined') {
+      posthog.reset();
+    }
+  },
+};
+```
+
+**Event Tracking:**
+
+```typescript
+// Track session booking
+analytics.track('session_booked', {
+  tutorId,
+  studentId,
+  duration: 60,
+  subject: 'Math',
+  source: 'web_app',
+});
+
+// Track user signup
+analytics.identify(user.id, {
+  email: user.email,
+  role: 'student',
+  plan: 'free',
+});
+```
+
+### Uptime Monitoring with Better Stack
+
+**Monitored Endpoints:**
+- `GET /api/health` - API health check (30s interval)
+- `GET /` - Web app homepage (60s interval)
+- `GET /api/trpc/health` - tRPC-specific health (30s interval)
+
+**Health Check Endpoint:**
+
+```typescript
+// apps/web/app/api/health/route.ts
+import { db } from '@repo/database';
+
+export async function GET() {
+  try {
+    // Check database
+    await db.execute('SELECT 1');
+
+    // Check Supabase
+    const supabaseHealth = await fetch(`${process.env.SUPABASE_URL}/rest/v1/`);
+
+    return Response.json({
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      services: {
+        database: 'up',
+        supabase: supabaseHealth.ok ? 'up' : 'down',
+      },
+    });
+  } catch (error) {
+    return Response.json({
+      status: 'unhealthy',
+      error: error.message,
+    }, { status: 503 });
+  }
+}
+```
+
+---
+
+## Internationalization (i18n) Implementation
+
+### Web App (next-intl)
+
+**Configuration:**
+
+```typescript
+// apps/web/src/i18n.ts
+import { getRequestConfig } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+
+export const locales = ['en', 'es'] as const;
+export type Locale = typeof locales[number];
+
+export default getRequestConfig(async ({ locale }) => {
+  if (!locales.includes(locale as Locale)) notFound();
+
+  return {
+    messages: (await import(`./messages/${locale}.json`)).default,
+  };
+});
+```
+
+**Middleware:**
+
+```typescript
+// apps/web/middleware.ts
+import createMiddleware from 'next-intl/middleware';
+
+export default createMiddleware({
+  locales: ['en', 'es'],
+  defaultLocale: 'en',
+  localeDetection: true,
+});
+
+export const config = {
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+};
+```
+
+**Translation Files:**
+
+```json
+// apps/web/src/messages/en.json
+{
+  "common": {
+    "appName": "TutorApp",
+    "loading": "Loading...",
+    "error": "Something went wrong"
+  },
+  "booking": {
+    "title": "Book a Session",
+    "selectTutor": "Select a tutor",
+    "selectDate": "Choose a date",
+    "confirm": "Confirm Booking"
+  }
+}
+```
+
+```json
+// apps/web/src/messages/es.json
+{
+  "common": {
+    "appName": "TutorApp",
+    "loading": "Cargando...",
+    "error": "Algo salió mal"
+  },
+  "booking": {
+    "title": "Reservar una Sesión",
+    "selectTutor": "Selecciona un tutor",
+    "selectDate": "Elige una fecha",
+    "confirm": "Confirmar Reserva"
+  }
+}
+```
+
+### Mobile App (i18next)
+
+**Configuration:**
+
+```typescript
+// apps/mobile/src/i18n/index.ts
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import * as Localization from 'expo-localization';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import en from './locales/en.json';
+import es from './locales/es.json';
+
+const LANGUAGE_STORAGE_KEY = 'app-language';
+
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: {
+      en: { translation: en },
+      es: { translation: es },
+    },
+    lng: Localization.locale.split('-')[0],
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false,
+    },
+  });
+
+// Persist language preference
+i18n.on('languageChanged', (lng) => {
+  AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, lng);
+});
+
+export default i18n;
+```
+
+---
+
+## MDX Blog Implementation
+
+### File Structure
+
+```
+apps/marketing/content/blog/
+├── 2024-01-15-getting-started.mdx
+├── 2024-02-10-tutor-best-practices.mdx
+└── 2024-03-05-student-success-tips.mdx
+```
+
+### Blog Post Template
+
+```mdx
+---
+title: "10 Best Practices for Online Tutoring"
+description: "Proven strategies to maximize student engagement in virtual sessions"
+author: "Jane Doe"
+authorImage: "/authors/jane-doe.jpg"
+publishedAt: "2024-01-15"
+updatedAt: "2024-01-20"
+image: "/blog/tutoring-best-practices.jpg"
+tags: ["tutoring", "online-learning", "best-practices"]
+featured: true
+---
+
+# 10 Best Practices for Online Tutoring
+
+Online tutoring has transformed education, but success requires intentional strategies...
+
+## 1. Test Technology Before Each Session
+
+<Callout type="tip">
+  Always test your screen share, microphone, and camera 10 minutes before the session starts.
+</Callout>
+
+## 2. Create an Engaging Environment
+
+Use virtual backgrounds, props, and interactive tools to keep students engaged.
+
+<VideoEmbed url="https://youtube.com/..." />
+
+## 3. Set Clear Expectations
+
+...
+```
+
+### Rendering Blog Posts
+
+```typescript
+// apps/marketing/lib/blog.ts
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+
+const BLOG_PATH = path.join(process.cwd(), 'content/blog');
+
+export interface BlogPost {
+  slug: string;
+  frontmatter: {
+    title: string;
+    description: string;
+    author: string;
+    publishedAt: string;
+    image: string;
+    tags: string[];
+    featured?: boolean;
+  };
+  content: string;
+}
+
+export function getAllPosts(): BlogPost[] {
+  const files = fs.readdirSync(BLOG_PATH);
+
+  return files
+    .filter((file) => file.endsWith('.mdx'))
+    .map((file) => {
+      const slug = file.replace('.mdx', '');
+      const fullPath = path.join(BLOG_PATH, file);
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const { data, content } = matter(fileContents);
+
+      return {
+        slug,
+        frontmatter: data as BlogPost['frontmatter'],
+        content,
+      };
+    })
+    .sort((a, b) =>
+      new Date(b.frontmatter.publishedAt).getTime() -
+      new Date(a.frontmatter.publishedAt).getTime()
+    );
+}
+
+export function getPostBySlug(slug: string): BlogPost | undefined {
+  const posts = getAllPosts();
+  return posts.find((post) => post.slug === slug);
+}
+```
+
+```typescript
+// apps/marketing/app/blog/[slug]/page.tsx
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { getPostBySlug } from '@/lib/blog';
+import { Callout, VideoEmbed, CodeBlock } from '@/components/mdx';
+
+export default async function BlogPost({ params }: { params: { slug: string } }) {
+  const post = await getPostBySlug(params.slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  return (
+    <article className="prose lg:prose-xl">
+      <h1>{post.frontmatter.title}</h1>
+      <p className="text-muted-foreground">{post.frontmatter.description}</p>
+
+      <MDXRemote
+        source={post.content}
+        components={{
+          Callout,
+          VideoEmbed,
+          CodeBlock,
+        }}
+      />
+    </article>
+  );
+}
+```
+
+---
+
+## Backup & Disaster Recovery
+
+### Automated Database Backups
+
+**Supabase Configuration:**
+- **Frequency**: Daily at 02:00 UTC
+- **Retention**:
+  - Free: 7 days
+  - Pro: 7 days (PITR available)
+  - Team: 30 days
+- **Type**: Full PostgreSQL dumps
+- **Location**: Geo-redundant cloud storage
+
+**Point-in-Time Recovery (PITR):**
+- Available on Pro plan and above
+- Restore to any point within retention period
+- RTO (Recovery Time Objective): ~15 minutes
+- RPO (Recovery Point Objective): Near-zero (continuous WAL archiving)
+
+### Manual Backup Procedures
+
+**Pre-Migration Backup:**
+
+```bash
+# Add to database package.json scripts
+{
+  "scripts": {
+    "db:backup": "tsx src/backup.ts",
+    "db:restore": "tsx src/restore.ts"
+  }
+}
+```
+
+```typescript
+// packages/database/src/backup.ts
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import fs from 'fs/promises';
+
+const execAsync = promisify(exec);
+
+async function backup() {
+  const timestamp = new Date().toISOString().split('T')[0];
+  const filename = `backups/backup-${timestamp}.sql`;
+
+  await fs.mkdir('backups', { recursive: true });
+
+  const { stdout, stderr } = await execAsync(
+    `pg_dump ${process.env.DATABASE_URL} > ${filename}`
+  );
+
+  console.log(`✅ Backup created: ${filename}`);
+}
+
+backup().catch(console.error);
+```
+
+### Disaster Recovery Runbook
+
+**Scenario 1: Data Corruption Detected**
+
+1. **Immediate Actions** (0-5 minutes):
+   - Enable maintenance mode via Vercel environment variable
+   - Stop all background jobs (pause Inngest)
+   - Identify corruption timestamp via Axiom logs
+
+2. **Assessment** (5-15 minutes):
+   - Determine scope of corruption
+   - Check if PITR can restore to pre-corruption state
+   - Notify team via Slack #incidents
+
+3. **Recovery** (15-30 minutes):
+   - Use Supabase dashboard to initiate PITR restoration
+   - Create temporary staging database for verification
+   - Run integration test suite against restored data
+
+4. **Verification** (30-45 minutes):
+   - Compare critical records (users, sessions, payments)
+   - Check data integrity via checksums
+   - Run smoke tests on staging environment
+
+5. **Restoration** (45-60 minutes):
+   - Swap production database connection
+   - Remove maintenance mode
+   - Resume background jobs
+   - Monitor error rates via Sentry
+
+6. **Post-Mortem** (1-3 days):
+   - Document root cause
+   - Implement prevention measures
+   - Update runbook with lessons learned
+
+**Scenario 2: Supabase Outage**
+
+1. **Detection**: Better Stack alerts team
+2. **Immediate**: Display maintenance banner (cached static page)
+3. **Communication**: Update status page, social media
+4. **Monitoring**: Check https://status.supabase.com
+5. **Recovery**: Automatic when Supabase resolves
+6. **Verification**: Run health checks, notify users
+
+### Backup Testing Schedule
+
+**Quarterly Restore Test:**
+
+```bash
+# Q1 2024 Test
+supabase db restore --db-url $STAGING_DB_URL backups/latest.sql
+pnpm --filter @repo/database db:migrate
+pnpm test:integration --env=staging
+pnpm test:e2e --env=staging
+```
+
+**Annual Disaster Recovery Drill:**
+- Full team participation
+- Simulated data loss scenario
+- Time-boxed recovery exercise
+- Document findings and improvements
+
+---
+
 ## Implementation Next Steps
 
 1. **Create Folder Structure**: Generate all directories and initial files
 2. **Initialize Packages**: Set up package.json files with dependencies
 3. **Configure Turborepo**: Create turbo.json with pipeline
 4. **Set Up TypeScript**: Configure tsconfig files across workspace
-5. **Initialize Database**: Create initial Drizzle schemas
-6. **Set Up tRPC**: Create base router and context
-7. **Configure Environment Variables**: Set up .env files and Turborepo config
-8. **Install Dependencies**: Run `pnpm install`
-9. **Set Up Security**: Implement RLS policies, rate limiting, CORS
-10. **Configure CI/CD**: Create GitHub Actions workflows
-11. **Set Up Mobile Infrastructure**: Configure Expo Notifications, EAS
-12. **Create Example Components**: Basic shadcn/ui setup
-13. **Configure Testing**: Set up Vitest and Playwright
-14. **Documentation**: Create README and getting started guide
+5. **Set Up Local Development**: Install Supabase CLI, configure Docker
+6. **Initialize Database**: Create initial Drizzle schemas with search vectors
+7. **Create Seed Data**: Develop seed script for development database
+8. **Set Up tRPC**: Create base router and context
+9. **Configure Inngest**: Set up background job infrastructure
+10. **Configure Observability**: Set up Axiom, PostHog, Sentry, Better Stack
+11. **Set Up i18n**: Configure next-intl and i18next with initial translations
+12. **Configure MDX**: Set up blog content structure and rendering
+13. **Configure Environment Variables**: Set up .env files and Turborepo config
+14. **Install Dependencies**: Run `pnpm install`
+15. **Set Up Security**: Implement RLS policies, rate limiting, CORS
+16. **Configure CI/CD**: Create GitHub Actions workflows
+17. **Set Up Mobile Infrastructure**: Configure Expo Notifications, EAS
+18. **Create Example Components**: Basic shadcn/ui setup
+19. **Configure Testing**: Set up Vitest and Playwright
+20. **Documentation**: Create README and getting started guide
 
 ---
 
