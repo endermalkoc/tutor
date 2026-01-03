@@ -298,7 +298,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - Checkout code
-      - Setup Node.js 22.x
+      - Setup Node.js 24.x
       - Setup pnpm
       - Install dependencies (with cache)
       - Run type checking (turbo type-check)
@@ -506,9 +506,9 @@ NEXT_PUBLIC_APP_URL=
 
 | Technology | Minimum Version |
 |------------|-----------------|
-| Node.js | 22.x |
+| Node.js | 24.x |
 | pnpm | 10.x |
 | TypeScript | 5.3+ |
 | React | 19.x |
-| Next.js | 15.x |
+| Next.js | 16.x |
 | Expo SDK | 54+ |

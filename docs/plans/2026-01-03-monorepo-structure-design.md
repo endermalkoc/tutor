@@ -315,7 +315,7 @@ Workspace-level scripts and dependencies:
   },
   "packageManager": "pnpm@10.0.0",
   "engines": {
-    "node": ">=22.x",
+    "node": ">=24.x",
     "pnpm": ">=10.x"
   }
 }
@@ -370,7 +370,7 @@ and multi-tutor businesses.
 See [docs/TECH_STACK.md](./docs/TECH_STACK.md) for complete details.
 
 **Key Technologies:**
-- Frontend: React 19, Next.js 15, Expo SDK 54+, Tailwind CSS, shadcn/ui
+- Frontend: React 19, Next.js 16, Expo SDK 54+, Tailwind CSS, shadcn/ui
 - Backend: tRPC (Vercel Serverless Functions), Supabase (PostgreSQL), Drizzle ORM
 - Auth: Supabase Auth with Row Level Security
 - Payments: Lemon Squeezy
@@ -919,7 +919,7 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo lint
@@ -935,7 +935,7 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo type-check
@@ -950,7 +950,7 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo test
@@ -968,7 +968,7 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo build
@@ -984,7 +984,7 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: npx playwright install --with-deps
@@ -1012,7 +1012,7 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Run migrations on production
@@ -1041,7 +1041,7 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'pnpm'
       - uses: expo/expo-github-action@v8
         with:
