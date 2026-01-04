@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Student - Enhanced Wireframe v3</title>
+    <title>Add New Student - Enhanced Wireframe v4</title>
     <style>
         * {
             margin: 0;
@@ -54,6 +54,58 @@
             color: #4a5568;
             font-size: 14px;
             margin-top: 4px;
+        }
+
+        /* Validation Summary */
+        .validation-summary {
+            display: none;
+            margin: 16px 24px;
+            padding: 16px;
+            background: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            border-radius: 4px;
+        }
+
+        .validation-summary.visible {
+            display: block;
+        }
+
+        .validation-summary-title {
+            font-weight: 600;
+            color: #c53030;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .validation-summary-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .validation-summary-list li {
+            color: #c53030;
+            font-size: 14px;
+            margin-top: 4px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .validation-summary-list li::before {
+            content: "•";
+            position: absolute;
+            left: 8px;
+        }
+
+        .validation-summary-list a {
+            color: #c53030;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .validation-summary-list a:hover {
+            color: #9b2c2c;
         }
 
         .form-body {
@@ -463,6 +515,69 @@
             margin-bottom: 12px;
         }
 
+        /* Duplicate warning */
+        .duplicate-warning {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            border-radius: 6px;
+        }
+
+        .duplicate-warning.visible {
+            display: block;
+        }
+
+        .duplicate-warning-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .duplicate-warning-content {
+            font-size: 13px;
+            color: #78350f;
+            margin-bottom: 12px;
+        }
+
+        .duplicate-warning-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .duplicate-warning-actions button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid #d97706;
+            transition: all 0.2s;
+        }
+
+        .duplicate-warning-actions .btn-proceed {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .duplicate-warning-actions .btn-proceed:hover {
+            background: #d97706;
+        }
+
+        .duplicate-warning-actions .btn-cancel {
+            background: white;
+            color: #92400e;
+        }
+
+        .duplicate-warning-actions .btn-cancel:hover {
+            background: #fef3c7;
+        }
+
         .actions {
             display: flex;
             gap: 12px;
@@ -587,6 +702,7 @@
 
         .modal-actions {
             display: flex;
+            flex-direction: column;
             gap: 12px;
             justify-content: center;
         }
@@ -651,11 +767,6 @@
                 font-size: 20px;
             }
 
-            .modal-actions {
-                flex-direction: column;
-                width: 100%;
-            }
-
             .modal-actions .btn {
                 width: 100%;
             }
@@ -712,6 +823,84 @@
                 display: none;
             }
         }
+
+        /* Network error notification */
+        .network-error {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            max-width: 400px;
+            padding: 16px;
+            background: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+        }
+
+        .network-error.visible {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(120%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .network-error-title {
+            font-weight: 600;
+            color: #c53030;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .network-error-message {
+            font-size: 13px;
+            color: #742a2a;
+            margin-bottom: 12px;
+        }
+
+        .network-error-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .network-error-actions button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .network-error-actions .btn-retry {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .network-error-actions .btn-retry:hover {
+            background: #c53030;
+        }
+
+        .network-error-actions .btn-dismiss {
+            background: white;
+            color: #742a2a;
+            border: 1px solid #feb2b2;
+        }
+
+        .network-error-actions .btn-dismiss:hover {
+            background: #fff5f5;
+        }
     </style>
 </head>
 <body>
@@ -720,6 +909,18 @@
             <h1>Add New Student</h1>
             <p>Create a student record with contact, academic, and billing information</p>
         </header>
+
+        <!-- Validation Summary -->
+        <div class="validation-summary" id="validationSummary" role="alert" aria-live="assertive">
+            <div class="validation-summary-title">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293z"/>
+                </svg>
+                Please correct the following errors:
+            </div>
+            <ul class="validation-summary-list" id="validationSummaryList">
+            </ul>
+        </div>
 
         <form id="addStudentForm" onsubmit="submitForm(event); return false;" novalidate>
             <div class="form-body">
@@ -741,7 +942,8 @@
                                 placeholder="Enter first name"
                                 required
                                 aria-required="true"
-                                aria-describedby="firstNameError">
+                                aria-describedby="firstNameError"
+                                onblur="checkDuplicate()">
                             <span class="error-message" id="firstNameError" role="alert"></span>
                         </div>
                         <div class="form-group">
@@ -757,8 +959,26 @@
                                 placeholder="Enter last name"
                                 required
                                 aria-required="true"
-                                aria-describedby="lastNameError">
+                                aria-describedby="lastNameError"
+                                onblur="checkDuplicate()">
                             <span class="error-message" id="lastNameError" role="alert"></span>
+                        </div>
+                    </div>
+
+                    <!-- Duplicate Warning -->
+                    <div class="duplicate-warning" id="duplicateWarning" role="alert">
+                        <div class="duplicate-warning-title">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/>
+                            </svg>
+                            Possible Duplicate Student
+                        </div>
+                        <div class="duplicate-warning-content">
+                            A student with a similar name exists in the <strong id="duplicateFamilyName"></strong>. Are you sure you want to create a new student?
+                        </div>
+                        <div class="duplicate-warning-actions">
+                            <button type="button" class="btn-proceed" onclick="proceedWithDuplicate()">Yes, Create New Student</button>
+                            <button type="button" class="btn-cancel" onclick="cancelDuplicate()">No, Let Me Review</button>
                         </div>
                     </div>
 
@@ -1175,6 +1395,21 @@
                     </div>
                 </section>
 
+                <!-- Student Reminder Settings (visible when creating new family) -->
+                <section class="section" id="studentReminderSettings" style="display: none;">
+                    <h2 class="section-title">Student Reminder Settings</h2>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="emailRemindersVisible" checked>
+                        <label for="emailRemindersVisible">Send Email Lesson Reminders to Student</label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="smsRemindersVisible" checked>
+                        <label for="smsRemindersVisible">Send SMS Lesson Reminders to Student</label>
+                    </div>
+                </section>
+
                 <!-- Show More Fields Toggle -->
                 <div class="toggle-section">
                     <button
@@ -1274,18 +1509,18 @@
                             </div>
                         </section>
 
-                        <!-- Reminder Settings -->
-                        <section class="section" id="reminderSettings">
-                            <h2 class="section-title">Reminder Settings</h2>
+                        <!-- Reminder Settings (hidden by default, but shown when creating new family) -->
+                        <section class="section" id="reminderSettingsHidden">
+                            <h2 class="section-title">Student Reminder Settings</h2>
 
                             <div class="checkbox-group">
                                 <input type="checkbox" id="emailReminders" checked>
-                                <label for="emailReminders">Send Email Lesson Reminders</label>
+                                <label for="emailReminders">Send Email Lesson Reminders to Student</label>
                             </div>
 
                             <div class="checkbox-group">
                                 <input type="checkbox" id="smsReminders" checked>
-                                <label for="smsReminders">Send SMS Lesson Reminders</label>
+                                <label for="smsReminders">Send SMS Lesson Reminders to Student</label>
                             </div>
                         </section>
 
@@ -1336,14 +1571,35 @@
             <h2 id="modalTitle">✓ Student Added Successfully</h2>
             <p id="successMessage">Student "John Doe" has been added successfully.</p>
             <div class="modal-actions">
+                <button class="btn btn-primary" onclick="viewStudent()">View Student Details</button>
+                <button class="btn btn-primary" onclick="scheduleLesson()">Schedule First Lesson</button>
                 <button class="btn btn-primary" onclick="window.location.reload()">Add Another Student</button>
-                <button class="btn btn-secondary" onclick="closeModal()">Return to List</button>
+                <button class="btn btn-secondary" onclick="closeModal()">Return to Student List</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Network Error Notification -->
+    <div class="network-error" id="networkError" role="alert" aria-live="assertive">
+        <div class="network-error-title">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"/>
+            </svg>
+            Network Error
+        </div>
+        <div class="network-error-message">
+            Unable to save student record. Your data has been preserved. Please check your connection and try again.
+        </div>
+        <div class="network-error-actions">
+            <button class="btn-retry" onclick="retrySubmit()">Retry</button>
+            <button class="btn-dismiss" onclick="dismissNetworkError()">Dismiss</button>
         </div>
     </div>
 
     <script>
         let selectedFamilyId = null;
+        let duplicateCheckOverride = false;
+        let formDataCache = null;
 
         // Debounce utility
         function debounce(func, wait) {
@@ -1413,6 +1669,10 @@
             document.getElementById('selectedFamilyName').textContent = `${name} (${studentCount} students)`;
             document.getElementById('familyCreation').classList.remove('visible');
             document.getElementById('familySearch').setAttribute('aria-expanded', 'false');
+
+            // Hide student reminder settings when selecting existing family
+            document.getElementById('studentReminderSettings').style.display = 'none';
+            document.getElementById('reminderSettingsHidden').style.display = 'block';
         }
 
         function selectCreateNew() {
@@ -1422,6 +1682,10 @@
             document.getElementById('selectedFamilyName').textContent = 'New Family (will be created)';
             document.getElementById('familyCreation').classList.add('visible');
             document.getElementById('familySearch').setAttribute('aria-expanded', 'false');
+
+            // CRITICAL FIX: Show student reminder settings when creating new family
+            document.getElementById('studentReminderSettings').style.display = 'block';
+            document.getElementById('reminderSettingsHidden').style.display = 'none';
         }
 
         function clearFamilySelection() {
@@ -1431,6 +1695,10 @@
             document.getElementById('familyCreation').classList.remove('visible');
             document.getElementById('familySearch').value = '';
             document.getElementById('familySearch').focus();
+
+            // Reset reminder settings visibility
+            document.getElementById('studentReminderSettings').style.display = 'none';
+            document.getElementById('reminderSettingsHidden').style.display = 'block';
         }
 
         function handleResultKeydown(event, id, name, count) {
@@ -1472,6 +1740,33 @@
         // Email validation
         function validateEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Duplicate detection
+        function checkDuplicate() {
+            if (duplicateCheckOverride) return;
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+
+            if (firstName && lastName && selectedFamilyId) {
+                // Simulate duplicate check - in real app, this would be an API call
+                // For demo, trigger if name is "John Smith" and selecting Smith Family
+                if (firstName.toLowerCase() === 'john' && lastName.toLowerCase() === 'smith' && selectedFamilyId === 'fam1') {
+                    document.getElementById('duplicateFamilyName').textContent = 'Smith Family';
+                    document.getElementById('duplicateWarning').classList.add('visible');
+                }
+            }
+        }
+
+        function proceedWithDuplicate() {
+            duplicateCheckOverride = true;
+            document.getElementById('duplicateWarning').classList.remove('visible');
+        }
+
+        function cancelDuplicate() {
+            document.getElementById('duplicateWarning').classList.remove('visible');
+            document.getElementById('firstName').focus();
         }
 
         // Inline validation
@@ -1552,8 +1847,11 @@
             document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
             document.querySelectorAll('.error-message').forEach(el => el.classList.remove('visible'));
             document.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+            document.getElementById('validationSummary').classList.remove('visible');
+            document.getElementById('validationSummaryList').innerHTML = '';
 
             let hasErrors = false;
+            let errors = [];
 
             // Validate required fields
             const firstName = document.getElementById('firstName');
@@ -1567,6 +1865,7 @@
                 firstName.classList.add('error');
                 firstNameError.textContent = 'First name is required';
                 firstNameError.classList.add('visible');
+                errors.push({ field: 'firstName', message: 'First name is required' });
                 hasErrors = true;
             }
 
@@ -1575,6 +1874,7 @@
                 lastName.classList.add('error');
                 lastNameError.textContent = 'Last name is required';
                 lastNameError.classList.add('visible');
+                errors.push({ field: 'lastName', message: 'Last name is required' });
                 hasErrors = true;
             }
 
@@ -1583,6 +1883,7 @@
                 document.getElementById('familySearch').classList.add('error');
                 familyError.textContent = 'Family selection is required';
                 familyError.classList.add('visible');
+                errors.push({ field: 'familySearch', message: 'Family selection is required' });
                 hasErrors = true;
             }
 
@@ -1594,33 +1895,69 @@
                 email.classList.add('error');
                 emailError.textContent = 'Please enter a valid email address';
                 emailError.classList.add('visible');
+                errors.push({ field: 'email', message: 'Please enter a valid email address' });
                 hasErrors = true;
             }
 
-            if (!hasErrors) {
-                // Simulate API call
-                setTimeout(() => {
-                    const fullName = `${firstName.value} ${lastName.value}`;
-                    document.getElementById('successMessage').textContent =
-                        `Student "${fullName}" has been added successfully.`;
-                    showModal();
+            if (hasErrors) {
+                // Show validation summary
+                const summaryList = document.getElementById('validationSummaryList');
+                errors.forEach(error => {
+                    const li = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.textContent = error.message;
+                    link.href = '#';
+                    link.onclick = (e) => {
+                        e.preventDefault();
+                        document.getElementById(error.field).focus();
+                    };
+                    li.appendChild(link);
+                    summaryList.appendChild(li);
+                });
+                document.getElementById('validationSummary').classList.add('visible');
 
-                    // Reset button
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalContent;
-                }, 1500);
-            } else {
                 // Reset button
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalContent;
 
-                // Scroll to first error and focus
-                const firstError = document.querySelector('.error');
-                if (firstError) {
-                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    firstError.focus();
-                }
+                // Scroll to validation summary
+                document.getElementById('validationSummary').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                // Cache form data
+                formDataCache = new FormData(document.getElementById('addStudentForm'));
+
+                // Simulate API call
+                setTimeout(() => {
+                    // Simulate random network error (10% chance)
+                    if (Math.random() < 0.1) {
+                        showNetworkError();
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalContent;
+                    } else {
+                        const fullName = `${firstName.value} ${lastName.value}`;
+                        document.getElementById('successMessage').textContent =
+                            `Student "${fullName}" has been added successfully.`;
+                        showModal();
+
+                        // Reset button
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalContent;
+                    }
+                }, 1500);
             }
+        }
+
+        function retrySubmit() {
+            dismissNetworkError();
+            submitForm();
+        }
+
+        function showNetworkError() {
+            document.getElementById('networkError').classList.add('visible');
+        }
+
+        function dismissNetworkError() {
+            document.getElementById('networkError').classList.remove('visible');
         }
 
         function handleCancel() {
@@ -1676,6 +2013,14 @@
             if (window.modalPreviousFocus) {
                 window.modalPreviousFocus.focus();
             }
+        }
+
+        function viewStudent() {
+            alert('Navigate to student detail page (not implemented in wireframe)');
+        }
+
+        function scheduleLesson() {
+            alert('Navigate to schedule lesson page (not implemented in wireframe)');
         }
 
         // Keyboard shortcuts
