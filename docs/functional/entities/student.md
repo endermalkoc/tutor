@@ -43,7 +43,7 @@ The Student entity represents an individual student in the tutor's roster. Stude
 
 - **Contact**: A student references a Contact (one-to-one, required) - Contains name, email, phone, birthday, communication preferences
 - **Family**: A student belongs to a Family (many-to-one, required)
-- **Tutor Group**: Inherited through Family - Students belong to the tutor group their family is assigned to
+- **Studio**: Inherited through Family - Students belong to the studio their family is assigned to
 - **Events**: A student can have many Events/sessions (one-to-many)
 - **BillingType**: References a billing type configuration
 - **PriceType**: References a price type configuration (hourly, per session, package, etc.)

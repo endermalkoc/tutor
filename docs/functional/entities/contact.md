@@ -1,7 +1,7 @@
 # Contact Entity
 
 ## Overview
-The Contact entity is a base entity that stores common contact information. Users, Students, Parents/Guardians, and other entities inherit or reference Contact for their contact details.
+The Contact entity is a base entity that stores common personal information. Users, Students, Guardians, Tutors, and other entities reference Contact for their basic details. Contact information like phones and addresses are managed through separate related entities.
 
 ## Core Attributes
 
@@ -12,20 +12,10 @@ The Contact entity is a base entity that stores common contact information. User
 | Last Name | String | Yes | Contact's last name |
 | Email Address | String | No | Contact's email address |
 
-### Phone Numbers
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| Mobile Number | String | No | Contact's mobile phone number |
-| Mobile SMS Capable | Boolean | Yes | Whether the mobile number can receive SMS messages (default: false) |
-| Home Number | String | No | Contact's home phone number |
-| Home SMS Capable | Boolean | Yes | Whether the home number can receive SMS messages (default: false) |
-| Work Number | String | No | Contact's work phone number |
-| Work SMS Capable | Boolean | Yes | Whether the work number can receive SMS messages (default: false) |
-
 ### Personal Information
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| Gender | String | No | Contact's gender |
+| Gender | Reference | No | Reference to Gender entity |
 | Birthday | Date | No | Contact's date of birth |
 
 ### Communication Platforms
@@ -34,21 +24,11 @@ The Contact entity is a base entity that stores common contact information. User
 | Skype Username | String | No | Skype username for online sessions |
 | FaceTime ID | String | No | FaceTime ID for online sessions |
 
-### Address Information
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| Street Address | String | No | Street address (line 1) |
-| Street Address 2 | String | No | Apartment, suite, unit, building, floor, etc. (line 2) |
-| City | String | No | City name |
-| State | String | No | State, province, or region |
-| Zip Code | String | No | Postal code or ZIP code |
-| Country | String | No | Country name |
-
 ### Communication Preferences
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | Send Email Reminders | Boolean | Yes | Whether to send email reminders (default: true if email exists) |
-| Send SMS Reminders | Boolean | Yes | Whether to send SMS reminders (default: true if SMS capable) |
+| Send SMS Reminders | Boolean | Yes | Whether to send SMS reminders (default: true if has SMS-capable phone) |
 
 ### Additional Information
 | Field | Type | Required | Description |
@@ -57,33 +37,32 @@ The Contact entity is a base entity that stores common contact information. User
 
 ## Relationships
 
-- **User**: A User may reference a Contact (one-to-one)
-- **Tutor**: A Tutor references a Contact (one-to-one, required)
-- **Student**: A Student references a Contact (one-to-one, required)
-- **Guardian**: A Guardian references a Contact (one-to-one, required)
+- **User**: A User references a Contact (one-to-one, required for User)
+- **Phones**: A contact can have multiple Phones through UserPhone junction table (one-to-many)
+- **Address**: A contact may reference an Address (many-to-one, optional)
+- **Gender**: A contact may reference a Gender (many-to-one, optional)
 
 ## Business Rules
 
-1. **SMS Reminders**: SMS reminders can only be enabled if at least one phone number is provided with its corresponding SMS Capable flag set to true
-2. **Email Reminders**: Email reminders can only be enabled if Email Address is provided
-3. **Phone Format**: All phone numbers (Mobile, Home, Work) should follow valid phone format if provided
-4. **Email Format**: Email Address must be valid email format if provided
-5. **SMS Capable Logic**: SMS Capable flags can only be true if the corresponding phone number is provided
+1. **Email Reminders**: Email reminders can only be enabled if Email Address is provided
+2. **SMS Reminders**: SMS reminders can only be enabled if contact has at least one phone with SMS Capable set to true
+3. **Email Format**: Email Address must be valid email format if provided
+4. **Shared Addresses**: Multiple contacts can share the same address (e.g., family members)
+5. **Multiple Phones**: Contacts can have multiple phone numbers (mobile, home, work) managed through Phone entity
 
 ## Validations
 
 - First Name and Last Name are required and must not be empty
 - Email Address must be valid email format if provided
-- All phone numbers (Mobile, Home, Work) should follow valid phone format if provided
 - Birthday must be a valid date in the past if provided
-- If Send SMS Reminders is true, at least one phone number must exist with its SMS Capable flag set to true
 - If Send Email Reminders is true, Email Address must exist
-- If Mobile SMS Capable is true, Mobile Number must be provided
-- If Home SMS Capable is true, Home Number must be provided
-- If Work SMS Capable is true, Work Number must be provided
+- If Send SMS Reminders is true, contact must have at least one phone with SMS Capable = true
 
 ## Notes
 
-- Contact is a reusable entity that prevents duplication of contact information across different entity types
-- Not all Contacts are Users - a Contact becomes a User when they have login credentials
-- Contact information can be shared (e.g., same email/phone for parent and student in some cases)
+- Contact is a base entity that stores personal information separate from role-specific data
+- Phone numbers are managed through the separate Phone entity and UserPhone junction table
+- Addresses are managed through the separate Address entity
+- Gender references a Gender lookup table for standardization
+- Not all Contacts have User accounts - Contact is the base personal information, User adds login capability
+- Communication platform IDs (Skype, FaceTime) enable quick access to online session links

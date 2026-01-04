@@ -22,7 +22,7 @@ The Guardian entity represents a parent or guardian responsible for a student. G
 - **Family**: A guardian belongs to a Family (many-to-one, required)
 - **Students**: A guardian can be associated with multiple students through Family (one-to-many)
 - **Invoices**: A guardian receives invoices for their family (one-to-many through Family)
-- **Tutor Group**: Inherited through Family - Guardians belong to the tutor group their family is assigned to
+- **Studio**: Inherited through Family - Guardians belong to the studio their family is assigned to
 
 ## Business Rules
 
