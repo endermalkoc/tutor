@@ -42,6 +42,7 @@ For detailed information about the student list including available columns, sor
 8. [Apply Default Prices](./apply-default-prices.md) - Apply studio/subject/teacher defaults
 9. [Download](./download.md) - Export to PDF, Excel, or vCard
 10. [Set Status](./set-status.md) - Change student status in bulk
+11. [Delete Students](./delete-students.md) - Delete selected students from the system
 
 ### List Management
 - [Filtering & Search](./filtering-search.md) - Filter and search capabilities
