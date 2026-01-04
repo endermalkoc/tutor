@@ -6,8 +6,19 @@ The Tutor Portal is the primary interface for individual tutors to manage their 
 
 ### Business Management
 - [Dashboard](./dashboard.md) - Overview of key metrics, upcoming sessions, recent activity
-- [Student Management](./student-management.md) - Student profiles, contact information, session history
-- [Importing Students](./importing-students.md) - Bulk import students from CSV/Excel files
+- [Student Management](./student-management/) - Comprehensive student list with bulk actions, filtering, and management
+  - [Add Student](./student-management/add-student.md)
+  - [Import Students](./importing-students.md)
+  - [Bulk Messaging](./bulk-messaging.md)
+  - [Assign Tag](./student-management/assign-tag.md)
+  - [Update Prices](./student-management/update-prices.md)
+  - [Edit Make-Up Credits](./student-management/edit-makeup-credits.md)
+  - [Email & SMS Reminders](./student-management/email-sms-reminders.md)
+  - [Apply Default Prices](./student-management/apply-default-prices.md)
+  - [Download](./student-management/download.md)
+  - [Set Status](./student-management/set-status.md)
+  - [Filtering & Search](./student-management/filtering-search.md)
+  - [Individual Actions](./student-management/individual-actions.md)
 - [Family Management](./family-management.md) - Parent/guardian information, family accounts, multi-student households
 
 ### Scheduling & Sessions
