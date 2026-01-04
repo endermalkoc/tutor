@@ -12,6 +12,7 @@ This section defines the core data entities used throughout the platform. These 
 
 - [Studio](./studio.md) - Top-level organizational unit (individual tutor or tutoring center)
 - [Family](./family.md) - Household grouping for billing, links students and guardians
+- [Tag](./tag.md) - Flexible labeling system for categorizing students (name, color, description)
 
 ## People Entities
 
@@ -62,12 +63,20 @@ Studio (top-level)
 │   ├── Teachers
 │   ├── Attendees (Students/Users)
 │   └── Locations
+├── Tags (many:many with Students)
 └── Schools
 
 Contact (base for personal info)
 ├── User (1:1)
 ├── Addresses (many:1)
 └── Phones (many:many via UserPhone)
+
+Student
+├── Contact (1:1)
+├── Family (many:1)
+├── Tutors (many:many)
+├── Tags (many:many)
+└── Events (1:many)
 ```
 
 ---
