@@ -24,7 +24,7 @@ This section defines the core data entities used throughout the platform. These 
 ## Scheduling & Events
 
 - [Event](./event.md) - Tutoring sessions, appointments, scheduled events
-- [Instrument](./instrument.md) - Musical instruments or subject areas taught/learned
+- [Subject](./subject.md) - Subject areas, skills, or topics taught/learned
 - [Location](./location.md) - Physical locations for events (referenced in schema)
 
 ## Financial Management

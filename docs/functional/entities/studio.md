@@ -8,7 +8,7 @@ The Studio entity represents the top-level organizational unit in the system. It
 ### Basic Information
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| Name | String | Yes | Studio name (e.g., "Smith Music Studio", "ABC Tutoring Center") |
+| Name | String | Yes | Studio name (e.g., "Smith Tutoring", "ABC Learning Center") |
 | Code | String | Yes | Unique code/identifier for the studio |
 | Description | String | No | Description of the studio |
 

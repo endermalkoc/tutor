@@ -45,8 +45,8 @@ The Tag entity provides a flexible labeling and categorization system for organi
 
 ## Common Tag Use Cases
 
-### Subject/Instrument Tags
-- "Piano", "Guitar", "Violin", "Math", "Science"
+### Subject Tags
+- "Mathematics", "English", "Science", "Piano", "SAT Prep"
 - Color-code by subject type
 
 ### Skill Level Tags
@@ -80,7 +80,7 @@ The Tag entity provides a flexible labeling and categorization system for organi
 - Apply to individual students
 - Bulk apply to selected students
 - Apply during student import
-- Auto-apply based on rules (e.g., instrument, skill level)
+- Auto-apply based on rules (e.g., subject, skill level)
 
 ### Filtering by Tags
 - Filter student list by one or more tags

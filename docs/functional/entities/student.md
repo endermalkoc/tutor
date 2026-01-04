@@ -14,7 +14,7 @@ The Student entity represents an individual student in the tutor's roster. Stude
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | School | String | No | Name of school the student attends |
-| Subjects | String/Array | No | Subjects the student is being tutored in |
+| Subjects | Many-to-Many | No | Subjects the student is being tutored in (see Subject entity) |
 | Skill Level | String | No | Student's current skill level |
 
 ### Account Information
@@ -55,6 +55,7 @@ The Student entity represents an individual student in the tutor's roster. Stude
 - **Family**: A student belongs to a Family (many-to-one, required)
 - **Studio**: Inherited through Family - Students belong to the studio their family is assigned to
 - **Tutors**: A student can be assigned to one or more Tutors (many-to-many) - Teachers responsible for the student
+- **Subjects**: A student can study multiple Subjects (many-to-many) - Subjects being learned (see [Subject Entity](./subject.md))
 - **Events**: A student can have many Events/sessions (one-to-many)
 - **Tags**: A student can have multiple Tags (many-to-many) - Each tag has name, color, and description for flexible categorization (see [Tag Entity](./tag.md))
 - **User**: A student may have an associated User account for student portal access (one-to-one, optional)
