@@ -4,7 +4,7 @@
 The Download feature allows tutors to export student information in multiple formats (PDF, Excel, vCard) for reporting, backup, or external use.
 
 ## Access
-**Toolbar Button**: "Download" button with format selector dropdown
+Always available with format selection
 
 ## Supported Formats
 
@@ -45,15 +45,15 @@ The Download feature allows tutors to export student information in multiple for
 4. **For Excel exports**: Show/hide desired columns (Excel will export visible columns only)
 
 ### Step 2: Choose Format
-1. Click "Download" button
-2. Select format from dropdown:
+1. User initiates download action
+2. Select format:
    - Download as PDF
    - Download as Excel
    - Download as vCard
 
 ### Step 3: Download File
 1. File generated on server
-2. Download dialog appears
+2. Download prompt appears
 3. Save file to desired location
 4. File opens in appropriate application
 
@@ -236,7 +236,7 @@ Before downloading:
 - Preview first few rows
 
 ### Quick Export
-- "Download Current View" - One click, uses defaults
+- Download current view with defaults
 - Recent export settings remembered
 - Common configurations saved as presets
 

@@ -4,18 +4,18 @@
 The Assign Tag feature allows tutors to apply organizational tags to one or more students for grouping, filtering, and bulk operations.
 
 ## Access
-**Toolbar Button**: "Assign Tag" button (enabled when one or more students are selected)
+Available when one or more students are selected
 
 ## Workflow
 
 ### Step 1: Select Students
-1. Use checkboxes to select one or more students
-2. Selected count displays in toolbar
-3. "Assign Tag" button becomes enabled
+1. User selects one or more students
+2. Selected count displays
+3. Assign Tag action becomes available
 
 ### Step 2: Open Tag Selector
-1. Click "Assign Tag" button
-2. Tag assignment dialog opens
+1. User initiates assign tag action
+2. Tag assignment interface displays
 
 ### Step 3: Choose or Create Tag
 
@@ -26,14 +26,14 @@ The Assign Tag feature allows tutors to apply organizational tags to one or more
 - Select one or more tags to apply
 
 **Option B: Create New Tag**
-- Click "Create New Tag" button
+- User chooses to create new tag
 - Enter tag name
 - Choose tag color from palette
 - Optionally add tag description
 - Tag is created and immediately available for selection
 
 ### Step 4: Apply Tags
-1. Click "Apply" button
+1. User confirms tag assignment
 2. Tags are applied to all selected students
 3. Success message: "Tags applied to [X] students"
 4. Student list updates to show new tags
@@ -64,11 +64,11 @@ The Assign Tag feature allows tutors to apply organizational tags to one or more
 ## Tag Display
 
 ### In Student List
-- Tags shown as colored chips/badges in Group Tags column
+- Tags shown as colored indicators in Group Tags column
 - Multiple tags displayed per student
 - Truncated with "+" indicator if too many to display
-- Hover shows all tags
-- Click tag to filter list by that tag
+- Full tag list available on interaction
+- Selecting a tag filters list by that tag
 
 ### In Student Detail
 - All tags displayed with full names

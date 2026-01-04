@@ -33,7 +33,7 @@ The following columns can be displayed in the student list. Columns marked with 
 | Student Login | | Whether student has portal access |
 | Student Since | | Date student started with tutor |
 | Status | ⭐ | Student status (Active, Trial, Waiting, Lead, Inactive) |
-| Subjects | | Instruments/subjects being studied |
+| Subjects | | Subjects being studied |
 | Tutors | ⭐ | Teacher(s) assigned to student |
 
 **Default Visible Columns (10):**
@@ -71,7 +71,7 @@ All other columns can be sorted, but only when they are visible in the column li
 
 **Sorting Behavior:**
 - Default sort: Student Name (A-Z)
-- For columns that are sortable even when hidden, a sort menu/dropdown is available in the toolbar
+- For columns that are sortable even when hidden, sorting options are available in the toolbar
 
 See [Lists UI Requirements](../../ui-requirements/lists.md) for general sorting behavior.
 
@@ -110,7 +110,7 @@ See [Lists UI Requirements](../../ui-requirements/lists.md) for general sorting 
 ## Mobile Considerations
 
 - Responsive design for tablet and mobile
-- Touch-friendly action buttons
+- Touch-friendly interactions
 - Swipe gestures for row actions
 - Simplified bulk actions on mobile (fewer options visible)
 - Mobile-optimized column selection (fewer columns by default)

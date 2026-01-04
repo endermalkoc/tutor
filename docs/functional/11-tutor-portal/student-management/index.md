@@ -7,7 +7,7 @@ The Student Management page is the central hub for viewing and managing all stud
 
 ### Primary View
 - **Student List** - Main list displaying students with configurable columns (see [Student List](./student-list.md))
-- **Action Toolbar** - Bulk action buttons displayed above the list
+- **Action Toolbar** - Bulk actions displayed above the list
 - **Filters Panel** - Side panel or collapsible section for filtering students
 - **Search Bar** - Global search across student information
 

@@ -4,18 +4,18 @@
 The Set Status feature allows tutors to quickly change the enrollment status for one or more students using a simple dropdown selector. Changes are tracked automatically in the system's audit trail.
 
 ## Access
-**Toolbar Button**: "Set Status" dropdown button (enabled when one or more students are selected)
+Available when one or more students are selected
 
 ## Workflow
 
 ### Step 1: Select Students
-1. Use checkboxes to select one or more students
-2. Selected count displays in toolbar
-3. "Set Status" dropdown becomes enabled
+1. User selects one or more students
+2. Selected count displays
+3. Set Status action becomes available
 
 ### Step 2: Select New Status
-1. Click "Set Status" dropdown button
-2. Dropdown menu displays available status options:
+1. User initiates set status action
+2. System displays available status options:
    - **Active** - Currently enrolled with regular sessions
    - **Trial** - In trial period, evaluating fit
    - **Waiting** - Waiting to start or resume lessons
@@ -23,7 +23,7 @@ The Set Status feature allows tutors to quickly change the enrollment status for
    - **Inactive** - No longer taking lessons
 
 ### Step 3: Status Updated
-1. Click desired status from dropdown
+1. User selects desired status
 2. Status immediately updated for all selected students
 3. Success message: "Status updated to [Status] for [X] students"
 4. List refreshes to reflect changes

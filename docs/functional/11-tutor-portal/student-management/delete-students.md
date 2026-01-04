@@ -4,25 +4,25 @@
 The Delete Students feature allows tutors to remove students from their active roster. Students with lesson or billing history are automatically switched to 'Inactive' status to preserve historical data for reporting. Only students with no history are permanently deleted from the system.
 
 ## Access
-**Toolbar Button**: "Delete" button (enabled when one or more students are selected)
+Available when one or more students are selected
 
 ## Workflow
 
 ### Step 1: Select Students
-1. Use checkboxes to select one or more students
-2. Selected count displays in toolbar
-3. "Delete" button becomes enabled
+1. User selects one or more students
+2. Selected count displays
+3. Delete action becomes available
 
 ### Step 2: Initiate Delete
-1. Click "Delete" button
-2. Delete confirmation dialog opens
+1. User initiates delete action
+2. System displays confirmation prompt
 
-### Step 3: Delete Confirmation Dialog
+### Step 3: Review Deletion Impact
 
-**Confirmation Message:**
+**Confirmation Prompt:**
 > "Are you sure you want to delete the selected students? (Students with lesson/billing history will automatically be switched to 'Inactive' so that this information is retained for historical reporting. All 'Inactive' students with lesson/billing history will remain 'Inactive')."
 
-**Dialog displays:**
+**System displays:**
 - **Students to Delete**: List of selected students (name, family, current status)
 - **What will happen**:
   - Students WITH history → Status changed to 'Inactive'
@@ -32,9 +32,9 @@ The Delete Students feature allows tutors to remove students from their active r
   - Count of students that will be permanently deleted
 
 ### Step 4: Confirm Action
-1. Review the confirmation message
-2. Click "Delete" to proceed or "Cancel" to abort
-3. No additional checkboxes required
+1. User reviews the confirmation message
+2. User confirms to proceed or cancels to abort
+3. No additional confirmation required
 
 ### Step 5: Execute Deletion
 1. System processes each student:
@@ -191,16 +191,16 @@ The Delete Students feature allows tutors to remove students from their active r
 
 ## User Experience Features
 
-### Delete Confirmation Dialog
+### Confirmation Prompt
 **Clear Information:**
-- Confirmation message explaining the automatic behavior
+- Message explaining the automatic behavior
 - Student name(s) prominently displayed
 - Breakdown showing which students will become Inactive vs permanently deleted
 - Clear distinction between the two outcomes
 
 ### Batch Processing
 **For Large Deletions:**
-- Progress indicator showing "Processing X of Y students"
+- Progress indicator: "Processing X of Y students"
 - Summary of results:
   - "[X] students set to Inactive"
   - "[Y] students permanently deleted"
@@ -281,9 +281,9 @@ The Delete Students feature allows tutors to remove students from their active r
 
 ## Mobile Considerations
 
-- Confirmation dialog optimized for mobile screens
+- Confirmation prompt optimized for mobile screens
 - Clear message explaining automatic behavior
-- Touch-friendly confirmation buttons
+- Touch-friendly interaction
 - Simple, focused user interface
 
 ## Notes

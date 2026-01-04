@@ -4,23 +4,23 @@
 The Edit Make-Up Credits feature allows tutors to manage makeup lesson credits for students. Make-up credits are tracked per student-tutor pair, allowing students to accumulate credits with different tutors independently. Credits can be in three states: total issued, available (not yet booked), and booked (scheduled for future use).
 
 ## Access
-**Toolbar Button**: "Make-Up Credits" button (enabled when one or more students are selected)
+Available when one or more students are selected
 
 ## Workflow
 
 ### Step 1: Select Students
-1. Use checkboxes to select one or more students
-2. Selected count displays in toolbar
-3. "Make-Up Credits" button becomes enabled
+1. User selects one or more students
+2. Selected count displays
+3. Make-Up Credits action becomes available
 
-### Step 2: Open Credits Dialog
-1. Click "Make-Up Credits" button
-2. Make-up credits dialog opens
+### Step 2: Initiate Credit Management
+1. User initiates make-up credits action
+2. Make-up credits interface displays
 3. Shows current credit status for each student
 
 ### Step 3: Select Tutor
 1. **Tutor Selection** (required)
-   - Dropdown list of all tutors in the studio
+   - List of all tutors in the studio
    - If single student selected and student has assigned tutors, show those first
    - Credits are tracked per student-tutor pair
    - Each student can have different credit balances with different tutors
@@ -183,8 +183,7 @@ When dialog opens, show for each selected student:
 - Credit amount input field (pre-filled with current available amount)
 
 ### Quick Actions
-- "Set to 1" button for single credit
-- "Set to 0" button to clear credits
+- Quick option to set to 0 to clear credits
 - Quick tutor selection if student has assigned tutors
 - Input field shows current value, user types new value
 
