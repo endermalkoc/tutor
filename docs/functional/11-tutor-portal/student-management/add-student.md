@@ -23,9 +23,10 @@ Always available in student management
 
 ### Step 3: Fill Default Visible Fields
 
-**Contact Information** (from Contact entity):
+**Student Contact Information** (from Contact entity):
 - Email Address
 - Phone Number (mobile phone)
+- SMS Capable (checkbox - indicates if phone number can receive SMS messages)
 - Address (street, city, state, zip, country)
 
 **Lesson Settings**:
@@ -97,7 +98,7 @@ Additional fields hidden by default. User can show these fields by clicking "Sho
 - If Student Type = Child, family must have at least one guardian
 - If creating new family, guardian information is required
 - Email Reminders can only be enabled if email address provided
-- SMS Reminders can only be enabled if phone number exists
+- SMS Reminders can only be enabled if phone number exists and SMS Capable is checked
 
 ## Creating New Family
 
@@ -111,6 +112,7 @@ If "Create New Family" is selected:
 **Guardian Contact Fields (visible by default):**
 - Email Address
 - Phone Number
+- SMS Capable (checkbox - indicates if phone number can receive SMS messages)
 - Address (street, city, state, zip, country)
 
 **Guardian Settings (always visible for new family):**
@@ -137,8 +139,10 @@ If "Create New Family" is selected:
 ### Smart Defaults
 - Status defaults to "Active" for new students
 - Student Type defaults to "Child"
+- Default Duration defaults to 30 minutes
+- SMS Capable defaults to enabled (checked) when phone number is provided
 - Send Email Reminders defaults to enabled (if email provided)
-- Send SMS Reminders defaults to enabled (if phone number provided)
+- Send SMS Reminders defaults to enabled (if phone number provided and SMS capable)
 
 ### Show More Fields
 - Additional fields hidden by default to reduce form clutter
