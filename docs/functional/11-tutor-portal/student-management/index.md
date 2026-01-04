@@ -34,7 +34,7 @@ For detailed information about the student list including available columns, sor
 ### Bulk Actions
 1. [Add New Student](./add-student.md) - Create a new student record
 2. [Import Students](../importing-students.md) - Bulk import from CSV/Excel
-3. [Send Message](../bulk-messaging.md) - Email, SMS, or messaging app to multiple students
+3. [Send Email](../bulk-email.md) - Send email to multiple students/guardians
 4. [Assign Tag](./assign-tag.md) - Apply tags for organization and grouping
 5. [Update Prices](./update-prices.md) - Apply tutor default or specify custom pricing
 6. [Edit Make-Up Credits](./edit-makeup-credits.md) - Add or remove makeup credits
