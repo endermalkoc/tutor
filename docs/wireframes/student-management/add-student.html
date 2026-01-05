@@ -483,6 +483,147 @@
             box-shadow: 0 0 0 3px var(--bg-muted);
         }
 
+        /* Combobox (shadcn-style) */
+        .combobox {
+            position: relative;
+            width: 100%;
+        }
+
+        .combobox-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: var(--space-3);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text-primary);
+            background: var(--bg-surface);
+            cursor: pointer;
+            transition: border-color 150ms ease, box-shadow 150ms ease;
+            text-align: left;
+            min-height: 42px;
+        }
+
+        .combobox-trigger:hover {
+            border-color: var(--text-faint);
+        }
+
+        .combobox-trigger:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-subtle);
+        }
+
+        .combobox-trigger .placeholder {
+            color: var(--text-faint);
+        }
+
+        .combobox-trigger .selected-value {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .combobox-trigger .chevron {
+            width: 16px;
+            height: 16px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            margin-left: var(--space-2);
+        }
+
+        .combobox-popover {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(22, 38, 47, 0.15);
+            z-index: 100;
+            display: none;
+        }
+
+        .combobox.open .combobox-popover {
+            display: block;
+        }
+
+        .combobox-search {
+            padding: var(--space-3);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .combobox-search input {
+            width: 100%;
+            padding: var(--space-2) var(--space-3);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .combobox-search input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .combobox-list {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: var(--space-1);
+        }
+
+        .combobox-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 150ms ease;
+        }
+
+        .combobox-item:hover {
+            background: var(--bg-subtle);
+        }
+
+        .combobox-item.selected {
+            background: var(--accent-subtle);
+            color: var(--accent);
+        }
+
+        .combobox-item .check-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0;
+        }
+
+        .combobox-item.selected .check-icon {
+            opacity: 1;
+        }
+
+        .combobox-item-label {
+            flex: 1;
+        }
+
+        .combobox-item-description {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .combobox-empty {
+            padding: var(--space-4);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
@@ -696,60 +837,20 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="state">State</label>
-                                        <select id="state" autocomplete="address-level1">
-                                            <option value="">Select state...</option>
-                                            <option value="AL">Alabama</option>
-                                            <option value="AK">Alaska</option>
-                                            <option value="AZ">Arizona</option>
-                                            <option value="AR">Arkansas</option>
-                                            <option value="CA">California</option>
-                                            <option value="CO">Colorado</option>
-                                            <option value="CT">Connecticut</option>
-                                            <option value="DE">Delaware</option>
-                                            <option value="FL">Florida</option>
-                                            <option value="GA">Georgia</option>
-                                            <option value="HI">Hawaii</option>
-                                            <option value="ID">Idaho</option>
-                                            <option value="IL">Illinois</option>
-                                            <option value="IN">Indiana</option>
-                                            <option value="IA">Iowa</option>
-                                            <option value="KS">Kansas</option>
-                                            <option value="KY">Kentucky</option>
-                                            <option value="LA">Louisiana</option>
-                                            <option value="ME">Maine</option>
-                                            <option value="MD">Maryland</option>
-                                            <option value="MA">Massachusetts</option>
-                                            <option value="MI">Michigan</option>
-                                            <option value="MN">Minnesota</option>
-                                            <option value="MS">Mississippi</option>
-                                            <option value="MO">Missouri</option>
-                                            <option value="MT">Montana</option>
-                                            <option value="NE">Nebraska</option>
-                                            <option value="NV">Nevada</option>
-                                            <option value="NH">New Hampshire</option>
-                                            <option value="NJ">New Jersey</option>
-                                            <option value="NM">New Mexico</option>
-                                            <option value="NY">New York</option>
-                                            <option value="NC">North Carolina</option>
-                                            <option value="ND">North Dakota</option>
-                                            <option value="OH">Ohio</option>
-                                            <option value="OK">Oklahoma</option>
-                                            <option value="OR">Oregon</option>
-                                            <option value="PA">Pennsylvania</option>
-                                            <option value="RI">Rhode Island</option>
-                                            <option value="SC">South Carolina</option>
-                                            <option value="SD">South Dakota</option>
-                                            <option value="TN">Tennessee</option>
-                                            <option value="TX">Texas</option>
-                                            <option value="UT">Utah</option>
-                                            <option value="VT">Vermont</option>
-                                            <option value="VA">Virginia</option>
-                                            <option value="WA">Washington</option>
-                                            <option value="WV">West Virginia</option>
-                                            <option value="WI">Wisconsin</option>
-                                            <option value="WY">Wyoming</option>
-                                        </select>
-                                        <span class="help-text">Type to search</span>
+                                        <div class="combobox" id="studentStateCombobox">
+                                            <button type="button" class="combobox-trigger" onclick="toggleCombobox('studentStateCombobox')">
+                                                <span class="placeholder">Select state...</span>
+                                                <i class="ph ph-caret-up-down chevron"></i>
+                                            </button>
+                                            <div class="combobox-popover">
+                                                <div class="combobox-search">
+                                                    <input type="text" placeholder="Search states..." id="studentStateSearch">
+                                                </div>
+                                                <div class="combobox-list" id="studentStateList">
+                                                    <!-- States populated by JS -->
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -780,24 +881,42 @@
 
                             <div class="form-row single" id="existingFamilyRow">
                                 <div class="form-group">
-                                    <label for="familySearch">Search Family</label>
-                                    <input
-                                        type="text"
-                                        id="familySearch"
-                                        placeholder="Type to search families..."
-                                        autocomplete="off">
-                                    <span class="help-text">Search by family name, parent name, or email</span>
-                                    <!-- Search results would appear here as a dropdown -->
-                                    <div class="search-results" style="margin-top: var(--space-2); border: 1px solid var(--border); border-radius: var(--radius); display: none;">
-                                        <div style="padding: var(--space-3); border-bottom: 1px solid var(--border); cursor: pointer;">
-                                            <div style="font-weight: 500;">Anderson Family</div>
-                                            <div style="font-size: 12px; color: var(--text-muted);">John Anderson · john@example.com</div>
-                                        </div>
-                                        <div style="padding: var(--space-3); cursor: pointer;">
-                                            <div style="font-weight: 500;">Martinez Family</div>
-                                            <div style="font-size: 12px; color: var(--text-muted);">Maria Martinez · maria@example.com</div>
+                                    <label for="familySearch">Select Family</label>
+                                    <div class="combobox" id="familyCombobox">
+                                        <button type="button" class="combobox-trigger" onclick="toggleCombobox('familyCombobox')">
+                                            <span class="placeholder">Select a family...</span>
+                                            <i class="ph ph-caret-up-down chevron"></i>
+                                        </button>
+                                        <div class="combobox-popover">
+                                            <div class="combobox-search">
+                                                <input type="text" placeholder="Search families..." id="familySearchInput">
+                                            </div>
+                                            <div class="combobox-list">
+                                                <div class="combobox-item" onclick="selectFamily(this, 'Anderson Family', 'John Anderson · john@example.com')">
+                                                    <i class="ph ph-check check-icon"></i>
+                                                    <div>
+                                                        <div class="combobox-item-label">Anderson Family</div>
+                                                        <div class="combobox-item-description">John Anderson · john@example.com</div>
+                                                    </div>
+                                                </div>
+                                                <div class="combobox-item" onclick="selectFamily(this, 'Martinez Family', 'Maria Martinez · maria@example.com')">
+                                                    <i class="ph ph-check check-icon"></i>
+                                                    <div>
+                                                        <div class="combobox-item-label">Martinez Family</div>
+                                                        <div class="combobox-item-description">Maria Martinez · maria@example.com</div>
+                                                    </div>
+                                                </div>
+                                                <div class="combobox-item" onclick="selectFamily(this, 'Thompson Family', 'Sarah Thompson · sarah@example.com')">
+                                                    <i class="ph ph-check check-icon"></i>
+                                                    <div>
+                                                        <div class="combobox-item-label">Thompson Family</div>
+                                                        <div class="combobox-item-description">Sarah Thompson · sarah@example.com</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <span class="help-text">Search by family name, parent name, or email</span>
                                 </div>
                             </div>
 
@@ -874,60 +993,20 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="guardianState">State</label>
-                                        <select id="guardianState" autocomplete="address-level1">
-                                            <option value="">Select state...</option>
-                                            <option value="AL">Alabama</option>
-                                            <option value="AK">Alaska</option>
-                                            <option value="AZ">Arizona</option>
-                                            <option value="AR">Arkansas</option>
-                                            <option value="CA">California</option>
-                                            <option value="CO">Colorado</option>
-                                            <option value="CT">Connecticut</option>
-                                            <option value="DE">Delaware</option>
-                                            <option value="FL">Florida</option>
-                                            <option value="GA">Georgia</option>
-                                            <option value="HI">Hawaii</option>
-                                            <option value="ID">Idaho</option>
-                                            <option value="IL">Illinois</option>
-                                            <option value="IN">Indiana</option>
-                                            <option value="IA">Iowa</option>
-                                            <option value="KS">Kansas</option>
-                                            <option value="KY">Kentucky</option>
-                                            <option value="LA">Louisiana</option>
-                                            <option value="ME">Maine</option>
-                                            <option value="MD">Maryland</option>
-                                            <option value="MA">Massachusetts</option>
-                                            <option value="MI">Michigan</option>
-                                            <option value="MN">Minnesota</option>
-                                            <option value="MS">Mississippi</option>
-                                            <option value="MO">Missouri</option>
-                                            <option value="MT">Montana</option>
-                                            <option value="NE">Nebraska</option>
-                                            <option value="NV">Nevada</option>
-                                            <option value="NH">New Hampshire</option>
-                                            <option value="NJ">New Jersey</option>
-                                            <option value="NM">New Mexico</option>
-                                            <option value="NY">New York</option>
-                                            <option value="NC">North Carolina</option>
-                                            <option value="ND">North Dakota</option>
-                                            <option value="OH">Ohio</option>
-                                            <option value="OK">Oklahoma</option>
-                                            <option value="OR">Oregon</option>
-                                            <option value="PA">Pennsylvania</option>
-                                            <option value="RI">Rhode Island</option>
-                                            <option value="SC">South Carolina</option>
-                                            <option value="SD">South Dakota</option>
-                                            <option value="TN">Tennessee</option>
-                                            <option value="TX">Texas</option>
-                                            <option value="UT">Utah</option>
-                                            <option value="VT">Vermont</option>
-                                            <option value="VA">Virginia</option>
-                                            <option value="WA">Washington</option>
-                                            <option value="WV">West Virginia</option>
-                                            <option value="WI">Wisconsin</option>
-                                            <option value="WY">Wyoming</option>
-                                        </select>
-                                        <span class="help-text">Type to search</span>
+                                        <div class="combobox" id="guardianStateCombobox">
+                                            <button type="button" class="combobox-trigger" onclick="toggleCombobox('guardianStateCombobox')">
+                                                <span class="placeholder">Select state...</span>
+                                                <i class="ph ph-caret-up-down chevron"></i>
+                                            </button>
+                                            <div class="combobox-popover">
+                                                <div class="combobox-search">
+                                                    <input type="text" placeholder="Search states..." id="guardianStateSearch">
+                                                </div>
+                                                <div class="combobox-list" id="guardianStateList">
+                                                    <!-- States populated by JS -->
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -1103,6 +1182,143 @@
 
             // Initialize on page load
             updateStudentTypeVisibility();
+
+            // Initialize state comboboxes
+            initStateCombobox('studentStateList');
+            initStateCombobox('guardianStateList');
+        });
+
+        // US States data
+        const US_STATES = [
+            { code: 'AL', name: 'Alabama' }, { code: 'AK', name: 'Alaska' },
+            { code: 'AZ', name: 'Arizona' }, { code: 'AR', name: 'Arkansas' },
+            { code: 'CA', name: 'California' }, { code: 'CO', name: 'Colorado' },
+            { code: 'CT', name: 'Connecticut' }, { code: 'DE', name: 'Delaware' },
+            { code: 'FL', name: 'Florida' }, { code: 'GA', name: 'Georgia' },
+            { code: 'HI', name: 'Hawaii' }, { code: 'ID', name: 'Idaho' },
+            { code: 'IL', name: 'Illinois' }, { code: 'IN', name: 'Indiana' },
+            { code: 'IA', name: 'Iowa' }, { code: 'KS', name: 'Kansas' },
+            { code: 'KY', name: 'Kentucky' }, { code: 'LA', name: 'Louisiana' },
+            { code: 'ME', name: 'Maine' }, { code: 'MD', name: 'Maryland' },
+            { code: 'MA', name: 'Massachusetts' }, { code: 'MI', name: 'Michigan' },
+            { code: 'MN', name: 'Minnesota' }, { code: 'MS', name: 'Mississippi' },
+            { code: 'MO', name: 'Missouri' }, { code: 'MT', name: 'Montana' },
+            { code: 'NE', name: 'Nebraska' }, { code: 'NV', name: 'Nevada' },
+            { code: 'NH', name: 'New Hampshire' }, { code: 'NJ', name: 'New Jersey' },
+            { code: 'NM', name: 'New Mexico' }, { code: 'NY', name: 'New York' },
+            { code: 'NC', name: 'North Carolina' }, { code: 'ND', name: 'North Dakota' },
+            { code: 'OH', name: 'Ohio' }, { code: 'OK', name: 'Oklahoma' },
+            { code: 'OR', name: 'Oregon' }, { code: 'PA', name: 'Pennsylvania' },
+            { code: 'RI', name: 'Rhode Island' }, { code: 'SC', name: 'South Carolina' },
+            { code: 'SD', name: 'South Dakota' }, { code: 'TN', name: 'Tennessee' },
+            { code: 'TX', name: 'Texas' }, { code: 'UT', name: 'Utah' },
+            { code: 'VT', name: 'Vermont' }, { code: 'VA', name: 'Virginia' },
+            { code: 'WA', name: 'Washington' }, { code: 'WV', name: 'West Virginia' },
+            { code: 'WI', name: 'Wisconsin' }, { code: 'WY', name: 'Wyoming' }
+        ];
+
+        function initStateCombobox(listId) {
+            const list = document.getElementById(listId);
+            if (!list) return;
+
+            US_STATES.forEach(state => {
+                const item = document.createElement('div');
+                item.className = 'combobox-item';
+                item.setAttribute('data-value', state.code);
+                item.onclick = function() { selectState(this, state.name); };
+                item.innerHTML = `
+                    <i class="ph ph-check check-icon"></i>
+                    <span class="combobox-item-label">${state.name}</span>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function toggleCombobox(id) {
+            const combobox = document.getElementById(id);
+            const isOpen = combobox.classList.contains('open');
+
+            // Close all comboboxes
+            document.querySelectorAll('.combobox.open').forEach(cb => cb.classList.remove('open'));
+
+            // Toggle this one
+            if (!isOpen) {
+                combobox.classList.add('open');
+                const searchInput = combobox.querySelector('.combobox-search input');
+                if (searchInput) {
+                    searchInput.focus();
+                    searchInput.value = '';
+                    filterComboboxItems(combobox, '');
+                }
+            }
+        }
+
+        function selectState(item, stateName) {
+            const combobox = item.closest('.combobox');
+            const trigger = combobox.querySelector('.combobox-trigger');
+
+            // Update selection
+            combobox.querySelectorAll('.combobox-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+
+            // Update trigger text
+            trigger.innerHTML = `
+                <span class="selected-value">${stateName}</span>
+                <i class="ph ph-caret-up-down chevron"></i>
+            `;
+
+            // Close combobox
+            combobox.classList.remove('open');
+        }
+
+        function selectFamily(item, familyName, description) {
+            const combobox = item.closest('.combobox');
+            const trigger = combobox.querySelector('.combobox-trigger');
+
+            // Update selection
+            combobox.querySelectorAll('.combobox-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+
+            // Update trigger text
+            trigger.innerHTML = `
+                <span class="selected-value">${familyName}</span>
+                <i class="ph ph-caret-up-down chevron"></i>
+            `;
+
+            // Close combobox
+            combobox.classList.remove('open');
+        }
+
+        function filterComboboxItems(combobox, searchTerm) {
+            const items = combobox.querySelectorAll('.combobox-item');
+            const term = searchTerm.toLowerCase();
+
+            items.forEach(item => {
+                const label = item.querySelector('.combobox-item-label').textContent.toLowerCase();
+                const desc = item.querySelector('.combobox-item-description');
+                const descText = desc ? desc.textContent.toLowerCase() : '';
+
+                if (label.includes(term) || descText.includes(term)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Search input handlers
+        document.addEventListener('input', function(e) {
+            if (e.target.closest('.combobox-search')) {
+                const combobox = e.target.closest('.combobox');
+                filterComboboxItems(combobox, e.target.value);
+            }
+        });
+
+        // Close combobox when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.combobox')) {
+                document.querySelectorAll('.combobox.open').forEach(cb => cb.classList.remove('open'));
+            }
         });
     </script>
 </body>

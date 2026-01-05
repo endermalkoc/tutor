@@ -34,8 +34,9 @@ For child students, user selects one of two options:
 2. **Create new family** - Enter new family and guardian information
 
 **If adding to existing family:**
-- Search field to find families by family name, parent name, or email
-- Search results display family name with primary guardian details
+- Combobox to search and select families (type to filter, select from results)
+- Search by family name, parent name, or email
+- Results display family name with primary guardian details
 - Selecting a family links the student to that family's billing and contacts
 - Child inherits family address (no separate address entry needed)
 
@@ -58,7 +59,7 @@ For child students, user selects one of two options:
 - Phone Number (mobile phone)
 - SMS Capable (checkbox - indicates if phone number can receive SMS messages)
 - Address, City, State (only shown for adult students; children inherit family address)
-  - State shown as searchable dropdown for US tutors; text field for other countries
+  - State: combobox with search for US tutors; text field for other countries
   - Country inherited from tutor's registration (not entered on form)
 
 **Lesson Settings**:
@@ -168,9 +169,9 @@ If "Create New Family" is selected:
 - SMS Capable (checkbox - indicates if phone number can receive SMS)
 - Address (street address)
 - City
-- State (searchable dropdown for US tutors; text field for other countries)
+- State (combobox with search for US tutors; text field for other countries)
 
-**Note:** Country is inherited from the tutor's registration country and is not entered on this form. State/Province field adapts based on country (e.g., US states shown as searchable dropdown).
+**Note:** Country is inherited from the tutor's registration country and is not entered on this form. State/Province field adapts based on country (e.g., US states shown as combobox).
 
 **Process:**
 
