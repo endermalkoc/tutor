@@ -828,6 +828,220 @@ Used to show selected family, tags, etc.
 
 ---
 
+### Data Table
+
+**Purpose**: Display student lists, lesson schedules, and other tabular data.
+
+#### Table Container
+```css
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  background: white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+```
+
+#### Table Header
+```css
+thead {
+  background: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+th {
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+```
+
+#### Table Body Rows
+```css
+tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.2s;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+```
+
+#### Table Cells
+```css
+td {
+  padding: 16px 20px;
+  font-size: 15px;
+  color: #1e293b;
+}
+```
+
+#### Row Actions
+```css
+.table-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.table-actions button {
+  padding: 8px 12px;
+  font-size: 13px;
+  background: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.table-actions button:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+```
+
+#### Status Badges (in table)
+```css
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-badge.active {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+.status-badge.pending {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fbbf24;
+}
+
+.status-badge.inactive {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+```
+
+#### Empty State
+```css
+.table-empty {
+  padding: 48px 20px;
+  text-align: center;
+  color: #64748b;
+}
+
+.table-empty-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  color: #cbd5e1;
+}
+```
+
+**Usage Example**:
+```html
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Subjects</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <img src="avatar.jpg" class="avatar avatar-sm">
+            <div>
+              <div style="font-weight: 500;">John Doe</div>
+              <div style="font-size: 13px; color: #64748b;">john@example.com</div>
+            </div>
+          </div>
+        </td>
+        <td>Mathematics, Science</td>
+        <td><span class="status-badge active">Active</span></td>
+        <td>
+          <div class="table-actions">
+            <button>Edit</button>
+            <button>Delete</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+**Mobile Responsiveness**:
+```css
+@media (max-width: 768px) {
+  .table-container {
+    border-radius: 0;
+  }
+
+  /* Card-based layout for mobile */
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody tr {
+    margin-bottom: 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  td {
+    padding: 8px 0;
+    border-bottom: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #475569;
+    display: block;
+    font-size: 12px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+```
+
+---
+
 ## Notification Components
 
 ### Validation Summary
