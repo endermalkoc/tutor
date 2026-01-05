@@ -58,6 +58,8 @@ For child students, user selects one of two options:
 - Phone Number (mobile phone)
 - SMS Capable (checkbox - indicates if phone number can receive SMS messages)
 - Address, City, State (only shown for adult students; children inherit family address)
+  - State shown as searchable dropdown for US tutors; text field for other countries
+  - Country inherited from tutor's registration (not entered on form)
 
 **Lesson Settings**:
 
@@ -166,7 +168,9 @@ If "Create New Family" is selected:
 - SMS Capable (checkbox - indicates if phone number can receive SMS)
 - Address (street address)
 - City
-- State
+- State (searchable dropdown for US tutors; text field for other countries)
+
+**Note:** Country is inherited from the tutor's registration country and is not entered on this form. State/Province field adapts based on country (e.g., US states shown as searchable dropdown).
 
 **Process:**
 
