@@ -1,0 +1,2220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Student - Modern Minimalist Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        .container {
+            max-width: 840px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            padding: 48px 40px 32px;
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 16px;
+            font-weight: 300;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Validation Summary */
+        .validation-summary {
+            display: none;
+            margin: 24px 40px 0;
+            padding: 20px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .validation-summary.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .validation-summary-title {
+            font-weight: 600;
+            color: #dc2626;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+
+        .validation-summary-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .validation-summary-list li {
+            color: #b91c1c;
+            font-size: 14px;
+            margin-top: 6px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .validation-summary-list li::before {
+            content: "→";
+            position: absolute;
+            left: 8px;
+            font-weight: bold;
+        }
+
+        .validation-summary-list a {
+            color: #b91c1c;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .validation-summary-list a:hover {
+            color: #7f1d1d;
+        }
+
+        .form-body {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f1f5f9;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Floating label pattern */
+        .form-group.floating {
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .form-group.floating label {
+            position: absolute;
+            left: 16px;
+            top: 18px;
+            color: #64748b;
+            font-size: 15px;
+            font-weight: 400;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+            padding: 0 4px;
+        }
+
+        .form-group.floating input:focus + label,
+        .form-group.floating input:not(:placeholder-shown) + label,
+        .form-group.floating select:focus + label,
+        .form-group.floating select:not([value=""]) + label,
+        .form-group.floating textarea:focus + label,
+        .form-group.floating textarea:not(:placeholder-shown) + label {
+            top: -8px;
+            left: 12px;
+            font-size: 12px;
+            color: #0ea5e9;
+            font-weight: 500;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 8px;
+            letter-spacing: 0.01em;
+        }
+
+        label.required::after {
+            content: " *";
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        legend {
+            font-size: 13px;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 12px;
+            letter-spacing: 0.01em;
+        }
+
+        legend.required::after {
+            content: " *";
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            padding: 14px 16px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fafafa;
+            color: #1e293b;
+        }
+
+        input:hover, select:hover, textarea:hover {
+            border-color: #cbd5e1;
+            background: white;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+            transform: translateY(-1px);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #94a3b8;
+            opacity: 1;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+
+        .help-text-inline {
+            font-weight: 400;
+            color: #64748b;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        /* Radio button styles - Modern minimalist */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-group.horizontal {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            min-height: 28px;
+        }
+
+        .radio-option:hover label {
+            color: #0ea5e9;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            cursor: pointer;
+            accent-color: #0ea5e9;
+        }
+
+        .radio-option label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+            font-size: 15px;
+            color: #334155;
+            transition: color 0.2s;
+        }
+
+        /* Checkbox styles */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            min-height: 28px;
+        }
+
+        .checkbox-group:hover label {
+            color: #0ea5e9;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            cursor: pointer;
+            accent-color: #0ea5e9;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+            color: #334155;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        /* Family search styles */
+        .family-search-container {
+            position: relative;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            pointer-events: none;
+            transition: color 0.3s;
+        }
+
+        .search-input-wrapper input {
+            padding-left: 48px;
+        }
+
+        .search-input-wrapper:has(input:focus) .search-icon {
+            color: #0ea5e9;
+        }
+
+        .family-search-results {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+            max-height: 320px;
+            overflow-y: auto;
+            z-index: 100;
+            animation: dropdownSlide 0.2s ease-out;
+        }
+
+        @keyframes dropdownSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .family-search-results.visible {
+            display: block;
+        }
+
+        .result-section-header {
+            padding: 12px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #f8fafc;
+            border-bottom: 1px solid #f1f5f9;
+            position: sticky;
+            top: 0;
+        }
+
+        .family-search-result {
+            padding: 14px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #f1f5f9;
+            transition: all 0.2s;
+        }
+
+        .family-search-result:hover {
+            background: #f8fafc;
+            padding-left: 20px;
+        }
+
+        .family-search-result:last-child {
+            border-bottom: none;
+        }
+
+        .family-search-result.create-new {
+            color: #0ea5e9;
+            font-weight: 600;
+            background: #f0f9ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .family-search-result.create-new:hover {
+            background: #e0f2fe;
+        }
+
+        .family-result-name {
+            font-weight: 500;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+
+        .family-result-meta {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .results-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 4px 0;
+        }
+
+        .selected-family {
+            display: none;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .selected-family.visible {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .selected-family-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .selected-icon {
+            color: #0ea5e9;
+            flex-shrink: 0;
+        }
+
+        .clear-selection {
+            background: white;
+            border: 1.5px solid #0ea5e9;
+            color: #0ea5e9;
+            cursor: pointer;
+            padding: 10px 12px;
+            min-width: 40px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .clear-selection:hover {
+            background: #0ea5e9;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .clear-selection:focus {
+            outline: 2px solid #0ea5e9;
+            outline-offset: 2px;
+        }
+
+        .toggle-section {
+            margin: 32px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1.5px dashed #cbd5e1;
+        }
+
+        .toggle-button {
+            background: white;
+            border: 1.5px solid #e2e8f0;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #0ea5e9;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-button:hover {
+            background: #eff6ff;
+            border-color: #0ea5e9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+        }
+
+        .toggle-button:focus {
+            outline: 2px solid #0ea5e9;
+            outline-offset: 2px;
+        }
+
+        .hidden-fields {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hidden-fields.visible {
+            max-height: 3000px;
+            opacity: 1;
+            transform: translateY(0);
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .family-creation {
+            display: none;
+            margin-top: 20px;
+            padding: 24px;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-radius: 12px;
+            border: 1.5px solid #fbbf24;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 1000px;
+            }
+        }
+
+        .family-creation.visible {
+            display: block;
+        }
+
+        .family-creation-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 16px;
+        }
+
+        /* Duplicate warning */
+        .duplicate-warning {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1.5px solid #fbbf24;
+            border-radius: 12px;
+            animation: shake 0.5s ease-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .duplicate-warning.visible {
+            display: block;
+        }
+
+        .duplicate-warning-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .duplicate-warning-content {
+            font-size: 14px;
+            color: #78350f;
+            margin-bottom: 16px;
+        }
+
+        .duplicate-warning-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .duplicate-warning-actions button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1.5px solid #d97706;
+            transition: all 0.2s;
+        }
+
+        .duplicate-warning-actions .btn-proceed {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .duplicate-warning-actions .btn-proceed:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .duplicate-warning-actions .btn-cancel {
+            background: white;
+            color: #92400e;
+        }
+
+        .duplicate-warning-actions .btn-cancel:hover {
+            background: #fef3c7;
+            transform: translateY(-2px);
+        }
+
+        .actions {
+            display: flex;
+            gap: 16px;
+            padding: 32px 40px;
+            border-top: 1px solid #f1f5f9;
+            background: #fafafa;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            position: relative;
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+            flex: 1;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:focus {
+            outline: 2px solid #0ea5e9;
+            outline-offset: 2px;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #64748b;
+            border: 1.5px solid #e2e8f0;
+            font-weight: 500;
+        }
+
+        .btn-secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:focus {
+            outline: 2px solid #cbd5e1;
+            outline-offset: 2px;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .success-modal.visible {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 48px;
+            border-radius: 24px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+            animation: modalSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-content h2 {
+            color: #059669;
+            margin-bottom: 16px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .modal-content p {
+            color: #64748b;
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+            color: #92400e;
+            border: 1.5px solid #fbbf24;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+
+            .container {
+                border-radius: 0;
+            }
+
+            .header {
+                padding: 32px 24px 24px;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+
+            .form-body {
+                padding: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column-reverse;
+                padding: 24px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .modal-content {
+                padding: 32px 24px;
+            }
+
+            .modal-content h2 {
+                font-size: 24px;
+            }
+
+            .family-search-results {
+                max-height: 50vh;
+                position: fixed;
+                left: 0;
+                right: 0;
+                top: auto;
+                bottom: 0;
+                border-radius: 16px 16px 0 0;
+                box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .error {
+            border-color: #f87171 !important;
+            background: #fef2f2 !important;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        input[aria-invalid="true"],
+        select[aria-invalid="true"],
+        textarea[aria-invalid="true"] {
+            border-color: #f87171;
+            background: #fef2f2;
+        }
+
+        .keyboard-hint {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .keyboard-hint {
+                display: none;
+            }
+        }
+
+        /* Network error notification */
+        .network-error {
+            display: none;
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            max-width: 400px;
+            padding: 20px;
+            background: white;
+            border: 1.5px solid #f87171;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(120%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .network-error.visible {
+            display: block;
+        }
+
+        .network-error-title {
+            font-weight: 600;
+            color: #dc2626;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+
+        .network-error-message {
+            font-size: 13px;
+            color: #991b1b;
+            margin-bottom: 16px;
+        }
+
+        .network-error-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .network-error-actions button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .network-error-actions .btn-retry {
+            background: #dc2626;
+            color: white;
+        }
+
+        .network-error-actions .btn-retry:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+
+        .network-error-actions .btn-dismiss {
+            background: white;
+            color: #991b1b;
+            border: 1.5px solid #fecaca;
+        }
+
+        .network-error-actions .btn-dismiss:hover {
+            background: #fef2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header" role="banner">
+            <h1>Add New Student</h1>
+            <p>Create a student record with contact, academic, and billing information</p>
+        </header>
+
+        <!-- Validation Summary -->
+        <div class="validation-summary" id="validationSummary" role="alert" aria-live="assertive">
+            <div class="validation-summary-title">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293z"/>
+                </svg>
+                Please correct the following errors:
+            </div>
+            <ul class="validation-summary-list" id="validationSummaryList">
+            </ul>
+        </div>
+
+        <form id="addStudentForm" onsubmit="submitForm(event); return false;" novalidate>
+            <div class="form-body">
+                <!-- Basic Information -->
+                <section class="section">
+                    <h2 class="section-title">Basic Information <span class="tag" role="status">All fields required</span></h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="required">
+                                First Name
+                                <span class="sr-only">required</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                autocomplete="given-name"
+                                placeholder="Enter first name"
+                                required
+                                aria-required="true"
+                                aria-describedby="firstNameError"
+                                onblur="checkDuplicate()">
+                            <span class="error-message" id="firstNameError" role="alert"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="required">
+                                Last Name
+                                <span class="sr-only">required</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                autocomplete="family-name"
+                                placeholder="Enter last name"
+                                required
+                                aria-required="true"
+                                aria-describedby="lastNameError"
+                                onblur="checkDuplicate()">
+                            <span class="error-message" id="lastNameError" role="alert"></span>
+                        </div>
+                    </div>
+
+                    <!-- Duplicate Warning -->
+                    <div class="duplicate-warning" id="duplicateWarning" role="alert">
+                        <div class="duplicate-warning-title">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/>
+                            </svg>
+                            Possible Duplicate Student
+                        </div>
+                        <div class="duplicate-warning-content">
+                            A student with a similar name exists in the <strong id="duplicateFamilyName"></strong>. Are you sure you want to create a new student?
+                        </div>
+                        <div class="duplicate-warning-actions">
+                            <button type="button" class="btn-proceed" onclick="proceedWithDuplicate()">Yes, Create New Student</button>
+                            <button type="button" class="btn-cancel" onclick="cancelDuplicate()">No, Let Me Review</button>
+                        </div>
+                    </div>
+
+                    <div class="form-row single">
+                        <fieldset>
+                            <legend class="required">
+                                Student Type
+                                <span class="sr-only">required</span>
+                            </legend>
+                            <div class="radio-group horizontal" role="radiogroup" aria-required="true">
+                                <div class="radio-option">
+                                    <input
+                                        type="radio"
+                                        id="typeChild"
+                                        name="studentType"
+                                        value="child"
+                                        checked
+                                        aria-checked="true">
+                                    <label for="typeChild">Child</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input
+                                        type="radio"
+                                        id="typeAdult"
+                                        name="studentType"
+                                        value="adult"
+                                        aria-checked="false">
+                                    <label for="typeAdult">Adult</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row single">
+                        <fieldset>
+                            <legend class="required">
+                                Status
+                                <span class="sr-only">required</span>
+                            </legend>
+                            <div class="radio-group horizontal" role="radiogroup" aria-required="true">
+                                <div class="radio-option">
+                                    <input type="radio" id="statusActive" name="status" value="active" checked aria-checked="true">
+                                    <label for="statusActive">Active</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="statusTrial" name="status" value="trial" aria-checked="false">
+                                    <label for="statusTrial">Trial</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="statusWaiting" name="status" value="waiting" aria-checked="false">
+                                    <label for="statusWaiting">Waiting</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="statusLead" name="status" value="lead" aria-checked="false">
+                                    <label for="statusLead">Lead</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="statusInactive" name="status" value="inactive" aria-checked="false">
+                                    <label for="statusInactive">Inactive</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row single">
+                        <div class="form-group">
+                            <label for="familySearch" class="required">
+                                Family
+                                <span class="sr-only">required</span>
+                                <span class="help-text-inline">Search existing or create new</span>
+                            </label>
+
+                            <!-- Selected State -->
+                            <div class="selected-family" id="selectedFamily" role="status" aria-live="polite">
+                                <div class="selected-family-content">
+                                    <svg class="selected-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                                    </svg>
+                                    <span id="selectedFamilyName"></span>
+                                </div>
+                                <button
+                                    class="clear-selection"
+                                    onclick="clearFamilySelection()"
+                                    aria-label="Clear family selection"
+                                    type="button">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <!-- Search State -->
+                            <div class="family-search-container" id="familySearchContainer">
+                                <div class="search-input-wrapper">
+                                    <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/>
+                                    </svg>
+                                    <input
+                                        type="text"
+                                        id="familySearch"
+                                        placeholder="Search families..."
+                                        autocomplete="off"
+                                        role="combobox"
+                                        aria-expanded="false"
+                                        aria-controls="familyResults"
+                                        aria-autocomplete="list"
+                                        aria-label="Search for existing family or create new family"
+                                        aria-describedby="familyError"
+                                        onfocus="showFamilyResults()"
+                                        oninput="debouncedFilterFamilies(this.value)">
+                                </div>
+
+                                <div class="family-search-results" id="familyResults" role="listbox" aria-label="Family search results">
+                                    <div class="result-section-header">Existing Families</div>
+                                    <div class="family-search-result" role="option" tabindex="0" onclick="selectFamily('fam1', 'Smith Family', 3)" onkeydown="handleResultKeydown(event, 'fam1', 'Smith Family', 3)">
+                                        <div class="family-result-name">Smith Family</div>
+                                        <div class="family-result-meta">3 students</div>
+                                    </div>
+                                    <div class="family-search-result" role="option" tabindex="0" onclick="selectFamily('fam2', 'Johnson Family', 1)" onkeydown="handleResultKeydown(event, 'fam2', 'Johnson Family', 1)">
+                                        <div class="family-result-name">Johnson Family</div>
+                                        <div class="family-result-meta">1 student</div>
+                                    </div>
+                                    <div class="family-search-result" role="option" tabindex="0" onclick="selectFamily('fam3', 'Williams Family', 2)" onkeydown="handleResultKeydown(event, 'fam3', 'Williams Family', 2)">
+                                        <div class="family-result-name">Williams Family</div>
+                                        <div class="family-result-meta">2 students</div>
+                                    </div>
+
+                                    <div class="results-divider" role="separator"></div>
+
+                                    <div class="family-search-result create-new" role="option" tabindex="0" onclick="selectCreateNew()" onkeydown="handleCreateNewKeydown(event)">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                                        </svg>
+                                        <span>Create New Family</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <span class="error-message" id="familyError" role="alert"></span>
+                        </div>
+                    </div>
+
+                    <!-- New Family Creation Section -->
+                    <div class="family-creation" id="familyCreation" role="region" aria-label="New family information">
+                        <div class="family-creation-title">Guardian Information (Required for New Family)</div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="guardianFirstName" class="required">Guardian First Name</label>
+                                <input
+                                    type="text"
+                                    id="guardianFirstName"
+                                    autocomplete="given-name"
+                                    placeholder="Enter guardian first name">
+                            </div>
+                            <div class="form-group">
+                                <label for="guardianLastName" class="required">Guardian Last Name</label>
+                                <input
+                                    type="text"
+                                    id="guardianLastName"
+                                    autocomplete="family-name"
+                                    placeholder="Enter guardian last name">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="guardianEmail">Guardian Email</label>
+                                <input
+                                    type="email"
+                                    id="guardianEmail"
+                                    inputmode="email"
+                                    autocomplete="email"
+                                    placeholder="guardian@example.com">
+                                <span class="help-text">Required: Email OR Phone Number</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="guardianPhone">Guardian Phone</label>
+                                <input
+                                    type="tel"
+                                    id="guardianPhone"
+                                    inputmode="tel"
+                                    autocomplete="tel"
+                                    placeholder="(555) 123-4567"
+                                    oninput="formatPhoneNumber(this)">
+                                <span class="help-text">Required: Email OR Phone Number</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="guardianSmsCapable" checked>
+                                <label for="guardianSmsCapable">Guardian phone is SMS capable</label>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label for="guardianAddress">Guardian Address</label>
+                                <input
+                                    type="text"
+                                    id="guardianAddress"
+                                    autocomplete="street-address"
+                                    placeholder="Street address">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="guardianCity">City</label>
+                                <input
+                                    type="text"
+                                    id="guardianCity"
+                                    autocomplete="address-level2"
+                                    placeholder="City">
+                            </div>
+                            <div class="form-group">
+                                <label for="guardianState">State</label>
+                                <input
+                                    type="text"
+                                    id="guardianState"
+                                    autocomplete="address-level1"
+                                    placeholder="State">
+                            </div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="guardianInvoiceRecipient" checked>
+                            <label for="guardianInvoiceRecipient">Preferred Invoice Recipient</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="guardianShowPortal" checked>
+                            <label for="guardianShowPortal">Show in Student Portal Contacts</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="guardianEmailReminders" checked>
+                            <label for="guardianEmailReminders">Send Email Lesson Reminders</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="guardianSmsReminders" checked>
+                            <label for="guardianSmsReminders">Send SMS Lesson Reminders</label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Student Contact Information -->
+                <section class="section">
+                    <h2 class="section-title">Student Contact Information</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input
+                                type="email"
+                                id="email"
+                                inputmode="email"
+                                autocomplete="email"
+                                placeholder="student@example.com"
+                                aria-describedby="emailError">
+                            <span class="error-message" id="emailError" role="alert"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                inputmode="tel"
+                                autocomplete="tel"
+                                placeholder="(555) 123-4567"
+                                oninput="formatPhoneNumber(this)">
+                        </div>
+                    </div>
+
+                    <div class="form-row single">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="smsCapable" checked>
+                            <label for="smsCapable">Phone is SMS capable</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row single">
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input
+                                type="text"
+                                id="address"
+                                autocomplete="street-address"
+                                placeholder="Street address">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input
+                                type="text"
+                                id="city"
+                                autocomplete="address-level2"
+                                placeholder="City">
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input
+                                type="text"
+                                id="state"
+                                autocomplete="address-level1"
+                                placeholder="State">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="zip">ZIP Code</label>
+                            <input
+                                type="text"
+                                id="zip"
+                                inputmode="numeric"
+                                autocomplete="postal-code"
+                                placeholder="12345">
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input
+                                type="text"
+                                id="country"
+                                autocomplete="country-name"
+                                placeholder="Country"
+                                value="United States">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Lesson Settings -->
+                <section class="section">
+                    <h2 class="section-title">Lesson Settings</h2>
+
+                    <div class="form-row single">
+                        <fieldset>
+                            <legend>Lesson Category</legend>
+                            <div class="radio-group horizontal" role="radiogroup">
+                                <div class="radio-option">
+                                    <input type="radio" id="catLesson" name="lessonCategory" value="lesson" checked aria-checked="true">
+                                    <label for="catLesson">Lesson</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="catGroup" name="lessonCategory" value="group" aria-checked="false">
+                                    <label for="catGroup">Group Lesson</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="catVacation" name="lessonCategory" value="vacation" aria-checked="false">
+                                    <label for="catVacation">Vacation</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="duration">Default Duration (minutes)</label>
+                            <input
+                                type="number"
+                                id="duration"
+                                inputmode="numeric"
+                                placeholder="30"
+                                value="30"
+                                min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="billingType">Default Billing Type</label>
+                            <select id="billingType">
+                                <option value="">Select billing type...</option>
+                                <option value="per-lesson">Per Lesson</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="package">Package</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input
+                                type="number"
+                                id="price"
+                                inputmode="decimal"
+                                placeholder="0.00"
+                                step="0.01"
+                                min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="priceType">Price Type</label>
+                            <select id="priceType">
+                                <option value="">Select price type...</option>
+                                <option value="hourly">Hourly</option>
+                                <option value="per-session">Per Session</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Notes -->
+                <section class="section">
+                    <h2 class="section-title">Notes</h2>
+                    <div class="form-row single">
+                        <div class="form-group">
+                            <label for="notes">Private Tutor Notes</label>
+                            <textarea id="notes" placeholder="Add any private notes about this student..." aria-describedby="notesHelp"></textarea>
+                            <span class="help-text" id="notesHelp">These notes are only visible to tutors</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Student Reminder Settings (visible when creating new family) -->
+                <section class="section" id="studentReminderSettings" style="display: none;">
+                    <h2 class="section-title">Student Reminder Settings</h2>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="emailRemindersVisible" checked>
+                        <label for="emailRemindersVisible">Send Email Lesson Reminders to Student</label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="smsRemindersVisible" checked>
+                        <label for="smsRemindersVisible">Send SMS Lesson Reminders to Student</label>
+                    </div>
+                </section>
+
+                <!-- Show More Fields Toggle -->
+                <div class="toggle-section">
+                    <button
+                        class="toggle-button"
+                        onclick="toggleAdditionalFields()"
+                        aria-expanded="false"
+                        aria-controls="additionalFields"
+                        type="button">
+                        <span id="toggleText">Show More Fields</span>
+                        <span class="keyboard-hint">Alt+M</span>
+                    </button>
+
+                    <div class="hidden-fields" id="additionalFields">
+                        <!-- Personal Information -->
+                        <section class="section">
+                            <h2 class="section-title">Personal Information</h2>
+
+                            <div class="form-row">
+                                <fieldset>
+                                    <legend>Gender</legend>
+                                    <div class="radio-group" role="radiogroup">
+                                        <div class="radio-option">
+                                            <input type="radio" id="genderMale" name="gender" value="male">
+                                            <label for="genderMale">Male</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="genderFemale" name="gender" value="female">
+                                            <label for="genderFemale">Female</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="genderOther" name="gender" value="other">
+                                            <label for="genderOther">Other</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="genderPreferNot" name="gender" value="prefer-not">
+                                            <label for="genderPreferNot">Prefer not to say</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="form-group">
+                                    <label for="birthday">Birthday</label>
+                                    <input type="date" id="birthday">
+                                </div>
+                            </div>
+
+                            <div class="form-row single">
+                                <div class="form-group">
+                                    <label for="school">School</label>
+                                    <input type="text" id="school" placeholder="Start typing school name..." aria-describedby="schoolHelp">
+                                    <span class="help-text" id="schoolHelp">Auto-complete enabled</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Academic Information -->
+                        <section class="section">
+                            <h2 class="section-title">Academic Information</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="subjects">Subjects</label>
+                                    <select id="subjects" multiple size="3" aria-describedby="subjectsHelp">
+                                        <option value="math">Mathematics</option>
+                                        <option value="science">Science</option>
+                                        <option value="english">English</option>
+                                        <option value="history">History</option>
+                                        <option value="music">Music</option>
+                                        <option value="art">Art</option>
+                                    </select>
+                                    <span class="help-text" id="subjectsHelp">Hold Ctrl/Cmd to select multiple</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="skillLevel">Skill Level</label>
+                                    <select id="skillLevel">
+                                        <option value="">Select skill level...</option>
+                                        <option value="beginner">Beginner</option>
+                                        <option value="intermediate">Intermediate</option>
+                                        <option value="advanced">Advanced</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Communication Apps -->
+                        <section class="section">
+                            <h2 class="section-title">Communication Apps</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="skype">Skype Username</label>
+                                    <input type="text" id="skype" placeholder="skype.username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="facetime">FaceTime ID</label>
+                                    <input type="text" id="facetime" placeholder="facetime@example.com">
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Reminder Settings (hidden by default, but shown when creating new family) -->
+                        <section class="section" id="reminderSettingsHidden">
+                            <h2 class="section-title">Student Reminder Settings</h2>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emailReminders" checked>
+                                <label for="emailReminders">Send Email Lesson Reminders to Student</label>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="smsReminders" checked>
+                                <label for="smsReminders">Send SMS Lesson Reminders to Student</label>
+                            </div>
+                        </section>
+
+                        <!-- Other Information -->
+                        <section class="section">
+                            <h2 class="section-title">Other Information</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="referrer">Referrer</label>
+                                    <input type="text" id="referrer" placeholder="How did they find you?" aria-describedby="referrerHelp">
+                                    <span class="help-text" id="referrerHelp">Previous referrers will auto-suggest</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="studentSince">Student Since</label>
+                                    <input type="date" id="studentSince">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button
+                    class="btn btn-secondary"
+                    type="button"
+                    onclick="handleCancel()"
+                    aria-label="Cancel and return to previous page">
+                    Cancel
+                    <span class="keyboard-hint">Esc</span>
+                </button>
+                <button
+                    class="btn btn-primary"
+                    type="submit"
+                    id="submitBtn"
+                    aria-label="Create new student record">
+                    Create Student
+                    <span class="keyboard-hint">⌘Enter</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content" role="document">
+            <h2 id="modalTitle">✓ Student Added Successfully</h2>
+            <p id="successMessage">Student "John Doe" has been added successfully.</p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="viewStudent()">View Student Details</button>
+                <button class="btn btn-primary" onclick="scheduleLesson()">Schedule First Lesson</button>
+                <button class="btn btn-primary" onclick="window.location.reload()">Add Another Student</button>
+                <button class="btn btn-secondary" onclick="closeModal()">Return to Student List</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Network Error Notification -->
+    <div class="network-error" id="networkError" role="alert" aria-live="assertive">
+        <div class="network-error-title">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"/>
+            </svg>
+            Network Error
+        </div>
+        <div class="network-error-message">
+            Unable to save student record. Your data has been preserved. Please check your connection and try again.
+        </div>
+        <div class="network-error-actions">
+            <button class="btn-retry" onclick="retrySubmit()">Retry</button>
+            <button class="btn-dismiss" onclick="dismissNetworkError()">Dismiss</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedFamilyId = null;
+        let duplicateCheckOverride = false;
+        let formDataCache = null;
+
+        // Debounce utility
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        const debouncedFilterFamilies = debounce(filterFamilies, 300);
+
+        function toggleAdditionalFields() {
+            const fields = document.getElementById('additionalFields');
+            const toggleText = document.getElementById('toggleText');
+            const button = document.querySelector('.toggle-button');
+
+            if (fields.classList.contains('visible')) {
+                fields.classList.remove('visible');
+                toggleText.textContent = 'Show More Fields';
+                button.setAttribute('aria-expanded', 'false');
+            } else {
+                fields.classList.add('visible');
+                toggleText.textContent = 'Hide Additional Fields';
+                button.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        function showFamilyResults() {
+            const results = document.getElementById('familyResults');
+            const searchInput = document.getElementById('familySearch');
+            results.classList.add('visible');
+            searchInput.setAttribute('aria-expanded', 'true');
+        }
+
+        function hideFamilyResults() {
+            setTimeout(() => {
+                const results = document.getElementById('familyResults');
+                const searchInput = document.getElementById('familySearch');
+                results.classList.remove('visible');
+                searchInput.setAttribute('aria-expanded', 'false');
+            }, 200);
+        }
+
+        function filterFamilies(searchText) {
+            const results = document.querySelectorAll('.family-search-result:not(.create-new)');
+            const searchLower = searchText.toLowerCase();
+
+            results.forEach(result => {
+                const name = result.querySelector('.family-result-name').textContent.toLowerCase();
+                if (name.includes(searchLower)) {
+                    result.style.display = 'block';
+                } else {
+                    result.style.display = 'none';
+                }
+            });
+        }
+
+        function selectFamily(id, name, studentCount) {
+            selectedFamilyId = id;
+            document.getElementById('familySearchContainer').style.display = 'none';
+            document.getElementById('selectedFamily').classList.add('visible');
+            document.getElementById('selectedFamilyName').textContent = `${name} (${studentCount} students)`;
+            document.getElementById('familyCreation').classList.remove('visible');
+            document.getElementById('familySearch').setAttribute('aria-expanded', 'false');
+
+            // Hide student reminder settings when selecting existing family
+            document.getElementById('studentReminderSettings').style.display = 'none';
+            document.getElementById('reminderSettingsHidden').style.display = 'block';
+        }
+
+        function selectCreateNew() {
+            selectedFamilyId = 'new';
+            document.getElementById('familySearchContainer').style.display = 'none';
+            document.getElementById('selectedFamily').classList.add('visible');
+            document.getElementById('selectedFamilyName').textContent = 'New Family (will be created)';
+            document.getElementById('familyCreation').classList.add('visible');
+            document.getElementById('familySearch').setAttribute('aria-expanded', 'false');
+
+            // Show student reminder settings when creating new family
+            document.getElementById('studentReminderSettings').style.display = 'block';
+            document.getElementById('reminderSettingsHidden').style.display = 'none';
+        }
+
+        function clearFamilySelection() {
+            selectedFamilyId = null;
+            document.getElementById('selectedFamily').classList.remove('visible');
+            document.getElementById('familySearchContainer').style.display = 'block';
+            document.getElementById('familyCreation').classList.remove('visible');
+            document.getElementById('familySearch').value = '';
+            document.getElementById('familySearch').focus();
+
+            // Reset reminder settings visibility
+            document.getElementById('studentReminderSettings').style.display = 'none';
+            document.getElementById('reminderSettingsHidden').style.display = 'block';
+        }
+
+        function handleResultKeydown(event, id, name, count) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                selectFamily(id, name, count);
+            }
+        }
+
+        function handleCreateNewKeydown(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                selectCreateNew();
+            }
+        }
+
+        // Close results when clicking outside
+        document.addEventListener('click', function(event) {
+            const searchContainer = document.querySelector('.family-search-container');
+            if (searchContainer && !searchContainer.contains(event.target)) {
+                hideFamilyResults();
+            }
+        });
+
+        // Format phone number
+        function formatPhoneNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 10) value = value.slice(0, 10);
+
+            if (value.length >= 6) {
+                input.value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
+            } else if (value.length >= 3) {
+                input.value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+            } else {
+                input.value = value;
+            }
+        }
+
+        // Email validation
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Duplicate detection
+        function checkDuplicate() {
+            if (duplicateCheckOverride) return;
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+
+            if (firstName && lastName && selectedFamilyId) {
+                // Simulate duplicate check - in real app, this would be an API call
+                if (firstName.toLowerCase() === 'john' && lastName.toLowerCase() === 'smith' && selectedFamilyId === 'fam1') {
+                    document.getElementById('duplicateFamilyName').textContent = 'Smith Family';
+                    document.getElementById('duplicateWarning').classList.add('visible');
+                }
+            }
+        }
+
+        function proceedWithDuplicate() {
+            duplicateCheckOverride = true;
+            document.getElementById('duplicateWarning').classList.remove('visible');
+        }
+
+        function cancelDuplicate() {
+            document.getElementById('duplicateWarning').classList.remove('visible');
+            document.getElementById('firstName').focus();
+        }
+
+        // Inline validation
+        function setupInlineValidation() {
+            // First name validation
+            document.getElementById('firstName').addEventListener('blur', function() {
+                const errorEl = document.getElementById('firstNameError');
+                if (!this.value.trim()) {
+                    this.setAttribute('aria-invalid', 'true');
+                    this.classList.add('error');
+                    errorEl.textContent = 'First name is required';
+                    errorEl.classList.add('visible');
+                } else {
+                    this.removeAttribute('aria-invalid');
+                    this.classList.remove('error');
+                    errorEl.classList.remove('visible');
+                }
+            });
+
+            // Last name validation
+            document.getElementById('lastName').addEventListener('blur', function() {
+                const errorEl = document.getElementById('lastNameError');
+                if (!this.value.trim()) {
+                    this.setAttribute('aria-invalid', 'true');
+                    this.classList.add('error');
+                    errorEl.textContent = 'Last name is required';
+                    errorEl.classList.add('visible');
+                } else {
+                    this.removeAttribute('aria-invalid');
+                    this.classList.remove('error');
+                    errorEl.classList.remove('visible');
+                }
+            });
+
+            // Email validation
+            document.getElementById('email').addEventListener('blur', function() {
+                const errorEl = document.getElementById('emailError');
+                if (this.value && !validateEmail(this.value)) {
+                    this.setAttribute('aria-invalid', 'true');
+                    this.classList.add('error');
+                    errorEl.textContent = 'Please enter a valid email address';
+                    errorEl.classList.add('visible');
+                } else {
+                    this.removeAttribute('aria-invalid');
+                    this.classList.remove('error');
+                    errorEl.classList.remove('visible');
+                }
+            });
+
+            // Clear errors on input
+            document.querySelectorAll('input, select, textarea').forEach(field => {
+                field.addEventListener('input', function() {
+                    this.removeAttribute('aria-invalid');
+                    this.classList.remove('error');
+                    const errorId = this.getAttribute('aria-describedby');
+                    if (errorId) {
+                        const errorEl = document.getElementById(errorId);
+                        if (errorEl && errorEl.classList.contains('error-message')) {
+                            errorEl.classList.remove('visible');
+                        }
+                    }
+                });
+            });
+        }
+
+        function submitForm(event) {
+            if (event) {
+                event.preventDefault();
+            }
+
+            // Show loading state
+            const submitBtn = document.getElementById('submitBtn');
+            const originalContent = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> Creating Student...';
+
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+            document.querySelectorAll('.error-message').forEach(el => el.classList.remove('visible'));
+            document.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+            document.getElementById('validationSummary').classList.remove('visible');
+            document.getElementById('validationSummaryList').innerHTML = '';
+
+            let hasErrors = false;
+            let errors = [];
+
+            // Validate required fields
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const firstNameError = document.getElementById('firstNameError');
+            const lastNameError = document.getElementById('lastNameError');
+            const familyError = document.getElementById('familyError');
+
+            if (!firstName.value.trim()) {
+                firstName.setAttribute('aria-invalid', 'true');
+                firstName.classList.add('error');
+                firstNameError.textContent = 'First name is required';
+                firstNameError.classList.add('visible');
+                errors.push({ field: 'firstName', message: 'First name is required' });
+                hasErrors = true;
+            }
+
+            if (!lastName.value.trim()) {
+                lastName.setAttribute('aria-invalid', 'true');
+                lastName.classList.add('error');
+                lastNameError.textContent = 'Last name is required';
+                lastNameError.classList.add('visible');
+                errors.push({ field: 'lastName', message: 'Last name is required' });
+                hasErrors = true;
+            }
+
+            if (!selectedFamilyId) {
+                document.getElementById('familySearch').setAttribute('aria-invalid', 'true');
+                document.getElementById('familySearch').classList.add('error');
+                familyError.textContent = 'Family selection is required';
+                familyError.classList.add('visible');
+                errors.push({ field: 'familySearch', message: 'Family selection is required' });
+                hasErrors = true;
+            }
+
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            if (email.value && !validateEmail(email.value)) {
+                email.setAttribute('aria-invalid', 'true');
+                email.classList.add('error');
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.classList.add('visible');
+                errors.push({ field: 'email', message: 'Please enter a valid email address' });
+                hasErrors = true;
+            }
+
+            if (hasErrors) {
+                // Show validation summary
+                const summaryList = document.getElementById('validationSummaryList');
+                errors.forEach(error => {
+                    const li = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.textContent = error.message;
+                    link.href = '#';
+                    link.onclick = (e) => {
+                        e.preventDefault();
+                        document.getElementById(error.field).focus();
+                    };
+                    li.appendChild(link);
+                    summaryList.appendChild(li);
+                });
+                document.getElementById('validationSummary').classList.add('visible');
+
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalContent;
+
+                // Scroll to validation summary
+                document.getElementById('validationSummary').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                // Cache form data
+                formDataCache = new FormData(document.getElementById('addStudentForm'));
+
+                // Simulate API call
+                setTimeout(() => {
+                    // Simulate random network error (10% chance)
+                    if (Math.random() < 0.1) {
+                        showNetworkError();
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalContent;
+                    } else {
+                        const fullName = `${firstName.value} ${lastName.value}`;
+                        document.getElementById('successMessage').textContent =
+                            `Student "${fullName}" has been added successfully.`;
+                        showModal();
+
+                        // Reset button
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalContent;
+                    }
+                }, 1500);
+            }
+        }
+
+        function retrySubmit() {
+            dismissNetworkError();
+            submitForm();
+        }
+
+        function showNetworkError() {
+            document.getElementById('networkError').classList.add('visible');
+        }
+
+        function dismissNetworkError() {
+            document.getElementById('networkError').classList.remove('visible');
+        }
+
+        function handleCancel() {
+            if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                window.history.back();
+            }
+        }
+
+        function showModal() {
+            const modal = document.getElementById('successModal');
+            const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            const firstFocusable = focusableElements[0];
+            const lastFocusable = focusableElements[focusableElements.length - 1];
+
+            window.modalPreviousFocus = document.activeElement;
+
+            modal.classList.add('visible');
+            firstFocusable.focus();
+
+            // Focus trap
+            function trapFocus(e) {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstFocusable) {
+                            lastFocusable.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastFocusable) {
+                            firstFocusable.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            }
+
+            modal.addEventListener('keydown', trapFocus);
+            window.modalTrapFunction = trapFocus;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('visible');
+
+            if (window.modalTrapFunction) {
+                modal.removeEventListener('keydown', window.modalTrapFunction);
+            }
+
+            if (window.modalPreviousFocus) {
+                window.modalPreviousFocus.focus();
+            }
+        }
+
+        function viewStudent() {
+            alert('Navigate to student detail page (not implemented in wireframe)');
+        }
+
+        function scheduleLesson() {
+            alert('Navigate to schedule lesson page (not implemented in wireframe)');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + Enter to submit
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('addStudentForm').requestSubmit();
+            }
+
+            // Escape to cancel (if no modal open)
+            if (e.key === 'Escape' && !document.getElementById('successModal').classList.contains('visible')) {
+                handleCancel();
+            }
+
+            // Alt + M to toggle more fields
+            if (e.altKey && e.key === 'm') {
+                e.preventDefault();
+                toggleAdditionalFields();
+            }
+        });
+
+        // Initialize
+        window.onload = function() {
+            document.getElementById('country').value = 'United States';
+            document.getElementById('duration').value = '30';
+            setupInlineValidation();
+        }
+    </script>
+</body>
+</html>
