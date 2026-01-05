@@ -103,13 +103,14 @@ If our platform were a person, they would be:
 
 ### Color Philosophy
 
-**Primary**: Sky Blue (#0ea5e9)
-- **Why**: Trustworthy, calm, professional
+**Primary**: Violet Purple (#7c3aed)
+- **Why**: Creative, sophisticated, inspires wisdom and innovation
 - **Where**: Primary actions, focus states, brand elements
 - **Not**: Aggressive, overwhelming, everywhere
+- **Conveys**: Advanced learning, creativity, professional development
 
-**Secondary**: Cyan (#06b6d4)
-- **Why**: Complements primary, adds visual interest
+**Secondary**: Light Violet (#a78bfa)
+- **Why**: Complements primary, adds visual warmth and depth
 - **Where**: Gradients, accents, hover states
 
 **Success**: Emerald Green (#10b981)
@@ -120,9 +121,10 @@ If our platform were a person, they would be:
 - **Why**: Clear warning signal, attention-grabbing
 - **Where**: Error messages, validation failures, warnings
 
-**Neutrals**: Slate Grays (#0f172a → #f8fafc)
-- **Why**: Professional, calm, recedes appropriately
+**Neutrals**: Zinc Grays (#18181b → #fafafa)
+- **Why**: Warmer, more sophisticated than traditional grays; complements purple
 - **Where**: Text, backgrounds, borders, structure
+- **Benefit**: Creates a cohesive, harmonious palette with excellent readability
 
 ### Typography Philosophy
 
@@ -366,7 +368,7 @@ We know our brand is working when:
 - Calm, minimalist aesthetic
 
 ### What Can Evolve:
-- Specific color values (but keep blue/green foundation)
+- Specific color values (but keep purple/sophisticated foundation)
 - Component styling details (rounded corners, shadows)
 - Illustration style (as long as minimalist)
 - Micro-interaction details (duration, easing)

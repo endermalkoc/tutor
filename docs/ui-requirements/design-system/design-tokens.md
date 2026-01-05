@@ -18,30 +18,30 @@ Design tokens are the atomic building blocks of our design system. They define t
 ### Primary Palette
 
 ```css
-/* Brand Colors */
---color-brand-primary: #0ea5e9;      /* Sky blue */
---color-brand-secondary: #06b6d4;    /* Cyan */
---color-brand-gradient: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+/* Brand Colors - Twilight Purple */
+--color-brand-primary: #7c3aed;      /* Violet 600 */
+--color-brand-secondary: #a78bfa;    /* Violet 400 */
+--color-brand-gradient: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
 
-/* Text Colors */
---color-text-primary: #0f172a;       /* Slate 900 - Headings, labels */
---color-text-secondary: #475569;     /* Slate 600 - Body text */
---color-text-tertiary: #64748b;      /* Slate 500 - Help text, meta */
---color-text-disabled: #94a3b8;      /* Slate 400 - Disabled */
+/* Text Colors - Zinc Scale */
+--color-text-primary: #18181b;       /* Zinc 900 - Headings, labels */
+--color-text-secondary: #52525b;     /* Zinc 600 - Body text */
+--color-text-tertiary: #71717a;      /* Zinc 500 - Help text, meta */
+--color-text-disabled: #a1a1aa;      /* Zinc 400 - Disabled */
 --color-text-inverted: #ffffff;      /* White - On dark backgrounds */
 
 /* Background Colors */
 --color-bg-primary: #ffffff;         /* White - Main background */
---color-bg-secondary: #f8fafc;       /* Slate 50 - Section background */
---color-bg-tertiary: #fafafa;        /* Off-white - Input default */
---color-bg-hover: #f1f5f9;          /* Slate 100 - Hover states */
---color-bg-selected: #eff6ff;        /* Blue 50 - Selected states */
+--color-bg-secondary: #f5f3ff;       /* Violet 50 - Section background */
+--color-bg-tertiary: #fafafa;        /* Zinc 50 - Input default */
+--color-bg-hover: #fafafa;           /* Zinc 50 - Hover states */
+--color-bg-selected: #faf5ff;        /* Violet 50 - Selected states */
 
-/* Border Colors */
---color-border-default: #e2e8f0;     /* Slate 200 - Default borders */
---color-border-hover: #cbd5e1;       /* Slate 300 - Hover borders */
---color-border-focus: #0ea5e9;       /* Brand - Focus states */
---color-border-divider: #f1f5f9;     /* Slate 100 - Subtle dividers */
+/* Border Colors - Zinc Scale */
+--color-border-default: #e4e4e7;     /* Zinc 200 - Default borders */
+--color-border-hover: #d4d4d8;       /* Zinc 300 - Hover borders */
+--color-border-focus: #7c3aed;       /* Brand - Focus states */
+--color-border-divider: #f5f3ff;     /* Violet 50 - Subtle dividers */
 ```
 
 ### Semantic Colors
@@ -65,11 +65,11 @@ Design tokens are the atomic building blocks of our design system. They define t
 --color-warning-border: #fcd34d;     /* Amber 300 */
 --color-warning-text: #d97706;       /* Amber 600 */
 
-/* Info States */
---color-info: #3b82f6;               /* Blue 500 */
---color-info-bg: #eff6ff;            /* Blue 50 */
---color-info-border: #93c5fd;        /* Blue 300 */
---color-info-text: #2563eb;          /* Blue 600 */
+/* Info States - Purple-tinted */
+--color-info: #7c3aed;               /* Violet 600 */
+--color-info-bg: #faf5ff;            /* Violet 50 */
+--color-info-border: #d8b4fe;        /* Violet 300 */
+--color-info-text: #6d28d9;          /* Violet 700 */
 ```
 
 ---
@@ -170,12 +170,12 @@ Design tokens are the atomic building blocks of our design system. They define t
 --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
 --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.16);
 
-/* Button Shadows */
---shadow-button: 0 4px 16px rgba(14, 165, 233, 0.3);
---shadow-button-hover: 0 8px 24px rgba(14, 165, 233, 0.4);
+/* Button Shadows - Purple-tinted */
+--shadow-button: 0 4px 16px rgba(124, 58, 237, 0.3);
+--shadow-button-hover: 0 8px 24px rgba(124, 58, 237, 0.4);
 
 /* Focus Shadow */
---shadow-focus: 0 0 0 4px rgba(14, 165, 233, 0.1);
+--shadow-focus: 0 0 0 4px rgba(124, 58, 237, 0.1);
 ```
 
 ---
