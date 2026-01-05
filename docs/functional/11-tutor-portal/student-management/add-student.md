@@ -40,8 +40,8 @@ For child students, user selects one of two options:
 - Child inherits family address (no separate address entry needed)
 
 **If creating new family:**
-- Family Name field (used to group students from same household)
 - Primary Guardian information (see "Creating New Family" section below)
+- Family name automatically derived from guardian's last name (e.g., "Smith Family")
 - Child inherits family address from guardian
 
 **For adult students:**
@@ -103,12 +103,6 @@ Additional fields hidden by default. User can show these fields by clicking "Sho
 - Skype Username
 - FaceTime ID
 
-**Reminder Settings** (hidden by default):
-
-- Send Email Lesson Reminders (enabled/disabled)
-- Send SMS Lesson Reminders (enabled/disabled)
-- **Note**: These fields are ALWAYS visible when creating a new family (not hidden)
-
 **Other Information** (hidden by default):
 
 - Referrer (how student found the tutor)
@@ -154,15 +148,12 @@ Additional fields hidden by default. User can show these fields by clicking "Sho
 - If Student Type = Adult, no family assignment allowed (automatically independent)
 - If Student Type = Adult, address fields are shown and recommended
 - If creating new family, guardian information is required
-- Email Reminders can only be enabled if email address provided
-- SMS Reminders can only be enabled if phone number exists and SMS Capable is checked
 
 ## Creating New Family
 
 If "Create New Family" is selected:
 
-**Family Information:**
-- Family Name (e.g., "Smith Family" - used to group students from same household)
+**Note:** Family name is automatically generated from guardian's last name (e.g., "Smith Family").
 
 **Primary Guardian - Required Fields:**
 - First Name
@@ -176,12 +167,6 @@ If "Create New Family" is selected:
 - Address (street address)
 - City
 - State
-
-**Lesson Reminder Preferences (always visible for new family):**
-- Email Reminders: 24 hours before / 48 hours before / Don't send
-- SMS Reminders: 2 hours before / 24 hours before / Don't send
-
-**Note**: Reminder preferences are always visible when creating a new family to ensure proper configuration from the start.
 
 **Process:**
 
@@ -205,16 +190,13 @@ If "Create New Family" is selected:
 - Student Type defaults to "Child"
 - Default Duration defaults to 30 minutes
 - SMS Capable defaults to enabled (checked) when phone number is provided
-- Send Email Reminders defaults to enabled (if email provided)
-- Send SMS Reminders defaults to enabled (if phone number provided and SMS capable)
 
 ### Show More Fields
 
 - Additional fields hidden by default to reduce form clutter
 - "Show More Fields" action reveals hidden fields
 - User can toggle visibility of optional fields
-- Hidden fields include: Gender, Birthday, School, Subjects, Skill Level, Skype Username, FaceTime ID, Referrer, Student Since, and Reminder Settings
-- **Exception**: Reminder settings always visible when creating a new family
+- Hidden fields include: Gender, Birthday, School, Subjects, Skill Level, Skype Username, FaceTime ID, Referrer, Student Since
 - Field visibility preferences can be saved per user (optional enhancement)
 
 ### Family Quick Add
@@ -280,4 +262,4 @@ If "Create New Family" is selected:
 - Guardian portal access can be configured separately after student creation
 - Student portal access (User creation) happens separately, not during initial student add
 - Hidden fields help reduce form complexity for quick student creation
-- Reminder settings always visible for new families to ensure proper configuration
+- Reminder settings can be configured in family or student settings after creation

@@ -754,19 +754,9 @@
 
                             <!-- New Family / Guardian Information -->
                             <div id="newFamilySection" style="display: none;">
-                                <div class="form-row single">
-                                    <div class="form-group">
-                                        <label for="familyName">Family Name</label>
-                                        <input
-                                            type="text"
-                                            id="familyName"
-                                            placeholder="e.g., Smith Family">
-                                        <span class="help-text">Used to group students from the same household</span>
-                                    </div>
-                                </div>
-
-                                <div style="margin-top: var(--space-5); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border);">
+                                <div style="margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border);">
                                     <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">Primary Guardian</span>
+                                    <span class="help-text" style="display: block; margin-top: var(--space-1);">Family name will be created from guardian's name</span>
                                 </div>
 
                                 <div class="form-row">
@@ -843,50 +833,6 @@
                                     </div>
                                 </div>
 
-                                <div style="margin-top: var(--space-5); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border);">
-                                    <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">Lesson Reminder Preferences</span>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <fieldset>
-                                            <legend>Email Reminders</legend>
-                                            <div class="radio-group" role="radiogroup">
-                                                <div class="radio-option">
-                                                    <input type="radio" id="emailReminder24" name="emailReminder" value="24" checked>
-                                                    <label for="emailReminder24">24 hours before</label>
-                                                </div>
-                                                <div class="radio-option">
-                                                    <input type="radio" id="emailReminder48" name="emailReminder" value="48">
-                                                    <label for="emailReminder48">48 hours before</label>
-                                                </div>
-                                                <div class="radio-option">
-                                                    <input type="radio" id="emailReminderNone" name="emailReminder" value="none">
-                                                    <label for="emailReminderNone">Don't send</label>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="form-group">
-                                        <fieldset>
-                                            <legend>SMS Reminders</legend>
-                                            <div class="radio-group" role="radiogroup">
-                                                <div class="radio-option">
-                                                    <input type="radio" id="smsReminder2" name="smsReminder" value="2" checked>
-                                                    <label for="smsReminder2">2 hours before</label>
-                                                </div>
-                                                <div class="radio-option">
-                                                    <input type="radio" id="smsReminder24" name="smsReminder" value="24">
-                                                    <label for="smsReminder24">24 hours before</label>
-                                                </div>
-                                                <div class="radio-option">
-                                                    <input type="radio" id="smsReminderNone" name="smsReminder" value="none">
-                                                    <label for="smsReminderNone">Don't send</label>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                </div>
                             </div>
                         </section>
 
