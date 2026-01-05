@@ -24,27 +24,31 @@ Always available in student management
 - **Student Type** - Adult or Child
 - **Status** - Active, Trial, Waiting, Lead, or Inactive
 
-### Step 3: Family Assignment
+### Step 3: Family Assignment (Children Only)
 
-User selects one of three options:
+**Note:** This step only applies to children. Adults are automatically treated as independent students with no family assignment.
+
+For child students, user selects one of two options:
 
 1. **Add to existing family** - Search and select from existing families
 2. **Create new family** - Enter new family and guardian information
-3. **No family (independent student)** - Student manages their own account (typically adults)
 
 **If adding to existing family:**
 - Search field to find families by family name, parent name, or email
 - Search results display family name with primary guardian details
 - Selecting a family links the student to that family's billing and contacts
+- Child inherits family address (no separate address entry needed)
 
 **If creating new family:**
 - Family Name field (used to group students from same household)
 - Primary Guardian information (see "Creating New Family" section below)
+- Child inherits family address from guardian
 
-**If no family:**
+**For adult students:**
+- No family selection displayed
 - Student is treated as independent
 - Billing goes directly to student
-- Student contact info used for all communications
+- Student must provide their own address in Contact Information section
 
 ### Step 4: Fill Default Visible Fields
 
@@ -53,6 +57,7 @@ User selects one of three options:
 - Email Address
 - Phone Number (mobile phone)
 - SMS Capable (checkbox - indicates if phone number can receive SMS messages)
+- Address, City, State (only shown for adult students; children inherit family address)
 
 **Lesson Settings**:
 
@@ -69,8 +74,10 @@ User selects one of three options:
 ### Step 5: Default Billing
 
 **Billing Responsibility:**
-- Bill to family (default if family assigned)
-- Bill student directly (default if no family)
+- Bill to family (default for children with family assigned)
+- Bill student directly (default for adults, required if no family)
+
+**Note:** For adult students, "Bill to family" option is disabled since they have no family assignment.
 
 **Billing Settings:**
 - Billing Email (optional - defaults to contact email)
@@ -142,7 +149,10 @@ Additional fields hidden by default. User can show these fields by clicking "Sho
 
 ### Business Logic Validation
 
+- If Student Type = Child, family assignment is required (existing or new)
 - If Student Type = Child, family must have at least one guardian
+- If Student Type = Adult, no family assignment allowed (automatically independent)
+- If Student Type = Adult, address fields are shown and recommended
 - If creating new family, guardian information is required
 - Email Reminders can only be enabled if email address provided
 - SMS Reminders can only be enabled if phone number exists and SMS Capable is checked

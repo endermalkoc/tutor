@@ -673,47 +673,50 @@
                                 </div>
                             </div>
 
-                            <div class="form-row single">
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <input
-                                        type="text"
-                                        id="address"
-                                        autocomplete="street-address"
-                                        placeholder="Street address">
+                            <div id="studentAddressSection" style="display: none;">
+                                <div class="form-row single">
+                                    <div class="form-group">
+                                        <label for="address">Address</label>
+                                        <input
+                                            type="text"
+                                            id="address"
+                                            autocomplete="street-address"
+                                            placeholder="Street address">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="city">City</label>
-                                    <input
-                                        type="text"
-                                        id="city"
-                                        autocomplete="address-level2"
-                                        placeholder="City">
-                                </div>
-                                <div class="form-group">
-                                    <label for="state">State</label>
-                                    <input
-                                        type="text"
-                                        id="state"
-                                        autocomplete="address-level1"
-                                        placeholder="State">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="city">City</label>
+                                        <input
+                                            type="text"
+                                            id="city"
+                                            autocomplete="address-level2"
+                                            placeholder="City">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="state">State</label>
+                                        <input
+                                            type="text"
+                                            id="state"
+                                            autocomplete="address-level1"
+                                            placeholder="State">
+                                    </div>
                                 </div>
                             </div>
                         </section>
 
-                        <!-- Family Information -->
-                        <section class="section">
+                        <!-- Family Information (Children Only) -->
+                        <section class="section" id="familySection">
                             <div class="section-header">
                                 <h2 class="section-title">Family Information</h2>
+                                <span class="section-badge">Required</span>
                             </div>
 
                             <div class="form-row single">
                                 <fieldset>
-                                    <legend>Family Assignment</legend>
-                                    <div class="radio-group" role="radiogroup">
+                                    <legend class="required">Family Assignment</legend>
+                                    <div class="radio-group" role="radiogroup" aria-required="true">
                                         <div class="radio-option">
                                             <input type="radio" id="familyExisting" name="familyType" value="existing" checked>
                                             <label for="familyExisting">Add to existing family</label>
@@ -721,10 +724,6 @@
                                         <div class="radio-option">
                                             <input type="radio" id="familyNew" name="familyType" value="new">
                                             <label for="familyNew">Create new family</label>
-                                        </div>
-                                        <div class="radio-option">
-                                            <input type="radio" id="familyNone" name="familyType" value="none">
-                                            <label for="familyNone">No family (independent student)</label>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -1004,12 +1003,44 @@
         </main>
     </div>
     <script>
-        // Family assignment toggle
         document.addEventListener('DOMContentLoaded', function() {
+            const studentTypeRadios = document.querySelectorAll('input[name="studentType"]');
             const familyRadios = document.querySelectorAll('input[name="familyType"]');
+            const familySection = document.getElementById('familySection');
             const existingFamilyRow = document.getElementById('existingFamilyRow');
             const newFamilySection = document.getElementById('newFamilySection');
+            const studentAddressSection = document.getElementById('studentAddressSection');
+            const billFamilyOption = document.getElementById('billFamily');
 
+            // Student type toggle - adults don't need family
+            function updateStudentTypeVisibility() {
+                const studentType = document.querySelector('input[name="studentType"]:checked').value;
+
+                if (studentType === 'adult') {
+                    // Hide family section for adults
+                    familySection.style.display = 'none';
+                    // Show student address for adults
+                    studentAddressSection.style.display = 'block';
+                    // Set billing to student directly
+                    billFamilyOption.disabled = true;
+                    document.getElementById('billStudent').checked = true;
+                } else {
+                    // Show family section for children
+                    familySection.style.display = 'block';
+                    // Hide student address for children (they use family address)
+                    studentAddressSection.style.display = 'none';
+                    // Enable family billing option
+                    billFamilyOption.disabled = false;
+                    document.getElementById('billFamily').checked = true;
+                    updateFamilyVisibility();
+                }
+            }
+
+            studentTypeRadios.forEach(radio => {
+                radio.addEventListener('change', updateStudentTypeVisibility);
+            });
+
+            // Family assignment toggle
             function updateFamilyVisibility() {
                 const selected = document.querySelector('input[name="familyType"]:checked').value;
 
@@ -1019,9 +1050,6 @@
                 } else if (selected === 'new') {
                     existingFamilyRow.style.display = 'none';
                     newFamilySection.style.display = 'block';
-                } else {
-                    existingFamilyRow.style.display = 'none';
-                    newFamilySection.style.display = 'none';
                 }
             }
 
@@ -1030,29 +1058,7 @@
             });
 
             // Initialize on page load
-            updateFamilyVisibility();
-
-            // Billing responsibility toggle
-            const billingRadios = document.querySelectorAll('input[name="billingType"]');
-            const billFamilyOption = document.getElementById('billFamily');
-
-            function updateBillingVisibility() {
-                const familySelected = document.querySelector('input[name="familyType"]:checked').value;
-
-                // Disable "Bill to family" if no family selected
-                if (familySelected === 'none') {
-                    billFamilyOption.disabled = true;
-                    document.getElementById('billStudent').checked = true;
-                } else {
-                    billFamilyOption.disabled = false;
-                }
-            }
-
-            familyRadios.forEach(radio => {
-                radio.addEventListener('change', updateBillingVisibility);
-            });
-
-            updateBillingVisibility();
+            updateStudentTypeVisibility();
         });
     </script>
 </body>
