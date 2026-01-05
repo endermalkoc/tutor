@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Student - Twilight Purple Theme</title>
+    <title>Add New Student</title>
     <style>
         * {
             margin: 0;
@@ -11,184 +11,333 @@
             box-sizing: border-box;
         }
 
-        /* Reduced Motion Support */
+        :root {
+            /* Color Foundation: Cool slate neutrals */
+            --bg-page: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --bg-muted: #e2e8f0;
+
+            /* Text hierarchy */
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --text-faint: #94a3b8;
+
+            /* Borders */
+            --border: rgba(15, 23, 42, 0.08);
+            --border-strong: rgba(15, 23, 42, 0.12);
+
+            /* Single accent: Blue for trust */
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-subtle: #eff6ff;
+
+            /* Semantic colors */
+            --error: #dc2626;
+            --error-subtle: #fef2f2;
+            --success: #16a34a;
+
+            /* Depth */
+            --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+            --shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+
+            /* Spacing (4px grid) */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+
+            /* Border radius */
+            --radius-sm: 4px;
+            --radius: 6px;
+            --radius-lg: 8px;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-            background: linear-gradient(135deg, #fafaf9 0%, #f5f3ff 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background: var(--bg-page);
             min-height: 100vh;
-            padding: 40px 20px;
-            color: #18181b;
-            line-height: 1.6;
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: 840px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            animation: slideIn 0.4s ease-out;
+        /* Layout */
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border);
+            padding: var(--space-4);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
         }
 
-        .header {
-            padding: 48px 40px 32px;
-            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
+        .sidebar-logo {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            padding: var(--space-3) var(--space-3);
+            margin-bottom: var(--space-4);
+            letter-spacing: -0.02em;
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 300px;
-            height: 300px;
-            background: rgba(255, 255, 255, 0.1);
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: var(--space-1);
+            transition: background 150ms ease, color 150ms ease;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-subtle);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--accent-subtle);
+            color: var(--accent);
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+        }
+
+        .nav-item.active .nav-icon {
+            opacity: 1;
+        }
+
+        .sidebar-footer {
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--border);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
+            background: var(--bg-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        .user-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
         }
 
-        .header h1 {
-            font-size: 32px;
-            font-weight: 300;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
+        .user-email {
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
-        .header p {
-            font-size: 16px;
-            font-weight: 300;
-            opacity: 0.95;
-            position: relative;
-            z-index: 1;
+        /* Main content */
+        .main-content {
+            flex: 1;
+            margin-left: 240px;
+            padding: var(--space-8);
+            max-width: 720px;
+        }
+
+        /* Page header */
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: var(--space-3);
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-faint);
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .page-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: var(--space-1);
+        }
+
+        /* Form card */
+        .form-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
         }
 
         .form-body {
-            padding: 40px;
+            padding: var(--space-6);
         }
 
+        /* Sections */
         .section {
-            margin-bottom: 48px;
+            margin-bottom: var(--space-8);
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-5);
+            padding-bottom: var(--space-3);
+            border-bottom: 1px solid var(--border);
         }
 
         .section-title {
-            font-size: 20px;
+            font-size: 14px;
             font-weight: 600;
-            color: #18181b;
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #f5f3ff;
-            letter-spacing: -0.3px;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
         }
 
+        .section-badge {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: var(--bg-subtle);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        /* Form layout */
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-bottom: 24px;
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
         }
 
         .form-row.single {
             grid-template-columns: 1fr;
         }
 
+        .form-row:last-child {
+            margin-bottom: 0;
+        }
+
         .form-group {
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
+        /* Labels */
         label {
             font-size: 13px;
             font-weight: 500;
-            color: #52525b;
-            margin-bottom: 8px;
-            letter-spacing: 0.01em;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-2);
         }
 
         label.required::after {
             content: " *";
-            color: #ef4444;
-            font-weight: 600;
+            color: var(--error);
         }
 
-        fieldset {
-            border: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        legend {
-            font-size: 13px;
-            font-weight: 500;
-            color: #52525b;
-            margin-bottom: 12px;
-            letter-spacing: 0.01em;
-        }
-
-        legend.required::after {
-            content: " *";
-            color: #ef4444;
-            font-weight: 600;
-        }
-
-        input, select, textarea {
-            padding: 14px 16px;
-            border: 1.5px solid #e4e4e7;
-            border-radius: 12px;
-            font-size: 15px;
+        /* Inputs */
+        input,
+        select,
+        textarea {
+            padding: var(--space-3);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius);
+            font-size: 14px;
             font-family: inherit;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #fafafa;
-            color: #18181b;
+            color: var(--text-primary);
+            background: var(--bg-surface);
+            transition: border-color 150ms ease, box-shadow 150ms ease;
         }
 
-        input:hover, select:hover, textarea:hover {
-            border-color: #d4d4d8;
-            background: white;
+        input:hover,
+        select:hover,
+        textarea:hover {
+            border-color: var(--text-faint);
         }
 
-        input:focus, select:focus, textarea:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
-            border-color: #7c3aed;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
-            transform: translateY(-1px);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-subtle);
         }
 
         input::placeholder,
         textarea::placeholder {
-            color: #a1a1aa;
-            opacity: 1;
+            color: var(--text-faint);
         }
 
         textarea {
@@ -198,133 +347,103 @@
 
         .help-text {
             font-size: 12px;
-            color: #71717a;
-            margin-top: 6px;
-            font-weight: 400;
+            color: var(--text-muted);
+            margin-top: var(--space-2);
         }
 
-        /* Radio button styles */
+        /* Fieldset */
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        legend {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-3);
+        }
+
+        legend.required::after {
+            content: " *";
+            color: var(--error);
+        }
+
+        /* Radio & Checkbox groups */
         .radio-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: var(--space-2);
         }
 
         .radio-group.horizontal {
             flex-direction: row;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: var(--space-4);
         }
 
-        .radio-option {
+        .radio-option,
+        .checkbox-option {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: var(--space-2);
             cursor: pointer;
-            min-height: 28px;
-            position: relative;
-            padding: 8px;
-            margin: -8px;
-            border-radius: 8px;
-            transition: background 0.2s;
+            padding: var(--space-2);
+            margin: calc(var(--space-2) * -1);
+            border-radius: var(--radius);
+            transition: background 150ms ease;
         }
 
-        .radio-option:hover {
-            background: rgba(124, 58, 237, 0.05);
+        .radio-option:hover,
+        .checkbox-option:hover {
+            background: var(--bg-subtle);
         }
 
-        .radio-option:has(input:checked) {
-            background: rgba(124, 58, 237, 0.08);
-        }
-
-        .radio-option:hover label {
-            color: #7c3aed;
-        }
-
-        .radio-option input[type="radio"] {
-            width: 18px;
-            height: 18px;
+        .radio-option input[type="radio"],
+        .checkbox-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
             margin: 0;
             cursor: pointer;
-            accent-color: #7c3aed;
+            accent-color: var(--accent);
         }
 
-        .radio-option label {
+        .radio-option label,
+        .checkbox-option label {
             margin: 0;
             font-weight: 400;
+            font-size: 14px;
+            color: var(--text-primary);
             cursor: pointer;
-            font-size: 15px;
-            color: #3f3f46;
-            transition: color 0.2s;
         }
 
-        /* Checkbox styles */
-        .checkbox-group {
+        /* Form footer */
+        .form-footer {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            min-height: 28px;
-            position: relative;
-            padding: 8px;
-            margin-left: -8px;
-            margin-right: -8px;
-            border-radius: 8px;
-            transition: background 0.2s;
+            justify-content: flex-end;
+            gap: var(--space-3);
+            padding: var(--space-4) var(--space-6);
+            border-top: 1px solid var(--border);
+            background: var(--bg-subtle);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
         }
 
-        .checkbox-group:hover {
-            background: rgba(124, 58, 237, 0.05);
-        }
-
-        .checkbox-group:has(input:checked) {
-            background: rgba(124, 58, 237, 0.08);
-        }
-
-        .checkbox-group:hover label {
-            color: #7c3aed;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin: 0;
-            cursor: pointer;
-            accent-color: #7c3aed;
-        }
-
-        .checkbox-group label {
-            margin: 0;
-            font-weight: 400;
-            cursor: pointer;
-            color: #3f3f46;
-            font-size: 15px;
-            transition: color 0.2s;
-        }
-
-        .actions {
-            display: flex;
-            gap: 16px;
-            padding: 32px 40px;
-            border-top: 1px solid #f5f3ff;
-            background: #fafafa;
-        }
-
+        /* Buttons */
         .btn {
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: none;
-            position: relative;
-            min-height: 52px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 150ms ease;
+            border: none;
+            min-height: 36px;
         }
 
         .btn:disabled {
@@ -333,356 +452,336 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            background: var(--accent);
             color: white;
-            font-weight: 600;
-            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
-            flex: 1;
         }
 
         .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
+            background: var(--accent-hover);
         }
 
         .btn-primary:focus {
-            outline: 2px solid #7c3aed;
-            outline-offset: 2px;
+            outline: none;
+            box-shadow: 0 0 0 3px var(--accent-subtle);
         }
 
         .btn-secondary {
-            background: white;
-            color: #71717a;
-            border: 1.5px solid #e4e4e7;
-            font-weight: 500;
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-strong);
         }
 
-        .btn-secondary:hover {
-            background: #fafafa;
-            border-color: #d4d4d8;
-            transform: translateY(-2px);
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--bg-subtle);
+            border-color: var(--text-faint);
         }
 
         .btn-secondary:focus {
-            outline: 2px solid #d4d4d8;
-            outline-offset: 2px;
+            outline: none;
+            box-shadow: 0 0 0 3px var(--bg-muted);
         }
 
-        .tag {
-            display: inline-block;
-            padding: 6px 12px;
-            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
-            color: #92400e;
-            border: 1.5px solid #fbbf24;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            body {
-                padding: 0;
+            .sidebar {
+                display: none;
             }
 
-            .container {
-                border-radius: 0;
-            }
-
-            .header {
-                padding: 32px 24px 24px;
-            }
-
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .header p {
-                font-size: 14px;
-            }
-
-            .form-body {
-                padding: 24px;
+            .main-content {
+                margin-left: 0;
+                padding: var(--space-4);
+                max-width: 100%;
             }
 
             .form-row {
                 grid-template-columns: 1fr;
             }
 
-            .actions {
+            .radio-group.horizontal {
+                flex-direction: column;
+                gap: var(--space-2);
+            }
+
+            .form-footer {
                 flex-direction: column-reverse;
-                padding: 24px;
             }
 
             .btn {
                 width: 100%;
             }
         }
-
-        .success-icon {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #059669;
-            display: none;
-        }
-
-        .form-group.has-success .success-icon {
-            display: block;
-        }
-
-        .theme-badge {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
-            z-index: 1000;
-        }
     </style>
 </head>
 <body>
-    <div class="theme-badge">
-        🌙 Twilight Purple Theme
-    </div>
-
-    <div class="container">
-        <header class="header" role="banner">
-            <h1>Add New Student</h1>
-            <p>Create a student record with contact, academic, and billing information</p>
-            <p style="font-size: 13px; margin-top: 8px; opacity: 0.9;">✨ Twilight Purple - Creativity, Sophistication, Wisdom</p>
-        </header>
-
-        <form id="addStudentForm">
-            <div class="form-body" id="main-content">
-                <!-- Basic Information -->
-                <section class="section">
-                    <h2 class="section-title">Basic Information <span class="tag" role="status">All fields required</span></h2>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName" class="required">First Name</label>
-                            <div style="position: relative;">
-                                <input
-                                    type="text"
-                                    id="firstName"
-                                    name="firstName"
-                                    autocomplete="given-name"
-                                    placeholder="Enter first name"
-                                    required>
-                                <svg class="success-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName" class="required">Last Name</label>
-                            <div style="position: relative;">
-                                <input
-                                    type="text"
-                                    id="lastName"
-                                    name="lastName"
-                                    autocomplete="family-name"
-                                    placeholder="Enter last name"
-                                    required>
-                                <svg class="success-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
-                                </svg>
-                            </div>
-                        </div>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" role="navigation" aria-label="Main navigation">
+            <div class="sidebar-logo">TutorStudio</div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 1l7 4v2l-7 4-7-4V5l7-4zm0 2.236L3.236 6 8 8.764 12.764 6 8 3.236zM2 9.764l6 3.428 6-3.428v1.472l-6 3.428-6-3.428V9.764z"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item active">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 8a3 3 0 100-6 3 3 0 000 6zm2-3a2 2 0 11-4 0 2 2 0 014 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                    </svg>
+                    Students
+                </a>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M3.5 0a.5.5 0 01.5.5V1h8V.5a.5.5 0 011 0V1h1a2 2 0 012 2v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3a2 2 0 012-2h1V.5a.5.5 0 01.5-.5zM1 4v10a1 1 0 001 1h12a1 1 0 001-1V4H1z"/>
+                    </svg>
+                    Calendar
+                </a>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                    </svg>
+                    Invoices
+                </a>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 01-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 01.872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 012.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 012.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 01.872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 01-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 01-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 110-5.86 2.929 2.929 0 010 5.858z"/>
+                    </svg>
+                    Settings
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">SJ</div>
+                    <div>
+                        <div class="user-name">Sarah Johnson</div>
+                        <div class="user-email">sarah@example.com</div>
                     </div>
-
-                    <div class="form-row single">
-                        <fieldset>
-                            <legend class="required">Student Type</legend>
-                            <div class="radio-group horizontal" role="radiogroup" aria-required="true">
-                                <div class="radio-option">
-                                    <input type="radio" id="typeChild" name="studentType" value="child" checked>
-                                    <label for="typeChild">Child</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="typeAdult" name="studentType" value="adult">
-                                    <label for="typeAdult">Adult</label>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-
-                    <div class="form-row single">
-                        <fieldset>
-                            <legend class="required">Status</legend>
-                            <div class="radio-group horizontal" role="radiogroup" aria-required="true">
-                                <div class="radio-option">
-                                    <input type="radio" id="statusActive" name="status" value="active" checked>
-                                    <label for="statusActive">Active</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="statusTrial" name="status" value="trial">
-                                    <label for="statusTrial">Trial</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="statusWaiting" name="status" value="waiting">
-                                    <label for="statusWaiting">Waiting</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="statusLead" name="status" value="lead">
-                                    <label for="statusLead">Lead</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="statusInactive" name="status" value="inactive">
-                                    <label for="statusInactive">Inactive</label>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                </section>
-
-                <!-- Student Contact Information -->
-                <section class="section">
-                    <h2 class="section-title">Student Contact Information</h2>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input
-                                type="email"
-                                id="email"
-                                inputmode="email"
-                                autocomplete="email"
-                                placeholder="student@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input
-                                type="tel"
-                                id="phone"
-                                inputmode="tel"
-                                autocomplete="tel"
-                                placeholder="(555) 123-4567">
-                        </div>
-                    </div>
-
-                    <div class="form-row single">
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="smsCapable" checked>
-                            <label for="smsCapable">Phone is SMS capable</label>
-                        </div>
-                    </div>
-
-                    <div class="form-row single">
-                        <div class="form-group">
-                            <label for="address">Address</label>
-                            <input
-                                type="text"
-                                id="address"
-                                autocomplete="street-address"
-                                placeholder="Street address">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <input
-                                type="text"
-                                id="city"
-                                autocomplete="address-level2"
-                                placeholder="City">
-                        </div>
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <input
-                                type="text"
-                                id="state"
-                                autocomplete="address-level1"
-                                placeholder="State">
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Lesson Settings -->
-                <section class="section">
-                    <h2 class="section-title">Lesson Settings</h2>
-
-                    <div class="form-row single">
-                        <fieldset>
-                            <legend>Lesson Category</legend>
-                            <div class="radio-group horizontal" role="radiogroup">
-                                <div class="radio-option">
-                                    <input type="radio" id="catLesson" name="lessonCategory" value="lesson" checked>
-                                    <label for="catLesson">Lesson</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="catGroup" name="lessonCategory" value="group">
-                                    <label for="catGroup">Group Lesson</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="catVacation" name="lessonCategory" value="vacation">
-                                    <label for="catVacation">Vacation</label>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="duration">Default Duration (minutes)</label>
-                            <input
-                                type="number"
-                                id="duration"
-                                inputmode="numeric"
-                                placeholder="30"
-                                value="30"
-                                min="0">
-                        </div>
-                        <div class="form-group">
-                            <label for="price">Price</label>
-                            <input
-                                type="number"
-                                id="price"
-                                inputmode="decimal"
-                                placeholder="0.00"
-                                step="0.01"
-                                min="0">
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Notes -->
-                <section class="section">
-                    <h2 class="section-title">Notes</h2>
-                    <div class="form-row single">
-                        <div class="form-group">
-                            <label for="notes">Private Tutor Notes</label>
-                            <textarea id="notes" placeholder="Add any private notes about this student..."></textarea>
-                            <span class="help-text">These notes are only visible to tutors</span>
-                        </div>
-                    </div>
-                </section>
+                </div>
             </div>
+        </aside>
 
-            <div class="actions">
-                <button class="btn btn-secondary" type="button">
-                    Cancel
-                </button>
-                <button class="btn btn-primary" type="submit">
-                    Create Student
-                </button>
-            </div>
-        </form>
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="#">Students</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span>Add New</span>
+                </nav>
+                <h1 class="page-title">Add New Student</h1>
+                <p class="page-description">Create a student record with contact and lesson information</p>
+            </header>
+
+            <form id="addStudentForm">
+                <div class="form-card">
+                    <div class="form-body">
+                        <!-- Basic Information -->
+                        <section class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Basic Information</h2>
+                                <span class="section-badge">Required</span>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName" class="required">First Name</label>
+                                    <input
+                                        type="text"
+                                        id="firstName"
+                                        name="firstName"
+                                        autocomplete="given-name"
+                                        placeholder="Enter first name"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName" class="required">Last Name</label>
+                                    <input
+                                        type="text"
+                                        id="lastName"
+                                        name="lastName"
+                                        autocomplete="family-name"
+                                        placeholder="Enter last name"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="form-row single">
+                                <fieldset>
+                                    <legend class="required">Student Type</legend>
+                                    <div class="radio-group horizontal" role="radiogroup" aria-required="true">
+                                        <div class="radio-option">
+                                            <input type="radio" id="typeChild" name="studentType" value="child" checked>
+                                            <label for="typeChild">Child</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="typeAdult" name="studentType" value="adult">
+                                            <label for="typeAdult">Adult</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="form-row single">
+                                <fieldset>
+                                    <legend class="required">Status</legend>
+                                    <div class="radio-group horizontal" role="radiogroup" aria-required="true">
+                                        <div class="radio-option">
+                                            <input type="radio" id="statusActive" name="status" value="active" checked>
+                                            <label for="statusActive">Active</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="statusTrial" name="status" value="trial">
+                                            <label for="statusTrial">Trial</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="statusWaiting" name="status" value="waiting">
+                                            <label for="statusWaiting">Waiting</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="statusLead" name="status" value="lead">
+                                            <label for="statusLead">Lead</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="statusInactive" name="status" value="inactive">
+                                            <label for="statusInactive">Inactive</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </section>
+
+                        <!-- Contact Information -->
+                        <section class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Contact Information</h2>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        inputmode="email"
+                                        autocomplete="email"
+                                        placeholder="student@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        inputmode="tel"
+                                        autocomplete="tel"
+                                        placeholder="(555) 123-4567">
+                                </div>
+                            </div>
+
+                            <div class="form-row single">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="smsCapable" checked>
+                                    <label for="smsCapable">Phone can receive SMS</label>
+                                </div>
+                            </div>
+
+                            <div class="form-row single">
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input
+                                        type="text"
+                                        id="address"
+                                        autocomplete="street-address"
+                                        placeholder="Street address">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input
+                                        type="text"
+                                        id="city"
+                                        autocomplete="address-level2"
+                                        placeholder="City">
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <input
+                                        type="text"
+                                        id="state"
+                                        autocomplete="address-level1"
+                                        placeholder="State">
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Lesson Settings -->
+                        <section class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Lesson Settings</h2>
+                            </div>
+
+                            <div class="form-row single">
+                                <fieldset>
+                                    <legend>Lesson Category</legend>
+                                    <div class="radio-group horizontal" role="radiogroup">
+                                        <div class="radio-option">
+                                            <input type="radio" id="catLesson" name="lessonCategory" value="lesson" checked>
+                                            <label for="catLesson">Individual</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="catGroup" name="lessonCategory" value="group">
+                                            <label for="catGroup">Group</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="duration">Default Duration</label>
+                                    <select id="duration">
+                                        <option value="30" selected>30 minutes</option>
+                                        <option value="45">45 minutes</option>
+                                        <option value="60">60 minutes</option>
+                                        <option value="90">90 minutes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Default Price</label>
+                                    <input
+                                        type="number"
+                                        id="price"
+                                        inputmode="decimal"
+                                        placeholder="0.00"
+                                        step="0.01"
+                                        min="0">
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Notes -->
+                        <section class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Notes</h2>
+                            </div>
+                            <div class="form-row single">
+                                <div class="form-group">
+                                    <label for="notes">Private Notes</label>
+                                    <textarea id="notes" placeholder="Add any notes about this student..."></textarea>
+                                    <span class="help-text">Only visible to tutors, not shared with students or families</span>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="form-footer">
+                        <button class="btn btn-secondary" type="button">Cancel</button>
+                        <button class="btn btn-primary" type="submit">Create Student</button>
+                    </div>
+                </div>
+            </form>
+        </main>
     </div>
 </body>
 </html>
