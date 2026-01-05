@@ -666,13 +666,10 @@
                                         inputmode="tel"
                                         autocomplete="tel"
                                         placeholder="(555) 123-4567">
-                                </div>
-                            </div>
-
-                            <div class="form-row single">
-                                <div class="checkbox-option">
-                                    <input type="checkbox" id="smsCapable" checked>
-                                    <label for="smsCapable">Phone can receive SMS</label>
+                                    <div class="checkbox-option" style="margin-top: var(--space-2);">
+                                        <input type="checkbox" id="smsCapable" checked>
+                                        <label for="smsCapable">Phone can receive SMS</label>
+                                    </div>
                                 </div>
                             </div>
 
@@ -703,6 +700,107 @@
                                         id="state"
                                         autocomplete="address-level1"
                                         placeholder="State">
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Family Information -->
+                        <section class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Family Information</h2>
+                            </div>
+
+                            <div class="form-row single">
+                                <fieldset>
+                                    <legend>Family Assignment</legend>
+                                    <div class="radio-group" role="radiogroup">
+                                        <div class="radio-option">
+                                            <input type="radio" id="familyExisting" name="familyType" value="existing" checked>
+                                            <label for="familyExisting">Add to existing family</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="familyNew" name="familyType" value="new">
+                                            <label for="familyNew">Create new family</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="familyNone" name="familyType" value="none">
+                                            <label for="familyNone">No family (independent student)</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="form-row single" id="existingFamilyRow">
+                                <div class="form-group">
+                                    <label for="existingFamily">Select Family</label>
+                                    <select id="existingFamily">
+                                        <option value="">Choose a family...</option>
+                                        <option value="1">Anderson Family</option>
+                                        <option value="2">Martinez Family</option>
+                                        <option value="3">Thompson Family</option>
+                                    </select>
+                                    <span class="help-text">Student will share billing and contact info with this family</span>
+                                </div>
+                            </div>
+
+                            <div class="form-row" id="newFamilyRow" style="display: none;">
+                                <div class="form-group">
+                                    <label for="familyName">Family Name</label>
+                                    <input
+                                        type="text"
+                                        id="familyName"
+                                        placeholder="e.g., Smith Family">
+                                </div>
+                                <div class="form-group">
+                                    <label for="primaryContact">Primary Contact Name</label>
+                                    <input
+                                        type="text"
+                                        id="primaryContact"
+                                        placeholder="Parent/Guardian name">
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Default Billing -->
+                        <section class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Default Billing</h2>
+                            </div>
+
+                            <div class="form-row single">
+                                <fieldset>
+                                    <legend>Billing Responsibility</legend>
+                                    <div class="radio-group" role="radiogroup">
+                                        <div class="radio-option">
+                                            <input type="radio" id="billFamily" name="billingType" value="family" checked>
+                                            <label for="billFamily">Bill to family</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="billStudent" name="billingType" value="student">
+                                            <label for="billStudent">Bill student directly</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="billingEmail">Billing Email</label>
+                                    <input
+                                        type="email"
+                                        id="billingEmail"
+                                        inputmode="email"
+                                        placeholder="billing@example.com">
+                                    <span class="help-text">Leave blank to use contact email</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="paymentTerms">Payment Terms</label>
+                                    <select id="paymentTerms">
+                                        <option value="due-on-receipt" selected>Due on receipt</option>
+                                        <option value="net-7">Net 7 days</option>
+                                        <option value="net-14">Net 14 days</option>
+                                        <option value="net-30">Net 30 days</option>
+                                    </select>
                                 </div>
                             </div>
                         </section>
