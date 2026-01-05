@@ -29,6 +29,7 @@ The platform is built as a **monorepo** using modern, type-safe technologies opt
 | **Next.js 16** | React framework for web apps | App Router, server components, edge rendering, excellent DX |
 | **Tailwind CSS** | Utility-first styling | Rapid UI development, consistent design system, small bundle size |
 | **shadcn/ui** | Component library | High-quality, accessible, fully customizable (copy-paste model) |
+| **Phosphor React** | Icon library | Flexible, consistent SVG icons with multiple weights, tree-shakeable |
 | **next-intl** | Internationalization | Type-safe, Next.js optimized, server/client support |
 
 ### Mobile Application
