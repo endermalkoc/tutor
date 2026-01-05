@@ -21,12 +21,32 @@ Always available in student management
 
 - **First Name** (from Contact entity)
 - **Last Name** (from Contact entity)
-- **Family** - Select existing family or create new
-  - If creating new family, also enter guardian information
 - **Student Type** - Adult or Child
 - **Status** - Active, Trial, Waiting, Lead, or Inactive
 
-### Step 3: Fill Default Visible Fields
+### Step 3: Family Assignment
+
+User selects one of three options:
+
+1. **Add to existing family** - Search and select from existing families
+2. **Create new family** - Enter new family and guardian information
+3. **No family (independent student)** - Student manages their own account (typically adults)
+
+**If adding to existing family:**
+- Search field to find families by family name, parent name, or email
+- Search results display family name with primary guardian details
+- Selecting a family links the student to that family's billing and contacts
+
+**If creating new family:**
+- Family Name field (used to group students from same household)
+- Primary Guardian information (see "Creating New Family" section below)
+
+**If no family:**
+- Student is treated as independent
+- Billing goes directly to student
+- Student contact info used for all communications
+
+### Step 4: Fill Default Visible Fields
 
 **Student Contact Information** (from Contact entity):
 
@@ -46,7 +66,17 @@ Always available in student management
 
 - Notes (private tutor notes)
 
-### Step 4: Optional - Show Additional Fields
+### Step 5: Default Billing
+
+**Billing Responsibility:**
+- Bill to family (default if family assigned)
+- Bill student directly (default if no family)
+
+**Billing Settings:**
+- Billing Email (optional - defaults to contact email)
+- Payment Terms: Due on receipt, Net 7, Net 14, Net 30
+
+### Step 6: Optional - Show Additional Fields
 
 Additional fields hidden by default. User can show these fields by clicking "Show More Fields" or similar action:
 
@@ -77,7 +107,7 @@ Additional fields hidden by default. User can show these fields by clicking "Sho
 - Referrer (how student found the tutor)
 - Student Since (date)
 
-### Step 5: Save
+### Step 7: Save
 
 1. User submits the form
 2. System validates all fields
@@ -121,33 +151,34 @@ Additional fields hidden by default. User can show these fields by clicking "Sho
 
 If "Create New Family" is selected:
 
-**Additional Required Fields:**
+**Family Information:**
+- Family Name (e.g., "Smith Family" - used to group students from same household)
 
-- Guardian First Name
-- Guardian Last Name
-- Guardian Email or Phone Number (at least one)
+**Primary Guardian - Required Fields:**
+- First Name
+- Last Name
+- Email Address OR Mobile Number (at least one required)
 
-**Guardian Contact Fields (visible by default):**
-
+**Primary Guardian - Contact Fields:**
 - Email Address
-- Phone Number
-- SMS Capable (checkbox - indicates if phone number can receive SMS messages)
-- Address (street, city, state, zip, country)
+- Mobile Number
+- SMS Capable (checkbox - indicates if phone number can receive SMS)
+- Address (street address)
+- City
+- State
 
-**Guardian Settings (always visible for new family):**
+**Lesson Reminder Preferences (always visible for new family):**
+- Email Reminders: 24 hours before / 48 hours before / Don't send
+- SMS Reminders: 2 hours before / 24 hours before / Don't send
 
-- Preferred Invoice Recipient (enabled/disabled)
-- Show in Student Portal Contacts (enabled/disabled)
-- **Send Email Lesson Reminders** (enabled/disabled) - Always visible when creating new family
-- **Send SMS Lesson Reminders** (enabled/disabled) - Always visible when creating new family
-
-**Note**: When creating a new family, the reminder settings are ALWAYS visible (not hidden like they are for existing families)
+**Note**: Reminder preferences are always visible when creating a new family to ensure proper configuration from the start.
 
 **Process:**
 
 1. Family record created first
-2. Guardian record created and linked to family
+2. Guardian contact record created and linked to family as primary guardian
 3. Student record created and linked to family
+4. Billing defaults to family unless specified otherwise
 
 ## User Experience Features
 

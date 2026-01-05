@@ -732,31 +732,161 @@
 
                             <div class="form-row single" id="existingFamilyRow">
                                 <div class="form-group">
-                                    <label for="existingFamily">Select Family</label>
-                                    <select id="existingFamily">
-                                        <option value="">Choose a family...</option>
-                                        <option value="1">Anderson Family</option>
-                                        <option value="2">Martinez Family</option>
-                                        <option value="3">Thompson Family</option>
-                                    </select>
-                                    <span class="help-text">Student will share billing and contact info with this family</span>
+                                    <label for="familySearch">Search Family</label>
+                                    <input
+                                        type="text"
+                                        id="familySearch"
+                                        placeholder="Type to search families..."
+                                        autocomplete="off">
+                                    <span class="help-text">Search by family name, parent name, or email</span>
+                                    <!-- Search results would appear here as a dropdown -->
+                                    <div class="search-results" style="margin-top: var(--space-2); border: 1px solid var(--border); border-radius: var(--radius); display: none;">
+                                        <div style="padding: var(--space-3); border-bottom: 1px solid var(--border); cursor: pointer;">
+                                            <div style="font-weight: 500;">Anderson Family</div>
+                                            <div style="font-size: 12px; color: var(--text-muted);">John Anderson · john@example.com</div>
+                                        </div>
+                                        <div style="padding: var(--space-3); cursor: pointer;">
+                                            <div style="font-weight: 500;">Martinez Family</div>
+                                            <div style="font-size: 12px; color: var(--text-muted);">Maria Martinez · maria@example.com</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-row" id="newFamilyRow" style="display: none;">
-                                <div class="form-group">
-                                    <label for="familyName">Family Name</label>
-                                    <input
-                                        type="text"
-                                        id="familyName"
-                                        placeholder="e.g., Smith Family">
+                            <!-- New Family / Guardian Information -->
+                            <div id="newFamilySection" style="display: none;">
+                                <div class="form-row single">
+                                    <div class="form-group">
+                                        <label for="familyName">Family Name</label>
+                                        <input
+                                            type="text"
+                                            id="familyName"
+                                            placeholder="e.g., Smith Family">
+                                        <span class="help-text">Used to group students from the same household</span>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="primaryContact">Primary Contact Name</label>
-                                    <input
-                                        type="text"
-                                        id="primaryContact"
-                                        placeholder="Parent/Guardian name">
+
+                                <div style="margin-top: var(--space-5); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border);">
+                                    <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">Primary Guardian</span>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="guardianFirstName" class="required">First Name</label>
+                                        <input
+                                            type="text"
+                                            id="guardianFirstName"
+                                            autocomplete="given-name"
+                                            placeholder="First name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="guardianLastName" class="required">Last Name</label>
+                                        <input
+                                            type="text"
+                                            id="guardianLastName"
+                                            autocomplete="family-name"
+                                            placeholder="Last name">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="guardianEmail">Email Address</label>
+                                        <input
+                                            type="email"
+                                            id="guardianEmail"
+                                            inputmode="email"
+                                            autocomplete="email"
+                                            placeholder="parent@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="guardianPhone">Mobile Number</label>
+                                        <input
+                                            type="tel"
+                                            id="guardianPhone"
+                                            inputmode="tel"
+                                            autocomplete="tel"
+                                            placeholder="(555) 123-4567">
+                                        <div class="checkbox-option" style="margin-top: var(--space-2);">
+                                            <input type="checkbox" id="guardianSmsCapable" checked>
+                                            <label for="guardianSmsCapable">Phone can receive SMS</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row single">
+                                    <div class="form-group">
+                                        <label for="guardianAddress">Address</label>
+                                        <input
+                                            type="text"
+                                            id="guardianAddress"
+                                            autocomplete="street-address"
+                                            placeholder="Street address">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="guardianCity">City</label>
+                                        <input
+                                            type="text"
+                                            id="guardianCity"
+                                            autocomplete="address-level2"
+                                            placeholder="City">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="guardianState">State</label>
+                                        <input
+                                            type="text"
+                                            id="guardianState"
+                                            autocomplete="address-level1"
+                                            placeholder="State">
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: var(--space-5); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border);">
+                                    <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">Lesson Reminder Preferences</span>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <fieldset>
+                                            <legend>Email Reminders</legend>
+                                            <div class="radio-group" role="radiogroup">
+                                                <div class="radio-option">
+                                                    <input type="radio" id="emailReminder24" name="emailReminder" value="24" checked>
+                                                    <label for="emailReminder24">24 hours before</label>
+                                                </div>
+                                                <div class="radio-option">
+                                                    <input type="radio" id="emailReminder48" name="emailReminder" value="48">
+                                                    <label for="emailReminder48">48 hours before</label>
+                                                </div>
+                                                <div class="radio-option">
+                                                    <input type="radio" id="emailReminderNone" name="emailReminder" value="none">
+                                                    <label for="emailReminderNone">Don't send</label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="form-group">
+                                        <fieldset>
+                                            <legend>SMS Reminders</legend>
+                                            <div class="radio-group" role="radiogroup">
+                                                <div class="radio-option">
+                                                    <input type="radio" id="smsReminder2" name="smsReminder" value="2" checked>
+                                                    <label for="smsReminder2">2 hours before</label>
+                                                </div>
+                                                <div class="radio-option">
+                                                    <input type="radio" id="smsReminder24" name="smsReminder" value="24">
+                                                    <label for="smsReminder24">24 hours before</label>
+                                                </div>
+                                                <div class="radio-option">
+                                                    <input type="radio" id="smsReminderNone" name="smsReminder" value="none">
+                                                    <label for="smsReminderNone">Don't send</label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -873,5 +1003,57 @@
             </form>
         </main>
     </div>
+    <script>
+        // Family assignment toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const familyRadios = document.querySelectorAll('input[name="familyType"]');
+            const existingFamilyRow = document.getElementById('existingFamilyRow');
+            const newFamilySection = document.getElementById('newFamilySection');
+
+            function updateFamilyVisibility() {
+                const selected = document.querySelector('input[name="familyType"]:checked').value;
+
+                if (selected === 'existing') {
+                    existingFamilyRow.style.display = 'block';
+                    newFamilySection.style.display = 'none';
+                } else if (selected === 'new') {
+                    existingFamilyRow.style.display = 'none';
+                    newFamilySection.style.display = 'block';
+                } else {
+                    existingFamilyRow.style.display = 'none';
+                    newFamilySection.style.display = 'none';
+                }
+            }
+
+            familyRadios.forEach(radio => {
+                radio.addEventListener('change', updateFamilyVisibility);
+            });
+
+            // Initialize on page load
+            updateFamilyVisibility();
+
+            // Billing responsibility toggle
+            const billingRadios = document.querySelectorAll('input[name="billingType"]');
+            const billFamilyOption = document.getElementById('billFamily');
+
+            function updateBillingVisibility() {
+                const familySelected = document.querySelector('input[name="familyType"]:checked').value;
+
+                // Disable "Bill to family" if no family selected
+                if (familySelected === 'none') {
+                    billFamilyOption.disabled = true;
+                    document.getElementById('billStudent').checked = true;
+                } else {
+                    billFamilyOption.disabled = false;
+                }
+            }
+
+            familyRadios.forEach(radio => {
+                radio.addEventListener('change', updateBillingVisibility);
+            });
+
+            updateBillingVisibility();
+        });
+    </script>
 </body>
 </html>
