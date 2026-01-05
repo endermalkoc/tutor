@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Student - Modern Minimalist Design</title>
+    <title>Add New Student - Enhanced Modern Minimalist Design</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Reduced Motion Support - UX Researcher recommendation */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
 
         body {
@@ -31,6 +40,24 @@
             clip: rect(0, 0, 0, 0);
             white-space: nowrap;
             border-width: 0;
+        }
+
+        /* Skip Link - UX Researcher recommendation */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #0ea5e9;
+            color: white;
+            padding: 8px 16px;
+            z-index: 100;
+            border-radius: 0 0 8px 0;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .skip-link:focus {
+            top: 0;
         }
 
         .container {
@@ -291,6 +318,45 @@
             opacity: 1;
         }
 
+        /* Success State - UI Designer & UX Researcher recommendation */
+        input.success,
+        select.success,
+        textarea.success {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        input.success:focus,
+        select.success:focus,
+        textarea.success:focus {
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+        }
+
+        .success-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #059669;
+            display: none;
+        }
+
+        .form-group.has-success .success-icon {
+            display: block;
+        }
+
+        .success-message {
+            color: #059669;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .success-message.visible {
+            display: block;
+        }
+
         textarea {
             resize: vertical;
             min-height: 100px;
@@ -310,7 +376,7 @@
             margin-left: 8px;
         }
 
-        /* Radio button styles - Modern minimalist */
+        /* Radio button styles - Modern minimalist with enhanced touch targets */
         .radio-group {
             display: flex;
             flex-direction: column;
@@ -329,6 +395,19 @@
             gap: 8px;
             cursor: pointer;
             min-height: 28px;
+            position: relative;
+            padding: 8px;
+            margin: -8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .radio-option:hover {
+            background: rgba(14, 165, 233, 0.05);
+        }
+
+        .radio-option:has(input:checked) {
+            background: rgba(14, 165, 233, 0.08);
         }
 
         .radio-option:hover label {
@@ -352,7 +431,7 @@
             transition: color 0.2s;
         }
 
-        /* Checkbox styles */
+        /* Checkbox styles - Enhanced touch targets */
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -360,6 +439,20 @@
             margin-bottom: 12px;
             cursor: pointer;
             min-height: 28px;
+            position: relative;
+            padding: 8px;
+            margin-left: -8px;
+            margin-right: -8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .checkbox-group:hover {
+            background: rgba(14, 165, 233, 0.05);
+        }
+
+        .checkbox-group:has(input:checked) {
+            background: rgba(14, 165, 233, 0.08);
         }
 
         .checkbox-group:hover label {
@@ -987,6 +1080,25 @@
             .keyboard-hint {
                 display: none;
             }
+
+            /* Enhanced touch targets for mobile - UX Researcher recommendation */
+            .radio-option,
+            .checkbox-group {
+                min-height: 44px;
+                padding: 12px;
+                margin: -12px;
+            }
+
+            .btn {
+                min-height: 48px;
+            }
+
+            input,
+            select,
+            textarea {
+                font-size: 16px; /* Prevents zoom on iOS */
+                min-height: 44px;
+            }
         }
 
         /* Network error notification */
@@ -1068,13 +1180,91 @@
         .network-error-actions .btn-dismiss:hover {
             background: #fef2f2;
         }
+
+        /* Progress indicator - Visual warmth */
+        .form-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e2e8f0;
+            z-index: 1000;
+        }
+
+        .form-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #0ea5e9 0%, #06b6d4 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Celebration animation for success - Brand Guardian recommendation */
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .success-modal.visible .modal-content h2 {
+            animation: celebrate 0.6s ease-out;
+        }
+
+        /* Enhanced focus visible - Accessibility */
+        *:focus-visible {
+            outline: 2px solid #0ea5e9;
+            outline-offset: 2px;
+        }
+
+        /* Smooth scroll for jump links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Unsaved changes indicator - UX Researcher recommendation */
+        .unsaved-indicator {
+            display: none;
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fffbeb;
+            border: 1.5px solid #fbbf24;
+            padding: 12px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 13px;
+            color: #92400e;
+            font-weight: 500;
+            z-index: 999;
+        }
+
+        .unsaved-indicator.visible {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
     </style>
 </head>
 <body>
+    <!-- Skip Link - Accessibility Enhancement -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Form Progress Indicator -->
+    <div class="form-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="form-progress-bar" id="formProgressBar"></div>
+    </div>
+
+    <!-- Unsaved Changes Indicator -->
+    <div class="unsaved-indicator" id="unsavedIndicator">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" style="display: inline; vertical-align: middle; margin-right: 6px;">
+            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/>
+        </svg>
+        You have unsaved changes
+    </div>
     <div class="container">
         <header class="header" role="banner">
             <h1>Add New Student</h1>
             <p>Create a student record with contact, academic, and billing information</p>
+            <p style="font-size: 13px; margin-top: 8px; opacity: 0.9;">✨ Enhanced with accessibility features and success validation</p>
         </header>
 
         <!-- Validation Summary -->
@@ -1090,7 +1280,7 @@
         </div>
 
         <form id="addStudentForm" onsubmit="submitForm(event); return false;" novalidate>
-            <div class="form-body">
+            <div class="form-body" id="main-content">
                 <!-- Basic Information -->
                 <section class="section">
                     <h2 class="section-title">Basic Information <span class="tag" role="status">All fields required</span></h2>
@@ -1101,34 +1291,48 @@
                                 First Name
                                 <span class="sr-only">required</span>
                             </label>
-                            <input
-                                type="text"
-                                id="firstName"
-                                name="firstName"
-                                autocomplete="given-name"
-                                placeholder="Enter first name"
-                                required
-                                aria-required="true"
-                                aria-describedby="firstNameError"
-                                onblur="checkDuplicate()">
+                            <div style="position: relative;">
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    name="firstName"
+                                    autocomplete="given-name"
+                                    placeholder="Enter first name"
+                                    required
+                                    aria-required="true"
+                                    aria-describedby="firstNameError firstNameSuccess"
+                                    onblur="validateField(this, 'firstNameError', 'firstNameSuccess'); checkDuplicate();"
+                                    oninput="markFormDirty()">
+                                <svg class="success-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                                </svg>
+                            </div>
                             <span class="error-message" id="firstNameError" role="alert"></span>
+                            <span class="success-message" id="firstNameSuccess">✓ Looks good!</span>
                         </div>
                         <div class="form-group">
                             <label for="lastName" class="required">
                                 Last Name
                                 <span class="sr-only">required</span>
                             </label>
-                            <input
-                                type="text"
-                                id="lastName"
-                                name="lastName"
-                                autocomplete="family-name"
-                                placeholder="Enter last name"
-                                required
-                                aria-required="true"
-                                aria-describedby="lastNameError"
-                                onblur="checkDuplicate()">
+                            <div style="position: relative;">
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    name="lastName"
+                                    autocomplete="family-name"
+                                    placeholder="Enter last name"
+                                    required
+                                    aria-required="true"
+                                    aria-describedby="lastNameError lastNameSuccess"
+                                    onblur="validateField(this, 'lastNameError', 'lastNameSuccess'); checkDuplicate();"
+                                    oninput="markFormDirty()">
+                                <svg class="success-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                                </svg>
+                            </div>
                             <span class="error-message" id="lastNameError" role="alert"></span>
+                            <span class="success-message" id="lastNameSuccess">✓ Looks good!</span>
                         </div>
                     </div>
 
@@ -1767,6 +1971,8 @@
         let selectedFamilyId = null;
         let duplicateCheckOverride = false;
         let formDataCache = null;
+        let formIsDirty = false;
+        let formCompletionScore = 0;
 
         // Debounce utility
         function debounce(func, wait) {
@@ -1840,6 +2046,10 @@
             // Hide student reminder settings when selecting existing family
             document.getElementById('studentReminderSettings').style.display = 'none';
             document.getElementById('reminderSettingsHidden').style.display = 'block';
+
+            // Mark form as dirty and update progress
+            markFormDirty();
+            updateFormProgress();
         }
 
         function selectCreateNew() {
@@ -1907,6 +2117,72 @@
         // Email validation
         function validateEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Mark form as dirty - UX Researcher recommendation
+        function markFormDirty() {
+            if (!formIsDirty) {
+                formIsDirty = true;
+                document.getElementById('unsavedIndicator').classList.add('visible');
+            }
+            updateFormProgress();
+        }
+
+        // Update form progress indicator
+        function updateFormProgress() {
+            const requiredFields = ['firstName', 'lastName'];
+            let filledFields = 0;
+
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field && field.value.trim()) {
+                    filledFields++;
+                }
+            });
+
+            if (selectedFamilyId) {
+                filledFields++;
+            }
+
+            const totalRequired = requiredFields.length + 1; // +1 for family
+            const progress = (filledFields / totalRequired) * 100;
+
+            const progressBar = document.getElementById('formProgressBar');
+            progressBar.style.width = progress + '%';
+            progressBar.parentElement.setAttribute('aria-valuenow', Math.round(progress));
+        }
+
+        // Generic field validation with success state - UI Designer recommendation
+        function validateField(field, errorId, successId) {
+            const errorEl = document.getElementById(errorId);
+            const successEl = successId ? document.getElementById(successId) : null;
+
+            if (!field.value.trim()) {
+                field.setAttribute('aria-invalid', 'true');
+                field.classList.add('error');
+                field.classList.remove('success');
+                field.parentElement.parentElement.classList.remove('has-success');
+                if (errorEl) {
+                    errorEl.textContent = field.labels[0].textContent.replace(' *', '') + ' is required';
+                    errorEl.classList.add('visible');
+                }
+                if (successEl) {
+                    successEl.classList.remove('visible');
+                }
+                return false;
+            } else {
+                field.removeAttribute('aria-invalid');
+                field.classList.remove('error');
+                field.classList.add('success');
+                field.parentElement.parentElement.classList.add('has-success');
+                if (errorEl) {
+                    errorEl.classList.remove('visible');
+                }
+                if (successEl) {
+                    successEl.classList.add('visible');
+                }
+                return true;
+            }
         }
 
         // Duplicate detection
@@ -2103,6 +2379,14 @@
                         const fullName = `${firstName.value} ${lastName.value}`;
                         document.getElementById('successMessage').textContent =
                             `Student "${fullName}" has been added successfully.`;
+
+                        // Mark form as clean
+                        formIsDirty = false;
+                        document.getElementById('unsavedIndicator').classList.remove('visible');
+
+                        // Update progress to 100%
+                        document.getElementById('formProgressBar').style.width = '100%';
+
                         showModal();
 
                         // Reset button
@@ -2127,10 +2411,23 @@
         }
 
         function handleCancel() {
-            if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+            if (formIsDirty) {
+                if (confirm('You have unsaved changes. Are you sure you want to cancel? All changes will be lost.')) {
+                    formIsDirty = false;
+                    window.history.back();
+                }
+            } else {
                 window.history.back();
             }
         }
+
+        // Warn about unsaved changes - UX Researcher recommendation
+        window.addEventListener('beforeunload', function(e) {
+            if (formIsDirty) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
 
         function showModal() {
             const modal = document.getElementById('successModal');
@@ -2214,6 +2511,22 @@
             document.getElementById('country').value = 'United States';
             document.getElementById('duration').value = '30';
             setupInlineValidation();
+
+            // Set initial focus to skip link or first field
+            const skipLink = document.querySelector('.skip-link');
+            if (skipLink) {
+                // Focus will be on skip link first, then user can tab to main content
+            }
+
+            // Initialize form progress
+            updateFormProgress();
+
+            // Add input listeners for all form fields to track changes
+            document.querySelectorAll('input, select, textarea').forEach(field => {
+                if (!field.hasAttribute('readonly') && field.type !== 'button' && field.type !== 'submit') {
+                    field.addEventListener('input', markFormDirty);
+                }
+            });
         }
     </script>
 </body>
