@@ -46,6 +46,7 @@ docs/wireframes/
 ├── README.md (this file)
 ├── student-management/
 │   ├── add-student.html ✓ Complete
+│   ├── student-list.html ✓ Complete
 │   ├── delete-students.html (pending)
 │   ├── update-prices.html (pending)
 │   └── ...
@@ -144,6 +145,29 @@ Requirements:
 - Inline error messaging
 
 **Based On:** `docs/functional/11-tutor-portal/student-management/add-student.md`
+
+**Status:** Complete - Ready for review
+
+#### ✓ Student List (`student-management/student-list.html`)
+
+**Features Demonstrated:**
+- Global search across multiple fields (name, email, phone, family, notes)
+- Status filtering (All, Active, Trial, Waiting, Lead, Inactive)
+- Tag-based filtering with multi-select
+- Column selection and customization (10 default, 30+ available)
+- Sortable columns (click headers to sort)
+- Bulk selection and actions (assign tag, set status, edit credits, send email, download)
+- Pagination (25/50/100/200 items per page)
+- Active filters display with individual removal
+- Desktop table view with sortable headers
+- Mobile card layout (responsive design)
+- Result count display
+- Interactive JavaScript functionality
+
+**Based On:**
+- `docs/functional/11-tutor-portal/student-management/student-list.md`
+- `docs/functional/11-tutor-portal/student-management/filtering-search.md`
+- `docs/ui-requirements/lists.md`
 
 **Status:** Complete - Ready for review
 
