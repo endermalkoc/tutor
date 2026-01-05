@@ -1,5 +1,21 @@
 # Project Documentation Goals & Guidelines
 
+## CRITICAL: Design System Compliance
+
+**ALL wireframes, UI prototypes, and interface implementations MUST conform to the design system.**
+
+**Design System Location**: `docs/ui-requirements/design-system/design-system.html`
+
+Before creating or modifying ANY UI:
+1. **ALWAYS** open and review `design-system.html` first
+2. **COPY** component HTML/CSS directly from the design system
+3. **NEVER** create custom styles for standard components (buttons, inputs, selects, dropdowns, etc.)
+4. **MATCH** exact colors, spacing, typography, and border-radius values
+
+If a component doesn't exist in the design system, add it to the design system FIRST, then use it in wireframes.
+
+---
+
 ## Functional Specifications Philosophy
 
 ### UI Element Specification Approach
@@ -48,45 +64,38 @@
 
 ### Design System as Source of Truth
 
-**Location**: `docs/ui-requirements/design-system/`
+**Location**: `docs/ui-requirements/design-system/design-system.html`
 
-All new wireframes, UI prototypes, and interface implementations **MUST** adhere to the established design system.
+This single HTML file contains ALL component styles, colors, spacing, and patterns. It is the authoritative reference for all UI work.
 
 ### When Creating New Wireframes or UI
 
-**REQUIRED - Always Reference**:
-1. **[Color System](docs/ui-requirements/design-system/color-system.md)** - Use only colors from the defined palette
-2. **[Component Library](docs/ui-requirements/design-system/component-library.md)** - Use existing components before creating new ones
-3. **[Design Patterns](docs/ui-requirements/design-system/design-patterns.md)** - Follow established interaction patterns
-4. **[Design System Demo](docs/ui-requirements/design-system/design-system-demo.html)** - Visual reference for all components
+**MANDATORY WORKFLOW**:
+1. Open `design-system.html` in browser
+2. Find the component you need (button, input, select, dropdown, card, etc.)
+3. Copy the HTML structure and CSS exactly
+4. Do NOT modify colors, spacing, border-radius, or typography
 
 ### Wireframe Creation Checklist
 
 Before creating a new wireframe:
-- [ ] Review the [Design System Demo](docs/ui-requirements/design-system/design-system-demo.html)
-- [ ] Identify which existing components can be used
-- [ ] Use colors exclusively from the [Color System](docs/ui-requirements/design-system/color-system.md)
-- [ ] Apply spacing and typography scales from [Component Library](docs/ui-requirements/design-system/component-library.md)
-- [ ] Follow interaction patterns from [Design Patterns](docs/ui-requirements/design-system/design-patterns.md)
+- [ ] Open and review `design-system.html`
+- [ ] Identify which existing components to use
+- [ ] Copy component HTML/CSS from design system
 - [ ] Ensure WCAG AA accessibility compliance
 - [ ] Include proper ARIA attributes and keyboard navigation
 - [ ] Test responsive behavior (mobile breakpoint: 768px)
 
 ### Creating New Components
 
-**Only create new components when**:
-- No existing component meets the need
-- Modification of existing component would break its purpose
-- The new component will be reused in multiple places
+**Only create new components when** no existing component in `design-system.html` meets the need.
 
-**When creating new components**:
-1. Design following the minimalist philosophy (clarity, simplicity, efficiency)
-2. Document in [Component Library](docs/ui-requirements/design-system/component-library.md)
-3. Add example to [Design System Demo](docs/ui-requirements/design-system/design-system-demo.html)
-4. Update [Design Patterns](docs/ui-requirements/design-system/design-patterns.md) if introducing new interaction pattern
-5. Use colors from established palette
-6. Follow accessibility requirements
-7. Include all interaction states (default, hover, focus, active, disabled, error)
+**REQUIRED: Add to design system FIRST**:
+1. Add the new component to `design-system.html` with all states (default, hover, focus, active, disabled, error)
+2. Use existing color variables, spacing scale, and typography
+3. Follow the minimalist philosophy (clarity, simplicity, efficiency)
+4. Include accessibility requirements (ARIA, keyboard navigation)
+5. THEN copy to wireframes
 
 ### Design System Compliance
 
@@ -158,4 +167,4 @@ User initiates delete action. System prompts for confirmation before executing t
 - Refactoring existing functional specifications to align with interaction-focused approach
 - Applying design system to all new wireframes and UI work
 
-**Design System Location**: `docs/ui-requirements/design-system/`
+**Design System Location**: `docs/ui-requirements/design-system/design-system.html`
