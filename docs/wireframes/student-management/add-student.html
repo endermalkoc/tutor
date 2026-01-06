@@ -1165,52 +1165,6 @@
                             </div>
                         </section>
 
-                        <!-- Default Billing -->
-                        <section class="section">
-                            <div class="section-header">
-                                <h2 class="section-title">Default Billing</h2>
-                            </div>
-
-                            <div class="form-row single">
-                                <fieldset>
-                                    <legend>Billing Responsibility</legend>
-                                    <div class="radio-group" role="radiogroup">
-                                        <div class="radio-option">
-                                            <input type="radio" id="billFamily" name="billingType" value="family" checked>
-                                            <label for="billFamily">Bill to family</label>
-                                        </div>
-                                        <div class="radio-option">
-                                            <input type="radio" id="billStudent" name="billingType" value="student">
-                                            <label for="billStudent">Bill student directly</label>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="billingEmail">Billing Email</label>
-                                    <input
-                                        type="email"
-                                        id="billingEmail"
-                                        inputmode="email"
-                                        placeholder="billing@example.com">
-                                    <span class="help-text">Leave blank to use contact email</span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="paymentTerms">Payment Terms</label>
-                                    <div class="select-wrapper">
-                                        <select id="paymentTerms">
-                                            <option value="due-on-receipt" selected>Due on receipt</option>
-                                            <option value="net-7">Net 7 days</option>
-                                            <option value="net-14">Net 14 days</option>
-                                            <option value="net-30">Net 30 days</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
                         <!-- Lesson Settings -->
                         <section class="section">
                             <div class="section-header">
@@ -1233,7 +1187,7 @@
                                 </fieldset>
                             </div>
 
-                            <div class="form-row">
+                            <div class="form-row single">
                                 <div class="form-group">
                                     <label for="duration">Default Duration</label>
                                     <div class="select-wrapper">
@@ -1245,15 +1199,53 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="price">Default Price</label>
-                                    <input
-                                        type="number"
-                                        id="price"
-                                        inputmode="decimal"
-                                        placeholder="0.00"
-                                        step="0.01"
-                                        min="0">
+                            </div>
+                        </section>
+
+                        <!-- Default Billing -->
+                        <section class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Default Billing</h2>
+                            </div>
+
+                            <div class="form-row single">
+                                <fieldset>
+                                    <legend>Billing Method</legend>
+                                    <div class="radio-group" role="radiogroup">
+                                        <div class="radio-option">
+                                            <input type="radio" id="billingNone" name="billingMethod" value="none" checked onchange="updateBillingInput()">
+                                            <label for="billingNone">Don't automatically create any calendar-generated charges</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="billingPerLesson" name="billingMethod" value="per-lesson" onchange="updateBillingInput()">
+                                            <label for="billingPerLesson">Student pays based on the number of lessons taken</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="billingMonthly" name="billingMethod" value="monthly" onchange="updateBillingInput()">
+                                            <label for="billingMonthly">Student pays the same amount each month regardless of number of lessons</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="billingHourly" name="billingMethod" value="hourly" onchange="updateBillingInput()">
+                                            <label for="billingHourly">Student pays an hourly rate (charges adjust to lesson duration)</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="form-row single" id="billingAmountRow" style="display: none;">
+                                <div class="form-group" style="max-width: 200px;">
+                                    <label for="billingAmount" id="billingAmountLabel">Amount per lesson</label>
+                                    <div style="position: relative;">
+                                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--fg-muted);">$</span>
+                                        <input
+                                            type="number"
+                                            id="billingAmount"
+                                            inputmode="decimal"
+                                            placeholder="0.00"
+                                            step="0.01"
+                                            min="0"
+                                            style="padding-left: 28px;">
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -1289,7 +1281,6 @@
             const existingFamilyRow = document.getElementById('existingFamilyRow');
             const newFamilySection = document.getElementById('newFamilySection');
             const studentAddressSection = document.getElementById('studentAddressSection');
-            const billFamilyOption = document.getElementById('billFamily');
 
             // Student type toggle - adults don't need family
             function updateStudentTypeVisibility() {
@@ -1300,17 +1291,11 @@
                     familySection.style.display = 'none';
                     // Show student address for adults
                     studentAddressSection.style.display = 'block';
-                    // Set billing to student directly
-                    billFamilyOption.disabled = true;
-                    document.getElementById('billStudent').checked = true;
                 } else {
                     // Show family section for children
                     familySection.style.display = 'block';
                     // Hide student address for children (they use family address)
                     studentAddressSection.style.display = 'none';
-                    // Enable family billing option
-                    billFamilyOption.disabled = false;
-                    document.getElementById('billFamily').checked = true;
                     updateFamilyVisibility();
                 }
             }
@@ -1343,6 +1328,26 @@
             initStateCombobox('studentStateList');
             initStateCombobox('guardianStateList');
         });
+
+        // Billing method toggle
+        function updateBillingInput() {
+            const selected = document.querySelector('input[name="billingMethod"]:checked').value;
+            const amountRow = document.getElementById('billingAmountRow');
+            const amountLabel = document.getElementById('billingAmountLabel');
+
+            if (selected === 'none') {
+                amountRow.style.display = 'none';
+            } else {
+                amountRow.style.display = 'block';
+                if (selected === 'per-lesson') {
+                    amountLabel.textContent = 'Amount per lesson';
+                } else if (selected === 'monthly') {
+                    amountLabel.textContent = 'Amount per month';
+                } else if (selected === 'hourly') {
+                    amountLabel.textContent = 'Amount per hour';
+                }
+            }
+        }
 
         // US States data
         const US_STATES = [

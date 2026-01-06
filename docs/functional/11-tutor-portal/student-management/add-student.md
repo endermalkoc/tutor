@@ -34,6 +34,7 @@ For child students, user selects one of two options:
 2. **Create new family** - Enter new family and guardian information
 
 **If adding to existing family:**
+
 - Combobox to search and select families (type to filter, select from results)
 - Search by family name, parent name, or email
 - Results display family name with primary guardian details
@@ -41,11 +42,13 @@ For child students, user selects one of two options:
 - Child inherits family address (no separate address entry needed)
 
 **If creating new family:**
+
 - Primary Guardian information (see "Creating New Family" section below)
 - Family name automatically derived from guardian's last name (e.g., "Smith Family")
 - Child inherits family address from guardian
 
 **For adult students:**
+
 - No family selection displayed
 - Student is treated as independent
 - Billing goes directly to student
@@ -66,25 +69,37 @@ For child students, user selects one of two options:
 
 - Lesson Category (Lesson, Group Lesson, Vacation)
 - Default Duration (minutes)
-- Default Billing Type
-- Price
-- Price Type
+
+#### Default Billing
+
+Select one of the following billing methods:
+
+**1. Don't automatically create any calendar-generated charges**
+
+- No automatic billing
+- Manual invoicing only
+
+**2. Student pays based on the number of lessons taken**
+
+- Per-lesson billing
+- Enter: **$ amount per lesson**
+- Charges created based on completed lessons
+
+**3. Student pays the same amount each month regardless of number of lessons**
+
+- Flat monthly fee
+- Enter: **$ amount per month**
+- Fixed recurring charge
+
+**4. Student pays an hourly rate (Charges will automatically adjust to lesson duration)**
+
+- Hourly billing
+- Enter: **$ amount per hour**
+- Charges calculated based on actual lesson duration
 
 **Additional Information**:
 
 - Notes (private tutor notes)
-
-### Step 5: Default Billing
-
-**Billing Responsibility:**
-- Bill to family (default for children with family assigned)
-- Bill student directly (default for adults, required if no family)
-
-**Note:** For adult students, "Bill to family" option is disabled since they have no family assignment.
-
-**Billing Settings:**
-- Billing Email (optional - defaults to contact email)
-- Payment Terms: Due on receipt, Net 7, Net 14, Net 30
 
 ### Step 6: Optional - Show Additional Fields
 
@@ -159,11 +174,13 @@ If "Create New Family" is selected:
 **Note:** Family name is automatically generated from guardian's last name (e.g., "Smith Family").
 
 **Primary Guardian - Required Fields:**
+
 - First Name
 - Last Name
 - Email Address OR Mobile Number (at least one required)
 
 **Primary Guardian - Contact Fields:**
+
 - Email Address
 - Mobile Number
 - SMS Capable (checkbox - indicates if phone number can receive SMS)
