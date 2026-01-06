@@ -58,6 +58,25 @@ If a component doesn't exist in the design system, add it to the design system F
 3. **Design System** (`docs/ui-requirements/design-system/`) - Complete visual design system
 4. **Wireframes** (`docs/wireframes/`) - Interactive HTML prototypes
 
+### Keep Specs DRY
+
+When a component or workflow is reusable across multiple contexts:
+
+1. Create a single spec file for the reusable component
+2. Reference it from other specs - don't duplicate field definitions
+3. Only document context-specific behavior in the referencing spec
+
+**Example:**
+```markdown
+<!-- Good: Reference the shared spec -->
+Display the [Invoice Scheduling Settings](../invoicing/invoice-scheduling.md) form.
+
+<!-- Bad: Duplicating field definitions that exist elsewhere -->
+**Fields displayed:**
+1. Billing Cycle Start Date...
+2. Invoice Type...
+```
+
 ---
 
 ## Design System & UI Creation Guidelines

@@ -126,16 +126,17 @@ Additional fields hidden by default. User can show these fields by clicking "Sho
 - Referrer (how student found the tutor)
 - Student Since (date)
 
-### Step 7: Save
+### Step 7: Save / Continue
 
 1. User submits the form
 2. System validates all fields
 3. If validation passes:
-   - Student record created
-   - Contact record created/linked
-   - Family association established
-   - User returned to student management list
-   - New student appears in the list
+   - **If creating new family**: Proceed to Step 2 - Invoicing Setup (see [add-student-invoicing.md](add-student-invoicing.md))
+   - **If adding to existing family or adult student**:
+     - Student record created
+     - Contact record created/linked
+     - Family association established (if child)
+     - User shown success confirmation
 4. If validation fails:
    - Error messages displayed
    - User corrects issues and resubmits
