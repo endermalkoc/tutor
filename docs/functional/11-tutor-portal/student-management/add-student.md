@@ -2,261 +2,245 @@
 
 ## Overview
 
-The Add New Student feature allows tutors to create individual student records with complete contact, academic, and billing information.
+The Add New Student feature allows tutors to create student records with contact, family, lesson, and billing information in a single, streamlined form.
+
+## UX Design Rationale
+
+### Problem Statement
+
+Adding a new student requires capturing multiple categories of information:
+1. Student identity (name, type, status, contact)
+2. Student optional details (birthday, gender, school, academic info)
+3. Family information (for children)
+4. Lesson settings (duration, category)
+5. Billing method (per lesson, monthly, hourly)
+6. Invoice scheduling (frequency, due dates)
+
+The challenge: How to collect this information without overwhelming the user or creating unnecessary friction.
+
+### Options Considered
+
+| Approach | Pros | Cons |
+|----------|------|------|
+| **Multi-step wizard** | Focused, less overwhelming | More clicks, slower for repeat users, hard to compare sections |
+| **Single long form** | Everything visible, fast for power users | Overwhelming, high abandonment |
+| **Ask what to enter first** | Personalized | Extra decision point, adds friction |
+| **Progressive disclosure** | Best of both worlds | Requires careful design |
+
+### Decision: Structured Single Page with Inline Expansion
+
+For **power users performing repeated tasks** (tutors adding many students over time), UX research shows:
+
+> "Wizards work best for infrequent, complex, branching tasks. For frequent tasks, power users prefer seeing everything at once with good defaults."
+
+**Key principles applied:**
+
+1. **Three primary sections always visible** — Student, Family, Lessons & Billing
+2. **Inline expansion per section** — Each section has its own "+ Add more..." rather than one big "Show More Fields" button
+3. **Smart defaults** — Sensible pre-selections minimize decisions
+4. **Merge related concerns** — Billing method + Invoice scheduling in one section
+5. **Single page** — No wizard steps, no separate invoicing page
+
+### Form Structure
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  STUDENT                                        [Required]  │
+│  Name, Type, Status, Contact                                │
+│  + Add birthday, gender, school...              [Optional]  │
+├─────────────────────────────────────────────────────────────┤
+│  FAMILY                                    (Children only)  │
+│  Select existing OR Create new                              │
+│  + Add guardian address, details...             [Optional]  │
+├─────────────────────────────────────────────────────────────┤
+│  LESSONS & BILLING                                          │
+│  Duration, Category, Billing method, Price                  │
+│  + Set up automatic invoicing                   [Optional]  │
+├─────────────────────────────────────────────────────────────┤
+│  NOTES                                          [Optional]  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
 
 ## Access
 
-Always available in student management
+Always available in student management.
 
 ## Workflow
 
 ### Step 1: Open Form
 
 1. User initiates add student action
-2. Student creation form displays
+2. Single-page student creation form displays
+3. Smart defaults pre-populated
 
-### Step 2: Fill Required Fields
+### Step 2: Complete Primary Sections
 
-**Required Information:**
+**Section 1: Student Information (Required)**
 
-- **First Name** (from Contact entity)
-- **Last Name** (from Contact entity)
-- **Student Type** - Adult or Child
-- **Status** - Active, Trial, Waiting, Lead, or Inactive
+Core fields (always visible):
+- **First Name** — Required
+- **Last Name** — Required
+- **Student Type** — Child (default) or Adult
+- **Status** — Active (default), Trial, Waiting, Lead, or Inactive
+- **Email Address** — Optional, validated format
+- **Phone Number** — Optional, validated format
+- **SMS Capable** — Checkbox, default checked when phone provided
 
-### Step 3: Family Assignment (Children Only)
-
-**Note:** This step only applies to children. Adults are automatically treated as independent students with no family assignment.
-
-For child students, user selects one of two options:
-
-1. **Add to existing family** - Search and select from existing families
-2. **Create new family** - Enter new family and guardian information
-
-**If adding to existing family:**
-
-- Combobox to search and select families (type to filter, select from results)
-- Search by family name, parent name, or email
-- Results display family name with primary guardian details
-- Selecting a family links the student to that family's billing and contacts
-- Child inherits family address (no separate address entry needed)
-
-**If creating new family:**
-
-- Primary Guardian information (see "Creating New Family" section below)
-- Family name automatically derived from guardian's last name (e.g., "Smith Family")
-- Child inherits family address from guardian
-
-**For adult students:**
-
-- No family selection displayed
-- Student is treated as independent
-- Billing goes directly to student
-- Student must provide their own address in Contact Information section
-
-### Step 4: Fill Default Visible Fields
-
-**Student Contact Information** (from Contact entity):
-
-- Email Address
-- Phone Number (mobile phone)
-- SMS Capable (checkbox - indicates if phone number can receive SMS messages)
-- Address, City, State (only shown for adult students; children inherit family address)
-  - State: combobox with search for US tutors; text field for other countries
-  - Country inherited from tutor's registration (not entered on form)
-
-**Lesson Settings**:
-
-- Lesson Category (Lesson, Group Lesson, Vacation)
-- Default Duration (minutes) - select from common options (30, 45, 60, 90) or enter custom value
-
-#### Default Billing
-
-Select one of the following billing methods:
-
-**1. Don't automatically create any calendar-generated charges**
-
-- No automatic billing
-- Manual invoicing only
-
-**2. Student pays based on the number of lessons taken**
-
-- Per-lesson billing
-- Enter: **$ amount per lesson**
-- Charges created based on completed lessons
-
-**3. Student pays the same amount each month regardless of number of lessons**
-
-- Flat monthly fee
-- Enter: **$ amount per month**
-- Fixed recurring charge
-
-**4. Student pays an hourly rate (Charges will automatically adjust to lesson duration)**
-
-- Hourly billing
-- Enter: **$ amount per hour**
-- Charges calculated based on actual lesson duration
-
-**Additional Information**:
-
-- Notes (private tutor notes)
-
-### Step 6: Optional - Show Additional Fields
-
-Additional fields hidden by default. User can show these fields by clicking "Show More Fields" or similar action:
-
-**Personal Information** (hidden by default):
-
+Expandable fields (via "+ Add birthday, gender, school..."):
 - Gender
 - Birthday
-- School
-
-**Academic Information** (hidden by default):
-
-- Subjects (multi-select)
+- School (autocomplete)
+- Subjects (multi-select, autocomplete)
 - Skill Level
-
-**Communication Apps** (hidden by default):
-
 - Skype Username
 - FaceTime ID
-
-**Other Information** (hidden by default):
-
-- Referrer (how student found the tutor)
+- Referrer (autocomplete from previous entries)
 - Student Since (date)
 
-### Step 7: Save / Continue
+**Section 2: Family Information (Children Only)**
 
-1. User submits the form
+This section only displays when Student Type = Child. Adults are independent (no family assignment).
+
+Family assignment options:
+- **Add to existing family** — Combobox to search/select
+- **Create new family** — Inline guardian entry
+
+If adding to existing family:
+- Search by family name, parent name, or email
+- Selecting a family links student to that family's billing and contacts
+- Child inherits family address
+
+If creating new family:
+
+Core guardian fields (always visible):
+- Guardian First Name — Required
+- Guardian Last Name — Required
+- Guardian Email OR Mobile — At least one required
+- SMS Capable — Checkbox, default checked
+
+Expandable fields (via "+ Add guardian address..."):
+- Address (street)
+- City
+- State (combobox for US, text field otherwise)
+
+Family name auto-generated from guardian's last name (e.g., "Smith Family").
+
+**Section 3: Lessons & Billing**
+
+Lesson settings (always visible):
+- **Lesson Category** — Individual (default) or Group
+- **Default Duration** — Select: 30 min (default), 45, 60, 90, or Custom
+
+Billing method (always visible):
+- **No automatic billing** — Manual invoicing only
+- **Per lesson** — $ amount per lesson (default selection)
+- **Monthly flat rate** — $ amount per month
+- **Hourly rate** — $ amount per hour
+
+Expandable invoicing (via "+ Set up automatic invoicing"):
+
+Quick preset dropdown:
+- **No auto-invoicing** (default) — Manual invoice creation
+- **Simple Monthly** — Invoice monthly on 1st, due on receipt
+- **Bi-weekly** — Invoice every 2 weeks
+- **Custom...** — Reveals full configuration
+
+Full configuration (when Custom selected):
+- Billing cycle start date
+- Invoice type (Prepaid/Postpaid)
+- Schedule frequency (Weekly/Monthly/Annual)
+- Invoice creation timing
+- Payment due date terms
+
+See [Invoice Scheduling Settings](../invoicing/invoice-scheduling.md) for detailed field specifications.
+
+**Section 4: Notes (Optional)**
+
+- Private tutor notes textarea
+- Only visible to tutors, not shared with students or families
+
+### Step 3: Save
+
+1. User clicks "Create Student"
 2. System validates all fields
 3. If validation passes:
-   - **If creating new family**: Proceed to Step 2 - Invoicing Setup (see [add-student-invoicing.md](add-student-invoicing.md))
-   - **If adding to existing family or adult student**:
-     - Student record created
-     - Contact record created/linked
-     - Family association established (if child)
-     - User shown success confirmation
+   - Student record created
+   - Contact record created/linked
+   - Family association established (if child)
+   - Invoicing configuration applied (if set)
+   - Success toast displayed with options
 4. If validation fails:
-   - Error messages displayed
-   - User corrects issues and resubmits
+   - Inline error messages displayed
+   - Focus moves to first error
+
+---
 
 ## Form Validation
 
 ### Required Field Validation
 
 - First Name and Last Name must be provided
-- Family must be selected or created
 - Student Type must be selected
 - Status must be selected
+- If Student Type = Child, family must be selected or created
+- If creating new family, guardian name and at least email or phone required
 
-### Contact Information Validation
+### Format Validation
 
 - Email must be valid email format if provided
 - Phone number must follow valid format if provided
-
-### Price Validation
-
 - Price must be >= 0 if provided
-- Default Duration must be positive integer
+- Duration must be positive integer if custom
 
 ### Business Logic Validation
 
-- If Student Type = Child, family assignment is required (existing or new)
-- If Student Type = Child, family must have at least one guardian
-- If Student Type = Adult, no family assignment allowed (automatically independent)
-- If Student Type = Adult, address fields are shown and recommended
-- If creating new family, guardian information is required
+- If Student Type = Child, family assignment is required
+- If Student Type = Child and creating new family, guardian information required
+- If Student Type = Adult, no family section displayed
+- If billing method selected (not "None"), price field required
 
-## Creating New Family
+---
 
-If "Create New Family" is selected:
+## Smart Defaults
 
-**Note:** Family name is automatically generated from guardian's last name (e.g., "Smith Family").
+| Field | Default Value | Rationale |
+|-------|---------------|-----------|
+| Student Type | Child | Most common for tutoring |
+| Status | Active | Optimistic, ready to schedule |
+| Duration | 30 minutes | Industry standard |
+| Billing Method | Per lesson | Most flexible starting point |
+| Auto-invoicing | None | Opt-in to complexity |
+| SMS Capable | Checked | Assume modern phones |
 
-**Primary Guardian - Required Fields:**
-
-- First Name
-- Last Name
-- Email Address OR Mobile Number (at least one required)
-
-**Primary Guardian - Contact Fields:**
-
-- Email Address
-- Mobile Number
-- SMS Capable (checkbox - indicates if phone number can receive SMS)
-- Address (street address)
-- City
-- State (combobox with search for US tutors; text field for other countries)
-
-**Note:** Country is inherited from the tutor's registration country and is not entered on this form. State/Province field adapts based on country (e.g., US states shown as combobox).
-
-**Process:**
-
-1. Family record created first
-2. Guardian contact record created and linked to family as primary guardian
-3. Student record created and linked to family
-4. Billing defaults to family unless specified otherwise
-
-## User Experience Features
-
-### Form Organization
-
-- Sections collapsible/expandable
-- Required fields clearly marked
-- Helpful tooltips for complex fields
-- Default values pre-populated where appropriate
-
-### Smart Defaults
-
-- Status defaults to "Active" for new students
-- Student Type defaults to "Child"
-- Default Duration defaults to 30 minutes (common presets: 30, 45, 60, 90 minutes with custom option)
-- SMS Capable defaults to enabled (checked) when phone number is provided
-
-### Show More Fields
-
-- Additional fields hidden by default to reduce form clutter
-- "Show More Fields" action reveals hidden fields
-- User can toggle visibility of optional fields
-- Hidden fields include: Gender, Birthday, School, Subjects, Skill Level, Skype Username, FaceTime ID, Referrer, Student Since
-- Field visibility preferences can be saved per user (optional enhancement)
-
-### Family Quick Add
-
-- Option to create new family within form
-- Inline family creation without leaving form
-- Guardian information collected in same flow
-
-### Auto-Complete
-
-- School selection with auto-complete
-- Subject selection with auto-complete
-- Referrer field with previous referrer suggestions
+---
 
 ## Success Confirmation
 
-**After Save:**
+After save, display toast notification:
 
-- Success message: "Student [Name] added successfully"
-- Option to:
-  - View student detail page
-  - Add another student
-  - Schedule first lesson
-  - Return to student list
+- "Student [Name] added successfully"
+- Action buttons:
+  - **Add another to this family** — Clears form, keeps family selected
+  - **View student** — Navigate to student detail page
+- Toast auto-dismisses after 10 seconds
+- Clicking outside dismisses immediately
+
+---
 
 ## Error Handling
 
 ### Duplicate Detection
 
-- Check for existing students with same name in family
+- Check for existing students with same name in same family
 - Warn if potential duplicate detected
 - Allow user to proceed or cancel
 
 ### Validation Errors
 
-- Inline error messages next to invalid fields
-- Summary of all errors at top of form
+- Inline error messages below invalid fields
+- Error styling on field border
 - Focus automatically moves to first error
 
 ### Network Errors
@@ -265,24 +249,41 @@ If "Create New Family" is selected:
 - Data preserved if network error occurs
 - Clear error message with retry option
 
+---
+
+## Cancel Behavior
+
+- If form has unsaved changes, show confirmation modal
+- "Discard changes?" with Keep editing / Discard options
+- If no changes, navigate directly to student list
+
+---
+
 ## Integration Points
 
-- **Student Entity** - Creates student record ([Student Entity](../../entities/student.md))
-- **Contact Entity** - Creates/updates contact information
-- **Family Entity** - Links to family or creates new family
-- **Guardian Entity** - Creates guardian if new family
-- **Phone Entity** - Creates phone record if provided
-- **Address Entity** - Creates address if provided
-- **User Entity** - Optionally creates user account for portal access
+- **Student Entity** — Creates student record
+- **Contact Entity** — Creates/updates contact information
+- **Family Entity** — Links to family or creates new family
+- **Guardian Entity** — Creates guardian if new family
+- **Invoice Settings** — Stores invoicing configuration on family
 
-## Notes
+---
 
-- Creating a student automatically creates underlying Contact record
-- Student can be created with minimal information (name, family, type, status)
-- Additional fields can be added later through student detail view
-- Only one phone number per student/guardian stored (mobile phone)
-- Price and lesson settings can be updated later in student detail view
-- Guardian portal access can be configured separately after student creation
-- Student portal access (User creation) happens separately, not during initial student add
-- Hidden fields help reduce form complexity for quick student creation
-- Reminder settings can be configured in family or student settings after creation
+## Responsive Behavior
+
+- On mobile (< 768px):
+  - Sidebar hidden
+  - Form sections stack vertically
+  - Full-width inputs
+  - Buttons stack vertically in footer
+
+---
+
+## Accessibility
+
+- All form fields have associated labels
+- Required fields marked with asterisk and aria-required
+- Error messages linked via aria-describedby
+- Keyboard navigation for all interactive elements
+- Focus management on section expansion
+- Color not sole indicator of state (icons + text for errors)

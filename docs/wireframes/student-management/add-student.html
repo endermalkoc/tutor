@@ -219,7 +219,7 @@
 
         /* Page header */
         .page-header {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-6);
         }
 
         .breadcrumb {
@@ -271,38 +271,39 @@
 
         /* Sections */
         .section {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-6);
+            border-bottom: 1px solid var(--border-default);
         }
 
         .section:last-child {
             margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
         }
 
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: var(--space-5);
-            padding-bottom: var(--space-3);
-            border-bottom: 1px solid var(--border-default);
+            margin-bottom: var(--space-4);
         }
 
         .section-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--fg-default);
-            letter-spacing: -0.01em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .section-badge {
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--fg-muted);
             background: var(--bg-subtle);
             padding: var(--space-1) var(--space-2);
             border-radius: var(--radius-sm);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         /* Form layout */
@@ -317,6 +318,10 @@
             grid-template-columns: 1fr;
         }
 
+        .form-row.triple {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
         .form-row:last-child {
             margin-bottom: 0;
         }
@@ -327,7 +332,7 @@
             gap: var(--space-2);
         }
 
-        /* Labels - from design system .form-label */
+        /* Labels */
         label {
             font-size: 13px;
             font-weight: 500;
@@ -339,7 +344,7 @@
             color: var(--error-600);
         }
 
-        /* Inputs - from design system .input */
+        /* Inputs */
         input[type="text"],
         input[type="email"],
         input[type="tel"],
@@ -359,7 +364,7 @@
 
         textarea {
             height: auto;
-            min-height: 100px;
+            min-height: 80px;
             padding: var(--space-3);
             resize: vertical;
         }
@@ -378,7 +383,7 @@
         textarea:focus {
             outline: none;
             border-color: var(--primary-500);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 3px rgba(59, 165, 197, 0.1);
         }
 
         input:disabled,
@@ -388,15 +393,14 @@
             cursor: not-allowed;
         }
 
-        /* Select - from design system */
+        /* Select wrapper */
         .select-wrapper {
             position: relative;
             display: flex;
             width: 100%;
         }
 
-        select,
-        .select {
+        select {
             appearance: none;
             width: 100%;
             height: 36px;
@@ -418,7 +422,7 @@
         select:focus {
             outline: none;
             border-color: var(--primary-500);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 3px rgba(59, 165, 197, 0.1);
         }
 
         .select-wrapper::after {
@@ -435,7 +439,7 @@
             pointer-events: none;
         }
 
-        /* Help text - from design system .form-hint */
+        /* Help text */
         .help-text {
             font-size: 12px;
             color: var(--fg-muted);
@@ -460,7 +464,7 @@
             color: var(--error-600);
         }
 
-        /* Radio & Checkbox - from design system */
+        /* Radio & Checkbox */
         .radio-group {
             display: flex;
             flex-direction: column;
@@ -480,8 +484,7 @@
             gap: var(--space-2);
             cursor: pointer;
             user-select: none;
-            min-height: 44px;
-            padding: var(--space-2) 0;
+            min-height: 36px;
         }
 
         .radio-option input[type="radio"],
@@ -545,6 +548,279 @@
             cursor: pointer;
         }
 
+        /* Expand toggle button */
+        .expand-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) 0;
+            background: none;
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--fg-muted);
+            cursor: pointer;
+            transition: color var(--transition-fast);
+        }
+
+        .expand-toggle:hover {
+            color: var(--fg-secondary);
+        }
+
+        .expand-toggle i {
+            font-size: 14px;
+            transition: transform var(--transition-fast);
+        }
+
+        .expand-toggle.expanded i {
+            transform: rotate(180deg);
+        }
+
+        /* Expandable content */
+        .expandable-content {
+            display: none;
+            padding-top: var(--space-4);
+            margin-top: var(--space-4);
+            border-top: 1px dashed var(--border-default);
+        }
+
+        .expandable-content.visible {
+            display: block;
+        }
+
+        /* Combobox */
+        .combobox {
+            position: relative;
+            width: 100%;
+        }
+
+        .combobox-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 36px;
+            padding: 0 var(--space-3);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-family: var(--font-sans);
+            color: var(--fg-default);
+            background: var(--bg-surface);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-align: left;
+        }
+
+        .combobox-trigger:hover {
+            border-color: var(--border-strong);
+        }
+
+        .combobox-trigger:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(59, 165, 197, 0.1);
+        }
+
+        .combobox-trigger .placeholder {
+            color: var(--fg-faint);
+        }
+
+        .combobox-trigger .selected-value {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .combobox-trigger .chevron {
+            width: 16px;
+            height: 16px;
+            color: var(--fg-muted);
+            flex-shrink: 0;
+            margin-left: var(--space-2);
+        }
+
+        .combobox-popover {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-4px);
+            transition: all var(--transition-fast);
+        }
+
+        .combobox.open .combobox-popover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .combobox-search {
+            padding: var(--space-3);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .combobox-search input {
+            width: 100%;
+            height: 32px;
+        }
+
+        .combobox-list {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: var(--space-1);
+        }
+
+        .combobox-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-3);
+            font-size: 13px;
+            color: var(--fg-secondary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .combobox-item:hover {
+            background: var(--bg-muted);
+            color: var(--fg-default);
+        }
+
+        .combobox-item.selected {
+            background: var(--primary-50);
+            color: var(--primary-600);
+        }
+
+        .combobox-item .check-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0;
+            color: var(--primary-600);
+        }
+
+        .combobox-item.selected .check-icon {
+            opacity: 1;
+        }
+
+        .combobox-item-label {
+            flex: 1;
+        }
+
+        .combobox-item-description {
+            font-size: 12px;
+            color: var(--fg-muted);
+        }
+
+        .combobox-divider {
+            height: 1px;
+            background: var(--border-default);
+            margin: var(--space-1) 0;
+        }
+
+        .combobox-item.create-new {
+            color: var(--primary-600);
+            font-weight: 500;
+        }
+
+        .combobox-item.create-new i {
+            color: var(--primary-600);
+        }
+
+        /* Inline new family form */
+        .inline-form {
+            background: var(--bg-subtle);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            margin-top: var(--space-3);
+        }
+
+        .inline-form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-4);
+        }
+
+        .inline-form-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--fg-secondary);
+        }
+
+        /* Price input */
+        .price-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .price-input-wrapper .currency-symbol {
+            position: absolute;
+            left: var(--space-3);
+            color: var(--fg-muted);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .price-input-wrapper input {
+            padding-left: 24px;
+        }
+
+        /* Invoicing presets */
+        .preset-select {
+            display: flex;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+        }
+
+        .preset-option {
+            flex: 1;
+            min-width: 140px;
+            padding: var(--space-3);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-align: left;
+        }
+
+        .preset-option:hover {
+            border-color: var(--border-strong);
+        }
+
+        .preset-option.selected {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+        }
+
+        .preset-option-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--fg-default);
+            margin-bottom: var(--space-1);
+        }
+
+        .preset-option.selected .preset-option-title {
+            color: var(--primary-700);
+        }
+
+        .preset-option-desc {
+            font-size: 12px;
+            color: var(--fg-muted);
+        }
+
         /* Form footer */
         .form-footer {
             display: flex;
@@ -563,58 +839,60 @@
             gap: var(--space-3);
         }
 
-        /* Progress indicator */
-        .progress-steps {
-            display: flex;
-            align-items: center;
-            gap: var(--space-3);
-            margin-bottom: var(--space-6);
-        }
-
-        .progress-step {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            font-size: 13px;
-            color: var(--fg-muted);
-        }
-
-        .progress-step.active {
-            color: var(--primary-600);
-            font-weight: 500;
-        }
-
-        .step-number {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
+        /* Buttons */
+        .btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-            background: var(--bg-muted);
-            color: var(--fg-muted);
+            gap: var(--space-2);
+            font-family: var(--font-sans);
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+            text-decoration: none;
+            white-space: nowrap;
         }
 
-        .progress-step.active .step-number {
+        .btn:focus-visible {
+            outline: 2px solid var(--primary-500);
+            outline-offset: 2px;
+        }
+
+        .btn-md {
+            padding: var(--space-2) var(--space-4);
+            font-size: 13px;
+            height: 36px;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
             background: var(--primary-600);
-            color: white;
+            color: var(--fg-on-accent);
         }
 
-        .progress-connector {
-            width: 40px;
-            height: 2px;
-            background: var(--border-default);
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-700);
         }
 
-        /* Spinner animation */
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .btn-primary:active:not(:disabled) {
+            background: var(--primary-800);
         }
 
-        .ph-spin {
-            animation: spin 1s linear infinite;
+        .btn-secondary {
+            background: var(--bg-surface);
+            color: var(--fg-default);
+            border: 1px solid var(--border-default);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--bg-muted);
+            border-color: var(--border-strong);
         }
 
         /* Validation states */
@@ -778,234 +1056,6 @@
             gap: var(--space-3);
         }
 
-        /* Buttons - from design system */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-2);
-            font-family: var(--font-sans);
-            font-weight: 500;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            border: none;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .btn:focus-visible {
-            outline: 2px solid var(--primary-500);
-            outline-offset: 2px;
-        }
-
-        /* Button sizes - from design system */
-        .btn-md {
-            padding: var(--space-2) var(--space-4);
-            font-size: 13px;
-            height: 36px;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Primary button - from design system */
-        .btn-primary {
-            background: var(--primary-600);
-            color: var(--fg-on-accent);
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            background: var(--primary-700);
-        }
-
-        .btn-primary:active:not(:disabled) {
-            background: var(--primary-800);
-        }
-
-        /* Secondary button - from design system */
-        .btn-secondary {
-            background: var(--bg-surface);
-            color: var(--fg-default);
-            border: 1px solid var(--border-default);
-        }
-
-        .btn-secondary:hover:not(:disabled) {
-            background: var(--bg-muted);
-            border-color: var(--border-strong);
-        }
-
-        .btn-secondary:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px var(--bg-muted);
-        }
-
-        /* Combobox - based on design system dropdown */
-        .combobox {
-            position: relative;
-            width: 100%;
-        }
-
-        .combobox-trigger {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            height: 36px;
-            padding: 0 var(--space-3);
-            border: 1px solid var(--border-default);
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            font-family: var(--font-sans);
-            color: var(--fg-default);
-            background: var(--bg-surface);
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            text-align: left;
-        }
-
-        .combobox-trigger:hover {
-            border-color: var(--border-strong);
-        }
-
-        .combobox-trigger:focus {
-            outline: none;
-            border-color: var(--primary-500);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .combobox-trigger .placeholder {
-            color: var(--fg-faint);
-        }
-
-        .combobox-trigger .selected-value {
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .combobox-trigger .chevron {
-            width: 16px;
-            height: 16px;
-            color: var(--fg-muted);
-            flex-shrink: 0;
-            margin-left: var(--space-2);
-        }
-
-        /* Combobox popover - from design system dropdown-menu */
-        .combobox-popover {
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0;
-            right: 0;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-default);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-4px);
-            transition: all var(--transition-fast);
-        }
-
-        .combobox.open .combobox-popover {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .combobox-search {
-            padding: var(--space-3);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .combobox-search input {
-            width: 100%;
-            height: 32px;
-            padding: 0 var(--space-3);
-            border: 1px solid var(--border-default);
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            font-family: var(--font-sans);
-            background: var(--bg-surface);
-            color: var(--fg-default);
-        }
-
-        .combobox-search input::placeholder {
-            color: var(--fg-faint);
-        }
-
-        .combobox-search input:focus {
-            outline: none;
-            border-color: var(--primary-500);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .combobox-list {
-            max-height: 200px;
-            overflow-y: auto;
-            padding: var(--space-1);
-        }
-
-        /* Combobox item - from design system dropdown-item */
-        .combobox-item {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-2) var(--space-3);
-            font-size: 13px;
-            color: var(--fg-secondary);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-
-        .combobox-item:hover {
-            background: var(--bg-muted);
-            color: var(--fg-default);
-        }
-
-        .combobox-item.selected {
-            background: var(--primary-50);
-            color: var(--primary-600);
-        }
-
-        .combobox-item .check-icon {
-            width: 16px;
-            height: 16px;
-            opacity: 0;
-            color: var(--primary-600);
-        }
-
-        .combobox-item.selected .check-icon {
-            opacity: 1;
-        }
-
-        .combobox-item.focused {
-            background: var(--bg-muted);
-            color: var(--fg-default);
-        }
-
-        .combobox-item-label {
-            flex: 1;
-        }
-
-        .combobox-item-description {
-            font-size: 12px;
-            color: var(--fg-muted);
-        }
-
-        .combobox-empty {
-            padding: var(--space-4);
-            text-align: center;
-            color: var(--fg-muted);
-            font-size: 13px;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
@@ -1022,6 +1072,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .form-row.triple {
+                grid-template-columns: 1fr;
+            }
+
             .radio-group.horizontal {
                 flex-direction: column;
                 gap: var(--space-2);
@@ -1031,8 +1085,21 @@
                 flex-direction: column-reverse;
             }
 
+            .form-footer-left,
+            .form-footer-right {
+                width: 100%;
+            }
+
             .btn {
                 width: 100%;
+            }
+
+            .preset-select {
+                flex-direction: column;
+            }
+
+            .preset-option {
+                min-width: 100%;
             }
         }
     </style>
@@ -1084,59 +1151,34 @@
                     <span>Add New</span>
                 </nav>
                 <h1 class="page-title">Add New Student</h1>
-                <p class="page-description">Create a student record with contact and lesson information</p>
+                <p class="page-description">Create a student record with contact and billing information</p>
             </header>
-
-            <!-- Progress Steps (shown when creating new family) -->
-            <div class="progress-steps" id="progressSteps" style="display: none;">
-                <div class="progress-step active">
-                    <span class="step-number">1</span>
-                    <span>Student Info</span>
-                </div>
-                <div class="progress-connector"></div>
-                <div class="progress-step">
-                    <span class="step-number">2</span>
-                    <span>Invoicing</span>
-                </div>
-            </div>
 
             <form id="addStudentForm">
                 <div class="form-card">
                     <div class="form-body">
-                        <!-- Basic Information -->
+                        <!-- Section 1: Student Information -->
                         <section class="section">
                             <div class="section-header">
-                                <h2 class="section-title">Basic Information</h2>
+                                <h2 class="section-title">Student</h2>
                                 <span class="section-badge">Required</span>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="firstName" class="required">First Name</label>
-                                    <input
-                                        type="text"
-                                        id="firstName"
-                                        name="firstName"
-                                        autocomplete="given-name"
-                                        placeholder="Enter first name"
-                                        required>
+                                    <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="Enter first name" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="lastName" class="required">Last Name</label>
-                                    <input
-                                        type="text"
-                                        id="lastName"
-                                        name="lastName"
-                                        autocomplete="family-name"
-                                        placeholder="Enter last name"
-                                        required>
+                                    <input type="text" id="lastName" name="lastName" autocomplete="family-name" placeholder="Enter last name" required>
                                 </div>
                             </div>
 
-                            <div class="form-row single">
+                            <div class="form-row">
                                 <fieldset>
-                                    <legend class="required">Student Type</legend>
-                                    <div class="radio-group horizontal" role="radiogroup" aria-required="true">
+                                    <legend class="required">Type</legend>
+                                    <div class="radio-group horizontal">
                                         <div class="radio-option">
                                             <input type="radio" id="typeChild" name="studentType" value="child" checked>
                                             <label for="typeChild">Child</label>
@@ -1147,12 +1189,9 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                            </div>
-
-                            <div class="form-row single">
                                 <fieldset>
                                     <legend class="required">Status</legend>
-                                    <div class="radio-group horizontal" role="radiogroup" aria-required="true">
+                                    <div class="radio-group horizontal">
                                         <div class="radio-option">
                                             <input type="radio" id="statusActive" name="status" value="active" checked>
                                             <label for="statusActive">Active</label>
@@ -1162,268 +1201,229 @@
                                             <label for="statusTrial">Trial</label>
                                         </div>
                                         <div class="radio-option">
-                                            <input type="radio" id="statusWaiting" name="status" value="waiting">
-                                            <label for="statusWaiting">Waiting</label>
-                                        </div>
-                                        <div class="radio-option">
                                             <input type="radio" id="statusLead" name="status" value="lead">
                                             <label for="statusLead">Lead</label>
                                         </div>
-                                        <div class="radio-option">
-                                            <input type="radio" id="statusInactive" name="status" value="inactive">
-                                            <label for="statusInactive">Inactive</label>
-                                        </div>
                                     </div>
                                 </fieldset>
-                            </div>
-                        </section>
-
-                        <!-- Contact Information -->
-                        <section class="section">
-                            <div class="section-header">
-                                <h2 class="section-title">Contact Information</h2>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="email">Email Address</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        inputmode="email"
-                                        autocomplete="email"
-                                        placeholder="student@example.com">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" inputmode="email" autocomplete="email" placeholder="student@example.com">
                                 </div>
                                 <div class="form-group">
-                                    <label for="phone">Phone Number</label>
-                                    <input
-                                        type="tel"
-                                        id="phone"
-                                        inputmode="tel"
-                                        autocomplete="tel"
-                                        placeholder="(555) 123-4567">
-                                    <div class="checkbox-option" style="margin-top: var(--space-2);">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" id="phone" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567">
+                                    <div class="checkbox-option" style="margin-top: var(--space-1);">
                                         <input type="checkbox" id="smsCapable" checked>
-                                        <label for="smsCapable">Phone can receive SMS</label>
+                                        <label for="smsCapable">Can receive SMS</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div id="studentAddressSection" style="display: none;">
-                                <div class="form-row single">
+                            <!-- Expandable: Additional student details -->
+                            <button type="button" class="expand-toggle" id="studentDetailsToggle" onclick="toggleExpand('studentDetails')">
+                                <i class="ph ph-plus"></i>
+                                <span>Add birthday, gender, school...</span>
+                            </button>
+
+                            <div class="expandable-content" id="studentDetails">
+                                <div class="form-row">
                                     <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <input
-                                            type="text"
-                                            id="address"
-                                            autocomplete="street-address"
-                                            placeholder="Street address">
+                                        <label for="birthday">Birthday</label>
+                                        <input type="date" id="birthday">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <div class="select-wrapper">
+                                            <select id="gender">
+                                                <option value="">Select...</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                                <option value="prefer-not">Prefer not to say</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group">
-                                        <label for="city">City</label>
-                                        <input
-                                            type="text"
-                                            id="city"
-                                            autocomplete="address-level2"
-                                            placeholder="City">
+                                        <label for="school">School</label>
+                                        <input type="text" id="school" placeholder="School name" autocomplete="organization">
                                     </div>
                                     <div class="form-group">
-                                        <label for="state">State</label>
-                                        <div class="combobox" id="studentStateCombobox">
-                                            <button type="button" class="combobox-trigger" onclick="toggleCombobox('studentStateCombobox')">
-                                                <span class="placeholder">Select state...</span>
-                                                <i class="ph ph-caret-up-down chevron"></i>
-                                            </button>
-                                            <div class="combobox-popover">
-                                                <div class="combobox-search">
-                                                    <input type="text" placeholder="Search states..." id="studentStateSearch">
-                                                </div>
-                                                <div class="combobox-list" id="studentStateList">
-                                                    <!-- States populated by JS -->
-                                                </div>
-                                            </div>
+                                        <label for="skillLevel">Skill Level</label>
+                                        <div class="select-wrapper">
+                                            <select id="skillLevel">
+                                                <option value="">Select...</option>
+                                                <option value="beginner">Beginner</option>
+                                                <option value="elementary">Elementary</option>
+                                                <option value="intermediate">Intermediate</option>
+                                                <option value="advanced">Advanced</option>
+                                            </select>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="subjects">Subjects</label>
+                                        <input type="text" id="subjects" placeholder="Piano, Voice, Guitar...">
+                                        <span class="help-text">Separate with commas</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="referrer">Referrer</label>
+                                        <input type="text" id="referrer" placeholder="How did they find you?">
                                     </div>
                                 </div>
                             </div>
                         </section>
 
-                        <!-- Family Information (Children Only) -->
+                        <!-- Section 2: Family Information (Children Only) -->
                         <section class="section" id="familySection">
                             <div class="section-header">
-                                <h2 class="section-title">Family Information</h2>
+                                <h2 class="section-title">Family</h2>
                                 <span class="section-badge">Required</span>
                             </div>
 
                             <div class="form-row single">
-                                <fieldset>
-                                    <legend class="required">Family Assignment</legend>
-                                    <div class="radio-group" role="radiogroup" aria-required="true">
-                                        <div class="radio-option">
-                                            <input type="radio" id="familyExisting" name="familyType" value="existing" checked>
-                                            <label for="familyExisting">Add to existing family</label>
-                                        </div>
-                                        <div class="radio-option">
-                                            <input type="radio" id="familyNew" name="familyType" value="new">
-                                            <label for="familyNew">Create new family</label>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-
-                            <div class="form-row single" id="existingFamilyRow">
                                 <div class="form-group">
-                                    <label for="familySearch">Select Family</label>
+                                    <label>Select or create a family</label>
                                     <div class="combobox" id="familyCombobox">
-                                        <button type="button" class="combobox-trigger" onclick="toggleCombobox('familyCombobox')" aria-describedby="family-search-help" aria-haspopup="listbox" aria-expanded="false">
-                                            <span class="placeholder">Select a family...</span>
+                                        <button type="button" class="combobox-trigger" onclick="toggleCombobox('familyCombobox')">
+                                            <span class="placeholder">Search families...</span>
                                             <i class="ph ph-caret-up-down chevron"></i>
                                         </button>
                                         <div class="combobox-popover">
                                             <div class="combobox-search">
-                                                <input type="text" placeholder="Search families..." id="familySearchInput">
+                                                <input type="text" placeholder="Search by name or email..." id="familySearchInput">
                                             </div>
                                             <div class="combobox-list">
-                                                <div class="combobox-item" onclick="selectFamily(this, 'Anderson Family', 'John Anderson · john@example.com')">
+                                                <div class="combobox-item" onclick="selectFamily(this, 'Anderson Family', 'John Anderson')">
                                                     <i class="ph ph-check check-icon"></i>
                                                     <div>
                                                         <div class="combobox-item-label">Anderson Family</div>
-                                                        <div class="combobox-item-description">John Anderson · john@example.com</div>
+                                                        <div class="combobox-item-description">John Anderson &middot; john@example.com</div>
                                                     </div>
                                                 </div>
-                                                <div class="combobox-item" onclick="selectFamily(this, 'Martinez Family', 'Maria Martinez · maria@example.com')">
+                                                <div class="combobox-item" onclick="selectFamily(this, 'Martinez Family', 'Maria Martinez')">
                                                     <i class="ph ph-check check-icon"></i>
                                                     <div>
                                                         <div class="combobox-item-label">Martinez Family</div>
-                                                        <div class="combobox-item-description">Maria Martinez · maria@example.com</div>
+                                                        <div class="combobox-item-description">Maria Martinez &middot; maria@example.com</div>
                                                     </div>
                                                 </div>
-                                                <div class="combobox-item" onclick="selectFamily(this, 'Thompson Family', 'Sarah Thompson · sarah@example.com')">
+                                                <div class="combobox-item" onclick="selectFamily(this, 'Thompson Family', 'Sarah Thompson')">
                                                     <i class="ph ph-check check-icon"></i>
                                                     <div>
                                                         <div class="combobox-item-label">Thompson Family</div>
-                                                        <div class="combobox-item-description">Sarah Thompson · sarah@example.com</div>
+                                                        <div class="combobox-item-description">Sarah Thompson &middot; sarah@example.com</div>
                                                     </div>
+                                                </div>
+                                                <div class="combobox-divider"></div>
+                                                <div class="combobox-item create-new" onclick="showNewFamilyForm()">
+                                                    <i class="ph ph-plus"></i>
+                                                    <span>Create new family</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <span class="help-text" id="family-search-help">Search by family name, parent name, or email</span>
                                 </div>
                             </div>
 
-                            <!-- New Family / Guardian Information -->
-                            <div id="newFamilySection" style="display: none;">
-                                <div style="margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-default);">
-                                    <span style="font-size: 13px; font-weight: 500; color: var(--fg-secondary);">Primary Guardian</span>
-                                    <span class="help-text" style="display: block; margin-top: var(--space-1);">Family name will be created from guardian's name</span>
-                                </div>
+                            <!-- Inline New Family Form (hidden by default) -->
+                            <div id="newFamilyForm" style="display: none;">
+                                <div class="inline-form">
+                                    <div class="inline-form-header">
+                                        <span class="inline-form-title">New Family - Guardian</span>
+                                        <button type="button" class="btn btn-secondary btn-md" style="padding: var(--space-1) var(--space-2); height: 28px; font-size: 12px;" onclick="hideNewFamilyForm()">Cancel</button>
+                                    </div>
 
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="guardianFirstName" class="required">First Name</label>
-                                        <input
-                                            type="text"
-                                            id="guardianFirstName"
-                                            autocomplete="given-name"
-                                            placeholder="First name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="guardianLastName" class="required">Last Name</label>
-                                        <input
-                                            type="text"
-                                            id="guardianLastName"
-                                            autocomplete="family-name"
-                                            placeholder="Last name">
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="guardianEmail">Email Address</label>
-                                        <input
-                                            type="email"
-                                            id="guardianEmail"
-                                            inputmode="email"
-                                            autocomplete="email"
-                                            placeholder="parent@example.com"
-                                            aria-describedby="guardian-contact-help">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="guardianPhone">Mobile Number</label>
-                                        <input
-                                            type="tel"
-                                            id="guardianPhone"
-                                            inputmode="tel"
-                                            autocomplete="tel"
-                                            placeholder="(555) 123-4567"
-                                            aria-describedby="guardian-contact-help">
-                                        <span class="help-text" id="guardian-contact-help">Provide at least email or mobile number</span>
-                                        <div class="checkbox-option" style="margin-top: var(--space-2);">
-                                            <input type="checkbox" id="guardianSmsCapable" checked>
-                                            <label for="guardianSmsCapable">Phone can receive SMS</label>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="guardianFirstName" class="required">First Name</label>
+                                            <input type="text" id="guardianFirstName" placeholder="First name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="guardianLastName" class="required">Last Name</label>
+                                            <input type="text" id="guardianLastName" placeholder="Last name">
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="form-row single">
-                                    <div class="form-group">
-                                        <label for="guardianAddress">Address</label>
-                                        <input
-                                            type="text"
-                                            id="guardianAddress"
-                                            autocomplete="street-address"
-                                            placeholder="Street address">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="guardianEmail">Email</label>
+                                            <input type="email" id="guardianEmail" placeholder="parent@example.com">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="guardianPhone">Mobile</label>
+                                            <input type="tel" id="guardianPhone" placeholder="(555) 123-4567">
+                                            <span class="help-text">Email or mobile required</span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="guardianCity">City</label>
-                                        <input
-                                            type="text"
-                                            id="guardianCity"
-                                            autocomplete="address-level2"
-                                            placeholder="City">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="guardianState">State</label>
-                                        <div class="combobox" id="guardianStateCombobox">
-                                            <button type="button" class="combobox-trigger" onclick="toggleCombobox('guardianStateCombobox')">
-                                                <span class="placeholder">Select state...</span>
-                                                <i class="ph ph-caret-up-down chevron"></i>
-                                            </button>
-                                            <div class="combobox-popover">
-                                                <div class="combobox-search">
-                                                    <input type="text" placeholder="Search states..." id="guardianStateSearch">
-                                                </div>
-                                                <div class="combobox-list" id="guardianStateList">
-                                                    <!-- States populated by JS -->
+                                    <!-- Expandable: Guardian address -->
+                                    <button type="button" class="expand-toggle" id="guardianAddressToggle" onclick="toggleExpand('guardianAddress')">
+                                        <i class="ph ph-plus"></i>
+                                        <span>Add address</span>
+                                    </button>
+
+                                    <div class="expandable-content" id="guardianAddress">
+                                        <div class="form-row single">
+                                            <div class="form-group">
+                                                <label for="guardianStreet">Street Address</label>
+                                                <input type="text" id="guardianStreet" placeholder="123 Main St">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="guardianCity">City</label>
+                                                <input type="text" id="guardianCity" placeholder="City">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="guardianState">State</label>
+                                                <div class="select-wrapper">
+                                                    <select id="guardianState">
+                                                        <option value="">Select...</option>
+                                                        <option value="CA">California</option>
+                                                        <option value="NY">New York</option>
+                                                        <option value="TX">Texas</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </section>
 
-                        <!-- Lesson Settings -->
+                        <!-- Section 3: Lessons & Billing -->
                         <section class="section">
                             <div class="section-header">
-                                <h2 class="section-title">Lesson Settings</h2>
+                                <h2 class="section-title">Lessons & Billing</h2>
                             </div>
 
-                            <div class="form-row single">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="duration">Default Duration</label>
+                                    <div class="select-wrapper">
+                                        <select id="duration">
+                                            <option value="30" selected>30 minutes</option>
+                                            <option value="45">45 minutes</option>
+                                            <option value="60">60 minutes</option>
+                                            <option value="90">90 minutes</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <fieldset>
-                                    <legend>Lesson Category</legend>
-                                    <div class="radio-group horizontal" role="radiogroup">
+                                    <legend>Category</legend>
+                                    <div class="radio-group horizontal">
                                         <div class="radio-option">
-                                            <input type="radio" id="catLesson" name="lessonCategory" value="lesson" checked>
-                                            <label for="catLesson">Individual</label>
+                                            <input type="radio" id="catIndividual" name="lessonCategory" value="individual" checked>
+                                            <label for="catIndividual">Individual</label>
                                         </div>
                                         <div class="radio-option">
                                             <input type="radio" id="catGroup" name="lessonCategory" value="group">
@@ -1434,209 +1434,135 @@
                             </div>
 
                             <div class="form-row single">
-                                <div class="form-group">
-                                    <label for="duration">Default Duration</label>
-                                    <div style="display: flex; gap: var(--space-3); align-items: flex-start;">
-                                        <div class="select-wrapper" style="width: 160px;">
-                                            <select id="duration" onchange="updateCustomDuration()">
-                                                <option value="30" selected>30 minutes</option>
-                                                <option value="45">45 minutes</option>
-                                                <option value="60">60 minutes</option>
-                                                <option value="90">90 minutes</option>
-                                                <option value="custom">Custom...</option>
-                                            </select>
-                                        </div>
-                                        <div id="customDurationWrapper" style="display: none; align-items: center; gap: var(--space-2);">
-                                            <input
-                                                type="number"
-                                                id="customDuration"
-                                                inputmode="numeric"
-                                                placeholder="Minutes"
-                                                min="5"
-                                                max="480"
-                                                step="5"
-                                                style="width: 100px;">
-                                            <span class="help-text" style="white-space: nowrap;">minutes</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Default Billing -->
-                        <section class="section">
-                            <div class="section-header">
-                                <h2 class="section-title">Default Billing</h2>
-                            </div>
-
-                            <div class="form-row single">
                                 <fieldset>
                                     <legend>Billing Method</legend>
-                                    <div class="radio-group" role="radiogroup">
+                                    <div class="radio-group">
                                         <div class="radio-option">
-                                            <input type="radio" id="billingNone" name="billingMethod" value="none" checked onchange="updateBillingInput()">
-                                            <label for="billingNone"><i class="ph ph-prohibit" style="opacity: 0.6;"></i> No automatic billing</label>
+                                            <input type="radio" id="billingNone" name="billingMethod" value="none" onchange="updateBillingInput()">
+                                            <label for="billingNone">No automatic billing</label>
                                         </div>
                                         <div class="radio-option">
-                                            <input type="radio" id="billingPerLesson" name="billingMethod" value="per-lesson" onchange="updateBillingInput()">
-                                            <label for="billingPerLesson"><i class="ph ph-music-note" style="opacity: 0.6;"></i> Per lesson</label>
+                                            <input type="radio" id="billingPerLesson" name="billingMethod" value="per-lesson" checked onchange="updateBillingInput()">
+                                            <label for="billingPerLesson">Per lesson</label>
                                         </div>
                                         <div class="radio-option">
                                             <input type="radio" id="billingMonthly" name="billingMethod" value="monthly" onchange="updateBillingInput()">
-                                            <label for="billingMonthly"><i class="ph ph-calendar" style="opacity: 0.6;"></i> Monthly flat rate</label>
+                                            <label for="billingMonthly">Monthly flat rate</label>
                                         </div>
                                         <div class="radio-option">
                                             <input type="radio" id="billingHourly" name="billingMethod" value="hourly" onchange="updateBillingInput()">
-                                            <label for="billingHourly"><i class="ph ph-clock" style="opacity: 0.6;"></i> Hourly rate</label>
+                                            <label for="billingHourly">Hourly rate</label>
                                         </div>
                                     </div>
                                 </fieldset>
                             </div>
 
-                            <div class="form-row single" id="billingAmountRow" style="display: none;">
-                                <div class="form-group" style="max-width: 200px;">
-                                    <label for="billingAmount" id="billingAmountLabel">Amount per lesson</label>
-                                    <div style="position: relative;">
-                                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--fg-muted);">$</span>
-                                        <input
-                                            type="number"
-                                            id="billingAmount"
-                                            inputmode="decimal"
-                                            placeholder="0.00"
-                                            step="0.01"
-                                            min="0"
-                                            style="padding-left: 28px;">
+                            <div class="form-row single" id="billingAmountRow">
+                                <div class="form-group" style="max-width: 160px;">
+                                    <label for="billingAmount" id="billingAmountLabel">Price per lesson</label>
+                                    <div class="price-input-wrapper">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="billingAmount" inputmode="decimal" placeholder="0.00" step="0.01" min="0">
                                     </div>
                                 </div>
                             </div>
-                        </section>
 
-                        <!-- Notes -->
-                        <section class="section">
-                            <div class="section-header">
-                                <h2 class="section-title">Notes</h2>
-                            </div>
-                            <div class="form-row single">
-                                <div class="form-group">
-                                    <label for="notes">Private Notes</label>
-                                    <textarea id="notes" placeholder="Add any notes about this student..." aria-describedby="notes-help"></textarea>
-                                    <span class="help-text" id="notes-help">Only visible to tutors, not shared with students or families</span>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Show More Fields Toggle -->
-                        <div style="text-align: center; padding: var(--space-4) 0;">
-                            <button type="button" class="btn btn-secondary btn-md" id="showMoreFieldsBtn" onclick="toggleMoreFields()">
-                                <i class="ph ph-plus" id="showMoreIcon"></i>
-                                <span id="showMoreText">Show More Fields</span>
+                            <!-- Expandable: Automatic invoicing -->
+                            <button type="button" class="expand-toggle" id="invoicingToggle" onclick="toggleExpand('invoicing')">
+                                <i class="ph ph-plus"></i>
+                                <span>Set up automatic invoicing</span>
                             </button>
-                        </div>
 
-                        <!-- Additional Fields (Hidden by Default) -->
-                        <div id="additionalFields" style="display: none;">
-                            <!-- Personal Information -->
-                            <section class="section">
-                                <div class="section-header">
-                                    <h2 class="section-title">Personal Information</h2>
-                                    <span class="section-badge">Optional</span>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="gender">Gender</label>
-                                        <div class="select-wrapper">
-                                            <select id="gender">
-                                                <option value="">Select gender...</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
-                                                <option value="prefer-not">Prefer not to say</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="birthday">Birthday</label>
-                                        <input type="date" id="birthday">
-                                    </div>
-                                </div>
-
+                            <div class="expandable-content" id="invoicing">
                                 <div class="form-row single">
                                     <div class="form-group">
-                                        <label for="school">School</label>
-                                        <input type="text" id="school" placeholder="Enter school name" autocomplete="organization">
-                                    </div>
-                                </div>
-                            </section>
-
-                            <!-- Academic Information -->
-                            <section class="section">
-                                <div class="section-header">
-                                    <h2 class="section-title">Academic Information</h2>
-                                    <span class="section-badge">Optional</span>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="subjects">Subjects</label>
-                                        <input type="text" id="subjects" placeholder="e.g., Piano, Voice, Guitar" aria-describedby="subjects-help">
-                                        <span class="help-text" id="subjects-help">Separate multiple subjects with commas</span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="skillLevel">Skill Level</label>
-                                        <div class="select-wrapper">
-                                            <select id="skillLevel">
-                                                <option value="">Select level...</option>
-                                                <option value="beginner">Beginner</option>
-                                                <option value="elementary">Elementary</option>
-                                                <option value="intermediate">Intermediate</option>
-                                                <option value="advanced">Advanced</option>
-                                                <option value="professional">Professional</option>
-                                            </select>
+                                        <label>Invoice Schedule</label>
+                                        <div class="preset-select">
+                                            <button type="button" class="preset-option selected" onclick="selectPreset(this, 'none')">
+                                                <div class="preset-option-title">No auto-invoicing</div>
+                                                <div class="preset-option-desc">Create invoices manually</div>
+                                            </button>
+                                            <button type="button" class="preset-option" onclick="selectPreset(this, 'monthly')">
+                                                <div class="preset-option-title">Simple Monthly</div>
+                                                <div class="preset-option-desc">Invoice on 1st, due on receipt</div>
+                                            </button>
+                                            <button type="button" class="preset-option" onclick="selectPreset(this, 'biweekly')">
+                                                <div class="preset-option-title">Bi-weekly</div>
+                                                <div class="preset-option-desc">Invoice every 2 weeks</div>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
 
-                            <!-- Communication Apps -->
-                            <section class="section">
-                                <div class="section-header">
-                                    <h2 class="section-title">Communication Apps</h2>
-                                    <span class="section-badge">Optional</span>
-                                </div>
+                                <!-- Expandable: Custom invoicing options -->
+                                <button type="button" class="expand-toggle" id="customInvoicingToggle" onclick="toggleExpand('customInvoicing')" style="margin-top: var(--space-3);">
+                                    <i class="ph ph-plus"></i>
+                                    <span>Customize schedule</span>
+                                </button>
 
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="skype">Skype Username</label>
-                                        <input type="text" id="skype" placeholder="username">
+                                <div class="expandable-content" id="customInvoicing">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="cycleStartDate">Billing cycle starts</label>
+                                            <input type="date" id="cycleStartDate">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="invoiceFrequency">Frequency</label>
+                                            <div class="select-wrapper">
+                                                <select id="invoiceFrequency">
+                                                    <option value="weekly">Weekly</option>
+                                                    <option value="biweekly">Every 2 weeks</option>
+                                                    <option value="monthly" selected>Monthly</option>
+                                                    <option value="annual">Annual</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="facetime">FaceTime ID</label>
-                                        <input type="text" id="facetime" placeholder="email or phone">
-                                    </div>
-                                </div>
-                            </section>
 
-                            <!-- Other Information -->
-                            <section class="section">
-                                <div class="section-header">
-                                    <h2 class="section-title">Other Information</h2>
-                                    <span class="section-badge">Optional</span>
+                                    <div class="form-row">
+                                        <fieldset>
+                                            <legend>Invoice for</legend>
+                                            <div class="radio-group horizontal">
+                                                <div class="radio-option">
+                                                    <input type="radio" id="invoicePrepaid" name="invoiceType" value="prepaid">
+                                                    <label for="invoicePrepaid">Upcoming lessons</label>
+                                                </div>
+                                                <div class="radio-option">
+                                                    <input type="radio" id="invoicePostpaid" name="invoiceType" value="postpaid" checked>
+                                                    <label for="invoicePostpaid">Completed lessons</label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                            <label for="dueDays">Payment due</label>
+                                            <div class="select-wrapper">
+                                                <select id="dueDays">
+                                                    <option value="0">On receipt</option>
+                                                    <option value="7">7 days</option>
+                                                    <option value="14">14 days</option>
+                                                    <option value="30" selected>30 days</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                        </section>
 
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="referrer">Referrer</label>
-                                        <input type="text" id="referrer" placeholder="How did they find you?" aria-describedby="referrer-help">
-                                        <span class="help-text" id="referrer-help">e.g., Google, friend referral, social media</span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="studentSince">Student Since</label>
-                                        <input type="date" id="studentSince">
-                                    </div>
+                        <!-- Section 4: Notes -->
+                        <section class="section" style="border-bottom: none; padding-bottom: 0;">
+                            <div class="section-header">
+                                <h2 class="section-title">Notes</h2>
+                                <span class="section-badge">Optional</span>
+                            </div>
+
+                            <div class="form-row single">
+                                <div class="form-group">
+                                    <textarea id="notes" placeholder="Private notes about this student..."></textarea>
+                                    <span class="help-text">Only visible to you, not shared with students or families</span>
                                 </div>
-                            </section>
-                        </div>
+                            </div>
+                        </section>
                     </div>
 
                     <div class="form-footer">
@@ -1645,8 +1571,7 @@
                         </div>
                         <div class="form-footer-right">
                             <button class="btn btn-primary btn-md" type="submit" id="submitBtn">
-                                <span id="submitBtnText">Create Student</span>
-                                <span id="submitBtnLoading" style="display: none;"><i class="ph ph-spinner ph-spin"></i> Creating...</span>
+                                Create Student
                             </button>
                         </div>
                     </div>
@@ -1661,10 +1586,10 @@
             <i class="ph ph-check-circle" style="font-size: 20px;"></i>
         </div>
         <div class="toast-content">
-            <div class="toast-title" id="toastTitle">Student added successfully</div>
+            <div class="toast-title">Student added successfully</div>
             <div class="toast-message" id="toastMessage">Emma Thompson has been added to your student list.</div>
             <div class="toast-actions">
-                <button class="toast-action" onclick="addAnotherToFamily()">Add another to this family</button>
+                <button class="toast-action" onclick="addAnother()">Add another</button>
                 <button class="toast-action" onclick="viewStudent()">View student</button>
             </div>
         </div>
@@ -1677,7 +1602,7 @@
                 <h3 class="modal-title">Discard changes?</h3>
             </div>
             <div class="modal-body">
-                You have unsaved changes. Are you sure you want to leave? Your changes will be lost.
+                You have unsaved changes. Are you sure you want to leave?
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary btn-md" onclick="closeCancelModal()">Keep editing</button>
@@ -1687,93 +1612,122 @@
     </div>
 
     <script>
+        // Track form dirty state
+        let formIsDirty = false;
+
         document.addEventListener('DOMContentLoaded', function() {
-            const studentTypeRadios = document.querySelectorAll('input[name="studentType"]');
-            const familyRadios = document.querySelectorAll('input[name="familyType"]');
-            const familySection = document.getElementById('familySection');
-            const existingFamilyRow = document.getElementById('existingFamilyRow');
-            const newFamilySection = document.getElementById('newFamilySection');
-            const studentAddressSection = document.getElementById('studentAddressSection');
+            // Set default billing cycle start date
+            const today = new Date();
+            const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+            document.getElementById('cycleStartDate').value = nextMonth.toISOString().split('T')[0];
 
-            // Student type toggle - adults don't need family
-            function updateStudentTypeVisibility() {
-                const studentType = document.querySelector('input[name="studentType"]:checked').value;
+            // Track form changes
+            document.getElementById('addStudentForm').addEventListener('input', function() {
+                formIsDirty = true;
+            });
 
-                if (studentType === 'adult') {
-                    // Hide family section for adults
-                    familySection.style.display = 'none';
-                    // Show student address for adults
-                    studentAddressSection.style.display = 'block';
-                } else {
-                    // Show family section for children
-                    familySection.style.display = 'block';
-                    // Hide student address for children (they use family address)
-                    studentAddressSection.style.display = 'none';
-                    updateFamilyVisibility();
-                }
-            }
-
-            studentTypeRadios.forEach(radio => {
+            // Student type toggle
+            document.querySelectorAll('input[name="studentType"]').forEach(radio => {
                 radio.addEventListener('change', updateStudentTypeVisibility);
             });
 
-            // Family assignment toggle
-            function updateFamilyVisibility() {
-                const selected = document.querySelector('input[name="familyType"]:checked').value;
-
-                if (selected === 'existing') {
-                    existingFamilyRow.style.display = 'block';
-                    newFamilySection.style.display = 'none';
-                } else if (selected === 'new') {
-                    existingFamilyRow.style.display = 'none';
-                    newFamilySection.style.display = 'block';
-                }
-            }
-
-            familyRadios.forEach(radio => {
-                radio.addEventListener('change', updateFamilyVisibility);
-            });
-
-            // Initialize on page load
             updateStudentTypeVisibility();
-
-            // Initialize state comboboxes
-            initStateCombobox('studentStateList');
-            initStateCombobox('guardianStateList');
         });
 
-        // Show More Fields toggle
-        function toggleMoreFields() {
-            const additionalFields = document.getElementById('additionalFields');
-            const showMoreText = document.getElementById('showMoreText');
-            const showMoreIcon = document.getElementById('showMoreIcon');
-            const isHidden = additionalFields.style.display === 'none';
+        // Toggle expandable sections
+        function toggleExpand(sectionId) {
+            const content = document.getElementById(sectionId);
+            const toggle = document.getElementById(sectionId + 'Toggle');
+            const isVisible = content.classList.contains('visible');
 
-            if (isHidden) {
-                additionalFields.style.display = 'block';
-                showMoreText.textContent = 'Hide Additional Fields';
-                showMoreIcon.className = 'ph ph-minus';
+            if (isVisible) {
+                content.classList.remove('visible');
+                toggle.classList.remove('expanded');
+                toggle.querySelector('i').className = 'ph ph-plus';
             } else {
-                additionalFields.style.display = 'none';
-                showMoreText.textContent = 'Show More Fields';
-                showMoreIcon.className = 'ph ph-plus';
+                content.classList.add('visible');
+                toggle.classList.add('expanded');
+                toggle.querySelector('i').className = 'ph ph-minus';
             }
         }
 
-        // Custom duration toggle
-        function updateCustomDuration() {
-            const select = document.getElementById('duration');
-            const customWrapper = document.getElementById('customDurationWrapper');
-            const customInput = document.getElementById('customDuration');
+        // Student type visibility
+        function updateStudentTypeVisibility() {
+            const studentType = document.querySelector('input[name="studentType"]:checked').value;
+            const familySection = document.getElementById('familySection');
 
-            if (select.value === 'custom') {
-                customWrapper.style.display = 'flex';
-                customInput.focus();
+            if (studentType === 'adult') {
+                familySection.style.display = 'none';
             } else {
-                customWrapper.style.display = 'none';
-                customInput.value = '';
+                familySection.style.display = 'block';
             }
         }
+
+        // Combobox
+        function toggleCombobox(id) {
+            const combobox = document.getElementById(id);
+            const isOpen = combobox.classList.contains('open');
+
+            document.querySelectorAll('.combobox.open').forEach(cb => cb.classList.remove('open'));
+
+            if (!isOpen) {
+                combobox.classList.add('open');
+                const searchInput = combobox.querySelector('.combobox-search input');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }
+        }
+
+        function selectFamily(item, familyName, guardianName) {
+            const combobox = item.closest('.combobox');
+            const trigger = combobox.querySelector('.combobox-trigger');
+
+            combobox.querySelectorAll('.combobox-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+
+            trigger.innerHTML = `
+                <span class="selected-value">${familyName}</span>
+                <i class="ph ph-caret-up-down chevron"></i>
+            `;
+
+            combobox.classList.remove('open');
+            document.getElementById('newFamilyForm').style.display = 'none';
+            formIsDirty = true;
+        }
+
+        function showNewFamilyForm() {
+            document.getElementById('familyCombobox').classList.remove('open');
+            document.getElementById('newFamilyForm').style.display = 'block';
+
+            const trigger = document.querySelector('#familyCombobox .combobox-trigger');
+            trigger.innerHTML = `
+                <span class="selected-value">Creating new family...</span>
+                <i class="ph ph-caret-up-down chevron"></i>
+            `;
+
+            document.getElementById('guardianFirstName').focus();
+            formIsDirty = true;
+        }
+
+        function hideNewFamilyForm() {
+            document.getElementById('newFamilyForm').style.display = 'none';
+
+            const trigger = document.querySelector('#familyCombobox .combobox-trigger');
+            trigger.innerHTML = `
+                <span class="placeholder">Search families...</span>
+                <i class="ph ph-caret-up-down chevron"></i>
+            `;
+
+            document.querySelectorAll('#familyCombobox .combobox-item').forEach(i => i.classList.remove('selected'));
+        }
+
+        // Close combobox when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.combobox')) {
+                document.querySelectorAll('.combobox.open').forEach(cb => cb.classList.remove('open'));
+            }
+        });
 
         // Billing method toggle
         function updateBillingInput() {
@@ -1786,182 +1740,22 @@
             } else {
                 amountRow.style.display = 'block';
                 if (selected === 'per-lesson') {
-                    amountLabel.textContent = 'Amount per lesson';
+                    amountLabel.textContent = 'Price per lesson';
                 } else if (selected === 'monthly') {
-                    amountLabel.textContent = 'Amount per month';
+                    amountLabel.textContent = 'Monthly rate';
                 } else if (selected === 'hourly') {
-                    amountLabel.textContent = 'Amount per hour';
+                    amountLabel.textContent = 'Hourly rate';
                 }
             }
         }
 
-        // US States data
-        const US_STATES = [
-            { code: 'AL', name: 'Alabama' }, { code: 'AK', name: 'Alaska' },
-            { code: 'AZ', name: 'Arizona' }, { code: 'AR', name: 'Arkansas' },
-            { code: 'CA', name: 'California' }, { code: 'CO', name: 'Colorado' },
-            { code: 'CT', name: 'Connecticut' }, { code: 'DE', name: 'Delaware' },
-            { code: 'FL', name: 'Florida' }, { code: 'GA', name: 'Georgia' },
-            { code: 'HI', name: 'Hawaii' }, { code: 'ID', name: 'Idaho' },
-            { code: 'IL', name: 'Illinois' }, { code: 'IN', name: 'Indiana' },
-            { code: 'IA', name: 'Iowa' }, { code: 'KS', name: 'Kansas' },
-            { code: 'KY', name: 'Kentucky' }, { code: 'LA', name: 'Louisiana' },
-            { code: 'ME', name: 'Maine' }, { code: 'MD', name: 'Maryland' },
-            { code: 'MA', name: 'Massachusetts' }, { code: 'MI', name: 'Michigan' },
-            { code: 'MN', name: 'Minnesota' }, { code: 'MS', name: 'Mississippi' },
-            { code: 'MO', name: 'Missouri' }, { code: 'MT', name: 'Montana' },
-            { code: 'NE', name: 'Nebraska' }, { code: 'NV', name: 'Nevada' },
-            { code: 'NH', name: 'New Hampshire' }, { code: 'NJ', name: 'New Jersey' },
-            { code: 'NM', name: 'New Mexico' }, { code: 'NY', name: 'New York' },
-            { code: 'NC', name: 'North Carolina' }, { code: 'ND', name: 'North Dakota' },
-            { code: 'OH', name: 'Ohio' }, { code: 'OK', name: 'Oklahoma' },
-            { code: 'OR', name: 'Oregon' }, { code: 'PA', name: 'Pennsylvania' },
-            { code: 'RI', name: 'Rhode Island' }, { code: 'SC', name: 'South Carolina' },
-            { code: 'SD', name: 'South Dakota' }, { code: 'TN', name: 'Tennessee' },
-            { code: 'TX', name: 'Texas' }, { code: 'UT', name: 'Utah' },
-            { code: 'VT', name: 'Vermont' }, { code: 'VA', name: 'Virginia' },
-            { code: 'WA', name: 'Washington' }, { code: 'WV', name: 'West Virginia' },
-            { code: 'WI', name: 'Wisconsin' }, { code: 'WY', name: 'Wyoming' }
-        ];
-
-        function initStateCombobox(listId) {
-            const list = document.getElementById(listId);
-            if (!list) return;
-
-            US_STATES.forEach(state => {
-                const item = document.createElement('div');
-                item.className = 'combobox-item';
-                item.setAttribute('data-value', state.code);
-                item.onclick = function() { selectState(this, state.name); };
-                item.innerHTML = `
-                    <i class="ph ph-check check-icon"></i>
-                    <span class="combobox-item-label">${state.name}</span>
-                `;
-                list.appendChild(item);
-            });
+        // Preset selection
+        function selectPreset(element, preset) {
+            document.querySelectorAll('.preset-option').forEach(p => p.classList.remove('selected'));
+            element.classList.add('selected');
         }
 
-        function toggleCombobox(id) {
-            const combobox = document.getElementById(id);
-            const isOpen = combobox.classList.contains('open');
-
-            // Close all comboboxes
-            document.querySelectorAll('.combobox.open').forEach(cb => cb.classList.remove('open'));
-
-            // Toggle this one
-            if (!isOpen) {
-                combobox.classList.add('open');
-                const searchInput = combobox.querySelector('.combobox-search input');
-                if (searchInput) {
-                    searchInput.focus();
-                    searchInput.value = '';
-                    filterComboboxItems(combobox, '');
-                }
-            }
-        }
-
-        function selectState(item, stateName) {
-            const combobox = item.closest('.combobox');
-            const trigger = combobox.querySelector('.combobox-trigger');
-
-            // Update selection
-            combobox.querySelectorAll('.combobox-item').forEach(i => i.classList.remove('selected'));
-            item.classList.add('selected');
-
-            // Update trigger text
-            trigger.innerHTML = `
-                <span class="selected-value">${stateName}</span>
-                <i class="ph ph-caret-up-down chevron"></i>
-            `;
-
-            // Close combobox
-            combobox.classList.remove('open');
-        }
-
-        function selectFamily(item, familyName, description) {
-            const combobox = item.closest('.combobox');
-            const trigger = combobox.querySelector('.combobox-trigger');
-
-            // Update selection
-            combobox.querySelectorAll('.combobox-item').forEach(i => i.classList.remove('selected'));
-            item.classList.add('selected');
-
-            // Update trigger text
-            trigger.innerHTML = `
-                <span class="selected-value">${familyName}</span>
-                <i class="ph ph-caret-up-down chevron"></i>
-            `;
-
-            // Close combobox
-            combobox.classList.remove('open');
-        }
-
-        function filterComboboxItems(combobox, searchTerm) {
-            const items = combobox.querySelectorAll('.combobox-item');
-            const term = searchTerm.toLowerCase();
-
-            items.forEach(item => {
-                const label = item.querySelector('.combobox-item-label').textContent.toLowerCase();
-                const desc = item.querySelector('.combobox-item-description');
-                const descText = desc ? desc.textContent.toLowerCase() : '';
-
-                if (label.includes(term) || descText.includes(term)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        // Search input handlers
-        document.addEventListener('input', function(e) {
-            if (e.target.closest('.combobox-search')) {
-                const combobox = e.target.closest('.combobox');
-                filterComboboxItems(combobox, e.target.value);
-            }
-        });
-
-        // Close combobox when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.combobox')) {
-                document.querySelectorAll('.combobox.open').forEach(cb => cb.classList.remove('open'));
-            }
-        });
-
-        // Track form dirty state
-        let formIsDirty = false;
-        document.getElementById('addStudentForm').addEventListener('input', function() {
-            formIsDirty = true;
-        });
-
-        // Update button text and progress indicator based on flow
-        function updateButtonAndProgress() {
-            const studentType = document.querySelector('input[name="studentType"]:checked')?.value;
-            const familyType = document.querySelector('input[name="familyType"]:checked')?.value;
-            const submitBtnText = document.getElementById('submitBtnText');
-            const progressSteps = document.getElementById('progressSteps');
-
-            // Show progress steps and "Continue to Invoicing" only when creating new family for child
-            if (studentType === 'child' && familyType === 'new') {
-                submitBtnText.textContent = 'Continue to Invoicing';
-                progressSteps.style.display = 'flex';
-            } else {
-                submitBtnText.textContent = 'Create Student';
-                progressSteps.style.display = 'none';
-            }
-        }
-
-        // Add listeners for button/progress updates
-        document.querySelectorAll('input[name="studentType"], input[name="familyType"]').forEach(radio => {
-            radio.addEventListener('change', updateButtonAndProgress);
-        });
-
-        // Initialize button text on load
-        document.addEventListener('DOMContentLoaded', function() {
-            updateButtonAndProgress();
-        });
-
-        // Cancel confirmation
+        // Cancel handling
         function handleCancel() {
             if (formIsDirty) {
                 document.getElementById('cancelModal').classList.add('visible');
@@ -1975,18 +1769,15 @@
         }
 
         function confirmCancel() {
-            document.getElementById('cancelModal').classList.remove('visible');
             window.location.href = 'student-list.html';
         }
 
-        // Close modal on overlay click
         document.getElementById('cancelModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeCancelModal();
             }
         });
 
-        // Close modal on Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeCancelModal();
@@ -1994,208 +1785,89 @@
             }
         });
 
-        // Form submission with loading state
+        // Form submission
         document.getElementById('addStudentForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const submitBtn = document.getElementById('submitBtn');
-            const submitBtnText = document.getElementById('submitBtnText');
-            const submitBtnLoading = document.getElementById('submitBtnLoading');
-
-            // Show loading state
             submitBtn.disabled = true;
-            submitBtnText.style.display = 'none';
-            submitBtnLoading.style.display = 'inline-flex';
+            submitBtn.textContent = 'Creating...';
 
             // Simulate API call
             setTimeout(function() {
-                // Reset button
                 submitBtn.disabled = false;
-                submitBtnText.style.display = 'inline';
-                submitBtnLoading.style.display = 'none';
+                submitBtn.textContent = 'Create Student';
 
-                const studentType = document.querySelector('input[name="studentType"]:checked')?.value;
-                const familyType = document.querySelector('input[name="familyType"]:checked')?.value;
+                const firstName = document.getElementById('firstName').value || 'Student';
+                const lastName = document.getElementById('lastName').value || '';
+                document.getElementById('toastMessage').textContent = `${firstName} ${lastName} has been added to your student list.`;
 
-                // If creating new family for child, navigate to invoicing step
-                if (studentType === 'child' && familyType === 'new') {
-                    window.location.href = 'add-student-invoicing.html';
-                } else {
-                    // Show success toast
-                    showSuccessToast();
-                }
+                document.getElementById('successToast').classList.add('visible');
+
+                setTimeout(function() {
+                    document.getElementById('successToast').classList.remove('visible');
+                }, 8000);
             }, 1000);
         });
 
-        // Success toast functions
-        function showSuccessToast() {
-            const firstName = document.getElementById('firstName').value || 'Student';
-            const lastName = document.getElementById('lastName').value || '';
-            const toast = document.getElementById('successToast');
-            const toastMessage = document.getElementById('toastMessage');
-
-            toastMessage.textContent = `${firstName} ${lastName} has been added to your student list.`;
-            toast.classList.add('visible');
-
-            // Auto-hide after 10 seconds
-            setTimeout(function() {
-                toast.classList.remove('visible');
-            }, 10000);
-        }
-
-        function addAnotherToFamily() {
+        function addAnother() {
             document.getElementById('successToast').classList.remove('visible');
-            // Reset form but keep family selection
-            document.getElementById('firstName').value = '';
-            document.getElementById('lastName').value = '';
+            document.getElementById('addStudentForm').reset();
             document.getElementById('firstName').focus();
             formIsDirty = false;
+
+            // Reset UI state
+            hideNewFamilyForm();
+            updateBillingInput();
+            updateStudentTypeVisibility();
+
+            // Collapse expanded sections
+            ['studentDetails', 'guardianAddress', 'invoicing', 'customInvoicing'].forEach(id => {
+                const content = document.getElementById(id);
+                const toggle = document.getElementById(id + 'Toggle');
+                if (content && toggle) {
+                    content.classList.remove('visible');
+                    toggle.classList.remove('expanded');
+                    const icon = toggle.querySelector('i');
+                    if (icon) icon.className = 'ph ph-plus';
+                }
+            });
         }
 
         function viewStudent() {
             document.getElementById('successToast').classList.remove('visible');
-            alert('Navigating to student detail page...');
+            // In real app, navigate to student detail page
+            alert('Navigate to student detail page');
         }
 
-        // Combobox keyboard navigation
-        document.querySelectorAll('.combobox').forEach(combobox => {
-            const trigger = combobox.querySelector('.combobox-trigger');
-            const list = combobox.querySelector('.combobox-list');
-            const searchInput = combobox.querySelector('.combobox-search input');
-
-            // Handle keyboard on trigger
-            trigger.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    toggleCombobox(combobox.id);
-                }
-            });
-
-            // Handle keyboard navigation in list
-            if (searchInput) {
-                searchInput.addEventListener('keydown', function(e) {
-                    const items = Array.from(list.querySelectorAll('.combobox-item:not([style*="display: none"])'));
-                    const currentIndex = items.findIndex(item => item.classList.contains('focused'));
-
-                    if (e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
-                        items.forEach(i => i.classList.remove('focused'));
-                        items[nextIndex]?.classList.add('focused');
-                        items[nextIndex]?.scrollIntoView({ block: 'nearest' });
-                    } else if (e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
-                        items.forEach(i => i.classList.remove('focused'));
-                        items[prevIndex]?.classList.add('focused');
-                        items[prevIndex]?.scrollIntoView({ block: 'nearest' });
-                    } else if (e.key === 'Enter') {
-                        e.preventDefault();
-                        const focusedItem = list.querySelector('.combobox-item.focused');
-                        if (focusedItem) {
-                            focusedItem.click();
-                        }
-                    }
-                });
-            }
-        });
-
-        // Real-time validation on blur
-        function validateEmail(input) {
-            const email = input.value.trim();
-            const formGroup = input.closest('.form-group');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            clearValidation(formGroup);
-
-            if (email && !emailRegex.test(email)) {
-                showError(formGroup, 'Please enter a valid email address');
-                return false;
-            }
-            return true;
-        }
-
-        function validatePhone(input) {
-            const phone = input.value.trim();
-            const formGroup = input.closest('.form-group');
-            // Allow various phone formats
-            const phoneRegex = /^[\d\s\-\(\)\+\.]{7,20}$/;
-
-            clearValidation(formGroup);
-
-            if (phone && !phoneRegex.test(phone)) {
-                showError(formGroup, 'Please enter a valid phone number');
-                return false;
-            }
-            return true;
-        }
-
-        function validateRequired(input) {
-            const value = input.value.trim();
-            const formGroup = input.closest('.form-group');
-            const label = formGroup.querySelector('label');
-            const isRequired = label && label.classList.contains('required');
-
-            clearValidation(formGroup);
-
-            if (isRequired && !value) {
-                showError(formGroup, 'This field is required');
-                return false;
-            }
-            return true;
-        }
-
-        function showError(formGroup, message) {
-            formGroup.classList.add('has-error');
-
-            // Remove existing error message if any
-            const existingError = formGroup.querySelector('.form-error');
-            if (existingError) existingError.remove();
-
-            // Add error message
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'form-error';
-            errorDiv.innerHTML = `<i class="ph ph-warning-circle"></i> ${message}`;
-            formGroup.appendChild(errorDiv);
-        }
-
-        function clearValidation(formGroup) {
-            formGroup.classList.remove('has-error');
-            const errorDiv = formGroup.querySelector('.form-error');
-            if (errorDiv) errorDiv.remove();
-        }
-
-        // Attach blur validation to email fields
+        // Validation
         document.querySelectorAll('input[type="email"]').forEach(input => {
             input.addEventListener('blur', function() {
-                validateEmail(this);
+                const email = this.value.trim();
+                const formGroup = this.closest('.form-group');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                formGroup.classList.remove('has-error');
+                const existingError = formGroup.querySelector('.form-error');
+                if (existingError) existingError.remove();
+
+                if (email && !emailRegex.test(email)) {
+                    formGroup.classList.add('has-error');
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'form-error';
+                    errorDiv.innerHTML = '<i class="ph ph-warning-circle"></i> Please enter a valid email';
+                    formGroup.appendChild(errorDiv);
+                }
             });
         });
 
-        // Attach blur validation to phone fields
-        document.querySelectorAll('input[type="tel"]').forEach(input => {
-            input.addEventListener('blur', function() {
-                validatePhone(this);
-            });
-        });
-
-        // Attach blur validation to required text fields
-        document.querySelectorAll('input[type="text"]').forEach(input => {
-            const formGroup = input.closest('.form-group');
-            const label = formGroup?.querySelector('label');
-            if (label && label.classList.contains('required')) {
-                input.addEventListener('blur', function() {
-                    validateRequired(this);
-                });
-            }
-        });
-
-        // Clear error on input for better UX
         document.querySelectorAll('input').forEach(input => {
             input.addEventListener('input', function() {
                 const formGroup = this.closest('.form-group');
                 if (formGroup && formGroup.classList.contains('has-error')) {
-                    clearValidation(formGroup);
+                    formGroup.classList.remove('has-error');
+                    const errorDiv = formGroup.querySelector('.form-error');
+                    if (errorDiv) errorDiv.remove();
                 }
             });
         });
