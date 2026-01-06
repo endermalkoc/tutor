@@ -480,13 +480,15 @@
             gap: var(--space-2);
             cursor: pointer;
             user-select: none;
+            min-height: 44px;
+            padding: var(--space-2) 0;
         }
 
         .radio-option input[type="radio"],
         .checkbox-option input[type="checkbox"] {
             appearance: none;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             border: 1.5px solid var(--border-strong);
             background: var(--bg-surface);
             cursor: pointer;
@@ -519,8 +521,8 @@
         .radio-option input[type="radio"]:checked::after {
             content: '';
             display: block;
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: white;
             border-radius: 50%;
         }
@@ -546,12 +548,234 @@
         /* Form footer */
         .form-footer {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
             gap: var(--space-3);
             padding: var(--space-4) var(--space-6);
             border-top: 1px solid var(--border-default);
             background: var(--bg-subtle);
             border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        }
+
+        .form-footer-left,
+        .form-footer-right {
+            display: flex;
+            gap: var(--space-3);
+        }
+
+        /* Progress indicator */
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 13px;
+            color: var(--fg-muted);
+        }
+
+        .progress-step.active {
+            color: var(--primary-600);
+            font-weight: 500;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--bg-muted);
+            color: var(--fg-muted);
+        }
+
+        .progress-step.active .step-number {
+            background: var(--primary-600);
+            color: white;
+        }
+
+        .progress-connector {
+            width: 40px;
+            height: 2px;
+            background: var(--border-default);
+        }
+
+        /* Spinner animation */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .ph-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Validation states */
+        .form-group.has-error label {
+            color: var(--error-600);
+        }
+
+        .form-group.has-error input,
+        .form-group.has-error textarea,
+        .form-group.has-error select {
+            border-color: var(--error-500);
+        }
+
+        .form-group.has-error input:focus,
+        .form-group.has-error textarea:focus {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .form-error {
+            font-size: 12px;
+            color: var(--error-600);
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            margin-top: var(--space-1);
+        }
+
+        /* Success toast */
+        .toast {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all var(--transition-fast);
+        }
+
+        .toast.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-left: 3px solid var(--success-500);
+        }
+
+        .toast-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .toast.success .toast-icon {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success-600);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 500;
+            color: var(--fg-default);
+            margin-bottom: var(--space-1);
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: var(--fg-secondary);
+        }
+
+        .toast-actions {
+            display: flex;
+            gap: var(--space-2);
+            margin-top: var(--space-3);
+        }
+
+        .toast-action {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--primary-600);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-sm);
+        }
+
+        .toast-action:hover {
+            background: var(--primary-50);
+        }
+
+        /* Cancel confirmation modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-fast);
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 400px;
+            width: 90%;
+            transform: scale(0.95);
+            transition: transform var(--transition-fast);
+        }
+
+        .modal-overlay.visible .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: var(--space-5) var(--space-5) var(--space-3);
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--fg-default);
+        }
+
+        .modal-body {
+            padding: 0 var(--space-5) var(--space-5);
+            color: var(--fg-secondary);
+            font-size: 14px;
+        }
+
+        .modal-footer {
+            padding: var(--space-4) var(--space-5);
+            border-top: 1px solid var(--border-default);
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-3);
         }
 
         /* Buttons - from design system */
@@ -761,6 +985,11 @@
             opacity: 1;
         }
 
+        .combobox-item.focused {
+            background: var(--bg-muted);
+            color: var(--fg-default);
+        }
+
         .combobox-item-label {
             flex: 1;
         }
@@ -857,6 +1086,19 @@
                 <h1 class="page-title">Add New Student</h1>
                 <p class="page-description">Create a student record with contact and lesson information</p>
             </header>
+
+            <!-- Progress Steps (shown when creating new family) -->
+            <div class="progress-steps" id="progressSteps" style="display: none;">
+                <div class="progress-step active">
+                    <span class="step-number">1</span>
+                    <span>Student Info</span>
+                </div>
+                <div class="progress-connector"></div>
+                <div class="progress-step">
+                    <span class="step-number">2</span>
+                    <span>Invoicing</span>
+                </div>
+            </div>
 
             <form id="addStudentForm">
                 <div class="form-card">
@@ -1069,14 +1311,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <span class="help-text">Search by family name, parent name, or email</span>
+                                    <span class="help-text" id="family-search-help">Search by family name, parent name, or email</span>
                                 </div>
                             </div>
 
                             <!-- New Family / Guardian Information -->
                             <div id="newFamilySection" style="display: none;">
-                                <div style="margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border);">
-                                    <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">Primary Guardian</span>
+                                <div style="margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-default);">
+                                    <span style="font-size: 13px; font-weight: 500; color: var(--fg-secondary);">Primary Guardian</span>
                                     <span class="help-text" style="display: block; margin-top: var(--space-1);">Family name will be created from guardian's name</span>
                                 </div>
 
@@ -1107,7 +1349,8 @@
                                             id="guardianEmail"
                                             inputmode="email"
                                             autocomplete="email"
-                                            placeholder="parent@example.com">
+                                            placeholder="parent@example.com"
+                                            aria-describedby="guardian-contact-help">
                                     </div>
                                     <div class="form-group">
                                         <label for="guardianPhone">Mobile Number</label>
@@ -1116,7 +1359,9 @@
                                             id="guardianPhone"
                                             inputmode="tel"
                                             autocomplete="tel"
-                                            placeholder="(555) 123-4567">
+                                            placeholder="(555) 123-4567"
+                                            aria-describedby="guardian-contact-help">
+                                        <span class="help-text" id="guardian-contact-help">Provide at least email or mobile number</span>
                                         <div class="checkbox-option" style="margin-top: var(--space-2);">
                                             <input type="checkbox" id="guardianSmsCapable" checked>
                                             <label for="guardianSmsCapable">Phone can receive SMS</label>
@@ -1230,19 +1475,19 @@
                                     <div class="radio-group" role="radiogroup">
                                         <div class="radio-option">
                                             <input type="radio" id="billingNone" name="billingMethod" value="none" checked onchange="updateBillingInput()">
-                                            <label for="billingNone">Don't automatically create any calendar-generated charges</label>
+                                            <label for="billingNone"><i class="ph ph-prohibit" style="opacity: 0.6;"></i> No automatic billing</label>
                                         </div>
                                         <div class="radio-option">
                                             <input type="radio" id="billingPerLesson" name="billingMethod" value="per-lesson" onchange="updateBillingInput()">
-                                            <label for="billingPerLesson">Student pays based on the number of lessons taken</label>
+                                            <label for="billingPerLesson"><i class="ph ph-music-note" style="opacity: 0.6;"></i> Per lesson</label>
                                         </div>
                                         <div class="radio-option">
                                             <input type="radio" id="billingMonthly" name="billingMethod" value="monthly" onchange="updateBillingInput()">
-                                            <label for="billingMonthly">Student pays the same amount each month regardless of number of lessons</label>
+                                            <label for="billingMonthly"><i class="ph ph-calendar" style="opacity: 0.6;"></i> Monthly flat rate</label>
                                         </div>
                                         <div class="radio-option">
                                             <input type="radio" id="billingHourly" name="billingMethod" value="hourly" onchange="updateBillingInput()">
-                                            <label for="billingHourly">Student pays an hourly rate (charges adjust to lesson duration)</label>
+                                            <label for="billingHourly"><i class="ph ph-clock" style="opacity: 0.6;"></i> Hourly rate</label>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -1274,8 +1519,8 @@
                             <div class="form-row single">
                                 <div class="form-group">
                                     <label for="notes">Private Notes</label>
-                                    <textarea id="notes" placeholder="Add any notes about this student..."></textarea>
-                                    <span class="help-text">Only visible to tutors, not shared with students or families</span>
+                                    <textarea id="notes" placeholder="Add any notes about this student..." aria-describedby="notes-help"></textarea>
+                                    <span class="help-text" id="notes-help">Only visible to tutors, not shared with students or families</span>
                                 </div>
                             </div>
                         </section>
@@ -1334,8 +1579,8 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="subjects">Subjects</label>
-                                        <input type="text" id="subjects" placeholder="e.g., Piano, Voice, Guitar">
-                                        <span class="help-text">Separate multiple subjects with commas</span>
+                                        <input type="text" id="subjects" placeholder="e.g., Piano, Voice, Guitar" aria-describedby="subjects-help">
+                                        <span class="help-text" id="subjects-help">Separate multiple subjects with commas</span>
                                     </div>
                                     <div class="form-group">
                                         <label for="skillLevel">Skill Level</label>
@@ -1382,8 +1627,8 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="referrer">Referrer</label>
-                                        <input type="text" id="referrer" placeholder="How did they find you?">
-                                        <span class="help-text">e.g., Google, friend referral, social media</span>
+                                        <input type="text" id="referrer" placeholder="How did they find you?" aria-describedby="referrer-help">
+                                        <span class="help-text" id="referrer-help">e.g., Google, friend referral, social media</span>
                                     </div>
                                     <div class="form-group">
                                         <label for="studentSince">Student Since</label>
@@ -1395,13 +1640,52 @@
                     </div>
 
                     <div class="form-footer">
-                        <button class="btn btn-secondary btn-md" type="button">Cancel</button>
-                        <button class="btn btn-primary btn-md" type="submit">Next</button>
+                        <div class="form-footer-left">
+                            <button class="btn btn-secondary btn-md" type="button" onclick="handleCancel()">Cancel</button>
+                        </div>
+                        <div class="form-footer-right">
+                            <button class="btn btn-primary btn-md" type="submit" id="submitBtn">
+                                <span id="submitBtnText">Create Student</span>
+                                <span id="submitBtnLoading" style="display: none;"><i class="ph ph-spinner ph-spin"></i> Creating...</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>
         </main>
     </div>
+
+    <!-- Success Toast -->
+    <div class="toast success" id="successToast">
+        <div class="toast-icon">
+            <i class="ph ph-check-circle" style="font-size: 20px;"></i>
+        </div>
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle">Student added successfully</div>
+            <div class="toast-message" id="toastMessage">Emma Thompson has been added to your student list.</div>
+            <div class="toast-actions">
+                <button class="toast-action" onclick="addAnotherToFamily()">Add another to this family</button>
+                <button class="toast-action" onclick="viewStudent()">View student</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Confirmation Modal -->
+    <div class="modal-overlay" id="cancelModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Discard changes?</h3>
+            </div>
+            <div class="modal-body">
+                You have unsaved changes. Are you sure you want to leave? Your changes will be lost.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-md" onclick="closeCancelModal()">Keep editing</button>
+                <button class="btn btn-primary btn-md" onclick="confirmCancel()">Discard</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const studentTypeRadios = document.querySelectorAll('input[name="studentType"]');
@@ -1641,6 +1925,178 @@
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.combobox')) {
                 document.querySelectorAll('.combobox.open').forEach(cb => cb.classList.remove('open'));
+            }
+        });
+
+        // Track form dirty state
+        let formIsDirty = false;
+        document.getElementById('addStudentForm').addEventListener('input', function() {
+            formIsDirty = true;
+        });
+
+        // Update button text and progress indicator based on flow
+        function updateButtonAndProgress() {
+            const studentType = document.querySelector('input[name="studentType"]:checked')?.value;
+            const familyType = document.querySelector('input[name="familyType"]:checked')?.value;
+            const submitBtnText = document.getElementById('submitBtnText');
+            const progressSteps = document.getElementById('progressSteps');
+
+            // Show progress steps and "Continue to Invoicing" only when creating new family for child
+            if (studentType === 'child' && familyType === 'new') {
+                submitBtnText.textContent = 'Continue to Invoicing';
+                progressSteps.style.display = 'flex';
+            } else {
+                submitBtnText.textContent = 'Create Student';
+                progressSteps.style.display = 'none';
+            }
+        }
+
+        // Add listeners for button/progress updates
+        document.querySelectorAll('input[name="studentType"], input[name="familyType"]').forEach(radio => {
+            radio.addEventListener('change', updateButtonAndProgress);
+        });
+
+        // Initialize button text on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateButtonAndProgress();
+        });
+
+        // Cancel confirmation
+        function handleCancel() {
+            if (formIsDirty) {
+                document.getElementById('cancelModal').classList.add('visible');
+            } else {
+                window.location.href = '#'; // Navigate away
+            }
+        }
+
+        function closeCancelModal() {
+            document.getElementById('cancelModal').classList.remove('visible');
+        }
+
+        function confirmCancel() {
+            document.getElementById('cancelModal').classList.remove('visible');
+            window.location.href = '#'; // Navigate away
+        }
+
+        // Close modal on overlay click
+        document.getElementById('cancelModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCancelModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeCancelModal();
+                document.querySelectorAll('.combobox.open').forEach(cb => cb.classList.remove('open'));
+            }
+        });
+
+        // Form submission with loading state
+        document.getElementById('addStudentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const submitBtnText = document.getElementById('submitBtnText');
+            const submitBtnLoading = document.getElementById('submitBtnLoading');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtnText.style.display = 'none';
+            submitBtnLoading.style.display = 'inline-flex';
+
+            // Simulate API call
+            setTimeout(function() {
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtnText.style.display = 'inline';
+                submitBtnLoading.style.display = 'none';
+
+                const studentType = document.querySelector('input[name="studentType"]:checked')?.value;
+                const familyType = document.querySelector('input[name="familyType"]:checked')?.value;
+
+                // If creating new family for child, would navigate to invoicing step
+                if (studentType === 'child' && familyType === 'new') {
+                    alert('Navigating to Step 2: Invoicing Setup');
+                } else {
+                    // Show success toast
+                    showSuccessToast();
+                }
+            }, 1000);
+        });
+
+        // Success toast functions
+        function showSuccessToast() {
+            const firstName = document.getElementById('firstName').value || 'Student';
+            const lastName = document.getElementById('lastName').value || '';
+            const toast = document.getElementById('successToast');
+            const toastMessage = document.getElementById('toastMessage');
+
+            toastMessage.textContent = `${firstName} ${lastName} has been added to your student list.`;
+            toast.classList.add('visible');
+
+            // Auto-hide after 10 seconds
+            setTimeout(function() {
+                toast.classList.remove('visible');
+            }, 10000);
+        }
+
+        function addAnotherToFamily() {
+            document.getElementById('successToast').classList.remove('visible');
+            // Reset form but keep family selection
+            document.getElementById('firstName').value = '';
+            document.getElementById('lastName').value = '';
+            document.getElementById('firstName').focus();
+            formIsDirty = false;
+        }
+
+        function viewStudent() {
+            document.getElementById('successToast').classList.remove('visible');
+            alert('Navigating to student detail page...');
+        }
+
+        // Combobox keyboard navigation
+        document.querySelectorAll('.combobox').forEach(combobox => {
+            const trigger = combobox.querySelector('.combobox-trigger');
+            const list = combobox.querySelector('.combobox-list');
+            const searchInput = combobox.querySelector('.combobox-search input');
+
+            // Handle keyboard on trigger
+            trigger.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    toggleCombobox(combobox.id);
+                }
+            });
+
+            // Handle keyboard navigation in list
+            if (searchInput) {
+                searchInput.addEventListener('keydown', function(e) {
+                    const items = Array.from(list.querySelectorAll('.combobox-item:not([style*="display: none"])'));
+                    const currentIndex = items.findIndex(item => item.classList.contains('focused'));
+
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+                        items.forEach(i => i.classList.remove('focused'));
+                        items[nextIndex]?.classList.add('focused');
+                        items[nextIndex]?.scrollIntoView({ block: 'nearest' });
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+                        items.forEach(i => i.classList.remove('focused'));
+                        items[prevIndex]?.classList.add('focused');
+                        items[prevIndex]?.scrollIntoView({ block: 'nearest' });
+                    } else if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const focusedItem = list.querySelector('.combobox-item.focused');
+                        if (focusedItem) {
+                            focusedItem.click();
+                        }
+                    }
+                });
             }
         });
     </script>
