@@ -809,7 +809,7 @@
         <main class="main-content">
             <header class="page-header">
                 <nav class="breadcrumb" aria-label="Breadcrumb">
-                    <a href="#">Students</a>
+                    <a href="student-list.html">Students</a>
                     <span class="breadcrumb-separator">/</span>
                     <span>Add New</span>
                 </nav>
@@ -1098,7 +1098,7 @@
                         </button>
                     </div>
                     <div class="form-footer-right">
-                        <button class="btn btn-secondary btn-md" type="button">Cancel</button>
+                        <button class="btn btn-secondary btn-md" type="button" onclick="handleCancel()">Cancel</button>
                         <button class="btn btn-primary btn-md" type="button" onclick="createStudent()">
                             Create Student
                         </button>
@@ -1173,15 +1173,17 @@
 
         function createStudent() {
             const setupInvoicing = document.querySelector('input[name="setupInvoicing"]:checked').value;
-            if (setupInvoicing === 'yes') {
-                alert('Student created successfully with invoicing configured!');
-            } else {
-                alert('Student created successfully.\n\nYou can configure invoicing later in family settings.');
-            }
+            // In a real app, this would save and then navigate
+            // For wireframe demo, navigate back to student list
+            window.location.href = 'student-list.html';
         }
 
         function goBack() {
-            alert('Navigating back to Step 1 (Student Information)');
+            window.location.href = 'add-student.html';
+        }
+
+        function handleCancel() {
+            window.location.href = 'student-list.html';
         }
 
         // Schedule options toggle

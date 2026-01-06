@@ -104,6 +104,63 @@ Before creating a new wireframe:
 - [ ] Ensure WCAG AA accessibility compliance
 - [ ] Include proper ARIA attributes and keyboard navigation
 - [ ] Test responsive behavior (mobile breakpoint: 768px)
+- [ ] Connect navigation to related wireframes (see below)
+
+### Wireframe Navigation & Connectivity
+
+**All wireframes must be navigable** - users should be able to click through the prototype flow without hitting dead ends.
+
+**Required Navigation Elements:**
+
+1. **Breadcrumbs** - Link back to parent pages (e.g., "Students" → `student-list.html`)
+2. **Cancel/Back buttons** - Navigate to logical previous page
+3. **Success actions** - After form submission, navigate to result page or list view
+4. **Multi-step flows** - Connect each step to the next/previous step
+
+**Navigation Rules:**
+
+| Element | Should Navigate To |
+|---------|-------------------|
+| Breadcrumb links | Parent list/page (use relative paths like `student-list.html`) |
+| Cancel button | Previous page or list view (with confirmation if form is dirty) |
+| Back button | Previous step in multi-step flow |
+| Submit/Create button | Next step, or back to list with success feedback |
+| "View" actions in toasts | Detail page for the created item |
+
+**Implementation Pattern:**
+
+```javascript
+// Cancel with dirty form check
+function handleCancel() {
+    if (formIsDirty) {
+        showConfirmationModal();
+    } else {
+        window.location.href = 'parent-list.html';
+    }
+}
+
+// Multi-step navigation
+function goToNextStep() {
+    window.location.href = 'step-2.html';
+}
+
+function goBack() {
+    window.location.href = 'step-1.html';
+}
+```
+
+**Relative Paths**: Always use relative paths (e.g., `student-list.html`) not absolute paths or `#`. This ensures wireframes work when opened locally.
+
+**Current Wireframe Flow:**
+```
+student-list.html
+    ↓ "Add Student" button
+add-student.html (Step 1)
+    ↓ "Continue to Invoicing" (new family) OR "Create Student" (existing family)
+add-student-invoicing.html (Step 2)
+    ↓ "Create Student"
+student-list.html (with success toast)
+```
 
 ### Creating New Components
 

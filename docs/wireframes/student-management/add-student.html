@@ -1079,7 +1079,7 @@
         <main class="main-content">
             <header class="page-header">
                 <nav class="breadcrumb" aria-label="Breadcrumb">
-                    <a href="#">Students</a>
+                    <a href="student-list.html">Students</a>
                     <span class="breadcrumb-separator">/</span>
                     <span>Add New</span>
                 </nav>
@@ -1966,7 +1966,7 @@
             if (formIsDirty) {
                 document.getElementById('cancelModal').classList.add('visible');
             } else {
-                window.location.href = '#'; // Navigate away
+                window.location.href = 'student-list.html';
             }
         }
 
@@ -1976,7 +1976,7 @@
 
         function confirmCancel() {
             document.getElementById('cancelModal').classList.remove('visible');
-            window.location.href = '#'; // Navigate away
+            window.location.href = 'student-list.html';
         }
 
         // Close modal on overlay click
@@ -2017,9 +2017,9 @@
                 const studentType = document.querySelector('input[name="studentType"]:checked')?.value;
                 const familyType = document.querySelector('input[name="familyType"]:checked')?.value;
 
-                // If creating new family for child, would navigate to invoicing step
+                // If creating new family for child, navigate to invoicing step
                 if (studentType === 'child' && familyType === 'new') {
-                    alert('Navigating to Step 2: Invoicing Setup');
+                    window.location.href = 'add-student-invoicing.html';
                 } else {
                     // Show success toast
                     showSuccessToast();
