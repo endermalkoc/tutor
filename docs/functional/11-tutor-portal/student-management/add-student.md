@@ -68,7 +68,7 @@ For child students, user selects one of two options:
 **Lesson Settings**:
 
 - Lesson Category (Lesson, Group Lesson, Vacation)
-- Default Duration (minutes)
+- Default Duration (minutes) - select from common options (30, 45, 60, 90) or enter custom value
 
 #### Default Billing
 
@@ -210,7 +210,7 @@ If "Create New Family" is selected:
 
 - Status defaults to "Active" for new students
 - Student Type defaults to "Child"
-- Default Duration defaults to 30 minutes
+- Default Duration defaults to 30 minutes (common presets: 30, 45, 60, 90 minutes with custom option)
 - SMS Capable defaults to enabled (checked) when phone number is provided
 
 ### Show More Fields
