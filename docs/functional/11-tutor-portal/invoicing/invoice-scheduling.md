@@ -73,7 +73,7 @@ Reusable component for configuring automatic invoice generation schedules. Used 
 - Invoice Type: Previous lessons (Postpaid)
 - Schedule: Monthly, every 1 month, first day of month
 - Invoice Creation: First day of billing cycle
-- Due Date: Net 30
+- Due Date: No due date
 
 ## Validation
 
