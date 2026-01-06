@@ -1,1619 +1,1846 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Students</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        /* Color Foundation: Ocean-tinted neutrals */
+        --bg-page: #f5f8fa;
+        --bg-surface: #ffffff;
+        --bg-subtle: #ebf1f5;
+        --bg-muted: #d8e3eb;
+
+        /* Text hierarchy */
+        --text-primary: #16262f;
+        --text-secondary: #3a6278;
+        --text-muted: #4a7d98;
+        --text-faint: #78a3b8;
+
+        /* Borders */
+        --border: rgba(22, 38, 47, 0.08);
+        --border-strong: rgba(22, 38, 47, 0.12);
+
+        /* Single accent: Ocean blue */
+        --accent: #3ba5c5;
+        --accent-hover: #3397b7;
+        --accent-subtle: #e8f4f8;
+
+        /* Semantic colors - muted for data-heavy UI */
+        --status-active: #16a34a;
+        --status-active-bg: #f0fdf4;
+        --status-trial: #6366f1;
+        --status-trial-bg: #eef2ff;
+        --status-waiting: #d97706;
+        --status-waiting-bg: #fffbeb;
+        --status-lead: #0891b2;
+        --status-lead-bg: #ecfeff;
+        --status-inactive: #4a7d98;
+        --status-inactive-bg: #ebf1f5;
+
+        /* Depth */
+        --shadow-sm: 0 1px 2px rgba(22, 38, 47, 0.05);
+        --shadow: 0 1px 3px rgba(22, 38, 47, 0.08);
+
+        /* Spacing (4px grid) */
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 20px;
+        --space-6: 24px;
+        --space-8: 32px;
+
+        /* Border radius */
+        --radius-sm: 4px;
+        --radius: 6px;
+        --radius-lg: 8px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
         }
+      }
 
-        :root {
-            /* Color Foundation: Ocean-tinted neutrals */
-            --bg-page: #f5f8fa;
-            --bg-surface: #ffffff;
-            --bg-subtle: #ebf1f5;
-            --bg-muted: #d8e3eb;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter",
+          sans-serif;
+        background: var(--bg-page);
+        min-height: 100vh;
+        color: var(--text-primary);
+        line-height: 1.5;
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+      }
 
-            /* Text hierarchy */
-            --text-primary: #16262f;
-            --text-secondary: #3a6278;
-            --text-muted: #4a7d98;
-            --text-faint: #78a3b8;
+      /* Layout */
+      .app-layout {
+        display: flex;
+        min-height: 100vh;
+      }
 
-            /* Borders */
-            --border: rgba(22, 38, 47, 0.08);
-            --border-strong: rgba(22, 38, 47, 0.12);
+      /* Sidebar */
+      .sidebar {
+        width: 240px;
+        background: var(--bg-surface);
+        border-right: 1px solid var(--border);
+        padding: var(--space-4);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+      }
 
-            /* Single accent: Ocean blue */
-            --accent: #3ba5c5;
-            --accent-hover: #3397b7;
-            --accent-subtle: #e8f4f8;
+      .sidebar-logo {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-primary);
+        padding: var(--space-3) var(--space-3);
+        margin-bottom: var(--space-4);
+        letter-spacing: -0.02em;
+      }
 
-            /* Semantic colors - muted for data-heavy UI */
-            --status-active: #16a34a;
-            --status-active-bg: #f0fdf4;
-            --status-trial: #6366f1;
-            --status-trial-bg: #eef2ff;
-            --status-waiting: #d97706;
-            --status-waiting-bg: #fffbeb;
-            --status-lead: #0891b2;
-            --status-lead-bg: #ecfeff;
-            --status-inactive: #4a7d98;
-            --status-inactive-bg: #ebf1f5;
+      .sidebar-nav {
+        flex: 1;
+      }
 
-            /* Depth */
-            --shadow-sm: 0 1px 2px rgba(22, 38, 47, 0.05);
-            --shadow: 0 1px 3px rgba(22, 38, 47, 0.08);
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius);
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: var(--space-1);
+        transition: background 150ms ease, color 150ms ease;
+      }
 
-            /* Spacing (4px grid) */
-            --space-1: 4px;
-            --space-2: 8px;
-            --space-3: 12px;
-            --space-4: 16px;
-            --space-5: 20px;
-            --space-6: 24px;
-            --space-8: 32px;
+      .nav-item:hover {
+        background: var(--bg-subtle);
+        color: var(--text-primary);
+      }
 
-            /* Border radius */
-            --radius-sm: 4px;
-            --radius: 6px;
-            --radius-lg: 8px;
-        }
+      .nav-item.active {
+        background: var(--accent-subtle);
+        color: var(--accent);
+      }
 
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
+      .nav-icon {
+        width: 16px;
+        height: 16px;
+        opacity: 0.7;
+        flex-shrink: 0;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
-            background: var(--bg-page);
-            min-height: 100vh;
-            color: var(--text-primary);
-            line-height: 1.5;
-            font-size: 14px;
-            -webkit-font-smoothing: antialiased;
-        }
+      .nav-item.active .nav-icon {
+        opacity: 1;
+      }
 
-        /* Layout */
-        .app-layout {
-            display: flex;
-            min-height: 100vh;
-        }
+      .sidebar-footer {
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--border);
+      }
 
-        /* Sidebar */
-        .sidebar {
-            width: 240px;
-            background: var(--bg-surface);
-            border-right: 1px solid var(--border);
-            padding: var(--space-4);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            z-index: 100;
-        }
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        padding: var(--space-2) var(--space-3);
+      }
 
-        .sidebar-logo {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-            padding: var(--space-3) var(--space-3);
-            margin-bottom: var(--space-4);
-            letter-spacing: -0.02em;
-        }
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--bg-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
 
-        .sidebar-nav {
-            flex: 1;
-        }
+      .user-name {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
 
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: var(--space-3);
-            padding: var(--space-2) var(--space-3);
-            border-radius: var(--radius);
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: var(--space-1);
-            transition: background 150ms ease, color 150ms ease;
-        }
+      .user-email {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
 
-        .nav-item:hover {
-            background: var(--bg-subtle);
-            color: var(--text-primary);
-        }
+      /* Main content */
+      .main-content {
+        flex: 1;
+        margin-left: 240px;
+        padding: var(--space-8);
+      }
 
-        .nav-item.active {
-            background: var(--accent-subtle);
-            color: var(--accent);
-        }
+      /* Page header */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: var(--space-6);
+      }
 
-        .nav-icon {
-            width: 16px;
-            height: 16px;
-            opacity: 0.7;
-            flex-shrink: 0;
-        }
+      .page-title-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+      }
 
-        .nav-item.active .nav-icon {
-            opacity: 1;
-        }
+      .page-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+      }
 
-        .sidebar-footer {
-            padding-top: var(--space-4);
-            border-top: 1px solid var(--border);
-        }
+      .page-subtitle {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-variant-numeric: tabular-nums;
+      }
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: var(--space-3);
-            padding: var(--space-2) var(--space-3);
-        }
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-2);
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius);
+        font-size: 13px;
+        font-weight: 500;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 150ms ease;
+        border: none;
+        min-height: 32px;
+        white-space: nowrap;
+      }
 
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--bg-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
 
-        .user-name {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
+      .btn-primary {
+        background: var(--accent);
+        color: white;
+        padding: var(--space-3) var(--space-4);
+        min-height: 36px;
+      }
 
-        .user-email {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
+      .btn-primary:hover:not(:disabled) {
+        background: var(--accent-hover);
+      }
 
-        /* Main content */
+      .btn-secondary {
+        background: var(--bg-surface);
+        color: var(--text-secondary);
+        border: 1px solid var(--border-strong);
+      }
+
+      .btn-secondary:hover:not(:disabled) {
+        background: var(--bg-subtle);
+        border-color: var(--text-faint);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--text-secondary);
+      }
+
+      .btn-ghost:hover:not(:disabled) {
+        background: var(--bg-subtle);
+      }
+
+      /* List container */
+      .list-container {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+      }
+
+      /* Toolbar */
+      .toolbar {
+        padding: var(--space-4);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+
+      .toolbar-row {
+        display: flex;
+        gap: var(--space-3);
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      /* Search */
+      .search-container {
+        flex: 1;
+        min-width: 240px;
+        max-width: 320px;
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: var(--space-2) var(--space-3) var(--space-2) 36px;
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius);
+        font-size: 13px;
+        font-family: inherit;
+        color: var(--text-primary);
+        background: var(--bg-surface);
+        transition: border-color 150ms ease, box-shadow 150ms ease;
+        min-height: 32px;
+      }
+
+      .search-input:hover {
+        border-color: var(--text-faint);
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-subtle);
+      }
+
+      .search-input::placeholder {
+        color: var(--text-faint);
+      }
+
+      .search-icon {
+        position: absolute;
+        left: var(--space-3);
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-faint);
+        width: 14px;
+        height: 14px;
+      }
+
+      /* Status filters */
+      .status-filters {
+        display: flex;
+        gap: var(--space-1);
+        background: var(--bg-subtle);
+        padding: var(--space-1);
+        border-radius: var(--radius);
+      }
+
+      .status-chip {
+        padding: var(--space-1) var(--space-3);
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 150ms ease;
+        border: none;
+        background: transparent;
+        color: var(--text-muted);
+      }
+
+      .status-chip:hover {
+        color: var(--text-secondary);
+      }
+
+      .status-chip.active {
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        box-shadow: var(--shadow-sm);
+      }
+
+      /* Filter tags */
+      .active-filters {
+        display: flex;
+        gap: var(--space-2);
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .filter-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-1);
+        padding: var(--space-1) var(--space-2);
+        background: var(--accent-subtle);
+        color: var(--accent);
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .filter-tag .remove {
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 150ms ease;
+      }
+
+      .filter-tag .remove:hover {
+        opacity: 1;
+      }
+
+      .clear-filters-btn {
+        font-size: 12px;
+        color: var(--text-muted);
+        text-decoration: underline;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: var(--space-1);
+      }
+
+      .clear-filters-btn:hover {
+        color: var(--text-secondary);
+      }
+
+      /* Bulk actions */
+      .bulk-actions {
+        display: flex;
+        gap: var(--space-2);
+        align-items: center;
+        padding: var(--space-2) var(--space-3);
+        background: var(--accent-subtle);
+        border-radius: var(--radius);
+      }
+
+      .bulk-actions-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--accent);
+        margin-right: var(--space-2);
+      }
+
+      /* Column selector */
+      .column-selector {
+        position: relative;
+      }
+
+      .column-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: var(--space-2);
+        background: var(--bg-surface);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-lg);
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12);
+        padding: var(--space-3);
+        min-width: 220px;
+        max-height: 360px;
+        overflow-y: auto;
+        z-index: 1000;
+        display: none;
+      }
+
+      .column-dropdown.active {
+        display: block;
+      }
+
+      .column-dropdown-header {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: var(--space-2) var(--space-2) var(--space-3);
+        border-bottom: 1px solid var(--border);
+        margin-bottom: var(--space-2);
+      }
+
+      .column-option {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-2);
+        cursor: pointer;
+        border-radius: var(--radius-sm);
+        transition: background 150ms ease;
+      }
+
+      .column-option:hover {
+        background: var(--bg-subtle);
+      }
+
+      .column-option input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+        accent-color: var(--accent);
+      }
+
+      .column-option label {
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--text-secondary);
+        flex: 1;
+      }
+
+      .column-option.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Table */
+      .table-wrapper {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      thead {
+        background: var(--bg-subtle);
+        border-bottom: 1px solid var(--border);
+      }
+
+      th {
+        padding: var(--space-3) var(--space-4);
+        text-align: left;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+        user-select: none;
+      }
+
+      th.sortable {
+        cursor: pointer;
+      }
+
+      th.sortable:hover {
+        color: var(--text-secondary);
+      }
+
+      th.sortable::after {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        margin-left: var(--space-1);
+      }
+
+      th.sorted-asc::after {
+        content: "↑";
+        color: var(--accent);
+      }
+
+      th.sorted-desc::after {
+        content: "↓";
+        color: var(--accent);
+      }
+
+      th.checkbox-col {
+        width: 40px;
+        padding-left: var(--space-4);
+      }
+
+      td {
+        padding: var(--space-3) var(--space-4);
+        border-bottom: 1px solid var(--border);
+        font-size: 13px;
+        color: var(--text-secondary);
+        vertical-align: middle;
+      }
+
+      tr:hover {
+        background: var(--bg-subtle);
+      }
+
+      tr.selected {
+        background: var(--accent-subtle);
+      }
+
+      /* Table checkbox */
+      .table-checkbox {
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+        accent-color: var(--accent);
+      }
+
+      /* Student name */
+      .student-name {
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+
+      .student-name:hover {
+        color: var(--accent);
+        cursor: pointer;
+      }
+
+      /* Status badges - minimal, typography-driven */
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--space-1) var(--space-2);
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .status-active {
+        background: var(--status-active-bg);
+        color: var(--status-active);
+      }
+
+      .status-trial {
+        background: var(--status-trial-bg);
+        color: var(--status-trial);
+      }
+
+      .status-waiting {
+        background: var(--status-waiting-bg);
+        color: var(--status-waiting);
+      }
+
+      .status-lead {
+        background: var(--status-lead-bg);
+        color: var(--status-lead);
+      }
+
+      .status-inactive {
+        background: var(--status-inactive-bg);
+        color: var(--status-inactive);
+      }
+
+      /* Tags - muted, not colorful */
+      .tag-list {
+        display: flex;
+        gap: var(--space-1);
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        padding: 2px var(--space-2);
+        background: var(--bg-subtle);
+        color: var(--text-muted);
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 500;
+      }
+
+      /* Notes preview */
+      .notes-preview {
+        max-width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--text-muted);
+        font-size: 12px;
+      }
+
+      /* Contact info */
+      .contact-info {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .contact-info a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .contact-info a:hover {
+        text-decoration: underline;
+      }
+
+      /* Data values - tabular */
+      .data-value {
+        font-variant-numeric: tabular-nums;
+        font-family: ui-monospace, "SF Mono", "Menlo", monospace;
+        font-size: 12px;
+      }
+
+      /* Pagination */
+      .pagination {
+        padding: var(--space-4);
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--space-4);
+      }
+
+      .pagination-info {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .pagination-controls {
+        display: flex;
+        gap: var(--space-4);
+        align-items: center;
+      }
+
+      .page-size-selector {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+      }
+
+      .page-size-selector label {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .page-size-selector select {
+        padding: var(--space-1) var(--space-2);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        background: var(--bg-surface);
+        color: var(--text-secondary);
+        cursor: pointer;
+      }
+
+      .page-nav {
+        display: flex;
+        gap: var(--space-1);
+      }
+
+      .page-btn {
+        padding: var(--space-1) var(--space-2);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        color: var(--text-muted);
+        font-size: 12px;
+        cursor: pointer;
+        min-width: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 150ms ease;
+      }
+
+      .page-btn:hover:not(:disabled) {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .page-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .page-btn.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+
+      /* Mobile cards */
+      .mobile-cards {
+        display: none;
+      }
+
+      .student-card {
+        padding: var(--space-4);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .student-card:last-child {
+        border-bottom: none;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: var(--space-3);
+      }
+
+      .card-name {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-bottom: var(--space-1);
+      }
+
+      .card-details {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+
+      .card-row {
+        display: flex;
+        gap: var(--space-2);
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      .card-label {
+        color: var(--text-muted);
+        min-width: 80px;
+      }
+
+      /* Modal */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(15, 23, 42, 0.4);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+      }
+
+      .modal-overlay.active {
+        display: flex;
+      }
+
+      .modal {
+        background: var(--bg-surface);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 16px 48px rgba(15, 23, 42, 0.2);
+      }
+
+      .modal-header {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: var(--space-4);
+      }
+
+      .modal-description {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: var(--space-4);
+      }
+
+      .modal-section {
+        margin-bottom: var(--space-4);
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-2);
+        margin: calc(var(--space-1) * -1) calc(var(--space-2) * -1);
+        cursor: pointer;
+        border-radius: var(--radius-sm);
+        transition: background 150ms ease;
+      }
+
+      .checkbox-group:hover {
+        background: var(--bg-subtle);
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+        accent-color: var(--accent);
+      }
+
+      .checkbox-group label {
+        cursor: pointer;
+        color: var(--text-secondary);
+        font-size: 13px;
+        flex: 1;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: var(--space-3);
+        justify-content: flex-end;
+        margin-top: var(--space-5);
+      }
+
+      /* Empty state */
+      .empty-state {
+        padding: var(--space-8);
+        text-align: center;
+        color: var(--text-muted);
+      }
+
+      .empty-state-title {
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        margin-bottom: var(--space-2);
+      }
+
+      .empty-state-text {
+        font-size: 13px;
+        margin-bottom: var(--space-4);
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
         .main-content {
-            flex: 1;
-            margin-left: 240px;
-            padding: var(--space-8);
+          padding: var(--space-4);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          display: none;
         }
 
-        /* Page header */
+        .main-content {
+          margin-left: 0;
+        }
+
         .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: var(--space-6);
-        }
-
-        .page-title-group {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-1);
-        }
-
-        .page-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-
-        .page-subtitle {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-variant-numeric: tabular-nums;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-2);
-            padding: var(--space-2) var(--space-3);
-            border-radius: var(--radius);
-            font-size: 13px;
-            font-weight: 500;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 150ms ease;
-            border: none;
-            min-height: 32px;
-            white-space: nowrap;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-            padding: var(--space-3) var(--space-4);
-            min-height: 36px;
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            background: var(--accent-hover);
-        }
-
-        .btn-secondary {
-            background: var(--bg-surface);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-strong);
-        }
-
-        .btn-secondary:hover:not(:disabled) {
-            background: var(--bg-subtle);
-            border-color: var(--text-faint);
-        }
-
-        .btn-ghost {
-            background: transparent;
-            color: var(--text-secondary);
-        }
-
-        .btn-ghost:hover:not(:disabled) {
-            background: var(--bg-subtle);
-        }
-
-        /* List container */
-        .list-container {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow);
-        }
-
-        /* Toolbar */
-        .toolbar {
-            padding: var(--space-4);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-3);
+          flex-direction: column;
+          gap: var(--space-4);
         }
 
         .toolbar-row {
-            display: flex;
-            gap: var(--space-3);
-            align-items: center;
-            flex-wrap: wrap;
+          flex-direction: column;
+          align-items: stretch;
         }
 
-        /* Search */
         .search-container {
-            flex: 1;
-            min-width: 240px;
-            max-width: 320px;
-            position: relative;
+          max-width: 100%;
         }
 
-        .search-input {
-            width: 100%;
-            padding: var(--space-2) var(--space-3) var(--space-2) 36px;
-            border: 1px solid var(--border-strong);
-            border-radius: var(--radius);
-            font-size: 13px;
-            font-family: inherit;
-            color: var(--text-primary);
-            background: var(--bg-surface);
-            transition: border-color 150ms ease, box-shadow 150ms ease;
-            min-height: 32px;
-        }
-
-        .search-input:hover {
-            border-color: var(--text-faint);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-subtle);
-        }
-
-        .search-input::placeholder {
-            color: var(--text-faint);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: var(--space-3);
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-faint);
-            width: 14px;
-            height: 14px;
-        }
-
-        /* Status filters */
         .status-filters {
-            display: flex;
-            gap: var(--space-1);
-            background: var(--bg-subtle);
-            padding: var(--space-1);
-            border-radius: var(--radius);
+          flex-wrap: wrap;
         }
 
-        .status-chip {
-            padding: var(--space-1) var(--space-3);
-            border-radius: var(--radius-sm);
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 150ms ease;
-            border: none;
-            background: transparent;
-            color: var(--text-muted);
-        }
-
-        .status-chip:hover {
-            color: var(--text-secondary);
-        }
-
-        .status-chip.active {
-            background: var(--bg-surface);
-            color: var(--text-primary);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* Filter tags */
-        .active-filters {
-            display: flex;
-            gap: var(--space-2);
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .filter-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-1);
-            padding: var(--space-1) var(--space-2);
-            background: var(--accent-subtle);
-            color: var(--accent);
-            border-radius: var(--radius-sm);
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .filter-tag .remove {
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 150ms ease;
-        }
-
-        .filter-tag .remove:hover {
-            opacity: 1;
-        }
-
-        .clear-filters-btn {
-            font-size: 12px;
-            color: var(--text-muted);
-            text-decoration: underline;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: var(--space-1);
-        }
-
-        .clear-filters-btn:hover {
-            color: var(--text-secondary);
-        }
-
-        /* Bulk actions */
-        .bulk-actions {
-            display: flex;
-            gap: var(--space-2);
-            align-items: center;
-            padding: var(--space-2) var(--space-3);
-            background: var(--accent-subtle);
-            border-radius: var(--radius);
-        }
-
-        .bulk-actions-label {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--accent);
-            margin-right: var(--space-2);
-        }
-
-        /* Column selector */
-        .column-selector {
-            position: relative;
-        }
-
-        .column-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: var(--space-2);
-            background: var(--bg-surface);
-            border: 1px solid var(--border-strong);
-            border-radius: var(--radius-lg);
-            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12);
-            padding: var(--space-3);
-            min-width: 220px;
-            max-height: 360px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-        }
-
-        .column-dropdown.active {
-            display: block;
-        }
-
-        .column-dropdown-header {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: var(--space-2) var(--space-2) var(--space-3);
-            border-bottom: 1px solid var(--border);
-            margin-bottom: var(--space-2);
-        }
-
-        .column-option {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-2);
-            cursor: pointer;
-            border-radius: var(--radius-sm);
-            transition: background 150ms ease;
-        }
-
-        .column-option:hover {
-            background: var(--bg-subtle);
-        }
-
-        .column-option input[type="checkbox"] {
-            width: 14px;
-            height: 14px;
-            cursor: pointer;
-            accent-color: var(--accent);
-        }
-
-        .column-option label {
-            cursor: pointer;
-            font-size: 13px;
-            color: var(--text-secondary);
-            flex: 1;
-        }
-
-        .column-option.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Table */
         .table-wrapper {
-            overflow-x: auto;
+          display: none;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .mobile-cards {
+          display: block;
         }
 
-        thead {
-            background: var(--bg-subtle);
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            padding: var(--space-3) var(--space-4);
-            text-align: left;
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            white-space: nowrap;
-            user-select: none;
-        }
-
-        th.sortable {
-            cursor: pointer;
-        }
-
-        th.sortable:hover {
-            color: var(--text-secondary);
-        }
-
-        th.sortable::after {
-            content: '';
-            display: inline-block;
-            width: 12px;
-            margin-left: var(--space-1);
-        }
-
-        th.sorted-asc::after {
-            content: '↑';
-            color: var(--accent);
-        }
-
-        th.sorted-desc::after {
-            content: '↓';
-            color: var(--accent);
-        }
-
-        th.checkbox-col {
-            width: 40px;
-            padding-left: var(--space-4);
-        }
-
-        td {
-            padding: var(--space-3) var(--space-4);
-            border-bottom: 1px solid var(--border);
-            font-size: 13px;
-            color: var(--text-secondary);
-            vertical-align: middle;
-        }
-
-        tr:hover {
-            background: var(--bg-subtle);
-        }
-
-        tr.selected {
-            background: var(--accent-subtle);
-        }
-
-        /* Table checkbox */
-        .table-checkbox {
-            width: 14px;
-            height: 14px;
-            cursor: pointer;
-            accent-color: var(--accent);
-        }
-
-        /* Student name */
-        .student-name {
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .student-name:hover {
-            color: var(--accent);
-            cursor: pointer;
-        }
-
-        /* Status badges - minimal, typography-driven */
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: var(--space-1) var(--space-2);
-            border-radius: var(--radius-sm);
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-        }
-
-        .status-active {
-            background: var(--status-active-bg);
-            color: var(--status-active);
-        }
-
-        .status-trial {
-            background: var(--status-trial-bg);
-            color: var(--status-trial);
-        }
-
-        .status-waiting {
-            background: var(--status-waiting-bg);
-            color: var(--status-waiting);
-        }
-
-        .status-lead {
-            background: var(--status-lead-bg);
-            color: var(--status-lead);
-        }
-
-        .status-inactive {
-            background: var(--status-inactive-bg);
-            color: var(--status-inactive);
-        }
-
-        /* Tags - muted, not colorful */
-        .tag-list {
-            display: flex;
-            gap: var(--space-1);
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            padding: 2px var(--space-2);
-            background: var(--bg-subtle);
-            color: var(--text-muted);
-            border-radius: var(--radius-sm);
-            font-size: 11px;
-            font-weight: 500;
-        }
-
-        /* Notes preview */
-        .notes-preview {
-            max-width: 180px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            color: var(--text-muted);
-            font-size: 12px;
-        }
-
-        /* Contact info */
-        .contact-info {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .contact-info a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
-
-        /* Data values - tabular */
-        .data-value {
-            font-variant-numeric: tabular-nums;
-            font-family: ui-monospace, 'SF Mono', 'Menlo', monospace;
-            font-size: 12px;
-        }
-
-        /* Pagination */
         .pagination {
-            padding: var(--space-4);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: var(--space-4);
-        }
-
-        .pagination-info {
-            font-size: 13px;
-            color: var(--text-muted);
+          flex-direction: column;
+          align-items: stretch;
         }
 
         .pagination-controls {
-            display: flex;
-            gap: var(--space-4);
-            align-items: center;
-        }
-
-        .page-size-selector {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-        }
-
-        .page-size-selector label {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .page-size-selector select {
-            padding: var(--space-1) var(--space-2);
-            border: 1px solid var(--border-strong);
-            border-radius: var(--radius-sm);
-            font-size: 12px;
-            background: var(--bg-surface);
-            color: var(--text-secondary);
-            cursor: pointer;
+          flex-direction: column;
+          align-items: stretch;
         }
 
         .page-nav {
-            display: flex;
-            gap: var(--space-1);
+          justify-content: center;
         }
-
-        .page-btn {
-            padding: var(--space-1) var(--space-2);
-            border: 1px solid var(--border-strong);
-            border-radius: var(--radius-sm);
-            background: var(--bg-surface);
-            color: var(--text-muted);
-            font-size: 12px;
-            cursor: pointer;
-            min-width: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 150ms ease;
-        }
-
-        .page-btn:hover:not(:disabled) {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .page-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .page-btn.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        /* Mobile cards */
-        .mobile-cards {
-            display: none;
-        }
-
-        .student-card {
-            padding: var(--space-4);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .student-card:last-child {
-            border-bottom: none;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: var(--space-3);
-        }
-
-        .card-name {
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: var(--space-1);
-        }
-
-        .card-details {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-2);
-        }
-
-        .card-row {
-            display: flex;
-            gap: var(--space-2);
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        .card-label {
-            color: var(--text-muted);
-            min-width: 80px;
-        }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(15, 23, 42, 0.4);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: var(--bg-surface);
-            border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 16px 48px rgba(15, 23, 42, 0.2);
-        }
-
-        .modal-header {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--space-4);
-        }
-
-        .modal-description {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: var(--space-4);
-        }
-
-        .modal-section {
-            margin-bottom: var(--space-4);
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-2);
-            margin: calc(var(--space-1) * -1) calc(var(--space-2) * -1);
-            cursor: pointer;
-            border-radius: var(--radius-sm);
-            transition: background 150ms ease;
-        }
-
-        .checkbox-group:hover {
-            background: var(--bg-subtle);
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 14px;
-            height: 14px;
-            cursor: pointer;
-            accent-color: var(--accent);
-        }
-
-        .checkbox-group label {
-            cursor: pointer;
-            color: var(--text-secondary);
-            font-size: 13px;
-            flex: 1;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: var(--space-3);
-            justify-content: flex-end;
-            margin-top: var(--space-5);
-        }
-
-        /* Empty state */
-        .empty-state {
-            padding: var(--space-8);
-            text-align: center;
-            color: var(--text-muted);
-        }
-
-        .empty-state-title {
-            font-size: 16px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: var(--space-2);
-        }
-
-        .empty-state-text {
-            font-size: 13px;
-            margin-bottom: var(--space-4);
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .main-content {
-                padding: var(--space-4);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .page-header {
-                flex-direction: column;
-                gap: var(--space-4);
-            }
-
-            .toolbar-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-container {
-                max-width: 100%;
-            }
-
-            .status-filters {
-                flex-wrap: wrap;
-            }
-
-            .table-wrapper {
-                display: none;
-            }
-
-            .mobile-cards {
-                display: block;
-            }
-
-            .pagination {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .pagination-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .page-nav {
-                justify-content: center;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="app-layout">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar" role="navigation" aria-label="Main navigation">
-            <div class="sidebar-logo">TutorStudio</div>
-            <nav class="sidebar-nav">
-                <a href="#" class="nav-item">
-                    <i class="ph ph-squares-four nav-icon"></i>
-                    Dashboard
-                </a>
-                <a href="#" class="nav-item active">
-                    <i class="ph ph-users nav-icon"></i>
-                    Students
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="ph ph-calendar nav-icon"></i>
-                    Calendar
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="ph ph-file-text nav-icon"></i>
-                    Invoices
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="ph ph-gear nav-icon"></i>
-                    Settings
-                </a>
-            </nav>
-            <div class="sidebar-footer">
-                <div class="user-info">
-                    <div class="user-avatar">SJ</div>
-                    <div>
-                        <div class="user-name">Sarah Johnson</div>
-                        <div class="user-email">sarah@example.com</div>
-                    </div>
-                </div>
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="sidebar-logo">TutorStudio</div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item">
+            <i class="ph ph-squares-four nav-icon"></i>
+            Dashboard
+          </a>
+          <a href="student-list.html" class="nav-item active">
+            <i class="ph ph-users nav-icon"></i>
+            Students
+          </a>
+          <a href="#" class="nav-item">
+            <i class="ph ph-calendar nav-icon"></i>
+            Calendar
+          </a>
+          <a href="#" class="nav-item">
+            <i class="ph ph-file-text nav-icon"></i>
+            Invoices
+          </a>
+          <a href="#" class="nav-item">
+            <i class="ph ph-gear nav-icon"></i>
+            Settings
+          </a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-info">
+            <div class="user-avatar">SJ</div>
+            <div>
+              <div class="user-name">Sarah Johnson</div>
+              <div class="user-email">sarah@example.com</div>
             </div>
-        </aside>
+          </div>
+        </div>
+      </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Page Header -->
-            <header class="page-header">
-                <div class="page-title-group">
-                    <h1 class="page-title">Students</h1>
-                    <p class="page-subtitle">247 total students</p>
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Page Header -->
+        <header class="page-header">
+          <div class="page-title-group">
+            <h1 class="page-title">Students</h1>
+            <p class="page-subtitle">247 total students</p>
+          </div>
+          <a href="add-student.html" class="btn btn-primary">
+            <i class="ph ph-plus"></i>
+            Add Student
+          </a>
+        </header>
+
+        <!-- List Container -->
+        <div class="list-container">
+          <!-- Toolbar -->
+          <div class="toolbar">
+            <!-- Search and Controls -->
+            <div class="toolbar-row">
+              <div class="search-container">
+                <i class="ph ph-magnifying-glass search-icon"></i>
+                <input
+                  type="text"
+                  class="search-input"
+                  id="searchInput"
+                  placeholder="Search students..."
+                  oninput="handleSearch()"
+                />
+              </div>
+
+              <div class="status-filters">
+                <button
+                  class="status-chip active"
+                  onclick="filterByStatus('all')"
+                >
+                  All
+                </button>
+                <button class="status-chip" onclick="filterByStatus('active')">
+                  Active
+                </button>
+                <button class="status-chip" onclick="filterByStatus('trial')">
+                  Trial
+                </button>
+                <button class="status-chip" onclick="filterByStatus('waiting')">
+                  Waiting
+                </button>
+                <button class="status-chip" onclick="filterByStatus('lead')">
+                  Lead
+                </button>
+                <button
+                  class="status-chip"
+                  onclick="filterByStatus('inactive')"
+                >
+                  Inactive
+                </button>
+              </div>
+
+              <button class="btn btn-secondary" onclick="toggleTagModal()">
+                <i class="ph ph-tag"></i>
+                Tags
+              </button>
+
+              <div class="column-selector">
+                <button
+                  class="btn btn-secondary"
+                  onclick="toggleColumnDropdown()"
+                >
+                  <i class="ph ph-dots-three-vertical"></i>
+                  Columns
+                </button>
+                <div class="column-dropdown" id="columnDropdown">
+                  <div class="column-dropdown-header">Visible Columns</div>
+                  <div class="column-option disabled">
+                    <input type="checkbox" id="col-name" checked disabled />
+                    <label for="col-name">Name</label>
+                  </div>
+                  <div class="column-option">
+                    <input
+                      type="checkbox"
+                      id="col-status"
+                      checked
+                      onchange="toggleColumn('status')"
+                    />
+                    <label for="col-status">Status</label>
+                  </div>
+                  <div class="column-option">
+                    <input
+                      type="checkbox"
+                      id="col-age"
+                      checked
+                      onchange="toggleColumn('age')"
+                    />
+                    <label for="col-age">Age</label>
+                  </div>
+                  <div class="column-option">
+                    <input
+                      type="checkbox"
+                      id="col-family"
+                      checked
+                      onchange="toggleColumn('family')"
+                    />
+                    <label for="col-family">Family</label>
+                  </div>
+                  <div class="column-option">
+                    <input
+                      type="checkbox"
+                      id="col-tags"
+                      checked
+                      onchange="toggleColumn('tags')"
+                    />
+                    <label for="col-tags">Tags</label>
+                  </div>
+                  <div class="column-option">
+                    <input
+                      type="checkbox"
+                      id="col-credits"
+                      checked
+                      onchange="toggleColumn('credits')"
+                    />
+                    <label for="col-credits">Credits</label>
+                  </div>
+                  <div class="column-option">
+                    <input
+                      type="checkbox"
+                      id="col-next-lesson"
+                      checked
+                      onchange="toggleColumn('next-lesson')"
+                    />
+                    <label for="col-next-lesson">Next Lesson</label>
+                  </div>
+                  <div class="column-option">
+                    <input
+                      type="checkbox"
+                      id="col-notes"
+                      onchange="toggleColumn('notes')"
+                    />
+                    <label for="col-notes">Notes</label>
+                  </div>
+                  <div class="column-option">
+                    <input
+                      type="checkbox"
+                      id="col-contact"
+                      onchange="toggleColumn('contact')"
+                    />
+                    <label for="col-contact">Contact</label>
+                  </div>
                 </div>
-                <a href="add-student.html" class="btn btn-primary">
-                    <i class="ph ph-plus"></i>
-                    Add Student
-                </a>
-            </header>
-
-            <!-- List Container -->
-            <div class="list-container">
-                <!-- Toolbar -->
-                <div class="toolbar">
-                    <!-- Search and Controls -->
-                    <div class="toolbar-row">
-                        <div class="search-container">
-                            <i class="ph ph-magnifying-glass search-icon"></i>
-                            <input type="text"
-                                   class="search-input"
-                                   id="searchInput"
-                                   placeholder="Search students..."
-                                   oninput="handleSearch()">
-                        </div>
-
-                        <div class="status-filters">
-                            <button class="status-chip active" onclick="filterByStatus('all')">All</button>
-                            <button class="status-chip" onclick="filterByStatus('active')">Active</button>
-                            <button class="status-chip" onclick="filterByStatus('trial')">Trial</button>
-                            <button class="status-chip" onclick="filterByStatus('waiting')">Waiting</button>
-                            <button class="status-chip" onclick="filterByStatus('lead')">Lead</button>
-                            <button class="status-chip" onclick="filterByStatus('inactive')">Inactive</button>
-                        </div>
-
-                        <button class="btn btn-secondary" onclick="toggleTagModal()">
-                            <i class="ph ph-tag"></i>
-                            Tags
-                        </button>
-
-                        <div class="column-selector">
-                            <button class="btn btn-secondary" onclick="toggleColumnDropdown()">
-                                <i class="ph ph-dots-three-vertical"></i>
-                                Columns
-                            </button>
-                            <div class="column-dropdown" id="columnDropdown">
-                                <div class="column-dropdown-header">Visible Columns</div>
-                                <div class="column-option disabled">
-                                    <input type="checkbox" id="col-name" checked disabled>
-                                    <label for="col-name">Name</label>
-                                </div>
-                                <div class="column-option">
-                                    <input type="checkbox" id="col-status" checked onchange="toggleColumn('status')">
-                                    <label for="col-status">Status</label>
-                                </div>
-                                <div class="column-option">
-                                    <input type="checkbox" id="col-age" checked onchange="toggleColumn('age')">
-                                    <label for="col-age">Age</label>
-                                </div>
-                                <div class="column-option">
-                                    <input type="checkbox" id="col-family" checked onchange="toggleColumn('family')">
-                                    <label for="col-family">Family</label>
-                                </div>
-                                <div class="column-option">
-                                    <input type="checkbox" id="col-tags" checked onchange="toggleColumn('tags')">
-                                    <label for="col-tags">Tags</label>
-                                </div>
-                                <div class="column-option">
-                                    <input type="checkbox" id="col-credits" checked onchange="toggleColumn('credits')">
-                                    <label for="col-credits">Credits</label>
-                                </div>
-                                <div class="column-option">
-                                    <input type="checkbox" id="col-next-lesson" checked onchange="toggleColumn('next-lesson')">
-                                    <label for="col-next-lesson">Next Lesson</label>
-                                </div>
-                                <div class="column-option">
-                                    <input type="checkbox" id="col-notes" onchange="toggleColumn('notes')">
-                                    <label for="col-notes">Notes</label>
-                                </div>
-                                <div class="column-option">
-                                    <input type="checkbox" id="col-contact" onchange="toggleColumn('contact')">
-                                    <label for="col-contact">Contact</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Active Filters (hidden by default) -->
-                    <div class="toolbar-row" id="activeFiltersRow" style="display: none;">
-                        <div class="active-filters" id="activeFilters"></div>
-                        <button class="clear-filters-btn" onclick="clearAllFilters()">Clear all</button>
-                    </div>
-
-                    <!-- Bulk Actions (hidden by default) -->
-                    <div class="toolbar-row" id="bulkActionsRow" style="display: none;">
-                        <div class="bulk-actions">
-                            <span class="bulk-actions-label"><span id="selectedCount">0</span> selected</span>
-                            <button class="btn btn-ghost btn-small" onclick="bulkAssignTag()">Assign Tag</button>
-                            <button class="btn btn-ghost btn-small" onclick="bulkSetStatus()">Set Status</button>
-                            <button class="btn btn-ghost btn-small" onclick="bulkSendEmail()">Send Email</button>
-                            <button class="btn btn-ghost btn-small" onclick="bulkDownload()">Export</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Desktop Table -->
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="checkbox-col">
-                                    <input type="checkbox"
-                                           class="table-checkbox"
-                                           id="selectAll"
-                                           onchange="toggleSelectAll()"
-                                           aria-label="Select all">
-                                </th>
-                                <th class="sortable sorted-asc" onclick="sortTable('name')">Name</th>
-                                <th class="sortable col-status" onclick="sortTable('status')">Status</th>
-                                <th class="sortable col-age" onclick="sortTable('age')">Age</th>
-                                <th class="col-family">Family</th>
-                                <th class="col-tags">Tags</th>
-                                <th class="sortable col-credits" onclick="sortTable('credits')">Credits</th>
-                                <th class="sortable col-next-lesson" onclick="sortTable('next-lesson')">Next Lesson</th>
-                                <th class="col-notes" style="display: none;">Notes</th>
-                                <th class="col-contact" style="display: none;">Contact</th>
-                            </tr>
-                        </thead>
-                        <tbody id="studentTableBody">
-                            <tr class="student-row" data-student-id="1">
-                                <td><input type="checkbox" class="table-checkbox student-checkbox" onchange="updateBulkActions()"></td>
-                                <td><span class="student-name">Emily Chen</span></td>
-                                <td class="col-status"><span class="status-badge status-active">Active</span></td>
-                                <td class="col-age"><span class="data-value">14</span></td>
-                                <td class="col-family">Chen Family</td>
-                                <td class="col-tags">
-                                    <div class="tag-list">
-                                        <span class="tag">Piano</span>
-                                        <span class="tag">Advanced</span>
-                                    </div>
-                                </td>
-                                <td class="col-credits"><span class="data-value">2</span></td>
-                                <td class="col-next-lesson">Today, 3:00 PM</td>
-                                <td class="col-notes" style="display: none;"><div class="notes-preview">Preparing for recital in March</div></td>
-                                <td class="col-contact" style="display: none;">
-                                    <div class="contact-info">
-                                        <a href="mailto:emily@example.com">emily@example.com</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="student-row" data-student-id="2">
-                                <td><input type="checkbox" class="table-checkbox student-checkbox" onchange="updateBulkActions()"></td>
-                                <td><span class="student-name">Marcus Williams</span></td>
-                                <td class="col-status"><span class="status-badge status-trial">Trial</span></td>
-                                <td class="col-age"><span class="data-value">12</span></td>
-                                <td class="col-family">Williams Family</td>
-                                <td class="col-tags">
-                                    <div class="tag-list">
-                                        <span class="tag">Piano</span>
-                                        <span class="tag">Beginner</span>
-                                    </div>
-                                </td>
-                                <td class="col-credits"><span class="data-value">0</span></td>
-                                <td class="col-next-lesson">Tomorrow, 4:30 PM</td>
-                                <td class="col-notes" style="display: none;"><div class="notes-preview">Second trial lesson</div></td>
-                                <td class="col-contact" style="display: none;">
-                                    <div class="contact-info">
-                                        <a href="mailto:marcus@example.com">marcus@example.com</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="student-row" data-student-id="3">
-                                <td><input type="checkbox" class="table-checkbox student-checkbox" onchange="updateBulkActions()"></td>
-                                <td><span class="student-name">Sophie Martinez</span></td>
-                                <td class="col-status"><span class="status-badge status-active">Active</span></td>
-                                <td class="col-age"><span class="data-value">16</span></td>
-                                <td class="col-family">Martinez Family</td>
-                                <td class="col-tags">
-                                    <div class="tag-list">
-                                        <span class="tag">Piano</span>
-                                        <span class="tag">Advanced</span>
-                                    </div>
-                                </td>
-                                <td class="col-credits"><span class="data-value">1</span></td>
-                                <td class="col-next-lesson">Jan 8, 2:00 PM</td>
-                                <td class="col-notes" style="display: none;"><div class="notes-preview">Working on Chopin Nocturne</div></td>
-                                <td class="col-contact" style="display: none;">
-                                    <div class="contact-info">
-                                        <a href="mailto:sophie@example.com">sophie@example.com</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="student-row" data-student-id="4">
-                                <td><input type="checkbox" class="table-checkbox student-checkbox" onchange="updateBulkActions()"></td>
-                                <td><span class="student-name">Alex Thompson</span></td>
-                                <td class="col-status"><span class="status-badge status-waiting">Waiting</span></td>
-                                <td class="col-age"><span class="data-value">10</span></td>
-                                <td class="col-family">Thompson Family</td>
-                                <td class="col-tags">
-                                    <div class="tag-list">
-                                        <span class="tag">Piano</span>
-                                        <span class="tag">Beginner</span>
-                                    </div>
-                                </td>
-                                <td class="col-credits"><span class="data-value">0</span></td>
-                                <td class="col-next-lesson">—</td>
-                                <td class="col-notes" style="display: none;"><div class="notes-preview">Waitlisted for time slot</div></td>
-                                <td class="col-contact" style="display: none;">
-                                    <div class="contact-info">
-                                        <a href="mailto:alex@example.com">alex@example.com</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="student-row" data-student-id="5">
-                                <td><input type="checkbox" class="table-checkbox student-checkbox" onchange="updateBulkActions()"></td>
-                                <td><span class="student-name">Isabella Garcia</span></td>
-                                <td class="col-status"><span class="status-badge status-active">Active</span></td>
-                                <td class="col-age"><span class="data-value">13</span></td>
-                                <td class="col-family">Garcia Family</td>
-                                <td class="col-tags">
-                                    <div class="tag-list">
-                                        <span class="tag">Piano</span>
-                                        <span class="tag">Intermediate</span>
-                                    </div>
-                                </td>
-                                <td class="col-credits"><span class="data-value">3</span></td>
-                                <td class="col-next-lesson">Jan 6, 5:00 PM</td>
-                                <td class="col-notes" style="display: none;"><div class="notes-preview">Focus on sight reading</div></td>
-                                <td class="col-contact" style="display: none;">
-                                    <div class="contact-info">
-                                        <a href="mailto:isabella@example.com">isabella@example.com</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="student-row" data-student-id="6">
-                                <td><input type="checkbox" class="table-checkbox student-checkbox" onchange="updateBulkActions()"></td>
-                                <td><span class="student-name">James Lee</span></td>
-                                <td class="col-status"><span class="status-badge status-lead">Lead</span></td>
-                                <td class="col-age"><span class="data-value">15</span></td>
-                                <td class="col-family">Lee Family</td>
-                                <td class="col-tags">
-                                    <div class="tag-list">
-                                        <span class="tag">Piano</span>
-                                    </div>
-                                </td>
-                                <td class="col-credits"><span class="data-value">0</span></td>
-                                <td class="col-next-lesson">—</td>
-                                <td class="col-notes" style="display: none;"><div class="notes-preview">Scheduling consultation</div></td>
-                                <td class="col-contact" style="display: none;">
-                                    <div class="contact-info">
-                                        <a href="mailto:james@example.com">james@example.com</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="student-row" data-student-id="7">
-                                <td><input type="checkbox" class="table-checkbox student-checkbox" onchange="updateBulkActions()"></td>
-                                <td><span class="student-name">Olivia Brown</span></td>
-                                <td class="col-status"><span class="status-badge status-active">Active</span></td>
-                                <td class="col-age"><span class="data-value">11</span></td>
-                                <td class="col-family">Brown Family</td>
-                                <td class="col-tags">
-                                    <div class="tag-list">
-                                        <span class="tag">Piano</span>
-                                        <span class="tag">Beginner</span>
-                                    </div>
-                                </td>
-                                <td class="col-credits"><span class="data-value">1</span></td>
-                                <td class="col-next-lesson">Jan 7, 3:30 PM</td>
-                                <td class="col-notes" style="display: none;"><div class="notes-preview">Focus on music theory</div></td>
-                                <td class="col-contact" style="display: none;">
-                                    <div class="contact-info">
-                                        <a href="mailto:olivia@example.com">olivia@example.com</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="student-row" data-student-id="8">
-                                <td><input type="checkbox" class="table-checkbox student-checkbox" onchange="updateBulkActions()"></td>
-                                <td><span class="student-name">Ethan Davis</span></td>
-                                <td class="col-status"><span class="status-badge status-inactive">Inactive</span></td>
-                                <td class="col-age"><span class="data-value">17</span></td>
-                                <td class="col-family">Davis Family</td>
-                                <td class="col-tags">
-                                    <div class="tag-list">
-                                        <span class="tag">Piano</span>
-                                        <span class="tag">Advanced</span>
-                                    </div>
-                                </td>
-                                <td class="col-credits"><span class="data-value">0</span></td>
-                                <td class="col-next-lesson">—</td>
-                                <td class="col-notes" style="display: none;"><div class="notes-preview">Paused for college apps</div></td>
-                                <td class="col-contact" style="display: none;">
-                                    <div class="contact-info">
-                                        <a href="mailto:ethan@example.com">ethan@example.com</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Mobile Cards -->
-                <div class="mobile-cards">
-                    <div class="student-card" data-student-id="1">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-name">Emily Chen</div>
-                                <span class="status-badge status-active">Active</span>
-                            </div>
-                            <input type="checkbox" class="table-checkbox student-checkbox" onchange="updateBulkActions()">
-                        </div>
-                        <div class="card-details">
-                            <div class="card-row">
-                                <span class="card-label">Age</span>
-                                <span>14 · Piano · Advanced</span>
-                            </div>
-                            <div class="card-row">
-                                <span class="card-label">Next</span>
-                                <span>Today, 3:00 PM</span>
-                            </div>
-                            <div class="card-row">
-                                <span class="card-label">Credits</span>
-                                <span>2</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="student-card" data-student-id="2">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-name">Marcus Williams</div>
-                                <span class="status-badge status-trial">Trial</span>
-                            </div>
-                            <input type="checkbox" class="table-checkbox student-checkbox" onchange="updateBulkActions()">
-                        </div>
-                        <div class="card-details">
-                            <div class="card-row">
-                                <span class="card-label">Age</span>
-                                <span>12 · Piano · Beginner</span>
-                            </div>
-                            <div class="card-row">
-                                <span class="card-label">Next</span>
-                                <span>Tomorrow, 4:30 PM</span>
-                            </div>
-                            <div class="card-row">
-                                <span class="card-label">Credits</span>
-                                <span>0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pagination -->
-                <div class="pagination">
-                    <div class="pagination-info">
-                        Showing <strong>1–8</strong> of <strong>247</strong>
-                    </div>
-                    <div class="pagination-controls">
-                        <div class="page-size-selector">
-                            <label for="pageSize">Show</label>
-                            <select id="pageSize" onchange="changePageSize()">
-                                <option value="25" selected>25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
-                        <div class="page-nav">
-                            <button class="page-btn" disabled>←</button>
-                            <button class="page-btn active">1</button>
-                            <button class="page-btn">2</button>
-                            <button class="page-btn">3</button>
-                            <button class="page-btn">…</button>
-                            <button class="page-btn">10</button>
-                            <button class="page-btn">→</button>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-        </main>
+
+            <!-- Active Filters (hidden by default) -->
+            <div
+              class="toolbar-row"
+              id="activeFiltersRow"
+              style="display: none"
+            >
+              <div class="active-filters" id="activeFilters"></div>
+              <button class="clear-filters-btn" onclick="clearAllFilters()">
+                Clear all
+              </button>
+            </div>
+
+            <!-- Bulk Actions (hidden by default) -->
+            <div class="toolbar-row" id="bulkActionsRow" style="display: none">
+              <div class="bulk-actions">
+                <span class="bulk-actions-label"
+                  ><span id="selectedCount">0</span> selected</span
+                >
+                <button
+                  class="btn btn-ghost btn-small"
+                  onclick="bulkAssignTag()"
+                >
+                  Assign Tag
+                </button>
+                <button
+                  class="btn btn-ghost btn-small"
+                  onclick="bulkSetStatus()"
+                >
+                  Set Status
+                </button>
+                <button
+                  class="btn btn-ghost btn-small"
+                  onclick="bulkSendEmail()"
+                >
+                  Send Email
+                </button>
+                <button
+                  class="btn btn-ghost btn-small"
+                  onclick="bulkDownload()"
+                >
+                  Export
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Desktop Table -->
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th class="checkbox-col">
+                    <input
+                      type="checkbox"
+                      class="table-checkbox"
+                      id="selectAll"
+                      onchange="toggleSelectAll()"
+                      aria-label="Select all"
+                    />
+                  </th>
+                  <th class="sortable sorted-asc" onclick="sortTable('name')">
+                    Name
+                  </th>
+                  <th class="sortable col-status" onclick="sortTable('status')">
+                    Status
+                  </th>
+                  <th class="sortable col-age" onclick="sortTable('age')">
+                    Age
+                  </th>
+                  <th class="col-family">Family</th>
+                  <th class="col-tags">Tags</th>
+                  <th
+                    class="sortable col-credits"
+                    onclick="sortTable('credits')"
+                  >
+                    Credits
+                  </th>
+                  <th
+                    class="sortable col-next-lesson"
+                    onclick="sortTable('next-lesson')"
+                  >
+                    Next Lesson
+                  </th>
+                  <th class="col-notes" style="display: none">Notes</th>
+                  <th class="col-contact" style="display: none">Contact</th>
+                </tr>
+              </thead>
+              <tbody id="studentTableBody">
+                <tr class="student-row" data-student-id="1">
+                  <td>
+                    <input
+                      type="checkbox"
+                      class="table-checkbox student-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td><span class="student-name">Emily Chen</span></td>
+                  <td class="col-status">
+                    <span class="status-badge status-active">Active</span>
+                  </td>
+                  <td class="col-age"><span class="data-value">14</span></td>
+                  <td class="col-family">Chen Family</td>
+                  <td class="col-tags">
+                    <div class="tag-list">
+                      <span class="tag">Piano</span>
+                      <span class="tag">Advanced</span>
+                    </div>
+                  </td>
+                  <td class="col-credits"><span class="data-value">2</span></td>
+                  <td class="col-next-lesson">Today, 3:00 PM</td>
+                  <td class="col-notes" style="display: none">
+                    <div class="notes-preview">
+                      Preparing for recital in March
+                    </div>
+                  </td>
+                  <td class="col-contact" style="display: none">
+                    <div class="contact-info">
+                      <a href="mailto:emily@example.com">emily@example.com</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="student-row" data-student-id="2">
+                  <td>
+                    <input
+                      type="checkbox"
+                      class="table-checkbox student-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td><span class="student-name">Marcus Williams</span></td>
+                  <td class="col-status">
+                    <span class="status-badge status-trial">Trial</span>
+                  </td>
+                  <td class="col-age"><span class="data-value">12</span></td>
+                  <td class="col-family">Williams Family</td>
+                  <td class="col-tags">
+                    <div class="tag-list">
+                      <span class="tag">Piano</span>
+                      <span class="tag">Beginner</span>
+                    </div>
+                  </td>
+                  <td class="col-credits"><span class="data-value">0</span></td>
+                  <td class="col-next-lesson">Tomorrow, 4:30 PM</td>
+                  <td class="col-notes" style="display: none">
+                    <div class="notes-preview">Second trial lesson</div>
+                  </td>
+                  <td class="col-contact" style="display: none">
+                    <div class="contact-info">
+                      <a href="mailto:marcus@example.com">marcus@example.com</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="student-row" data-student-id="3">
+                  <td>
+                    <input
+                      type="checkbox"
+                      class="table-checkbox student-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td><span class="student-name">Sophie Martinez</span></td>
+                  <td class="col-status">
+                    <span class="status-badge status-active">Active</span>
+                  </td>
+                  <td class="col-age"><span class="data-value">16</span></td>
+                  <td class="col-family">Martinez Family</td>
+                  <td class="col-tags">
+                    <div class="tag-list">
+                      <span class="tag">Piano</span>
+                      <span class="tag">Advanced</span>
+                    </div>
+                  </td>
+                  <td class="col-credits"><span class="data-value">1</span></td>
+                  <td class="col-next-lesson">Jan 8, 2:00 PM</td>
+                  <td class="col-notes" style="display: none">
+                    <div class="notes-preview">Working on Chopin Nocturne</div>
+                  </td>
+                  <td class="col-contact" style="display: none">
+                    <div class="contact-info">
+                      <a href="mailto:sophie@example.com">sophie@example.com</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="student-row" data-student-id="4">
+                  <td>
+                    <input
+                      type="checkbox"
+                      class="table-checkbox student-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td><span class="student-name">Alex Thompson</span></td>
+                  <td class="col-status">
+                    <span class="status-badge status-waiting">Waiting</span>
+                  </td>
+                  <td class="col-age"><span class="data-value">10</span></td>
+                  <td class="col-family">Thompson Family</td>
+                  <td class="col-tags">
+                    <div class="tag-list">
+                      <span class="tag">Piano</span>
+                      <span class="tag">Beginner</span>
+                    </div>
+                  </td>
+                  <td class="col-credits"><span class="data-value">0</span></td>
+                  <td class="col-next-lesson">—</td>
+                  <td class="col-notes" style="display: none">
+                    <div class="notes-preview">Waitlisted for time slot</div>
+                  </td>
+                  <td class="col-contact" style="display: none">
+                    <div class="contact-info">
+                      <a href="mailto:alex@example.com">alex@example.com</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="student-row" data-student-id="5">
+                  <td>
+                    <input
+                      type="checkbox"
+                      class="table-checkbox student-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td><span class="student-name">Ada Malkoc</span></td>
+                  <td class="col-status">
+                    <span class="status-badge status-active">Active</span>
+                  </td>
+                  <td class="col-age"><span class="data-value">13</span></td>
+                  <td class="col-family">Garcia Family</td>
+                  <td class="col-tags">
+                    <div class="tag-list">
+                      <span class="tag">Piano</span>
+                      <span class="tag">Intermediate</span>
+                    </div>
+                  </td>
+                  <td class="col-credits"><span class="data-value">3</span></td>
+                  <td class="col-next-lesson">Jan 6, 5:00 PM</td>
+                  <td class="col-notes" style="display: none">
+                    <div class="notes-preview">Focus on sight reading</div>
+                  </td>
+                  <td class="col-contact" style="display: none">
+                    <div class="contact-info">
+                      <a href="mailto:isabella@example.com"
+                        >isabella@example.com</a
+                      >
+                    </div>
+                  </td>
+                </tr>
+                <tr class="student-row" data-student-id="6">
+                  <td>
+                    <input
+                      type="checkbox"
+                      class="table-checkbox student-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td><span class="student-name">James Lee</span></td>
+                  <td class="col-status">
+                    <span class="status-badge status-lead">Lead</span>
+                  </td>
+                  <td class="col-age"><span class="data-value">15</span></td>
+                  <td class="col-family">Lee Family</td>
+                  <td class="col-tags">
+                    <div class="tag-list">
+                      <span class="tag">Piano</span>
+                    </div>
+                  </td>
+                  <td class="col-credits"><span class="data-value">0</span></td>
+                  <td class="col-next-lesson">—</td>
+                  <td class="col-notes" style="display: none">
+                    <div class="notes-preview">Scheduling consultation</div>
+                  </td>
+                  <td class="col-contact" style="display: none">
+                    <div class="contact-info">
+                      <a href="mailto:james@example.com">james@example.com</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="student-row" data-student-id="7">
+                  <td>
+                    <input
+                      type="checkbox"
+                      class="table-checkbox student-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td><span class="student-name">Olivia Brown</span></td>
+                  <td class="col-status">
+                    <span class="status-badge status-active">Active</span>
+                  </td>
+                  <td class="col-age"><span class="data-value">11</span></td>
+                  <td class="col-family">Brown Family</td>
+                  <td class="col-tags">
+                    <div class="tag-list">
+                      <span class="tag">Piano</span>
+                      <span class="tag">Beginner</span>
+                    </div>
+                  </td>
+                  <td class="col-credits"><span class="data-value">1</span></td>
+                  <td class="col-next-lesson">Jan 7, 3:30 PM</td>
+                  <td class="col-notes" style="display: none">
+                    <div class="notes-preview">Focus on music theory</div>
+                  </td>
+                  <td class="col-contact" style="display: none">
+                    <div class="contact-info">
+                      <a href="mailto:olivia@example.com">olivia@example.com</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="student-row" data-student-id="8">
+                  <td>
+                    <input
+                      type="checkbox"
+                      class="table-checkbox student-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td><span class="student-name">Ethan Davis</span></td>
+                  <td class="col-status">
+                    <span class="status-badge status-inactive">Inactive</span>
+                  </td>
+                  <td class="col-age"><span class="data-value">17</span></td>
+                  <td class="col-family">Davis Family</td>
+                  <td class="col-tags">
+                    <div class="tag-list">
+                      <span class="tag">Piano</span>
+                      <span class="tag">Advanced</span>
+                    </div>
+                  </td>
+                  <td class="col-credits"><span class="data-value">0</span></td>
+                  <td class="col-next-lesson">—</td>
+                  <td class="col-notes" style="display: none">
+                    <div class="notes-preview">Paused for college apps</div>
+                  </td>
+                  <td class="col-contact" style="display: none">
+                    <div class="contact-info">
+                      <a href="mailto:ethan@example.com">ethan@example.com</a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Mobile Cards -->
+          <div class="mobile-cards">
+            <div class="student-card" data-student-id="1">
+              <div class="card-header">
+                <div>
+                  <div class="card-name">Emily Chen</div>
+                  <span class="status-badge status-active">Active</span>
+                </div>
+                <input
+                  type="checkbox"
+                  class="table-checkbox student-checkbox"
+                  onchange="updateBulkActions()"
+                />
+              </div>
+              <div class="card-details">
+                <div class="card-row">
+                  <span class="card-label">Age</span>
+                  <span>14 · Piano · Advanced</span>
+                </div>
+                <div class="card-row">
+                  <span class="card-label">Next</span>
+                  <span>Today, 3:00 PM</span>
+                </div>
+                <div class="card-row">
+                  <span class="card-label">Credits</span>
+                  <span>2</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="student-card" data-student-id="2">
+              <div class="card-header">
+                <div>
+                  <div class="card-name">Marcus Williams</div>
+                  <span class="status-badge status-trial">Trial</span>
+                </div>
+                <input
+                  type="checkbox"
+                  class="table-checkbox student-checkbox"
+                  onchange="updateBulkActions()"
+                />
+              </div>
+              <div class="card-details">
+                <div class="card-row">
+                  <span class="card-label">Age</span>
+                  <span>12 · Piano · Beginner</span>
+                </div>
+                <div class="card-row">
+                  <span class="card-label">Next</span>
+                  <span>Tomorrow, 4:30 PM</span>
+                </div>
+                <div class="card-row">
+                  <span class="card-label">Credits</span>
+                  <span>0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination">
+            <div class="pagination-info">
+              Showing <strong>1–8</strong> of <strong>247</strong>
+            </div>
+            <div class="pagination-controls">
+              <div class="page-size-selector">
+                <label for="pageSize">Show</label>
+                <select id="pageSize" onchange="changePageSize()">
+                  <option value="25" selected>25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+              <div class="page-nav">
+                <button class="page-btn" disabled>←</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">…</button>
+                <button class="page-btn">10</button>
+                <button class="page-btn">→</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 
     <!-- Tag Filter Modal -->
     <div class="modal-overlay" id="tagModal">
-        <div class="modal">
-            <div class="modal-header">Filter by Tags</div>
-            <p class="modal-description">Select tags to filter students. Students with any of the selected tags will be shown.</p>
-            <div class="modal-section">
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tag-piano" value="Piano">
-                    <label for="tag-piano">Piano</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tag-beginner" value="Beginner">
-                    <label for="tag-beginner">Beginner</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tag-intermediate" value="Intermediate">
-                    <label for="tag-intermediate">Intermediate</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tag-advanced" value="Advanced">
-                    <label for="tag-advanced">Advanced</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tag-recital" value="Recital Prep">
-                    <label for="tag-recital">Recital Prep</label>
-                </div>
-            </div>
-            <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="closeTagModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="applyTagFilters()">Apply</button>
-            </div>
+      <div class="modal">
+        <div class="modal-header">Filter by Tags</div>
+        <p class="modal-description">
+          Select tags to filter students. Students with any of the selected tags
+          will be shown.
+        </p>
+        <div class="modal-section">
+          <div class="checkbox-group">
+            <input type="checkbox" id="tag-piano" value="Piano" />
+            <label for="tag-piano">Piano</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="tag-beginner" value="Beginner" />
+            <label for="tag-beginner">Beginner</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="tag-intermediate" value="Intermediate" />
+            <label for="tag-intermediate">Intermediate</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="tag-advanced" value="Advanced" />
+            <label for="tag-advanced">Advanced</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="tag-recital" value="Recital Prep" />
+            <label for="tag-recital">Recital Prep</label>
+          </div>
         </div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="closeTagModal()">
+            Cancel
+          </button>
+          <button class="btn btn-primary" onclick="applyTagFilters()">
+            Apply
+          </button>
+        </div>
+      </div>
     </div>
 
     <script>
-        // Column Management
-        function toggleColumnDropdown() {
-            const dropdown = document.getElementById('columnDropdown');
-            dropdown.classList.toggle('active');
-        }
+      // Column Management
+      function toggleColumnDropdown() {
+        const dropdown = document.getElementById("columnDropdown");
+        dropdown.classList.toggle("active");
+      }
 
-        document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('columnDropdown');
-            const columnSelector = document.querySelector('.column-selector');
-            if (!columnSelector.contains(event.target)) {
-                dropdown.classList.remove('active');
-            }
+      document.addEventListener("click", function (event) {
+        const dropdown = document.getElementById("columnDropdown");
+        const columnSelector = document.querySelector(".column-selector");
+        if (!columnSelector.contains(event.target)) {
+          dropdown.classList.remove("active");
+        }
+      });
+
+      function toggleColumn(columnClass) {
+        const checkbox = document.getElementById(`col-${columnClass}`);
+        const columns = document.querySelectorAll(`.col-${columnClass}`);
+        columns.forEach((col) => {
+          col.style.display = checkbox.checked ? "" : "none";
         });
+      }
 
-        function toggleColumn(columnClass) {
-            const checkbox = document.getElementById(`col-${columnClass}`);
-            const columns = document.querySelectorAll(`.col-${columnClass}`);
-            columns.forEach(col => {
-                col.style.display = checkbox.checked ? '' : 'none';
-            });
+      // Sorting
+      let currentSort = { column: "name", direction: "asc" };
+
+      function sortTable(column) {
+        const headers = document.querySelectorAll("th.sortable");
+        headers.forEach((h) => h.classList.remove("sorted-asc", "sorted-desc"));
+
+        if (currentSort.column === column) {
+          currentSort.direction =
+            currentSort.direction === "asc" ? "desc" : "asc";
+        } else {
+          currentSort.column = column;
+          currentSort.direction = "asc";
         }
 
-        // Sorting
-        let currentSort = { column: 'name', direction: 'asc' };
+        const header = event.target.closest("th");
+        header.classList.add(
+          currentSort.direction === "asc" ? "sorted-asc" : "sorted-desc"
+        );
+      }
 
-        function sortTable(column) {
-            const headers = document.querySelectorAll('th.sortable');
-            headers.forEach(h => h.classList.remove('sorted-asc', 'sorted-desc'));
+      // Status Filtering
+      let activeStatus = "all";
 
-            if (currentSort.column === column) {
-                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
-            } else {
-                currentSort.column = column;
-                currentSort.direction = 'asc';
-            }
+      function filterByStatus(status) {
+        activeStatus = status;
+        const chips = document.querySelectorAll(".status-chip");
+        chips.forEach((chip) => chip.classList.remove("active"));
+        event.target.classList.add("active");
+        updateActiveFiltersDisplay();
+      }
 
-            const header = event.target.closest('th');
-            header.classList.add(currentSort.direction === 'asc' ? 'sorted-asc' : 'sorted-desc');
+      // Tag Filtering
+      let activeTags = [];
+
+      function toggleTagModal() {
+        document.getElementById("tagModal").classList.add("active");
+      }
+
+      function closeTagModal() {
+        document.getElementById("tagModal").classList.remove("active");
+      }
+
+      function applyTagFilters() {
+        activeTags = [];
+        const checkboxes = document.querySelectorAll(
+          '#tagModal input[type="checkbox"]'
+        );
+        checkboxes.forEach((cb) => {
+          if (cb.checked) activeTags.push(cb.value);
+        });
+        updateActiveFiltersDisplay();
+        closeTagModal();
+      }
+
+      // Search
+      let searchTerm = "";
+
+      function handleSearch() {
+        searchTerm = document.getElementById("searchInput").value;
+        updateActiveFiltersDisplay();
+      }
+
+      // Active Filters Display
+      function updateActiveFiltersDisplay() {
+        const row = document.getElementById("activeFiltersRow");
+        const container = document.getElementById("activeFilters");
+        const hasFilters =
+          searchTerm || activeStatus !== "all" || activeTags.length > 0;
+
+        if (!hasFilters) {
+          row.style.display = "none";
+          return;
         }
 
-        // Status Filtering
-        let activeStatus = 'all';
+        row.style.display = "flex";
+        container.innerHTML = "";
 
-        function filterByStatus(status) {
-            activeStatus = status;
-            const chips = document.querySelectorAll('.status-chip');
-            chips.forEach(chip => chip.classList.remove('active'));
-            event.target.classList.add('active');
-            updateActiveFiltersDisplay();
-        }
-
-        // Tag Filtering
-        let activeTags = [];
-
-        function toggleTagModal() {
-            document.getElementById('tagModal').classList.add('active');
-        }
-
-        function closeTagModal() {
-            document.getElementById('tagModal').classList.remove('active');
-        }
-
-        function applyTagFilters() {
-            activeTags = [];
-            const checkboxes = document.querySelectorAll('#tagModal input[type="checkbox"]');
-            checkboxes.forEach(cb => {
-                if (cb.checked) activeTags.push(cb.value);
-            });
-            updateActiveFiltersDisplay();
-            closeTagModal();
-        }
-
-        // Search
-        let searchTerm = '';
-
-        function handleSearch() {
-            searchTerm = document.getElementById('searchInput').value;
-            updateActiveFiltersDisplay();
-        }
-
-        // Active Filters Display
-        function updateActiveFiltersDisplay() {
-            const row = document.getElementById('activeFiltersRow');
-            const container = document.getElementById('activeFilters');
-            const hasFilters = searchTerm || activeStatus !== 'all' || activeTags.length > 0;
-
-            if (!hasFilters) {
-                row.style.display = 'none';
-                return;
-            }
-
-            row.style.display = 'flex';
-            container.innerHTML = '';
-
-            if (searchTerm) {
-                container.innerHTML += `
+        if (searchTerm) {
+          container.innerHTML += `
                     <span class="filter-tag">
                         "${searchTerm}"
                         <span class="remove" onclick="clearSearch()">×</span>
                     </span>
                 `;
-            }
+        }
 
-            if (activeStatus !== 'all') {
-                container.innerHTML += `
+        if (activeStatus !== "all") {
+          container.innerHTML += `
                     <span class="filter-tag">
                         ${activeStatus}
                         <span class="remove" onclick="clearStatusFilter()">×</span>
                     </span>
                 `;
-            }
+        }
 
-            activeTags.forEach(tag => {
-                container.innerHTML += `
+        activeTags.forEach((tag) => {
+          container.innerHTML += `
                     <span class="filter-tag">
                         ${tag}
                         <span class="remove" onclick="removeTag('${tag}')">×</span>
                     </span>
                 `;
-            });
+        });
+      }
+
+      function clearSearch() {
+        document.getElementById("searchInput").value = "";
+        searchTerm = "";
+        updateActiveFiltersDisplay();
+      }
+
+      function clearStatusFilter() {
+        activeStatus = "all";
+        document.querySelector(".status-chip").classList.add("active");
+        document.querySelectorAll(".status-chip").forEach((chip, i) => {
+          if (i > 0) chip.classList.remove("active");
+        });
+        updateActiveFiltersDisplay();
+      }
+
+      function removeTag(tag) {
+        activeTags = activeTags.filter((t) => t !== tag);
+        const checkbox = Array.from(
+          document.querySelectorAll('#tagModal input[type="checkbox"]')
+        ).find((cb) => cb.value === tag);
+        if (checkbox) checkbox.checked = false;
+        updateActiveFiltersDisplay();
+      }
+
+      function clearAllFilters() {
+        clearSearch();
+        clearStatusFilter();
+        activeTags = [];
+        document
+          .querySelectorAll('#tagModal input[type="checkbox"]')
+          .forEach((cb) => (cb.checked = false));
+        updateActiveFiltersDisplay();
+      }
+
+      // Bulk Selection
+      function toggleSelectAll() {
+        const selectAll = document.getElementById("selectAll");
+        const checkboxes = document.querySelectorAll(".student-checkbox");
+        checkboxes.forEach((cb) => (cb.checked = selectAll.checked));
+        updateBulkActions();
+      }
+
+      function updateBulkActions() {
+        const checkboxes = document.querySelectorAll(
+          ".student-checkbox:checked"
+        );
+        const count = checkboxes.length;
+        const bulkRow = document.getElementById("bulkActionsRow");
+        const selectedCount = document.getElementById("selectedCount");
+
+        if (count > 0) {
+          bulkRow.style.display = "flex";
+          selectedCount.textContent = count;
+          const allCheckboxes = document.querySelectorAll(".student-checkbox");
+          const selectAll = document.getElementById("selectAll");
+          selectAll.checked = count === allCheckboxes.length;
+          selectAll.indeterminate = count > 0 && count < allCheckboxes.length;
+        } else {
+          bulkRow.style.display = "none";
+          document.getElementById("selectAll").checked = false;
+          document.getElementById("selectAll").indeterminate = false;
         }
+      }
 
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            searchTerm = '';
-            updateActiveFiltersDisplay();
-        }
+      // Bulk Actions (stubs)
+      function bulkAssignTag() {
+        alert("Assign tag to selected students");
+      }
+      function bulkSetStatus() {
+        alert("Set status for selected students");
+      }
+      function bulkSendEmail() {
+        alert("Send email to selected students");
+      }
+      function bulkDownload() {
+        alert("Export selected students");
+      }
 
-        function clearStatusFilter() {
-            activeStatus = 'all';
-            document.querySelector('.status-chip').classList.add('active');
-            document.querySelectorAll('.status-chip').forEach((chip, i) => {
-                if (i > 0) chip.classList.remove('active');
-            });
-            updateActiveFiltersDisplay();
-        }
-
-        function removeTag(tag) {
-            activeTags = activeTags.filter(t => t !== tag);
-            const checkbox = Array.from(document.querySelectorAll('#tagModal input[type="checkbox"]'))
-                .find(cb => cb.value === tag);
-            if (checkbox) checkbox.checked = false;
-            updateActiveFiltersDisplay();
-        }
-
-        function clearAllFilters() {
-            clearSearch();
-            clearStatusFilter();
-            activeTags = [];
-            document.querySelectorAll('#tagModal input[type="checkbox"]').forEach(cb => cb.checked = false);
-            updateActiveFiltersDisplay();
-        }
-
-        // Bulk Selection
-        function toggleSelectAll() {
-            const selectAll = document.getElementById('selectAll');
-            const checkboxes = document.querySelectorAll('.student-checkbox');
-            checkboxes.forEach(cb => cb.checked = selectAll.checked);
-            updateBulkActions();
-        }
-
-        function updateBulkActions() {
-            const checkboxes = document.querySelectorAll('.student-checkbox:checked');
-            const count = checkboxes.length;
-            const bulkRow = document.getElementById('bulkActionsRow');
-            const selectedCount = document.getElementById('selectedCount');
-
-            if (count > 0) {
-                bulkRow.style.display = 'flex';
-                selectedCount.textContent = count;
-                const allCheckboxes = document.querySelectorAll('.student-checkbox');
-                const selectAll = document.getElementById('selectAll');
-                selectAll.checked = count === allCheckboxes.length;
-                selectAll.indeterminate = count > 0 && count < allCheckboxes.length;
-            } else {
-                bulkRow.style.display = 'none';
-                document.getElementById('selectAll').checked = false;
-                document.getElementById('selectAll').indeterminate = false;
-            }
-        }
-
-        // Bulk Actions (stubs)
-        function bulkAssignTag() { alert('Assign tag to selected students'); }
-        function bulkSetStatus() { alert('Set status for selected students'); }
-        function bulkSendEmail() { alert('Send email to selected students'); }
-        function bulkDownload() { alert('Export selected students'); }
-
-        // Pagination
-        function changePageSize() {
-            const pageSize = document.getElementById('pageSize').value;
-            console.log('Page size:', pageSize);
-        }
-
+      // Pagination
+      function changePageSize() {
+        const pageSize = document.getElementById("pageSize").value;
+        console.log("Page size:", pageSize);
+      }
     </script>
-</body>
+  </body>
 </html>
