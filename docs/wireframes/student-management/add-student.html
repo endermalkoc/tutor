@@ -1278,7 +1278,7 @@
                                 <div class="form-group">
                                     <label for="familySearch">Select Family</label>
                                     <div class="combobox" id="familyCombobox">
-                                        <button type="button" class="combobox-trigger" onclick="toggleCombobox('familyCombobox')">
+                                        <button type="button" class="combobox-trigger" onclick="toggleCombobox('familyCombobox')" aria-describedby="family-search-help" aria-haspopup="listbox" aria-expanded="false">
                                             <span class="placeholder">Select a family...</span>
                                             <i class="ph ph-caret-up-down chevron"></i>
                                         </button>
@@ -2098,6 +2098,106 @@
                     }
                 });
             }
+        });
+
+        // Real-time validation on blur
+        function validateEmail(input) {
+            const email = input.value.trim();
+            const formGroup = input.closest('.form-group');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            clearValidation(formGroup);
+
+            if (email && !emailRegex.test(email)) {
+                showError(formGroup, 'Please enter a valid email address');
+                return false;
+            }
+            return true;
+        }
+
+        function validatePhone(input) {
+            const phone = input.value.trim();
+            const formGroup = input.closest('.form-group');
+            // Allow various phone formats
+            const phoneRegex = /^[\d\s\-\(\)\+\.]{7,20}$/;
+
+            clearValidation(formGroup);
+
+            if (phone && !phoneRegex.test(phone)) {
+                showError(formGroup, 'Please enter a valid phone number');
+                return false;
+            }
+            return true;
+        }
+
+        function validateRequired(input) {
+            const value = input.value.trim();
+            const formGroup = input.closest('.form-group');
+            const label = formGroup.querySelector('label');
+            const isRequired = label && label.classList.contains('required');
+
+            clearValidation(formGroup);
+
+            if (isRequired && !value) {
+                showError(formGroup, 'This field is required');
+                return false;
+            }
+            return true;
+        }
+
+        function showError(formGroup, message) {
+            formGroup.classList.add('has-error');
+
+            // Remove existing error message if any
+            const existingError = formGroup.querySelector('.form-error');
+            if (existingError) existingError.remove();
+
+            // Add error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'form-error';
+            errorDiv.innerHTML = `<i class="ph ph-warning-circle"></i> ${message}`;
+            formGroup.appendChild(errorDiv);
+        }
+
+        function clearValidation(formGroup) {
+            formGroup.classList.remove('has-error');
+            const errorDiv = formGroup.querySelector('.form-error');
+            if (errorDiv) errorDiv.remove();
+        }
+
+        // Attach blur validation to email fields
+        document.querySelectorAll('input[type="email"]').forEach(input => {
+            input.addEventListener('blur', function() {
+                validateEmail(this);
+            });
+        });
+
+        // Attach blur validation to phone fields
+        document.querySelectorAll('input[type="tel"]').forEach(input => {
+            input.addEventListener('blur', function() {
+                validatePhone(this);
+            });
+        });
+
+        // Attach blur validation to required text fields
+        document.querySelectorAll('input[type="text"]').forEach(input => {
+            const formGroup = input.closest('.form-group');
+            const label = formGroup?.querySelector('label');
+            if (label && label.classList.contains('required')) {
+                input.addEventListener('blur', function() {
+                    validateRequired(this);
+                });
+            }
+        });
+
+        // Clear error on input for better UX
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+                const formGroup = this.closest('.form-group');
+                if (formGroup && formGroup.classList.contains('has-error')) {
+                    clearValidation(formGroup);
+                }
+            });
         });
     </script>
 </body>

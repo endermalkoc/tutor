@@ -664,6 +664,69 @@
             font-weight: 500;
         }
 
+        /* Preset buttons */
+        .preset-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--space-1);
+            padding: var(--space-3) var(--space-4);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-align: left;
+            min-width: 160px;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .preset-btn i {
+            font-size: 20px;
+            color: var(--fg-muted);
+            margin-bottom: var(--space-1);
+        }
+
+        .preset-btn span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--fg-default);
+        }
+
+        .preset-btn small {
+            font-size: 12px;
+            color: var(--fg-muted);
+            font-weight: 400;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--border-strong);
+            background: var(--bg-muted);
+        }
+
+        .preset-btn.active {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+        }
+
+        .preset-btn.active i {
+            color: var(--primary-600);
+        }
+
+        .preset-btn.active span {
+            color: var(--primary-700);
+        }
+
+        /* Detailed options container */
+        .detailed-options {
+            display: none;
+        }
+
+        .detailed-options.visible {
+            display: block;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
@@ -823,6 +886,39 @@
 
                     <!-- Invoicing Fields (shown when "Yes" is selected) -->
                     <div id="invoicingFields" style="display: none;">
+
+                    <!-- Quick Setup Presets -->
+                    <section class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">Quick Setup</h2>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label>Choose a preset to get started quickly:</label>
+                                <div class="preset-buttons" style="display: flex; gap: var(--space-3); margin-top: var(--space-3); flex-wrap: wrap;">
+                                    <button type="button" class="preset-btn active" onclick="applyPreset('monthly')" id="presetMonthly">
+                                        <i class="ph ph-calendar-check"></i>
+                                        <span>Simple Monthly</span>
+                                        <small>Invoice monthly, due on receipt</small>
+                                    </button>
+                                    <button type="button" class="preset-btn" onclick="applyPreset('biweekly')" id="presetBiweekly">
+                                        <i class="ph ph-calendar"></i>
+                                        <span>Bi-weekly</span>
+                                        <small>Invoice every 2 weeks</small>
+                                    </button>
+                                    <button type="button" class="preset-btn" onclick="applyPreset('custom')" id="presetCustom">
+                                        <i class="ph ph-sliders"></i>
+                                        <span>Custom</span>
+                                        <small>Configure all options</small>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Detailed Options (shown for Custom preset or expandable) -->
+                    <div class="detailed-options" id="detailedOptions">
                     <!-- Billing Cycle Start -->
                     <section class="section">
                         <div class="section-header">
@@ -990,6 +1086,7 @@
                             </div>
                         </div>
                     </section>
+                    </div><!-- end detailedOptions -->
                     </div><!-- end invoicingFields -->
                 </div>
 
@@ -1029,6 +1126,48 @@
                 fields.style.display = 'block';
             } else {
                 fields.style.display = 'none';
+            }
+        }
+
+        // Apply preset configurations
+        function applyPreset(preset) {
+            // Update button states
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('preset' + preset.charAt(0).toUpperCase() + preset.slice(1)).classList.add('active');
+
+            const detailedOptions = document.getElementById('detailedOptions');
+
+            if (preset === 'monthly') {
+                // Simple Monthly: Monthly, postpaid, first day creation, no due date
+                document.querySelector('input[name="invoiceType"][value="postpaid"]').checked = true;
+                document.querySelector('input[name="schedule"][value="monthly"]').checked = true;
+                document.getElementById('monthInterval').value = '1';
+                document.querySelector('input[name="creationTiming"][value="first-day"]').checked = true;
+                document.querySelector('input[name="dueDate"][value="none"]').checked = true;
+
+                // Hide detailed options for simple preset
+                detailedOptions.classList.remove('visible');
+                updateScheduleOptions();
+                updateCreationOptions();
+                updateDueDateOptions();
+
+            } else if (preset === 'biweekly') {
+                // Bi-weekly: Every 2 weeks, postpaid
+                document.querySelector('input[name="invoiceType"][value="postpaid"]').checked = true;
+                document.querySelector('input[name="schedule"][value="weekly"]').checked = true;
+                document.getElementById('weekInterval').value = '2';
+                document.querySelector('input[name="creationTiming"][value="first-day"]').checked = true;
+                document.querySelector('input[name="dueDate"][value="none"]').checked = true;
+
+                // Hide detailed options for simple preset
+                detailedOptions.classList.remove('visible');
+                updateScheduleOptions();
+                updateCreationOptions();
+                updateDueDateOptions();
+
+            } else if (preset === 'custom') {
+                // Show all detailed options
+                detailedOptions.classList.add('visible');
             }
         }
 
