@@ -210,10 +210,12 @@ For Adult students, this section is hidden.
 
 | Element | Description |
 |---------|-------------|
-| Family Name | e.g., "Smith Family" |
-| Created | Date family was created |
+| Family Name | e.g., "Chen Family" - displayed prominently at top of section |
+| Created | Date family was created (e.g., "Created Jan 2024") |
 
 **Primary Contact**
+
+Primary contact is visually distinguished with a left border accent (primary color).
 
 | Field | Display Format |
 |-------|----------------|
@@ -221,6 +223,7 @@ For Adult students, this section is hidden.
 | Role | "Primary Contact" |
 | Relationship | Optional - e.g., "Mother", "Father", "Grandmother", "Aunt", "Foster Parent" |
 | Display Format | "Primary Contact · Mother" (relationship shown inline if provided) |
+| Emergency Badge | Red badge with first-aid icon if marked as emergency contact |
 | Email | Mailto link (or "Not provided") |
 | Phone | Tel link with SMS icon if capable |
 | Address | Full formatted address (or "No address") |
@@ -231,8 +234,10 @@ For Adult students, this section is hidden.
 - Listed below primary contact
 - Same fields as primary contact
 - Role displays as "Contact" with optional relationship inline
-- Each contact has their own address (may use "Same as primary contact" option)
-- Delete action available (not available for primary contact)
+- Each contact has their own address; if same as primary, displays full address with "(same as [Primary Name])" note
+- Emergency Badge shown if marked as emergency contact
+- Quick action buttons (Call, Email, Message) for each contact
+- Overflow menu (⋮) with actions: Set as Primary Contact, Mark as Emergency Contact, Delete Contact
 
 **Siblings** (if any)
 
@@ -248,10 +253,11 @@ For Adult students, this section is hidden.
 |-------|------------|------------|
 | First Name | Text input | Required |
 | Last Name | Text input | Required |
-| Relationship | Select | Optional - Mother, Father, Stepmother, Stepfather, Grandmother, Grandfather, Aunt, Uncle, Sibling, Foster Parent, Other |
+| Relationship | Select + Text | Optional - Mother, Father, Stepmother, Stepfather, Grandmother, Grandfather, Aunt, Uncle, Sibling, Foster Parent, Other. When "Other" is selected, shows text input for custom relationship (e.g., "Au Pair", "Nanny", "Family Friend") |
 | Email | Email input | At least email or phone required |
 | Phone | Tel input | At least email or phone required |
 | SMS Capable | Checkbox | Only shown if phone provided |
+| Emergency Contact | Checkbox | Marks this person as an emergency contact; multiple contacts can be emergency contacts |
 
 **Address Fields (per contact):**
 
@@ -268,8 +274,16 @@ For Adult students, this section is hidden.
 | Action | Description | Availability |
 |--------|-------------|--------------|
 | Add Contact | Opens inline form to add another contact | Always available |
-| Delete Contact | Removes contact after confirmation | Only for non-primary contacts |
-| Set as Primary | Promotes contact to primary | Only for non-primary contacts |
+| Delete Contact | Opens confirmation dialog before removing contact | Only for non-primary contacts |
+| Set as Primary | Promotes contact to primary (current primary becomes regular contact) | Only for non-primary contacts |
+| Mark as Emergency | Toggles emergency contact status | All contacts |
+
+### Delete Confirmation
+
+When deleting a contact, show confirmation dialog:
+- Title: "Delete Contact"
+- Message: "Are you sure you want to remove [Contact Name] as a contact? This action cannot be undone."
+- Actions: Cancel (secondary), Delete Contact (danger/red)
 
 ### Family Actions
 
