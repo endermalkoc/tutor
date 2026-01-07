@@ -76,7 +76,7 @@ The header provides identity and key context, remaining visible while scrolling.
 | Next Lesson | Date/time of upcoming scheduled lesson, or "No upcoming lessons" |
 | Relationship Duration | "Teaching since Sep 2024 (4 months)" |
 | Contact Icons | Email and phone quick-access icons |
-| Family Link | For children: "Parent: [Guardian Name]" with link to family |
+| Family Link | For children: "Primary Contact: [Name]" or "[Relationship]: [Name]" (e.g., "Mother: Jennifer Chen") with link to family |
 
 ### Next Lesson Display
 
@@ -203,20 +203,23 @@ For Adult students, this section is hidden.
 | Family Name | e.g., "Smith Family" |
 | Created | Date family was created |
 
-**Primary Guardian**
+**Primary Contact**
 
 | Field | Display Format |
 |-------|----------------|
 | Name | Full name |
-| Relationship | e.g., "Mother", "Father", "Guardian" |
+| Role | "Primary Contact" |
+| Relationship | Optional - e.g., "Mother", "Father", "Grandmother", "Aunt", "Foster Parent" |
+| Display Format | "Primary Contact · Mother" (relationship shown inline if provided) |
 | Email | Mailto link (or "Not provided") |
 | Phone | Tel link with SMS icon if capable |
 | Contact Actions | Quick action buttons: Call, Email, Message |
 
-**Additional Guardians** (if any)
+**Additional Contacts** (if any)
 
-- Listed below primary guardian
-- Same fields as primary guardian
+- Listed below primary contact
+- Same fields as primary contact
+- Role displays as "Contact" with optional relationship inline
 
 **Address** (if provided)
 
@@ -234,10 +237,11 @@ For Adult students, this section is hidden.
 
 | Field | Input Type | Validation |
 |-------|------------|------------|
-| Guardian First Name | Text input | Required |
-| Guardian Last Name | Text input | Required |
-| Guardian Email | Email input | At least email or phone required |
-| Guardian Phone | Tel input | At least email or phone required |
+| First Name | Text input | Required |
+| Last Name | Text input | Required |
+| Relationship | Select | Optional - Mother, Father, Stepmother, Stepfather, Grandmother, Grandfather, Aunt, Uncle, Sibling, Foster Parent, Other |
+| Email | Email input | At least email or phone required |
+| Phone | Tel input | At least email or phone required |
 | SMS Capable | Checkbox | Only shown if phone provided |
 | Street | Text input | Optional |
 | City | Text input | Optional |
@@ -248,7 +252,7 @@ For Adult students, this section is hidden.
 | Action | Description |
 |--------|-------------|
 | Change Family | Opens family selection to reassign student |
-| Add Guardian | Opens form to add another guardian |
+| Add Contact | Opens form to add another contact |
 
 ---
 
