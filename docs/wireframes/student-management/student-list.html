@@ -639,7 +639,7 @@
         color: var(--status-inactive);
       }
 
-      /* Tags - muted, not colorful */
+      /* Tags - colorful */
       .tag-list {
         display: flex;
         gap: var(--space-1);
@@ -647,12 +647,31 @@
       }
 
       .tag {
+        display: inline-flex;
+        align-items: center;
         padding: 2px var(--space-2);
-        background: var(--bg-subtle);
-        color: var(--text-muted);
         border-radius: var(--radius-sm);
         font-size: 11px;
         font-weight: 500;
+        white-space: nowrap;
+      }
+
+      /* Subject tags - colorful */
+      .tag-blue { background: #dbeafe; color: #1e40af; }
+      .tag-purple { background: #ede9fe; color: #5b21b6; }
+      .tag-pink { background: #fce7f3; color: #9d174d; }
+      .tag-orange { background: #ffedd5; color: #9a3412; }
+      .tag-yellow { background: #fef9c3; color: #854d0e; }
+      .tag-green { background: #dcfce7; color: #166534; }
+      .tag-teal { background: #ccfbf1; color: #115e59; }
+      .tag-indigo { background: #e0e7ff; color: #3730a3; }
+
+      /* Outlined tags - for custom tags */
+      .tag-outline {
+        background: transparent;
+        border: 1px solid var(--border-strong);
+        color: var(--text-muted);
+        padding: 1px calc(var(--space-2) - 1px);
       }
 
       /* Notes preview */
@@ -1268,8 +1287,8 @@
                   <td class="col-family">Chen Family</td>
                   <td class="col-tags">
                     <div class="tag-list">
-                      <span class="tag">Piano</span>
-                      <span class="tag">Advanced</span>
+                      <span class="tag tag-outline">Piano</span>
+                      <span class="tag tag-orange">Advanced</span>
                     </div>
                   </td>
                   <td class="col-credits"><span class="data-value">2</span></td>
@@ -1301,8 +1320,8 @@
                   <td class="col-family">Williams Family</td>
                   <td class="col-tags">
                     <div class="tag-list">
-                      <span class="tag">Piano</span>
-                      <span class="tag">Beginner</span>
+                      <span class="tag tag-outline">Piano</span>
+                      <span class="tag tag-green">Beginner</span>
                     </div>
                   </td>
                   <td class="col-credits"><span class="data-value">0</span></td>
@@ -1332,8 +1351,8 @@
                   <td class="col-family">Martinez Family</td>
                   <td class="col-tags">
                     <div class="tag-list">
-                      <span class="tag">Piano</span>
-                      <span class="tag">Advanced</span>
+                      <span class="tag tag-outline">Piano</span>
+                      <span class="tag tag-orange">Advanced</span>
                     </div>
                   </td>
                   <td class="col-credits"><span class="data-value">1</span></td>
@@ -1363,8 +1382,8 @@
                   <td class="col-family">Thompson Family</td>
                   <td class="col-tags">
                     <div class="tag-list">
-                      <span class="tag">Piano</span>
-                      <span class="tag">Beginner</span>
+                      <span class="tag tag-outline">Piano</span>
+                      <span class="tag tag-green">Beginner</span>
                     </div>
                   </td>
                   <td class="col-credits"><span class="data-value">0</span></td>
@@ -1394,8 +1413,8 @@
                   <td class="col-family">Garcia Family</td>
                   <td class="col-tags">
                     <div class="tag-list">
-                      <span class="tag">Piano</span>
-                      <span class="tag">Intermediate</span>
+                      <span class="tag tag-outline">Piano</span>
+                      <span class="tag tag-yellow">Intermediate</span>
                     </div>
                   </td>
                   <td class="col-credits"><span class="data-value">3</span></td>
@@ -1427,7 +1446,7 @@
                   <td class="col-family">Lee Family</td>
                   <td class="col-tags">
                     <div class="tag-list">
-                      <span class="tag">Piano</span>
+                      <span class="tag tag-outline">Piano</span>
                     </div>
                   </td>
                   <td class="col-credits"><span class="data-value">0</span></td>
@@ -1457,8 +1476,8 @@
                   <td class="col-family">Brown Family</td>
                   <td class="col-tags">
                     <div class="tag-list">
-                      <span class="tag">Piano</span>
-                      <span class="tag">Beginner</span>
+                      <span class="tag tag-outline">Piano</span>
+                      <span class="tag tag-green">Beginner</span>
                     </div>
                   </td>
                   <td class="col-credits"><span class="data-value">1</span></td>
@@ -1488,8 +1507,8 @@
                   <td class="col-family">Davis Family</td>
                   <td class="col-tags">
                     <div class="tag-list">
-                      <span class="tag">Piano</span>
-                      <span class="tag">Advanced</span>
+                      <span class="tag tag-outline">Piano</span>
+                      <span class="tag tag-orange">Advanced</span>
                     </div>
                   </td>
                   <td class="col-credits"><span class="data-value">0</span></td>

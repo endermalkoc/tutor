@@ -787,7 +787,7 @@
         text-decoration: underline;
       }
 
-      /* Tags - Subject vs Custom */
+      /* Tags - Colorful */
       .tag-list {
         display: flex;
         gap: var(--space-2);
@@ -795,23 +795,31 @@
       }
 
       .tag {
+        display: inline-flex;
+        align-items: center;
         padding: 2px var(--space-2);
         border-radius: var(--radius-sm);
         font-size: 11px;
         font-weight: 500;
+        white-space: nowrap;
       }
 
-      /* Subject tags - filled */
-      .tag--subject {
-        background: var(--primary-100);
-        color: var(--primary-700);
-      }
+      /* Subject tags - colorful */
+      .tag-blue { background: #dbeafe; color: #1e40af; }
+      .tag-purple { background: #ede9fe; color: #5b21b6; }
+      .tag-pink { background: #fce7f3; color: #9d174d; }
+      .tag-orange { background: #ffedd5; color: #9a3412; }
+      .tag-yellow { background: #fef9c3; color: #854d0e; }
+      .tag-green { background: #dcfce7; color: #166534; }
+      .tag-teal { background: #ccfbf1; color: #115e59; }
+      .tag-indigo { background: #e0e7ff; color: #3730a3; }
 
-      /* Custom tags - outlined */
-      .tag--custom {
+      /* Outlined tags - for custom tags */
+      .tag-outline {
         background: transparent;
         border: 1px solid var(--border-strong);
         color: var(--fg-secondary);
+        padding: 1px calc(var(--space-2) - 1px);
       }
 
       /* Family Section */
@@ -1590,8 +1598,8 @@
                     <span class="data-label">Subjects</span>
                     <span class="data-value">
                       <div class="tag-list">
-                        <span class="tag tag--subject">Piano</span>
-                        <span class="tag tag--subject">Music Theory</span>
+                        <span class="tag tag-outline">Piano</span>
+                        <span class="tag tag-outline">Music Theory</span>
                       </div>
                     </span>
                   </div>
@@ -1611,8 +1619,8 @@
                     <span class="data-label">Tags</span>
                     <span class="data-value">
                       <div class="tag-list">
-                        <span class="tag tag--custom">Competition Ready</span>
-                        <span class="tag tag--custom">Advanced Theory</span>
+                        <span class="tag tag-purple">Competition Ready</span>
+                        <span class="tag tag-teal">Advanced Theory</span>
                       </div>
                     </span>
                   </div>
@@ -1624,8 +1632,8 @@
                   <div class="form-group">
                     <label class="form-label">Subjects</label>
                     <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
-                      <span class="tag tag--subject">Piano<button class="tag-remove" type="button">&times;</button></span>
-                      <span class="tag tag--subject">Music Theory<button class="tag-remove" type="button">&times;</button></span>
+                      <span class="tag tag-outline">Piano<button class="tag-remove" type="button">&times;</button></span>
+                      <span class="tag tag-outline">Music Theory<button class="tag-remove" type="button">&times;</button></span>
                       <input type="text" placeholder="Add subject..." />
                     </div>
                   </div>
@@ -1656,8 +1664,8 @@
                   <div class="form-group">
                     <label class="form-label">Tags</label>
                     <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
-                      <span class="tag tag--custom">Competition Ready<button class="tag-remove" type="button">&times;</button></span>
-                      <span class="tag tag--custom">Advanced Theory<button class="tag-remove" type="button">&times;</button></span>
+                      <span class="tag tag-purple">Competition Ready<button class="tag-remove" type="button">&times;</button></span>
+                      <span class="tag tag-teal">Advanced Theory<button class="tag-remove" type="button">&times;</button></span>
                       <input type="text" placeholder="Add tag..." />
                     </div>
                   </div>
