@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emily Chen - Messages</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      :root {
+        --bg-page: #f5f8fa; --bg-surface: #ffffff; --bg-subtle: #ebf1f5; --bg-muted: #d8e3eb;
+        --text-primary: #16262f; --text-secondary: #3a6278; --text-muted: #4a7d98; --text-faint: #78a3b8;
+        --border: rgba(22, 38, 47, 0.08); --border-strong: rgba(22, 38, 47, 0.12);
+        --accent: #3ba5c5; --accent-hover: #3397b7; --accent-subtle: #e8f4f8;
+        --status-active: #16a34a; --status-active-bg: #f0fdf4;
+        --negative: #dc2626; --negative-bg: #fef2f2;
+        --shadow: 0 1px 3px rgba(22, 38, 47, 0.08); --shadow-lg: 0 4px 12px rgba(22, 38, 47, 0.1);
+        --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
+        --radius-sm: 4px; --radius: 6px; --radius-lg: 8px;
+      }
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif; background: var(--bg-page); min-height: 100vh; color: var(--text-primary); line-height: 1.5; font-size: 14px; }
+      .app-layout { display: flex; min-height: 100vh; }
+      .sidebar { width: 240px; background: var(--bg-surface); border-right: 1px solid var(--border); padding: var(--space-4); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; }
+      .sidebar-logo { font-size: 15px; font-weight: 600; color: var(--text-primary); padding: var(--space-3); margin-bottom: var(--space-4); }
+      .sidebar-nav { flex: 1; }
+      .nav-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius); color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; margin-bottom: var(--space-1); }
+      .nav-item:hover { background: var(--bg-subtle); }
+      .nav-item.active { background: var(--accent-subtle); color: var(--accent); }
+      .nav-icon { width: 16px; height: 16px; opacity: 0.7; }
+      .sidebar-footer { padding-top: var(--space-4); border-top: 1px solid var(--border); }
+      .user-info { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); }
+      .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+      .user-name { font-size: 13px; font-weight: 500; }
+      .user-email { font-size: 12px; color: var(--text-muted); }
+      .main-content { flex: 1; margin-left: 240px; display: flex; flex-direction: column; }
+      .breadcrumb { padding: var(--space-4) var(--space-8); background: var(--bg-surface); border-bottom: 1px solid var(--border); }
+      .breadcrumb-list { display: flex; align-items: center; gap: var(--space-2); list-style: none; font-size: 13px; }
+      .breadcrumb-link { color: var(--text-muted); text-decoration: none; }
+      .breadcrumb-link:hover { color: var(--accent); }
+      .breadcrumb-separator { color: var(--text-faint); }
+      .breadcrumb-current { color: var(--text-primary); font-weight: 500; }
+      .student-header { background: var(--bg-surface); padding: var(--space-6) var(--space-8); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+      .student-header-content { display: flex; justify-content: space-between; align-items: flex-start; max-width: 1200px; }
+      .student-identity { display: flex; gap: var(--space-4); align-items: flex-start; }
+      .student-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent-subtle); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: var(--accent); }
+      .student-info { display: flex; flex-direction: column; gap: var(--space-1); }
+      .student-name-row { display: flex; align-items: center; gap: var(--space-3); }
+      .student-name { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+      .student-badges { display: flex; gap: var(--space-2); }
+      .badge { display: inline-flex; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: 11px; font-weight: 600; text-transform: uppercase; }
+      .badge-type { background: var(--bg-subtle); color: var(--text-muted); }
+      .badge-active { background: var(--status-active-bg); color: var(--status-active); }
+      .student-meta { display: flex; gap: var(--space-4); color: var(--text-secondary); font-size: 13px; }
+      .meta-item { display: flex; align-items: center; gap: var(--space-1); }
+      .meta-item i { color: var(--text-muted); }
+      .meta-link { color: var(--accent); text-decoration: none; }
+      .student-family { color: var(--text-secondary); font-size: 13px; margin-top: var(--space-1); }
+      .family-link { color: var(--accent); text-decoration: none; font-weight: 500; }
+      .header-actions { display: flex; gap: var(--space-2); }
+      .btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius); font-size: 13px; font-weight: 500; cursor: pointer; border: none; min-height: 32px; }
+      .btn-primary { background: var(--accent); color: white; padding: var(--space-2) var(--space-4); }
+      .btn-primary:hover { background: var(--accent-hover); }
+      .btn-secondary { background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border-strong); }
+      .btn-secondary:hover { background: var(--bg-subtle); }
+      .dropdown { position: relative; }
+      .dropdown-menu { position: absolute; top: 100%; right: 0; margin-top: var(--space-1); background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); min-width: 180px; z-index: 100; display: none; }
+      .dropdown-menu.active { display: block; }
+      .dropdown-item { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); font-size: 13px; color: var(--text-secondary); cursor: pointer; }
+      .dropdown-item:hover { background: var(--bg-subtle); }
+      .dropdown-item.danger { color: var(--negative); }
+      .dropdown-divider { height: 1px; background: var(--border); margin: var(--space-1) 0; }
+      .tab-nav { background: var(--bg-surface); padding: 0 var(--space-8); border-bottom: 1px solid var(--border); display: flex; gap: var(--space-1); overflow-x: auto; }
+      .tab-link { padding: var(--space-3) var(--space-4); font-size: 13px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+      .tab-link:hover { color: var(--text-secondary); }
+      .tab-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+      .tab-content { flex: 1; padding: var(--space-6) var(--space-8); max-width: 1200px; }
+      .content-header { margin-bottom: var(--space-6); }
+      .filters-row { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
+      .filter-select { padding: var(--space-2) var(--space-3); border: 1px solid var(--border-strong); border-radius: var(--radius); font-size: 13px; color: var(--text-secondary); background: var(--bg-surface); min-width: 140px; }
+      .search-container { flex: 1; min-width: 200px; max-width: 300px; position: relative; }
+      .search-input { width: 100%; padding: var(--space-2) var(--space-3) var(--space-2) 36px; border: 1px solid var(--border-strong); border-radius: var(--radius); font-size: 13px; }
+      .search-input::placeholder { color: var(--text-faint); }
+      .search-icon { position: absolute; left: var(--space-3); top: 50%; transform: translateY(-50%); color: var(--text-faint); width: 14px; height: 14px; }
+      .message-list { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+      .message-thread { display: flex; gap: var(--space-3); padding: var(--space-4); border-bottom: 1px solid var(--border); cursor: pointer; transition: background 150ms ease; }
+      .message-thread:hover { background: var(--bg-subtle); }
+      .message-thread:last-child { border-bottom: none; }
+      .message-thread.unread { background: var(--accent-subtle); }
+      .message-thread.unread:hover { background: #d9eef4; }
+      .thread-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; color: var(--text-muted); flex-shrink: 0; }
+      .thread-icon.email { background: var(--accent-subtle); color: var(--accent); }
+      .thread-icon.sms { background: var(--status-active-bg); color: var(--status-active); }
+      .thread-content { flex: 1; min-width: 0; }
+      .thread-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-1); }
+      .thread-subject { font-size: 14px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .thread-date { font-size: 12px; color: var(--text-muted); flex-shrink: 0; margin-left: var(--space-3); }
+      .thread-meta { font-size: 12px; color: var(--text-muted); margin-bottom: var(--space-1); }
+      .thread-preview { font-size: 13px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .unread-badge { display: inline-flex; align-items: center; justify-content: center; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-left: var(--space-2); }
+      .empty-state { padding: var(--space-8); text-align: center; }
+      .empty-state-icon { font-size: 48px; color: var(--text-faint); margin-bottom: var(--space-4); }
+      .empty-state-title { font-size: 16px; font-weight: 500; color: var(--text-secondary); margin-bottom: var(--space-2); }
+      .empty-state-text { font-size: 13px; color: var(--text-muted); margin-bottom: var(--space-4); }
+      @media (max-width: 768px) {
+        .sidebar { display: none; }
+        .main-content { margin-left: 0; }
+        .student-header { padding: var(--space-4); }
+        .student-header-content { flex-direction: column; gap: var(--space-4); }
+        .tab-nav { padding: 0 var(--space-4); }
+        .tab-content { padding: var(--space-4); }
+        .filters-row { flex-direction: column; align-items: stretch; }
+        .search-container { max-width: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-logo">TutorStudio</div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item"><i class="ph ph-squares-four nav-icon"></i>Dashboard</a>
+          <a href="student-list.html" class="nav-item active"><i class="ph ph-users nav-icon"></i>Students</a>
+          <a href="#" class="nav-item"><i class="ph ph-calendar nav-icon"></i>Calendar</a>
+          <a href="#" class="nav-item"><i class="ph ph-file-text nav-icon"></i>Invoices</a>
+          <a href="#" class="nav-item"><i class="ph ph-gear nav-icon"></i>Settings</a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-info">
+            <div class="user-avatar">SJ</div>
+            <div><div class="user-name">Sarah Johnson</div><div class="user-email">sarah@example.com</div></div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <nav class="breadcrumb">
+          <ol class="breadcrumb-list">
+            <li><a href="student-list.html" class="breadcrumb-link">Students</a></li>
+            <li class="breadcrumb-separator">/</li>
+            <li class="breadcrumb-current">Emily Chen</li>
+          </ol>
+        </nav>
+
+        <header class="student-header">
+          <div class="student-header-content">
+            <div class="student-identity">
+              <div class="student-avatar">EC</div>
+              <div class="student-info">
+                <div class="student-name-row">
+                  <h1 class="student-name">Emily Chen</h1>
+                  <div class="student-badges">
+                    <span class="badge badge-type">Child</span>
+                    <span class="badge badge-active">Active</span>
+                  </div>
+                </div>
+                <div class="student-meta">
+                  <span class="meta-item"><i class="ph ph-envelope"></i><a href="mailto:emily@example.com" class="meta-link">emily@example.com</a></span>
+                  <span class="meta-item"><i class="ph ph-phone"></i><a href="tel:+15551234567" class="meta-link">(555) 123-4567</a></span>
+                </div>
+                <div class="student-family"><i class="ph ph-house"></i><a href="#" class="family-link">Chen Family</a></div>
+              </div>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-secondary"><i class="ph ph-calendar-plus"></i>Schedule Lesson</button>
+              <button class="btn btn-secondary"><i class="ph ph-paper-plane-tilt"></i>Send Message</button>
+              <div class="dropdown">
+                <button class="btn btn-secondary" onclick="toggleActionsMenu()"><i class="ph ph-dots-three"></i></button>
+                <div class="dropdown-menu" id="actionsMenu">
+                  <div class="dropdown-item"><i class="ph ph-pencil"></i>Edit Student</div>
+                  <div class="dropdown-item"><i class="ph ph-swap"></i>Change Status</div>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-item"><i class="ph ph-archive"></i>Archive Student</div>
+                  <div class="dropdown-item danger"><i class="ph ph-trash"></i>Delete Student</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <nav class="tab-nav" role="tablist">
+          <a href="student-detail.html" class="tab-link">Overview</a>
+          <a href="student-detail-lessons.html" class="tab-link">Lessons</a>
+          <a href="student-detail-homework.html" class="tab-link">Homework</a>
+          <a href="student-detail-messages.html" class="tab-link active" aria-selected="true">Messages</a>
+          <a href="student-detail-invoices.html" class="tab-link">Invoices</a>
+          <a href="student-detail-transactions.html" class="tab-link">Transactions</a>
+          <a href="student-detail-files.html" class="tab-link">Files</a>
+        </nav>
+
+        <div class="tab-content">
+          <div class="content-header">
+            <div class="filters-row">
+              <select class="filter-select">
+                <option value="">All Channels</option>
+                <option value="email">Email</option>
+                <option value="sms">SMS</option>
+                <option value="in-app">In-App</option>
+              </select>
+              <select class="filter-select">
+                <option value="">All Time</option>
+                <option value="today">Today</option>
+                <option value="this-week">This Week</option>
+                <option value="this-month" selected>This Month</option>
+                <option value="last-3-months">Last 3 Months</option>
+              </select>
+              <div class="search-container">
+                <i class="ph ph-magnifying-glass search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search messages..." />
+              </div>
+              <button class="btn btn-primary" style="margin-left: auto;"><i class="ph ph-plus"></i>New Message</button>
+            </div>
+          </div>
+
+          <div class="message-list">
+            <div class="message-thread unread">
+              <div class="thread-icon email"><i class="ph ph-envelope"></i></div>
+              <div class="thread-content">
+                <div class="thread-header">
+                  <span class="thread-subject">Re: Lesson Rescheduling<span class="unread-badge"></span></span>
+                  <span class="thread-date">Today, 2:30 PM</span>
+                </div>
+                <div class="thread-meta">Jennifer Chen (Mom)</div>
+                <div class="thread-preview">That works perfectly, thank you for accommodating our schedule change!</div>
+              </div>
+            </div>
+
+            <div class="message-thread">
+              <div class="thread-icon sms"><i class="ph ph-chat-circle"></i></div>
+              <div class="thread-content">
+                <div class="thread-header">
+                  <span class="thread-subject">Lesson Reminder</span>
+                  <span class="thread-date">Jan 5, 4:15 PM</span>
+                </div>
+                <div class="thread-meta">Emily Chen</div>
+                <div class="thread-preview">Thanks for the reminder! I'll be ready for tomorrow's lesson.</div>
+              </div>
+            </div>
+
+            <div class="message-thread">
+              <div class="thread-icon email"><i class="ph ph-envelope"></i></div>
+              <div class="thread-content">
+                <div class="thread-header">
+                  <span class="thread-subject">Winter Recital Information</span>
+                  <span class="thread-date">Dec 20, 10:00 AM</span>
+                </div>
+                <div class="thread-meta">Jennifer Chen (Mom)</div>
+                <div class="thread-preview">Thank you for sharing the recital details. Emily is very excited about performing!</div>
+              </div>
+            </div>
+
+            <div class="message-thread">
+              <div class="thread-icon email"><i class="ph ph-envelope"></i></div>
+              <div class="thread-content">
+                <div class="thread-header">
+                  <span class="thread-subject">Monthly Progress Report - December</span>
+                  <span class="thread-date">Dec 15, 9:00 AM</span>
+                </div>
+                <div class="thread-meta">Jennifer Chen (Mom)</div>
+                <div class="thread-preview">This is wonderful feedback! We're so happy with Emily's progress this month.</div>
+              </div>
+            </div>
+
+            <div class="message-thread">
+              <div class="thread-icon sms"><i class="ph ph-chat-circle"></i></div>
+              <div class="thread-content">
+                <div class="thread-header">
+                  <span class="thread-subject">Practice Question</span>
+                  <span class="thread-date">Dec 10, 7:30 PM</span>
+                </div>
+                <div class="thread-meta">Emily Chen</div>
+                <div class="thread-preview">Got it, thank you! I'll focus on that section during practice tonight.</div>
+              </div>
+            </div>
+
+            <div class="message-thread">
+              <div class="thread-icon email"><i class="ph ph-envelope"></i></div>
+              <div class="thread-content">
+                <div class="thread-header">
+                  <span class="thread-subject">Holiday Schedule Update</span>
+                  <span class="thread-date">Dec 5, 11:00 AM</span>
+                </div>
+                <div class="thread-meta">Jennifer Chen (Mom)</div>
+                <div class="thread-preview">Thank you for the holiday schedule. We'll plan accordingly.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      function toggleActionsMenu() { document.getElementById('actionsMenu').classList.toggle('active'); }
+      document.addEventListener('click', function(e) { if (!e.target.closest('.dropdown')) document.getElementById('actionsMenu').classList.remove('active'); });
+    </script>
+  </body>
+</html>

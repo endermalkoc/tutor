@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emily Chen - Student Detail</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        /* Color Foundation: Ocean-tinted neutrals */
+        --bg-page: #f5f8fa;
+        --bg-surface: #ffffff;
+        --bg-subtle: #ebf1f5;
+        --bg-muted: #d8e3eb;
+
+        /* Text hierarchy */
+        --text-primary: #16262f;
+        --text-secondary: #3a6278;
+        --text-muted: #4a7d98;
+        --text-faint: #78a3b8;
+
+        /* Borders */
+        --border: rgba(22, 38, 47, 0.08);
+        --border-strong: rgba(22, 38, 47, 0.12);
+
+        /* Single accent: Ocean blue */
+        --accent: #3ba5c5;
+        --accent-hover: #3397b7;
+        --accent-subtle: #e8f4f8;
+
+        /* Semantic colors */
+        --status-active: #16a34a;
+        --status-active-bg: #f0fdf4;
+        --status-trial: #6366f1;
+        --status-trial-bg: #eef2ff;
+        --status-waiting: #d97706;
+        --status-waiting-bg: #fffbeb;
+        --status-lead: #0891b2;
+        --status-lead-bg: #ecfeff;
+        --status-inactive: #4a7d98;
+        --status-inactive-bg: #ebf1f5;
+
+        /* Financial */
+        --positive: #16a34a;
+        --positive-bg: #f0fdf4;
+        --negative: #dc2626;
+        --negative-bg: #fef2f2;
+
+        /* Depth */
+        --shadow-sm: 0 1px 2px rgba(22, 38, 47, 0.05);
+        --shadow: 0 1px 3px rgba(22, 38, 47, 0.08);
+        --shadow-lg: 0 4px 12px rgba(22, 38, 47, 0.1);
+
+        /* Spacing */
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 20px;
+        --space-6: 24px;
+        --space-8: 32px;
+
+        /* Border radius */
+        --radius-sm: 4px;
+        --radius: 6px;
+        --radius-lg: 8px;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif;
+        background: var(--bg-page);
+        min-height: 100vh;
+        color: var(--text-primary);
+        line-height: 1.5;
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Layout */
+      .app-layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 240px;
+        background: var(--bg-surface);
+        border-right: 1px solid var(--border);
+        padding: var(--space-4);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+      }
+
+      .sidebar-logo {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-primary);
+        padding: var(--space-3) var(--space-3);
+        margin-bottom: var(--space-4);
+        letter-spacing: -0.02em;
+      }
+
+      .sidebar-nav {
+        flex: 1;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius);
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: var(--space-1);
+        transition: background 150ms ease, color 150ms ease;
+      }
+
+      .nav-item:hover {
+        background: var(--bg-subtle);
+        color: var(--text-primary);
+      }
+
+      .nav-item.active {
+        background: var(--accent-subtle);
+        color: var(--accent);
+      }
+
+      .nav-icon {
+        width: 16px;
+        height: 16px;
+        opacity: 0.7;
+        flex-shrink: 0;
+      }
+
+      .nav-item.active .nav-icon {
+        opacity: 1;
+      }
+
+      .sidebar-footer {
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--border);
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        padding: var(--space-2) var(--space-3);
+      }
+
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--bg-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+
+      .user-name {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+
+      .user-email {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      /* Main content */
+      .main-content {
+        flex: 1;
+        margin-left: 240px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Breadcrumb */
+      .breadcrumb {
+        padding: var(--space-4) var(--space-8);
+        background: var(--bg-surface);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .breadcrumb-list {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        list-style: none;
+        font-size: 13px;
+      }
+
+      .breadcrumb-link {
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+
+      .breadcrumb-link:hover {
+        color: var(--accent);
+      }
+
+      .breadcrumb-separator {
+        color: var(--text-faint);
+      }
+
+      .breadcrumb-current {
+        color: var(--text-primary);
+        font-weight: 500;
+      }
+
+      /* Student Header */
+      .student-header {
+        background: var(--bg-surface);
+        padding: var(--space-6) var(--space-8);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+
+      .student-header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        max-width: 1200px;
+      }
+
+      .student-identity {
+        display: flex;
+        gap: var(--space-4);
+        align-items: flex-start;
+      }
+
+      .student-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--accent-subtle);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+
+      .student-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+      }
+
+      .student-name-row {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+      }
+
+      .student-name {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+      }
+
+      .student-badges {
+        display: flex;
+        gap: var(--space-2);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--space-1) var(--space-2);
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .badge-type {
+        background: var(--bg-subtle);
+        color: var(--text-muted);
+      }
+
+      .badge-active {
+        background: var(--status-active-bg);
+        color: var(--status-active);
+      }
+
+      .badge-trial {
+        background: var(--status-trial-bg);
+        color: var(--status-trial);
+      }
+
+      .badge-waiting {
+        background: var(--status-waiting-bg);
+        color: var(--status-waiting);
+      }
+
+      .badge-lead {
+        background: var(--status-lead-bg);
+        color: var(--status-lead);
+      }
+
+      .badge-inactive {
+        background: var(--status-inactive-bg);
+        color: var(--status-inactive);
+      }
+
+      .student-meta {
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+        color: var(--text-secondary);
+        font-size: 13px;
+      }
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+      }
+
+      .meta-item i {
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      .meta-link {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .meta-link:hover {
+        text-decoration: underline;
+      }
+
+      .student-family {
+        color: var(--text-secondary);
+        font-size: 13px;
+        margin-top: var(--space-1);
+      }
+
+      .family-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .family-link:hover {
+        text-decoration: underline;
+      }
+
+      /* Header Actions */
+      .header-actions {
+        display: flex;
+        gap: var(--space-2);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-2);
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius);
+        font-size: 13px;
+        font-weight: 500;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 150ms ease;
+        border: none;
+        min-height: 32px;
+        white-space: nowrap;
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: white;
+        padding: var(--space-2) var(--space-4);
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        background: var(--accent-hover);
+      }
+
+      .btn-secondary {
+        background: var(--bg-surface);
+        color: var(--text-secondary);
+        border: 1px solid var(--border-strong);
+      }
+
+      .btn-secondary:hover:not(:disabled) {
+        background: var(--bg-subtle);
+        border-color: var(--text-faint);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--text-secondary);
+      }
+
+      .btn-ghost:hover:not(:disabled) {
+        background: var(--bg-subtle);
+      }
+
+      /* Actions Dropdown */
+      .dropdown {
+        position: relative;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: var(--space-1);
+        background: var(--bg-surface);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        min-width: 180px;
+        z-index: 100;
+        display: none;
+      }
+
+      .dropdown-menu.active {
+        display: block;
+      }
+
+      .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-2) var(--space-3);
+        font-size: 13px;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: background 150ms ease;
+      }
+
+      .dropdown-item:first-child {
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+
+      .dropdown-item:last-child {
+        border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      }
+
+      .dropdown-item:hover {
+        background: var(--bg-subtle);
+        color: var(--text-primary);
+      }
+
+      .dropdown-item.danger {
+        color: var(--negative);
+      }
+
+      .dropdown-item.danger:hover {
+        background: var(--negative-bg);
+      }
+
+      .dropdown-divider {
+        height: 1px;
+        background: var(--border);
+        margin: var(--space-1) 0;
+      }
+
+      /* Tab Navigation */
+      .tab-nav {
+        background: var(--bg-surface);
+        padding: 0 var(--space-8);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        gap: var(--space-1);
+        overflow-x: auto;
+      }
+
+      .tab-link {
+        padding: var(--space-3) var(--space-4);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-muted);
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        transition: color 150ms ease, border-color 150ms ease;
+        white-space: nowrap;
+      }
+
+      .tab-link:hover {
+        color: var(--text-secondary);
+      }
+
+      .tab-link.active {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+
+      /* Tab Content */
+      .tab-content {
+        flex: 1;
+        padding: var(--space-6) var(--space-8);
+        max-width: 1200px;
+      }
+
+      /* Section Card */
+      .section-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--space-6);
+        box-shadow: var(--shadow);
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-4) var(--space-5);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .section-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .section-content {
+        padding: var(--space-5);
+      }
+
+      /* Data Display Grid */
+      .data-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: var(--space-5);
+      }
+
+      .data-item {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+      }
+
+      .data-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .data-value {
+        font-size: 14px;
+        color: var(--text-primary);
+      }
+
+      .data-value.empty {
+        color: var(--text-faint);
+        font-style: italic;
+      }
+
+      .data-value a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .data-value a:hover {
+        text-decoration: underline;
+      }
+
+      /* Tags display */
+      .tag-list {
+        display: flex;
+        gap: var(--space-1);
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        padding: 2px var(--space-2);
+        background: var(--bg-subtle);
+        color: var(--text-muted);
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 500;
+      }
+
+      /* Family Section */
+      .guardian-card {
+        background: var(--bg-subtle);
+        border-radius: var(--radius);
+        padding: var(--space-4);
+        margin-bottom: var(--space-4);
+      }
+
+      .guardian-card:last-child {
+        margin-bottom: 0;
+      }
+
+      .guardian-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-3);
+      }
+
+      .guardian-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .guardian-role {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .guardian-contact {
+        display: flex;
+        gap: var(--space-4);
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      .guardian-contact a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .guardian-contact a:hover {
+        text-decoration: underline;
+      }
+
+      /* Address */
+      .address-block {
+        margin-top: var(--space-4);
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--border);
+      }
+
+      .address-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: var(--space-2);
+      }
+
+      .address-text {
+        font-size: 13px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      /* Siblings */
+      .siblings-section {
+        margin-top: var(--space-4);
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--border);
+      }
+
+      .siblings-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: var(--space-3);
+      }
+
+      .sibling-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-2) 0;
+      }
+
+      .sibling-name {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .sibling-name:hover {
+        text-decoration: underline;
+      }
+
+      /* Billing Summary */
+      .billing-summary {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-4);
+      }
+
+      .billing-stat {
+        text-align: center;
+        padding: var(--space-4);
+        background: var(--bg-subtle);
+        border-radius: var(--radius);
+      }
+
+      .billing-stat-value {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: var(--space-1);
+      }
+
+      .billing-stat-value.positive {
+        color: var(--positive);
+      }
+
+      .billing-stat-value.negative {
+        color: var(--negative);
+      }
+
+      .billing-stat-label {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .billing-detail {
+        margin-top: var(--space-4);
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--border);
+      }
+
+      /* Recent Lessons */
+      .lessons-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .lessons-table th {
+        text-align: left;
+        padding: var(--space-2) var(--space-3);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .lessons-table td {
+        padding: var(--space-3);
+        font-size: 13px;
+        color: var(--text-secondary);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .lessons-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .lessons-table .status-attended {
+        color: var(--status-active);
+      }
+
+      .lessons-table .status-cancelled {
+        color: var(--text-muted);
+      }
+
+      .lessons-table .status-noshow {
+        color: var(--status-waiting);
+      }
+
+      .lesson-note {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--text-muted);
+        font-size: 12px;
+      }
+
+      /* Notes Section */
+      .notes-content {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        white-space: pre-wrap;
+      }
+
+      .notes-meta {
+        margin-top: var(--space-3);
+        font-size: 12px;
+        color: var(--text-faint);
+      }
+
+      /* Edit Mode Styles */
+      .edit-form {
+        display: none;
+      }
+
+      .section-card.editing .view-mode {
+        display: none;
+      }
+
+      .section-card.editing .edit-form {
+        display: block;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .form-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      .form-label .required {
+        color: var(--negative);
+      }
+
+      .form-input,
+      .form-select,
+      .form-textarea {
+        padding: var(--space-2) var(--space-3);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius);
+        font-size: 14px;
+        font-family: inherit;
+        color: var(--text-primary);
+        background: var(--bg-surface);
+        transition: border-color 150ms ease, box-shadow 150ms ease;
+      }
+
+      .form-input:hover,
+      .form-select:hover,
+      .form-textarea:hover {
+        border-color: var(--text-faint);
+      }
+
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-subtle);
+      }
+
+      .form-textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .form-actions {
+        display: flex;
+        gap: var(--space-2);
+        justify-content: flex-end;
+        margin-top: var(--space-4);
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--border);
+      }
+
+      /* View All Link */
+      .view-all-link {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .view-all-link:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .tab-content {
+          padding: var(--space-4);
+        }
+
+        .billing-summary {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          display: none;
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .student-header {
+          padding: var(--space-4);
+        }
+
+        .student-header-content {
+          flex-direction: column;
+          gap: var(--space-4);
+        }
+
+        .header-actions {
+          width: 100%;
+          justify-content: flex-end;
+        }
+
+        .tab-nav {
+          padding: 0 var(--space-4);
+        }
+
+        .billing-summary {
+          grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="sidebar-logo">TutorStudio</div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item">
+            <i class="ph ph-squares-four nav-icon"></i>
+            Dashboard
+          </a>
+          <a href="student-list.html" class="nav-item active">
+            <i class="ph ph-users nav-icon"></i>
+            Students
+          </a>
+          <a href="#" class="nav-item">
+            <i class="ph ph-calendar nav-icon"></i>
+            Calendar
+          </a>
+          <a href="#" class="nav-item">
+            <i class="ph ph-file-text nav-icon"></i>
+            Invoices
+          </a>
+          <a href="#" class="nav-item">
+            <i class="ph ph-gear nav-icon"></i>
+            Settings
+          </a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-info">
+            <div class="user-avatar">SJ</div>
+            <div>
+              <div class="user-name">Sarah Johnson</div>
+              <div class="user-email">sarah@example.com</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb-list">
+            <li><a href="student-list.html" class="breadcrumb-link">Students</a></li>
+            <li class="breadcrumb-separator">/</li>
+            <li class="breadcrumb-current">Emily Chen</li>
+          </ol>
+        </nav>
+
+        <!-- Student Header -->
+        <header class="student-header">
+          <div class="student-header-content">
+            <div class="student-identity">
+              <div class="student-avatar">EC</div>
+              <div class="student-info">
+                <div class="student-name-row">
+                  <h1 class="student-name">Emily Chen</h1>
+                  <div class="student-badges">
+                    <span class="badge badge-type">Child</span>
+                    <span class="badge badge-active">Active</span>
+                  </div>
+                </div>
+                <div class="student-meta">
+                  <span class="meta-item">
+                    <i class="ph ph-envelope"></i>
+                    <a href="mailto:emily@example.com" class="meta-link">emily@example.com</a>
+                  </span>
+                  <span class="meta-item">
+                    <i class="ph ph-phone"></i>
+                    <a href="tel:+15551234567" class="meta-link">(555) 123-4567</a>
+                    <i class="ph ph-chat-circle" title="SMS Capable" style="color: var(--accent);"></i>
+                  </span>
+                </div>
+                <div class="student-family">
+                  <i class="ph ph-house"></i>
+                  <a href="#" class="family-link">Chen Family</a>
+                </div>
+              </div>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-secondary">
+                <i class="ph ph-calendar-plus"></i>
+                Schedule Lesson
+              </button>
+              <button class="btn btn-secondary">
+                <i class="ph ph-paper-plane-tilt"></i>
+                Send Message
+              </button>
+              <div class="dropdown">
+                <button class="btn btn-secondary" onclick="toggleActionsMenu()">
+                  <i class="ph ph-dots-three"></i>
+                </button>
+                <div class="dropdown-menu" id="actionsMenu">
+                  <div class="dropdown-item" onclick="editStudent()">
+                    <i class="ph ph-pencil"></i>
+                    Edit Student
+                  </div>
+                  <div class="dropdown-item">
+                    <i class="ph ph-swap"></i>
+                    Change Status
+                  </div>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-item">
+                    <i class="ph ph-archive"></i>
+                    Archive Student
+                  </div>
+                  <div class="dropdown-item danger">
+                    <i class="ph ph-trash"></i>
+                    Delete Student
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav" role="tablist">
+          <a href="student-detail.html" class="tab-link active" role="tab" aria-selected="true">Overview</a>
+          <a href="student-detail-lessons.html" class="tab-link" role="tab">Lessons</a>
+          <a href="student-detail-homework.html" class="tab-link" role="tab">Homework</a>
+          <a href="student-detail-messages.html" class="tab-link" role="tab">Messages</a>
+          <a href="student-detail-invoices.html" class="tab-link" role="tab">Invoices</a>
+          <a href="student-detail-transactions.html" class="tab-link" role="tab">Transactions</a>
+          <a href="student-detail-files.html" class="tab-link" role="tab">Files</a>
+        </nav>
+
+        <!-- Tab Content: Overview -->
+        <div class="tab-content">
+          <!-- Student Information Section -->
+          <section class="section-card" id="studentInfoSection">
+            <div class="section-header">
+              <h2 class="section-title">Student Information</h2>
+              <button class="btn btn-ghost" onclick="toggleEdit('studentInfoSection')">
+                <i class="ph ph-pencil"></i>
+                Edit
+              </button>
+            </div>
+            <div class="section-content">
+              <!-- View Mode -->
+              <div class="view-mode">
+                <div class="data-grid">
+                  <div class="data-item">
+                    <span class="data-label">First Name</span>
+                    <span class="data-value">Emily</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Last Name</span>
+                    <span class="data-value">Chen</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Student Type</span>
+                    <span class="data-value">Child</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Status</span>
+                    <span class="data-value"><span class="badge badge-active">Active</span></span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Email</span>
+                    <span class="data-value"><a href="mailto:emily@example.com">emily@example.com</a></span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Phone</span>
+                    <span class="data-value"><a href="tel:+15551234567">(555) 123-4567</a></span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Birthday</span>
+                    <span class="data-value">March 15, 2010 (14 years old)</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Gender</span>
+                    <span class="data-value">Female</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">School</span>
+                    <span class="data-value">Lincoln Middle School</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Subjects</span>
+                    <span class="data-value">
+                      <div class="tag-list">
+                        <span class="tag">Piano</span>
+                        <span class="tag">Music Theory</span>
+                      </div>
+                    </span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Skill Level</span>
+                    <span class="data-value">Advanced</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Student Since</span>
+                    <span class="data-value">September 2021</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Lesson Category</span>
+                    <span class="data-value">Individual</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Default Duration</span>
+                    <span class="data-value">30 minutes</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Edit Mode -->
+              <div class="edit-form">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">First Name <span class="required">*</span></label>
+                    <input type="text" class="form-input" value="Emily" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Last Name <span class="required">*</span></label>
+                    <input type="text" class="form-input" value="Chen" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Student Type <span class="required">*</span></label>
+                    <select class="form-select">
+                      <option value="child" selected>Child</option>
+                      <option value="adult">Adult</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Status <span class="required">*</span></label>
+                    <select class="form-select">
+                      <option value="active" selected>Active</option>
+                      <option value="trial">Trial</option>
+                      <option value="waiting">Waiting</option>
+                      <option value="lead">Lead</option>
+                      <option value="inactive">Inactive</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" value="emily@example.com" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" class="form-input" value="(555) 123-4567" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Birthday</label>
+                    <input type="date" class="form-input" value="2010-03-15" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Gender</label>
+                    <select class="form-select">
+                      <option value="">Select...</option>
+                      <option value="male">Male</option>
+                      <option value="female" selected>Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">School</label>
+                    <input type="text" class="form-input" value="Lincoln Middle School" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Skill Level</label>
+                    <select class="form-select">
+                      <option value="beginner">Beginner</option>
+                      <option value="intermediate">Intermediate</option>
+                      <option value="advanced" selected>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Lesson Category</label>
+                    <select class="form-select">
+                      <option value="individual" selected>Individual</option>
+                      <option value="group">Group</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Default Duration</label>
+                    <select class="form-select">
+                      <option value="30" selected>30 minutes</option>
+                      <option value="45">45 minutes</option>
+                      <option value="60">60 minutes</option>
+                      <option value="90">90 minutes</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button class="btn btn-secondary" onclick="cancelEdit('studentInfoSection')">Cancel</button>
+                  <button class="btn btn-primary" onclick="saveEdit('studentInfoSection')">Save Changes</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Family Section -->
+          <section class="section-card" id="familySection">
+            <div class="section-header">
+              <h2 class="section-title">Family</h2>
+              <button class="btn btn-ghost" onclick="toggleEdit('familySection')">
+                <i class="ph ph-pencil"></i>
+                Edit
+              </button>
+            </div>
+            <div class="section-content">
+              <!-- View Mode -->
+              <div class="view-mode">
+                <div class="guardian-card">
+                  <div class="guardian-header">
+                    <span class="guardian-name">Jennifer Chen</span>
+                    <span class="guardian-role">Primary Guardian</span>
+                  </div>
+                  <div class="guardian-contact">
+                    <span>
+                      <i class="ph ph-envelope"></i>
+                      <a href="mailto:jennifer.chen@example.com">jennifer.chen@example.com</a>
+                    </span>
+                    <span>
+                      <i class="ph ph-phone"></i>
+                      <a href="tel:+15559876543">(555) 987-6543</a>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="guardian-card">
+                  <div class="guardian-header">
+                    <span class="guardian-name">David Chen</span>
+                    <span class="guardian-role">Guardian</span>
+                  </div>
+                  <div class="guardian-contact">
+                    <span>
+                      <i class="ph ph-envelope"></i>
+                      <a href="mailto:david.chen@example.com">david.chen@example.com</a>
+                    </span>
+                    <span>
+                      <i class="ph ph-phone"></i>
+                      <a href="tel:+15559876544">(555) 987-6544</a>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="address-block">
+                  <div class="address-title">Address</div>
+                  <div class="address-text">
+                    123 Oak Street<br />
+                    San Francisco, CA 94102
+                  </div>
+                </div>
+
+                <div class="siblings-section">
+                  <div class="siblings-title">Other Students in Family</div>
+                  <div class="sibling-item">
+                    <a href="#" class="sibling-name">Michael Chen</a>
+                    <span class="badge badge-active">Active</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Edit Mode -->
+              <div class="edit-form">
+                <h4 style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: var(--space-4);">Primary Guardian</h4>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">First Name <span class="required">*</span></label>
+                    <input type="text" class="form-input" value="Jennifer" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Last Name <span class="required">*</span></label>
+                    <input type="text" class="form-input" value="Chen" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Email <span class="required">*</span></label>
+                    <input type="email" class="form-input" value="jennifer.chen@example.com" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" class="form-input" value="(555) 987-6543" />
+                  </div>
+                </div>
+
+                <h4 style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: var(--space-5) 0 var(--space-4);">Address</h4>
+                <div class="form-grid">
+                  <div class="form-group full-width">
+                    <label class="form-label">Street Address</label>
+                    <input type="text" class="form-input" value="123 Oak Street" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">City</label>
+                    <input type="text" class="form-input" value="San Francisco" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">State</label>
+                    <select class="form-select">
+                      <option value="CA" selected>California</option>
+                      <option value="NY">New York</option>
+                      <!-- More states... -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button class="btn btn-secondary" onclick="cancelEdit('familySection')">Cancel</button>
+                  <button class="btn btn-primary" onclick="saveEdit('familySection')">Save Changes</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Billing Summary Section -->
+          <section class="section-card">
+            <div class="section-header">
+              <h2 class="section-title">Billing Summary</h2>
+              <a href="student-detail-invoices.html" class="view-all-link">
+                View All
+                <i class="ph ph-arrow-right"></i>
+              </a>
+            </div>
+            <div class="section-content">
+              <div class="billing-summary">
+                <div class="billing-stat">
+                  <div class="billing-stat-value">$50</div>
+                  <div class="billing-stat-label">Per Lesson</div>
+                </div>
+                <div class="billing-stat">
+                  <div class="billing-stat-value positive">$50</div>
+                  <div class="billing-stat-label">Credit Balance</div>
+                </div>
+                <div class="billing-stat">
+                  <div class="billing-stat-value">2</div>
+                  <div class="billing-stat-label">Unpaid Invoices</div>
+                </div>
+                <div class="billing-stat">
+                  <div class="billing-stat-value negative">$200</div>
+                  <div class="billing-stat-label">Outstanding</div>
+                </div>
+              </div>
+              <div class="billing-detail">
+                <div class="data-grid">
+                  <div class="data-item">
+                    <span class="data-label">Billing Method</span>
+                    <span class="data-value">Per Lesson</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Auto-Invoicing</span>
+                    <span class="data-value">Monthly on the 1st</span>
+                  </div>
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: var(--space-3);">
+                  <i class="ph ph-info" style="margin-right: 4px;"></i>
+                  Billing is managed at the family level for Chen Family
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Recent Lessons Section -->
+          <section class="section-card">
+            <div class="section-header">
+              <h2 class="section-title">Recent Lessons</h2>
+              <a href="student-detail-lessons.html" class="view-all-link">
+                View All
+                <i class="ph ph-arrow-right"></i>
+              </a>
+            </div>
+            <div class="section-content">
+              <table class="lessons-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Mon, Jan 6</td>
+                    <td>3:00 - 3:30 PM</td>
+                    <td>30 min</td>
+                    <td class="status-attended">Attended</td>
+                    <td><span class="lesson-note">Worked on Chopin Nocturne Op. 9</span></td>
+                  </tr>
+                  <tr>
+                    <td>Fri, Jan 3</td>
+                    <td>3:00 - 3:30 PM</td>
+                    <td>30 min</td>
+                    <td class="status-attended">Attended</td>
+                    <td><span class="lesson-note">Review of scales and arpeggios</span></td>
+                  </tr>
+                  <tr>
+                    <td>Mon, Dec 30</td>
+                    <td>3:00 - 3:30 PM</td>
+                    <td>30 min</td>
+                    <td class="status-cancelled">Cancelled</td>
+                    <td><span class="lesson-note">Holiday break</span></td>
+                  </tr>
+                  <tr>
+                    <td>Fri, Dec 27</td>
+                    <td>3:00 - 3:30 PM</td>
+                    <td>30 min</td>
+                    <td class="status-attended">Attended</td>
+                    <td><span class="lesson-note">Prepared for winter recital</span></td>
+                  </tr>
+                  <tr>
+                    <td>Mon, Dec 23</td>
+                    <td>3:00 - 3:30 PM</td>
+                    <td>30 min</td>
+                    <td class="status-attended">Attended</td>
+                    <td><span class="lesson-note">Final recital practice</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Notes Section -->
+          <section class="section-card" id="notesSection">
+            <div class="section-header">
+              <h2 class="section-title">Notes</h2>
+              <button class="btn btn-ghost" onclick="toggleEdit('notesSection')">
+                <i class="ph ph-pencil"></i>
+                Edit
+              </button>
+            </div>
+            <div class="section-content">
+              <!-- View Mode -->
+              <div class="view-mode">
+                <div class="notes-content">Emily is preparing for her spring recital in March. She's been working on Chopin's Nocturne Op. 9 No. 2 and has made excellent progress over the past few months.
+
+Focus areas:
+- Dynamics and expression
+- Pedaling technique
+- Performance confidence
+
+She responds well to positive reinforcement and enjoys learning about the historical context of pieces.</div>
+                <div class="notes-meta">Last updated: January 6, 2025</div>
+              </div>
+
+              <!-- Edit Mode -->
+              <div class="edit-form">
+                <div class="form-group">
+                  <textarea class="form-textarea" rows="8">Emily is preparing for her spring recital in March. She's been working on Chopin's Nocturne Op. 9 No. 2 and has made excellent progress over the past few months.
+
+Focus areas:
+- Dynamics and expression
+- Pedaling technique
+- Performance confidence
+
+She responds well to positive reinforcement and enjoys learning about the historical context of pieces.</textarea>
+                </div>
+                <div class="form-actions">
+                  <button class="btn btn-secondary" onclick="cancelEdit('notesSection')">Cancel</button>
+                  <button class="btn btn-primary" onclick="saveEdit('notesSection')">Save Changes</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Actions Dropdown
+      function toggleActionsMenu() {
+        const menu = document.getElementById('actionsMenu');
+        menu.classList.toggle('active');
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(event) {
+        const dropdown = document.querySelector('.dropdown');
+        const menu = document.getElementById('actionsMenu');
+        if (!dropdown.contains(event.target)) {
+          menu.classList.remove('active');
+        }
+      });
+
+      // Edit Mode Toggle
+      function toggleEdit(sectionId) {
+        const section = document.getElementById(sectionId);
+        section.classList.add('editing');
+      }
+
+      function cancelEdit(sectionId) {
+        const section = document.getElementById(sectionId);
+        section.classList.remove('editing');
+      }
+
+      function saveEdit(sectionId) {
+        const section = document.getElementById(sectionId);
+        // In a real app, this would save data to the server
+        section.classList.remove('editing');
+        // Show success feedback
+        alert('Changes saved successfully!');
+      }
+
+      function editStudent() {
+        toggleEdit('studentInfoSection');
+        document.getElementById('actionsMenu').classList.remove('active');
+      }
+    </script>
+  </body>
+</html>

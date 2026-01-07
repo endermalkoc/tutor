@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emily Chen - Transactions</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      :root {
+        --bg-page: #f5f8fa; --bg-surface: #ffffff; --bg-subtle: #ebf1f5; --bg-muted: #d8e3eb;
+        --text-primary: #16262f; --text-secondary: #3a6278; --text-muted: #4a7d98; --text-faint: #78a3b8;
+        --border: rgba(22, 38, 47, 0.08); --border-strong: rgba(22, 38, 47, 0.12);
+        --accent: #3ba5c5; --accent-hover: #3397b7; --accent-subtle: #e8f4f8;
+        --status-active: #16a34a; --status-active-bg: #f0fdf4;
+        --status-trial: #6366f1; --status-trial-bg: #eef2ff;
+        --status-waiting: #d97706; --status-waiting-bg: #fffbeb;
+        --negative: #dc2626; --negative-bg: #fef2f2;
+        --shadow: 0 1px 3px rgba(22, 38, 47, 0.08); --shadow-lg: 0 4px 12px rgba(22, 38, 47, 0.1);
+        --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
+        --radius-sm: 4px; --radius: 6px; --radius-lg: 8px;
+      }
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif; background: var(--bg-page); min-height: 100vh; color: var(--text-primary); line-height: 1.5; font-size: 14px; }
+      .app-layout { display: flex; min-height: 100vh; }
+      .sidebar { width: 240px; background: var(--bg-surface); border-right: 1px solid var(--border); padding: var(--space-4); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; }
+      .sidebar-logo { font-size: 15px; font-weight: 600; color: var(--text-primary); padding: var(--space-3); margin-bottom: var(--space-4); }
+      .sidebar-nav { flex: 1; }
+      .nav-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius); color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; margin-bottom: var(--space-1); }
+      .nav-item:hover { background: var(--bg-subtle); }
+      .nav-item.active { background: var(--accent-subtle); color: var(--accent); }
+      .nav-icon { width: 16px; height: 16px; opacity: 0.7; }
+      .sidebar-footer { padding-top: var(--space-4); border-top: 1px solid var(--border); }
+      .user-info { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); }
+      .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+      .user-name { font-size: 13px; font-weight: 500; }
+      .user-email { font-size: 12px; color: var(--text-muted); }
+      .main-content { flex: 1; margin-left: 240px; display: flex; flex-direction: column; }
+      .breadcrumb { padding: var(--space-4) var(--space-8); background: var(--bg-surface); border-bottom: 1px solid var(--border); }
+      .breadcrumb-list { display: flex; align-items: center; gap: var(--space-2); list-style: none; font-size: 13px; }
+      .breadcrumb-link { color: var(--text-muted); text-decoration: none; }
+      .breadcrumb-link:hover { color: var(--accent); }
+      .breadcrumb-separator { color: var(--text-faint); }
+      .breadcrumb-current { color: var(--text-primary); font-weight: 500; }
+      .student-header { background: var(--bg-surface); padding: var(--space-6) var(--space-8); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+      .student-header-content { display: flex; justify-content: space-between; align-items: flex-start; max-width: 1200px; }
+      .student-identity { display: flex; gap: var(--space-4); align-items: flex-start; }
+      .student-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent-subtle); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 600; color: var(--accent); }
+      .student-info { display: flex; flex-direction: column; gap: var(--space-1); }
+      .student-name-row { display: flex; align-items: center; gap: var(--space-3); }
+      .student-name { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+      .student-badges { display: flex; gap: var(--space-2); }
+      .badge { display: inline-flex; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: 11px; font-weight: 600; text-transform: uppercase; }
+      .badge-type { background: var(--bg-subtle); color: var(--text-muted); }
+      .badge-active { background: var(--status-active-bg); color: var(--status-active); }
+      .student-meta { display: flex; gap: var(--space-4); color: var(--text-secondary); font-size: 13px; }
+      .meta-item { display: flex; align-items: center; gap: var(--space-1); }
+      .meta-item i { color: var(--text-muted); }
+      .meta-link { color: var(--accent); text-decoration: none; }
+      .student-family { color: var(--text-secondary); font-size: 13px; margin-top: var(--space-1); }
+      .family-link { color: var(--accent); text-decoration: none; font-weight: 500; }
+      .header-actions { display: flex; gap: var(--space-2); }
+      .btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius); font-size: 13px; font-weight: 500; cursor: pointer; border: none; min-height: 32px; }
+      .btn-primary { background: var(--accent); color: white; padding: var(--space-2) var(--space-4); }
+      .btn-primary:hover { background: var(--accent-hover); }
+      .btn-secondary { background: var(--bg-surface); color: var(--text-secondary); border: 1px solid var(--border-strong); }
+      .btn-secondary:hover { background: var(--bg-subtle); }
+      .dropdown { position: relative; }
+      .dropdown-menu { position: absolute; top: 100%; right: 0; margin-top: var(--space-1); background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); min-width: 180px; z-index: 100; display: none; }
+      .dropdown-menu.active { display: block; }
+      .dropdown-item { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); font-size: 13px; color: var(--text-secondary); cursor: pointer; }
+      .dropdown-item:hover { background: var(--bg-subtle); }
+      .dropdown-item.danger { color: var(--negative); }
+      .dropdown-divider { height: 1px; background: var(--border); margin: var(--space-1) 0; }
+      .tab-nav { background: var(--bg-surface); padding: 0 var(--space-8); border-bottom: 1px solid var(--border); display: flex; gap: var(--space-1); overflow-x: auto; }
+      .tab-link { padding: var(--space-3) var(--space-4); font-size: 13px; font-weight: 500; color: var(--text-muted); text-decoration: none; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+      .tab-link:hover { color: var(--text-secondary); }
+      .tab-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+      .tab-content { flex: 1; padding: var(--space-6) var(--space-8); max-width: 1200px; }
+      .family-notice { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); background: var(--accent-subtle); border-radius: var(--radius); margin-bottom: var(--space-4); font-size: 13px; color: var(--accent); }
+      .family-notice i { font-size: 16px; }
+      .balance-card { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4); background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: var(--space-4); }
+      .balance-label { font-size: 13px; color: var(--text-muted); }
+      .balance-value { font-size: 24px; font-weight: 600; }
+      .balance-value.credit { color: var(--status-active); }
+      .balance-value.owing { color: var(--negative); }
+      .content-header { margin-bottom: var(--space-6); }
+      .filters-row { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; margin-bottom: var(--space-4); }
+      .filter-select { padding: var(--space-2) var(--space-3); border: 1px solid var(--border-strong); border-radius: var(--radius); font-size: 13px; color: var(--text-secondary); background: var(--bg-surface); min-width: 140px; }
+      .search-container { flex: 1; min-width: 200px; max-width: 300px; position: relative; }
+      .search-input { width: 100%; padding: var(--space-2) var(--space-3) var(--space-2) 36px; border: 1px solid var(--border-strong); border-radius: var(--radius); font-size: 13px; }
+      .search-input::placeholder { color: var(--text-faint); }
+      .search-icon { position: absolute; left: var(--space-3); top: 50%; transform: translateY(-50%); color: var(--text-faint); width: 14px; height: 14px; }
+      .summary-stats { display: flex; gap: var(--space-6); padding: var(--space-4); background: var(--bg-subtle); border-radius: var(--radius); }
+      .stat-item { display: flex; align-items: baseline; gap: var(--space-2); }
+      .stat-value { font-size: 18px; font-weight: 600; color: var(--text-primary); }
+      .stat-label { font-size: 13px; color: var(--text-muted); }
+      .stat-item.payments .stat-value { color: var(--status-active); }
+      .stat-item.charges .stat-value { color: var(--text-secondary); }
+      .list-container { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+      .table-wrapper { overflow-x: auto; }
+      table { width: 100%; border-collapse: collapse; }
+      thead { background: var(--bg-subtle); border-bottom: 1px solid var(--border); }
+      th { padding: var(--space-3) var(--space-4); text-align: left; font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+      th.sortable { cursor: pointer; }
+      th.sortable:hover { color: var(--text-secondary); }
+      th.sorted-desc::after { content: "↓"; color: var(--accent); margin-left: 4px; }
+      td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-secondary); }
+      tr:hover { background: var(--bg-subtle); }
+      tr:last-child td { border-bottom: none; }
+      .type-badge { display: inline-flex; align-items: center; gap: var(--space-1); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: 11px; font-weight: 600; }
+      .type-payment { background: var(--status-active-bg); color: var(--status-active); }
+      .type-charge { background: var(--bg-subtle); color: var(--text-muted); }
+      .type-credit { background: var(--status-trial-bg); color: var(--status-trial); }
+      .type-adjustment { background: var(--status-waiting-bg); color: var(--status-waiting); }
+      .type-refund { background: var(--negative-bg); color: var(--negative); }
+      .amount { font-variant-numeric: tabular-nums; font-family: ui-monospace, monospace; font-weight: 500; }
+      .amount.positive { color: var(--status-active); }
+      .amount.negative { color: var(--negative); }
+      .balance { font-variant-numeric: tabular-nums; font-family: ui-monospace, monospace; }
+      .balance.credit { color: var(--status-active); }
+      .balance.owing { color: var(--negative); }
+      .row-actions { display: flex; gap: var(--space-1); opacity: 0; transition: opacity 150ms ease; }
+      tr:hover .row-actions { opacity: 1; }
+      .action-btn { padding: var(--space-1); border: none; background: transparent; color: var(--text-muted); cursor: pointer; border-radius: var(--radius-sm); }
+      .action-btn:hover { background: var(--bg-muted); color: var(--text-primary); }
+      .pagination { padding: var(--space-4); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+      .pagination-info { font-size: 13px; color: var(--text-muted); }
+      .pagination-controls { display: flex; gap: var(--space-4); align-items: center; }
+      .page-size-selector { display: flex; align-items: center; gap: var(--space-2); }
+      .page-size-selector label { font-size: 12px; color: var(--text-muted); }
+      .page-size-selector select { padding: var(--space-1) var(--space-2); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); font-size: 12px; background: var(--bg-surface); }
+      .page-nav { display: flex; gap: var(--space-1); }
+      .page-btn { padding: var(--space-1) var(--space-2); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--bg-surface); color: var(--text-muted); font-size: 12px; cursor: pointer; min-width: 28px; display: flex; align-items: center; justify-content: center; }
+      .page-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+      .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+      .page-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+      @media (max-width: 768px) {
+        .sidebar { display: none; }
+        .main-content { margin-left: 0; }
+        .student-header { padding: var(--space-4); }
+        .student-header-content { flex-direction: column; gap: var(--space-4); }
+        .tab-nav { padding: 0 var(--space-4); }
+        .tab-content { padding: var(--space-4); }
+        .filters-row { flex-direction: column; align-items: stretch; }
+        .search-container { max-width: none; }
+        .summary-stats { flex-wrap: wrap; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-logo">TutorStudio</div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item"><i class="ph ph-squares-four nav-icon"></i>Dashboard</a>
+          <a href="student-list.html" class="nav-item active"><i class="ph ph-users nav-icon"></i>Students</a>
+          <a href="#" class="nav-item"><i class="ph ph-calendar nav-icon"></i>Calendar</a>
+          <a href="#" class="nav-item"><i class="ph ph-file-text nav-icon"></i>Invoices</a>
+          <a href="#" class="nav-item"><i class="ph ph-gear nav-icon"></i>Settings</a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-info">
+            <div class="user-avatar">SJ</div>
+            <div><div class="user-name">Sarah Johnson</div><div class="user-email">sarah@example.com</div></div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <nav class="breadcrumb">
+          <ol class="breadcrumb-list">
+            <li><a href="student-list.html" class="breadcrumb-link">Students</a></li>
+            <li class="breadcrumb-separator">/</li>
+            <li class="breadcrumb-current">Emily Chen</li>
+          </ol>
+        </nav>
+
+        <header class="student-header">
+          <div class="student-header-content">
+            <div class="student-identity">
+              <div class="student-avatar">EC</div>
+              <div class="student-info">
+                <div class="student-name-row">
+                  <h1 class="student-name">Emily Chen</h1>
+                  <div class="student-badges">
+                    <span class="badge badge-type">Child</span>
+                    <span class="badge badge-active">Active</span>
+                  </div>
+                </div>
+                <div class="student-meta">
+                  <span class="meta-item"><i class="ph ph-envelope"></i><a href="mailto:emily@example.com" class="meta-link">emily@example.com</a></span>
+                  <span class="meta-item"><i class="ph ph-phone"></i><a href="tel:+15551234567" class="meta-link">(555) 123-4567</a></span>
+                </div>
+                <div class="student-family"><i class="ph ph-house"></i><a href="#" class="family-link">Chen Family</a></div>
+              </div>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-secondary"><i class="ph ph-calendar-plus"></i>Schedule Lesson</button>
+              <button class="btn btn-secondary"><i class="ph ph-paper-plane-tilt"></i>Send Message</button>
+              <div class="dropdown">
+                <button class="btn btn-secondary" onclick="toggleActionsMenu()"><i class="ph ph-dots-three"></i></button>
+                <div class="dropdown-menu" id="actionsMenu">
+                  <div class="dropdown-item"><i class="ph ph-pencil"></i>Edit Student</div>
+                  <div class="dropdown-item"><i class="ph ph-swap"></i>Change Status</div>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-item"><i class="ph ph-archive"></i>Archive Student</div>
+                  <div class="dropdown-item danger"><i class="ph ph-trash"></i>Delete Student</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <nav class="tab-nav" role="tablist">
+          <a href="student-detail.html" class="tab-link">Overview</a>
+          <a href="student-detail-lessons.html" class="tab-link">Lessons</a>
+          <a href="student-detail-homework.html" class="tab-link">Homework</a>
+          <a href="student-detail-messages.html" class="tab-link">Messages</a>
+          <a href="student-detail-invoices.html" class="tab-link">Invoices</a>
+          <a href="student-detail-transactions.html" class="tab-link active" aria-selected="true">Transactions</a>
+          <a href="student-detail-files.html" class="tab-link">Files</a>
+        </nav>
+
+        <div class="tab-content">
+          <div class="family-notice">
+            <i class="ph ph-info"></i>
+            <span>Showing all transactions for <strong>Chen Family</strong>.</span>
+          </div>
+
+          <div class="balance-card">
+            <div>
+              <div class="balance-label">Account Balance</div>
+              <div class="balance-value credit">$50.00 credit</div>
+            </div>
+            <button class="btn btn-primary"><i class="ph ph-plus"></i>Record Payment</button>
+          </div>
+
+          <div class="content-header">
+            <div class="filters-row">
+              <select class="filter-select">
+                <option value="">All Types</option>
+                <option value="payment">Payments</option>
+                <option value="charge">Charges</option>
+                <option value="credit">Credits</option>
+                <option value="adjustment">Adjustments</option>
+                <option value="refund">Refunds</option>
+              </select>
+              <select class="filter-select">
+                <option value="">All Time</option>
+                <option value="this-month">This Month</option>
+                <option value="last-month">Last Month</option>
+                <option value="this-quarter" selected>This Quarter</option>
+                <option value="this-year">This Year</option>
+              </select>
+              <div class="search-container">
+                <i class="ph ph-magnifying-glass search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search transactions..." />
+              </div>
+              <button class="btn btn-secondary" style="margin-left: auto;"><i class="ph ph-download"></i>Export</button>
+            </div>
+
+            <div class="summary-stats">
+              <div class="stat-item charges"><span class="stat-value">$2,400</span><span class="stat-label">Charges</span></div>
+              <div class="stat-item payments"><span class="stat-value">$2,450</span><span class="stat-label">Payments</span></div>
+              <div class="stat-item"><span class="stat-value credit">$50</span><span class="stat-label">Balance</span></div>
+            </div>
+          </div>
+
+          <div class="list-container">
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="sortable sorted-desc">Date</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Reference</th>
+                    <th class="sortable">Amount</th>
+                    <th>Balance</th>
+                    <th style="width: 80px;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Jan 6, 2025</td>
+                    <td><span class="type-badge type-payment"><i class="ph ph-check"></i>Payment</span></td>
+                    <td>Payment received</td>
+                    <td>Check #1234</td>
+                    <td><span class="amount positive">+$200.00</span></td>
+                    <td><span class="balance credit">$50.00 cr</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="action-btn" title="View"><i class="ph ph-eye"></i></button>
+                        <button class="action-btn" title="More"><i class="ph ph-dots-three"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Jan 1, 2025</td>
+                    <td><span class="type-badge type-charge">Charge</span></td>
+                    <td>INV-0042 - January lessons (Emily)</td>
+                    <td>INV-0042</td>
+                    <td><span class="amount negative">-$200.00</span></td>
+                    <td><span class="balance owing">$150.00</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="action-btn" title="View"><i class="ph ph-eye"></i></button>
+                        <button class="action-btn" title="More"><i class="ph ph-dots-three"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Jan 1, 2025</td>
+                    <td><span class="type-badge type-charge">Charge</span></td>
+                    <td>INV-0041 - January lessons (Michael)</td>
+                    <td>INV-0041</td>
+                    <td><span class="amount negative">-$200.00</span></td>
+                    <td><span class="balance credit">$50.00 cr</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="action-btn" title="View"><i class="ph ph-eye"></i></button>
+                        <button class="action-btn" title="More"><i class="ph ph-dots-three"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Dec 15, 2024</td>
+                    <td><span class="type-badge type-payment"><i class="ph ph-check"></i>Payment</span></td>
+                    <td>Payment received</td>
+                    <td>Card ending 4242</td>
+                    <td><span class="amount positive">+$400.00</span></td>
+                    <td><span class="balance credit">$250.00 cr</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="action-btn" title="View"><i class="ph ph-eye"></i></button>
+                        <button class="action-btn" title="More"><i class="ph ph-dots-three"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Dec 10, 2024</td>
+                    <td><span class="type-badge type-credit"><i class="ph ph-plus"></i>Credit</span></td>
+                    <td>Holiday discount credit</td>
+                    <td>—</td>
+                    <td><span class="amount positive">+$50.00</span></td>
+                    <td><span class="balance owing">$150.00</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="action-btn" title="View"><i class="ph ph-eye"></i></button>
+                        <button class="action-btn" title="More"><i class="ph ph-dots-three"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Dec 1, 2024</td>
+                    <td><span class="type-badge type-charge">Charge</span></td>
+                    <td>INV-0038 - December lessons (Emily)</td>
+                    <td>INV-0038</td>
+                    <td><span class="amount negative">-$200.00</span></td>
+                    <td><span class="balance owing">$200.00</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="action-btn" title="View"><i class="ph ph-eye"></i></button>
+                        <button class="action-btn" title="More"><i class="ph ph-dots-three"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Dec 1, 2024</td>
+                    <td><span class="type-badge type-charge">Charge</span></td>
+                    <td>INV-0037 - December lessons (Michael)</td>
+                    <td>INV-0037</td>
+                    <td><span class="amount negative">-$200.00</span></td>
+                    <td><span class="balance">$0.00</span></td>
+                    <td>
+                      <div class="row-actions">
+                        <button class="action-btn" title="View"><i class="ph ph-eye"></i></button>
+                        <button class="action-btn" title="More"><i class="ph ph-dots-three"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="pagination">
+              <div class="pagination-info">Showing <strong>1–7</strong> of <strong>24</strong></div>
+              <div class="pagination-controls">
+                <div class="page-size-selector"><label>Show</label><select><option selected>25</option><option>50</option><option>100</option></select></div>
+                <div class="page-nav">
+                  <button class="page-btn" disabled>←</button>
+                  <button class="page-btn active">1</button>
+                  <button class="page-btn">→</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      function toggleActionsMenu() { document.getElementById('actionsMenu').classList.toggle('active'); }
+      document.addEventListener('click', function(e) { if (!e.target.closest('.dropdown')) document.getElementById('actionsMenu').classList.remove('active'); });
+    </script>
+  </body>
+</html>
