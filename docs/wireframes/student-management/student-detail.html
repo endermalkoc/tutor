@@ -940,6 +940,57 @@
         color: var(--text-secondary);
       }
 
+      /* Checkbox */
+      .checkbox-wrapper {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        cursor: pointer;
+        user-select: none;
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      .checkbox {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 1.5px solid var(--border-strong);
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        cursor: pointer;
+        transition: all 150ms ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .checkbox:hover {
+        border-color: var(--accent);
+      }
+
+      .checkbox:checked {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .checkbox:checked::after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 7px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        margin-bottom: 2px;
+      }
+
+      .checkbox:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
       /* Tags input for edit mode */
       .tags-input-wrapper {
         display: flex;
@@ -994,14 +1045,20 @@
         background: transparent;
       }
 
-      /* Notification preferences subsection */
-      .notification-prefs {
+      /* Form Subsections */
+      .form-subsection {
         margin-top: var(--space-5);
         padding-top: var(--space-5);
         border-top: 1px solid var(--border);
       }
 
-      .notification-prefs-title {
+      .form-subsection:first-child {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+      }
+
+      .form-subsection-title {
         font-size: 11px;
         font-weight: 600;
         color: var(--text-muted);
@@ -1010,7 +1067,16 @@
         margin-bottom: var(--space-4);
       }
 
-      .notification-prefs-list {
+      .form-subsection .data-grid {
+        margin-bottom: 0;
+      }
+
+      .form-subsection .form-grid {
+        margin-bottom: 0;
+      }
+
+      /* Notification preferences list */
+      .notification-list {
         display: flex;
         flex-direction: column;
         gap: var(--space-3);
@@ -1229,87 +1295,47 @@
             <div class="section-content">
               <!-- View Mode -->
               <div class="view-mode">
-                <div class="data-grid">
-                  <div class="data-item">
-                    <span class="data-label">First Name</span>
-                    <span class="data-value">Emily</span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Last Name</span>
-                    <span class="data-value">Chen</span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Student Type</span>
-                    <span class="data-value">Child</span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Status</span>
-                    <span class="data-value"><span class="badge badge-active">Active</span></span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Email</span>
-                    <span class="data-value"><a href="mailto:emily@example.com">emily@example.com</a></span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Phone</span>
-                    <span class="data-value"><a href="tel:+15551234567">(555) 123-4567</a></span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Birthday</span>
-                    <span class="data-value">March 15, 2010 (14 years old)</span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Gender</span>
-                    <span class="data-value">Female</span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">School</span>
-                    <span class="data-value">Lincoln Middle School</span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Subjects</span>
-                    <span class="data-value">
-                      <div class="tag-list">
-                        <span class="tag">Piano</span>
-                        <span class="tag">Music Theory</span>
-                      </div>
-                    </span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Skill Level</span>
-                    <span class="data-value">Advanced</span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Tags</span>
-                    <span class="data-value">
-                      <div class="tag-list">
-                        <span class="tag">Competition Ready</span>
-                        <span class="tag">Advanced Theory</span>
-                      </div>
-                    </span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Referrer</span>
-                    <span class="data-value">Maria Thompson</span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Student Since</span>
-                    <span class="data-value">September 2021</span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Lesson Category</span>
-                    <span class="data-value">Individual</span>
-                  </div>
-                  <div class="data-item">
-                    <span class="data-label">Default Duration</span>
-                    <span class="data-value">30 minutes</span>
+                <!-- Basic Information -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Basic Information</div>
+                  <div class="data-grid">
+                    <div class="data-item">
+                      <span class="data-label">First Name</span>
+                      <span class="data-value">Emily</span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Last Name</span>
+                      <span class="data-value">Chen</span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Student Type</span>
+                      <span class="data-value">Child</span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Status</span>
+                      <span class="data-value"><span class="badge badge-active">Active</span></span>
+                    </div>
                   </div>
                 </div>
 
-                <!-- Notification Preferences -->
-                <div class="notification-prefs">
-                  <div class="notification-prefs-title">Lesson Reminders</div>
-                  <div class="notification-prefs-list">
+                <!-- Contact & Notifications -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Contact & Notifications</div>
+                  <div class="data-grid">
+                    <div class="data-item">
+                      <span class="data-label">Email</span>
+                      <span class="data-value"><a href="mailto:emily@example.com">emily@example.com</a></span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Phone</span>
+                      <span class="data-value"><a href="tel:+15551234567">(555) 123-4567</a></span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">SMS Capable</span>
+                      <span class="data-value">Yes</span>
+                    </div>
+                  </div>
+                  <div class="notification-list" style="margin-top: var(--space-4);">
                     <div class="switch-wrapper">
                       <div class="switch active" onclick="this.classList.toggle('active')"></div>
                       <span class="switch-label">Send email lesson reminders</span>
@@ -1317,6 +1343,84 @@
                     <div class="switch-wrapper">
                       <div class="switch active" onclick="this.classList.toggle('active')"></div>
                       <span class="switch-label">Send SMS lesson reminders</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Personal Details -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Personal Details</div>
+                  <div class="data-grid">
+                    <div class="data-item">
+                      <span class="data-label">Gender</span>
+                      <span class="data-value">Female</span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Birthday</span>
+                      <span class="data-value">March 15, 2010 (14 years old)</span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">School</span>
+                      <span class="data-value">Lincoln Middle School</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Learning Profile -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Learning Profile</div>
+                  <div class="data-grid">
+                    <div class="data-item">
+                      <span class="data-label">Subjects</span>
+                      <span class="data-value">
+                        <div class="tag-list">
+                          <span class="tag">Piano</span>
+                          <span class="tag">Music Theory</span>
+                        </div>
+                      </span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Skill Level</span>
+                      <span class="data-value">Advanced</span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Tags</span>
+                      <span class="data-value">
+                        <div class="tag-list">
+                          <span class="tag">Competition Ready</span>
+                          <span class="tag">Advanced Theory</span>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Additional Info</div>
+                  <div class="data-grid">
+                    <div class="data-item">
+                      <span class="data-label">Referrer</span>
+                      <span class="data-value">Maria Thompson</span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Student Since</span>
+                      <span class="data-value">September 2021</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Lesson Settings -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Lesson Settings</div>
+                  <div class="data-grid">
+                    <div class="data-item">
+                      <span class="data-label">Lesson Category</span>
+                      <span class="data-value">Individual</span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Default Duration</span>
+                      <span class="data-value">30 minutes</span>
                     </div>
                   </div>
                 </div>
@@ -1324,111 +1428,59 @@
 
               <!-- Edit Mode -->
               <div class="edit-form">
-                <div class="form-grid">
-                  <div class="form-group">
-                    <label class="form-label">First Name <span class="required">*</span></label>
-                    <input type="text" class="form-input" value="Emily" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Last Name <span class="required">*</span></label>
-                    <input type="text" class="form-input" value="Chen" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Student Type <span class="required">*</span></label>
-                    <select class="form-select">
-                      <option value="child" selected>Child</option>
-                      <option value="adult">Adult</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Status <span class="required">*</span></label>
-                    <select class="form-select">
-                      <option value="active" selected>Active</option>
-                      <option value="trial">Trial</option>
-                      <option value="waiting">Waiting</option>
-                      <option value="lead">Lead</option>
-                      <option value="inactive">Inactive</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" value="emily@example.com" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Phone</label>
-                    <input type="tel" class="form-input" value="(555) 123-4567" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Birthday</label>
-                    <input type="date" class="form-input" value="2010-03-15" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Gender</label>
-                    <select class="form-select">
-                      <option value="">Select...</option>
-                      <option value="male">Male</option>
-                      <option value="female" selected>Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">School</label>
-                    <input type="text" class="form-input" value="Lincoln Middle School" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Subjects</label>
-                    <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
-                      <span class="tag">Piano<button class="tag-remove" type="button">&times;</button></span>
-                      <span class="tag">Music Theory<button class="tag-remove" type="button">&times;</button></span>
-                      <input type="text" placeholder="Add subject..." />
+                <!-- Basic Information -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Basic Information</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">First Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Emily" />
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Skill Level</label>
-                    <select class="form-select">
-                      <option value="beginner">Beginner</option>
-                      <option value="intermediate">Intermediate</option>
-                      <option value="advanced" selected>Advanced</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Tags</label>
-                    <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
-                      <span class="tag">Competition Ready<button class="tag-remove" type="button">&times;</button></span>
-                      <span class="tag">Advanced Theory<button class="tag-remove" type="button">&times;</button></span>
-                      <input type="text" placeholder="Add tag..." />
+                    <div class="form-group">
+                      <label class="form-label">Last Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Chen" />
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Referrer</label>
-                    <input type="text" class="form-input" value="Maria Thompson" placeholder="Type to search..." />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Student Since</label>
-                    <input type="month" class="form-input" value="2021-09" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Lesson Category</label>
-                    <select class="form-select">
-                      <option value="individual" selected>Individual</option>
-                      <option value="group">Group</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Default Duration</label>
-                    <select class="form-select">
-                      <option value="30" selected>30 minutes</option>
-                      <option value="45">45 minutes</option>
-                      <option value="60">60 minutes</option>
-                      <option value="90">90 minutes</option>
-                    </select>
+                    <div class="form-group">
+                      <label class="form-label">Student Type <span class="required">*</span></label>
+                      <select class="form-select">
+                        <option value="child" selected>Child</option>
+                        <option value="adult">Adult</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Status <span class="required">*</span></label>
+                      <select class="form-select">
+                        <option value="active" selected>Active</option>
+                        <option value="trial">Trial</option>
+                        <option value="waiting">Waiting</option>
+                        <option value="lead">Lead</option>
+                        <option value="inactive">Inactive</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
 
-                <!-- Notification Preferences (Edit Mode) -->
-                <div class="notification-prefs">
-                  <div class="notification-prefs-title">Lesson Reminders</div>
-                  <div class="notification-prefs-list">
+                <!-- Contact & Notifications -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Contact & Notifications</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">Email</label>
+                      <input type="email" class="form-input" value="emily@example.com" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Phone</label>
+                      <input type="tel" class="form-input" value="(555) 123-4567" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">SMS Capable</label>
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" checked />
+                        <span>This phone can receive SMS</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="notification-list" style="margin-top: var(--space-4);">
                     <div class="switch-wrapper">
                       <div class="switch active" onclick="this.classList.toggle('active')"></div>
                       <span class="switch-label">Send email lesson reminders</span>
@@ -1436,6 +1488,99 @@
                     <div class="switch-wrapper">
                       <div class="switch active" onclick="this.classList.toggle('active')"></div>
                       <span class="switch-label">Send SMS lesson reminders</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Personal Details -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Personal Details</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">Gender</label>
+                      <select class="form-select">
+                        <option value="">Select...</option>
+                        <option value="male">Male</option>
+                        <option value="female" selected>Female</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Birthday</label>
+                      <input type="date" class="form-input" value="2010-03-15" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">School</label>
+                      <input type="text" class="form-input" value="Lincoln Middle School" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Learning Profile -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Learning Profile</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">Subjects</label>
+                      <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
+                        <span class="tag">Piano<button class="tag-remove" type="button">&times;</button></span>
+                        <span class="tag">Music Theory<button class="tag-remove" type="button">&times;</button></span>
+                        <input type="text" placeholder="Add subject..." />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Skill Level</label>
+                      <select class="form-select">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced" selected>Advanced</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Tags</label>
+                      <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
+                        <span class="tag">Competition Ready<button class="tag-remove" type="button">&times;</button></span>
+                        <span class="tag">Advanced Theory<button class="tag-remove" type="button">&times;</button></span>
+                        <input type="text" placeholder="Add tag..." />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Additional Info</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">Referrer</label>
+                      <input type="text" class="form-input" value="Maria Thompson" placeholder="Type to search..." />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Student Since</label>
+                      <input type="month" class="form-input" value="2021-09" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Lesson Settings -->
+                <div class="form-subsection">
+                  <div class="form-subsection-title">Lesson Settings</div>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">Lesson Category</label>
+                      <select class="form-select">
+                        <option value="individual" selected>Individual</option>
+                        <option value="group">Group</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Default Duration</label>
+                      <select class="form-select">
+                        <option value="30" selected>30 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="60">60 minutes</option>
+                        <option value="90">90 minutes</option>
+                      </select>
                     </div>
                   </div>
                 </div>

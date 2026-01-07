@@ -44,7 +44,9 @@ Displays all student details captured during [Add Student](../add-student.md) fl
 
 ### View Mode
 
-**Core Fields (Always Displayed)**
+Fields are organized into logical subsections with visual dividers.
+
+**Basic Information**
 
 | Field | Display Format |
 |-------|----------------|
@@ -52,32 +54,41 @@ Displays all student details captured during [Add Student](../add-student.md) fl
 | Last Name | Text |
 | Student Type | Badge: "Child" or "Adult" |
 | Status | Colored badge: Active (green), Trial (blue), Waiting (amber), Lead (gray), Inactive (gray) |
-| Email | Mailto link (or "Not provided") |
-| Phone | Tel link with SMS icon if capable (or "Not provided") |
 
-**Optional Fields (Displayed if Populated)**
+**Contact & Notifications**
+
+| Field | Display Format |
+|-------|----------------|
+| Email | Mailto link (or "Not provided") |
+| Phone | Tel link (or "Not provided") |
+| SMS Capable | "Yes" or "No" (only shown if phone provided) |
+| Email Lesson Reminders | Toggle switch (On/Off) |
+| SMS Lesson Reminders | Toggle switch (On/Off) - only shown if phone provided |
+
+**Personal Details** (Displayed if Populated)
 
 | Field | Display Format |
 |-------|----------------|
 | Gender | Text |
 | Birthday | Formatted date (e.g., "January 15, 2015") with calculated age |
 | School | Text |
-| Subjects | Comma-separated list or tags |
-| Skill Level | Text |
-| Tags | Tag badges (clickable, editable inline) |
-| Skype Username | Text with copy button |
-| FaceTime ID | Text with copy button |
-| Referrer | Text |
-| Student Since | Formatted date |
 
-**Notification Preferences (Always Displayed)**
+**Learning Profile** (Displayed if Populated)
 
 | Field | Display Format |
 |-------|----------------|
-| Email Lesson Reminders | Toggle switch (On/Off) |
-| SMS Lesson Reminders | Toggle switch (On/Off) - only shown if phone provided |
+| Subjects | Tag badges |
+| Skill Level | Text |
+| Tags | Tag badges (clickable, editable inline) |
 
-**Lesson Settings (Always Displayed)**
+**Additional Info** (Displayed if Populated)
+
+| Field | Display Format |
+|-------|----------------|
+| Referrer | Text |
+| Student Since | Formatted date |
+
+**Lesson Settings**
 
 | Field | Display Format |
 |-------|----------------|
@@ -95,29 +106,56 @@ When user clicks "Edit":
 
 ### Edit Fields
 
+Fields are organized into the same subsections as view mode.
+
+**Basic Information**
+
 | Field | Input Type | Validation |
 |-------|------------|------------|
 | First Name | Text input | Required |
 | Last Name | Text input | Required |
 | Student Type | Select (Child/Adult) | Required. Changing from Child to Adult removes family association |
 | Status | Select | Required |
+
+**Contact & Notifications**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
 | Email | Email input | Valid email format if provided |
 | Phone | Tel input | Valid phone format if provided |
 | SMS Capable | Checkbox | Only shown if phone provided |
+| Email Lesson Reminders | Toggle switch | Default on |
+| SMS Lesson Reminders | Toggle switch | Default on, only shown if phone provided |
+
+**Personal Details**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
 | Gender | Select | Optional |
 | Birthday | Date picker | Optional, must be in past |
 | School | Autocomplete text | Optional |
+
+**Learning Profile**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
 | Subjects | Multi-select autocomplete | Optional |
 | Skill Level | Select | Optional |
 | Tags | Multi-select autocomplete | Optional, create new tags inline |
-| Skype Username | Text input | Optional |
-| FaceTime ID | Text input | Optional |
+
+**Additional Info**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
 | Referrer | Autocomplete text | Optional |
 | Student Since | Date picker | Optional |
+
+**Lesson Settings**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
 | Lesson Category | Select | Required |
 | Default Duration | Select or custom input | Required, positive number |
-| Email Lesson Reminders | Toggle switch | Default on |
-| SMS Lesson Reminders | Toggle switch | Default on, only shown if phone provided |
 
 ---
 
