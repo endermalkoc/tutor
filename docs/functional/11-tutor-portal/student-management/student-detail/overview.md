@@ -65,13 +65,12 @@ Fields are organized into logical subsections with visual dividers.
 | Email Lesson Reminders | Toggle switch (On/Off) |
 | SMS Lesson Reminders | Toggle switch (On/Off) - only shown if phone provided |
 
-**Personal Details** (Displayed if Populated)
+**Lesson Settings**
 
 | Field | Display Format |
 |-------|----------------|
-| Gender | Text |
-| Birthday | Formatted date (e.g., "January 15, 2015") with calculated age |
-| School | Text |
+| Lesson Category | "Individual" or "Group" |
+| Default Duration | e.g., "30 minutes", "45 minutes", "60 minutes" |
 
 **Learning Profile** (Displayed if Populated)
 
@@ -81,19 +80,20 @@ Fields are organized into logical subsections with visual dividers.
 | Skill Level | Text |
 | Tags | Tag badges (clickable, editable inline) |
 
+**Personal Details** (Displayed if Populated)
+
+| Field | Display Format |
+|-------|----------------|
+| Gender | Text |
+| Birthday | Formatted date (e.g., "January 15, 2015") with calculated age |
+| School | Text |
+
 **Additional Info** (Displayed if Populated)
 
 | Field | Display Format |
 |-------|----------------|
 | Referrer | Text |
 | Student Since | Formatted date |
-
-**Lesson Settings**
-
-| Field | Display Format |
-|-------|----------------|
-| Lesson Category | "Individual" or "Group" |
-| Default Duration | e.g., "30 minutes", "45 minutes", "60 minutes" |
 
 ### Edit Mode
 
@@ -127,13 +127,12 @@ Fields are organized into the same subsections as view mode.
 | Email Lesson Reminders | Toggle switch | Default on |
 | SMS Lesson Reminders | Toggle switch | Default on, only shown if phone provided |
 
-**Personal Details**
+**Lesson Settings**
 
 | Field | Input Type | Validation |
 |-------|------------|------------|
-| Gender | Select | Optional |
-| Birthday | Date picker | Optional, must be in past |
-| School | Autocomplete text | Optional |
+| Lesson Category | Select | Required |
+| Default Duration | Select or custom input | Required, positive number |
 
 **Learning Profile**
 
@@ -143,19 +142,20 @@ Fields are organized into the same subsections as view mode.
 | Skill Level | Select | Optional |
 | Tags | Multi-select autocomplete | Optional, create new tags inline |
 
+**Personal Details**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| Gender | Select | Optional |
+| Birthday | Date picker | Optional, must be in past |
+| School | Autocomplete text | Optional |
+
 **Additional Info**
 
 | Field | Input Type | Validation |
 |-------|------------|------------|
 | Referrer | Autocomplete text | Optional |
 | Student Since | Date picker | Optional |
-
-**Lesson Settings**
-
-| Field | Input Type | Validation |
-|-------|------------|------------|
-| Lesson Category | Select | Required |
-| Default Duration | Select or custom input | Required, positive number |
 
 ---
 
