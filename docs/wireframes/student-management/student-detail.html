@@ -2008,9 +2008,15 @@ She responds well to positive reinforcement and enjoys learning about the histor
           <section class="section-card section-card--secondary section-card--collapsed" id="personalDetailsSection">
             <div class="section-header">
               <h2 class="section-title">Personal Details</h2>
-              <button class="btn btn-ghost" onclick="toggleCollapse('personalDetailsSection')">
-                <i class="ph ph-caret-down"></i>
-              </button>
+              <div class="section-header-actions">
+                <button class="btn btn-ghost" onclick="toggleEdit('personalDetailsSection')">
+                  <i class="ph ph-pencil"></i>
+                  Edit
+                </button>
+                <button class="btn btn-ghost" onclick="toggleCollapse('personalDetailsSection')">
+                  <i class="ph ph-caret-down"></i>
+                </button>
+              </div>
             </div>
             <div class="collapsed-summary">
               <span class="collapsed-summary-text">Female, 14 years old, Lincoln Middle School</span>
