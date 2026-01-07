@@ -266,16 +266,20 @@ Primary contact is visually distinguished with a left border accent (primary col
 
 | Action | Description | Availability |
 |--------|-------------|--------------|
-| Add Contact | Opens Add Contact dialog | Always available |
+| Add Contact | Expands inline Add Contact panel | Always available |
 | Delete Contact | Opens confirmation dialog before removing contact | Only for non-primary contacts |
 | Set as Primary | Promotes contact to primary (current primary becomes regular contact) | Only for non-primary contacts |
 | Mark as Emergency | Toggles emergency contact status | All contacts |
 
-### Add Contact Dialog
+### Add Contact Panel
 
-Modal dialog for adding a new contact to the family.
+Inline expandable panel for adding a new contact. Displayed below existing contacts with a dashed border to indicate it's an action area.
 
-**Fields:**
+**Collapsed State:**
+- Shows "➕ Add Contact" with expand indicator
+- Clicking expands to reveal the form
+
+**Expanded State Fields:**
 
 | Field | Input Type | Validation |
 |-------|------------|------------|
@@ -292,8 +296,14 @@ Modal dialog for adding a new contact to the family.
 | Zip | Text input | Optional |
 
 **Actions:**
-- Cancel: Closes dialog without saving
-- Add Contact: Validates and saves new contact, closes dialog
+- Cancel: Collapses panel, clears form
+- Add Contact: Validates and saves new contact, collapses panel
+
+**Benefits of Inline Panel:**
+- User can see existing contacts while adding new one
+- No context switch or modal overlay
+- Easier to cancel (just collapse)
+- Better for adding multiple contacts in succession
 
 ### Delete Confirmation
 

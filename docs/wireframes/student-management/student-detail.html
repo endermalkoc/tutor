@@ -1070,6 +1070,47 @@
         max-width: 560px;
       }
 
+      /* Add Contact Inline Panel */
+      .add-contact-card {
+        background: var(--bg-subtle);
+        border: 1px dashed var(--border-strong);
+        border-radius: var(--radius-md);
+        margin-top: var(--space-4);
+      }
+
+      .add-contact-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-3) var(--space-4);
+        cursor: pointer;
+        transition: background var(--transition-fast);
+      }
+
+      .add-contact-trigger:hover {
+        background: var(--bg-muted);
+      }
+
+      .add-contact-trigger-label {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--fg-secondary);
+      }
+
+      .add-contact-trigger-label i {
+        font-size: 16px;
+        color: var(--primary-600);
+      }
+
+      .add-contact-form {
+        padding: var(--space-4);
+        border-top: 1px solid var(--border-default);
+        display: none;
+      }
+
       .modal-title {
         font-size: 18px;
         font-weight: 600;
@@ -2097,10 +2138,96 @@
                   </div>
                 </div>
 
-                <button class="btn btn-secondary" style="margin-top: var(--space-4);" onclick="showAddContactDialog()">
-                  <i class="ph ph-plus"></i>
-                  Add Contact
-                </button>
+                <!-- Add Contact Inline Panel -->
+                <div class="add-contact-card">
+                  <div class="add-contact-trigger" id="addContactBtn" onclick="toggleAddContactPanel()">
+                    <span class="add-contact-trigger-label">
+                      <i class="ph ph-plus"></i>
+                      Add Contact
+                    </span>
+                    <i class="ph ph-caret-down" style="color: var(--fg-muted);"></i>
+                  </div>
+                  <div class="add-contact-form" id="addContactPanel">
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label class="form-label">First Name <span class="required">*</span></label>
+                        <input type="text" class="form-input" placeholder="Enter first name" />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Last Name <span class="required">*</span></label>
+                        <input type="text" class="form-input" placeholder="Enter last name" />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Relationship</label>
+                        <select class="form-select" onchange="handleRelationshipChange(this)">
+                          <option value="">Select relationship...</option>
+                          <option value="mother">Mother</option>
+                          <option value="father">Father</option>
+                          <option value="stepmother">Stepmother</option>
+                          <option value="stepfather">Stepfather</option>
+                          <option value="grandmother">Grandmother</option>
+                          <option value="grandfather">Grandfather</option>
+                          <option value="aunt">Aunt</option>
+                          <option value="uncle">Uncle</option>
+                          <option value="sibling">Sibling</option>
+                          <option value="foster-parent">Foster Parent</option>
+                          <option value="other">Other</option>
+                        </select>
+                        <input type="text" class="form-input relationship-other-input" placeholder="Specify relationship..." style="display: none; margin-top: var(--space-2);" />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" placeholder="Enter email address" />
+                        <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">At least email or phone is required</span>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-input" placeholder="Enter phone number" />
+                      </div>
+                      <div class="form-group">
+                        <label class="checkbox-label">
+                          <input type="checkbox" />
+                          <span>Emergency Contact</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
+                    <div class="form-group" style="margin-bottom: var(--space-3);">
+                      <label class="checkbox-label">
+                        <input type="checkbox" id="addContactSameAddress" checked onchange="toggleAddContactAddress()" />
+                        <span>Same as primary contact</span>
+                      </label>
+                    </div>
+                    <div class="form-grid" id="addContactAddressFields" style="display: none;">
+                      <div class="form-group full-width">
+                        <label class="form-label">Street Address</label>
+                        <input type="text" class="form-input" placeholder="Enter street address" />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-input" placeholder="Enter city" />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">State</label>
+                        <select class="form-select">
+                          <option value="">Select state...</option>
+                          <option value="CA">California</option>
+                          <option value="NY">New York</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Zip Code</label>
+                        <input type="text" class="form-input" placeholder="Enter zip" />
+                      </div>
+                    </div>
+
+                    <div class="form-actions" style="margin-top: var(--space-4);">
+                      <button class="btn btn-secondary" onclick="cancelAddContact()">Cancel</button>
+                      <button class="btn btn-primary" onclick="saveNewContact()">Add Contact</button>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="siblings-section">
                   <div class="siblings-title">Other Students in Family</div>
@@ -2719,13 +2846,41 @@ She responds well to positive reinforcement and enjoys learning about the histor
         }
       }
 
-      // Add Contact Dialog
-      function showAddContactDialog() {
-        document.getElementById('addContactModal').classList.add('active');
+      // Add Contact Inline Panel
+      function toggleAddContactPanel() {
+        const panel = document.getElementById('addContactPanel');
+        const btn = document.getElementById('addContactBtn');
+        const isExpanded = panel.style.display !== 'none';
+
+        if (isExpanded) {
+          panel.style.display = 'none';
+          btn.querySelector('i').classList.remove('ph-minus');
+          btn.querySelector('i').classList.add('ph-plus');
+        } else {
+          panel.style.display = 'block';
+          btn.querySelector('i').classList.remove('ph-plus');
+          btn.querySelector('i').classList.add('ph-minus');
+          // Focus first input
+          panel.querySelector('input').focus();
+        }
       }
 
-      function hideAddContactDialog() {
-        document.getElementById('addContactModal').classList.remove('active');
+      function cancelAddContact() {
+        const panel = document.getElementById('addContactPanel');
+        const btn = document.getElementById('addContactBtn');
+        panel.style.display = 'none';
+        btn.querySelector('i').classList.remove('ph-minus');
+        btn.querySelector('i').classList.add('ph-plus');
+        // Clear form
+        panel.querySelectorAll('input').forEach(input => {
+          if (input.type === 'checkbox') {
+            input.checked = input.id === 'addContactSameAddress';
+          } else {
+            input.value = '';
+          }
+        });
+        panel.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+        document.getElementById('addContactAddressFields').style.display = 'none';
       }
 
       function toggleAddContactAddress() {
@@ -2739,7 +2894,7 @@ She responds well to positive reinforcement and enjoys learning about the histor
       }
 
       function saveNewContact() {
-        hideAddContactDialog();
+        cancelAddContact();
         alert('Contact added successfully!');
       }
     </script>
@@ -2759,95 +2914,5 @@ She responds well to positive reinforcement and enjoys learning about the histor
       </div>
     </div>
 
-    <!-- Add Contact Modal -->
-    <div class="modal-overlay" id="addContactModal">
-      <div class="modal modal--large">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-5);">
-          <h3 class="modal-title" style="margin: 0;">Add Contact</h3>
-          <button class="btn btn-ghost btn-icon" onclick="hideAddContactDialog()" title="Close">
-            <i class="ph ph-x"></i>
-          </button>
-        </div>
-
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">First Name <span class="required">*</span></label>
-            <input type="text" class="form-input" placeholder="Enter first name" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Last Name <span class="required">*</span></label>
-            <input type="text" class="form-input" placeholder="Enter last name" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Relationship</label>
-            <select class="form-select" onchange="handleRelationshipChange(this)">
-              <option value="">Select relationship...</option>
-              <option value="mother">Mother</option>
-              <option value="father">Father</option>
-              <option value="stepmother">Stepmother</option>
-              <option value="stepfather">Stepfather</option>
-              <option value="grandmother">Grandmother</option>
-              <option value="grandfather">Grandfather</option>
-              <option value="aunt">Aunt</option>
-              <option value="uncle">Uncle</option>
-              <option value="sibling">Sibling</option>
-              <option value="foster-parent">Foster Parent</option>
-              <option value="other">Other</option>
-            </select>
-            <input type="text" class="form-input relationship-other-input" placeholder="Specify relationship..." style="display: none; margin-top: var(--space-2);" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email <span class="required">*</span></label>
-            <input type="email" class="form-input" placeholder="Enter email address" />
-            <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">At least email or phone is required</span>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Phone</label>
-            <input type="tel" class="form-input" placeholder="Enter phone number" />
-          </div>
-          <div class="form-group">
-            <label class="checkbox-label">
-              <input type="checkbox" />
-              <span>Emergency Contact</span>
-            </label>
-          </div>
-        </div>
-
-        <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
-        <div class="form-group" style="margin-bottom: var(--space-3);">
-          <label class="checkbox-label">
-            <input type="checkbox" id="addContactSameAddress" checked onchange="toggleAddContactAddress()" />
-            <span>Same as primary contact</span>
-          </label>
-        </div>
-        <div class="form-grid" id="addContactAddressFields" style="display: none;">
-          <div class="form-group full-width">
-            <label class="form-label">Street Address</label>
-            <input type="text" class="form-input" placeholder="Enter street address" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">City</label>
-            <input type="text" class="form-input" placeholder="Enter city" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">State</label>
-            <select class="form-select">
-              <option value="">Select state...</option>
-              <option value="CA">California</option>
-              <option value="NY">New York</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Zip Code</label>
-            <input type="text" class="form-input" placeholder="Enter zip" />
-          </div>
-        </div>
-
-        <div class="modal-actions" style="margin-top: var(--space-5);">
-          <button class="btn btn-secondary" onclick="hideAddContactDialog()">Cancel</button>
-          <button class="btn btn-primary" onclick="saveNewContact()">Add Contact</button>
-        </div>
-      </div>
-    </div>
   </body>
 </html>
