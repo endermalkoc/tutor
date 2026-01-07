@@ -896,6 +896,126 @@
         resize: vertical;
       }
 
+      /* Switch / Toggle */
+      .switch {
+        position: relative;
+        width: 36px;
+        height: 20px;
+        background: var(--bg-muted);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 150ms ease;
+        flex-shrink: 0;
+      }
+
+      .switch::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        background: white;
+        border-radius: 50%;
+        transition: all 150ms ease;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .switch.active {
+        background: var(--accent);
+      }
+
+      .switch.active::after {
+        left: 18px;
+      }
+
+      .switch-wrapper {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+      }
+
+      .switch-label {
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      /* Tags input for edit mode */
+      .tags-input-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        padding: var(--space-2) var(--space-3);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius);
+        background: var(--bg-surface);
+        min-height: 36px;
+        align-items: center;
+        cursor: text;
+      }
+
+      .tags-input-wrapper:focus-within {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-subtle);
+      }
+
+      .tags-input-wrapper .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-1);
+      }
+
+      .tags-input-wrapper .tag-remove {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--text-muted);
+        font-size: 10px;
+        padding: 0;
+      }
+
+      .tags-input-wrapper .tag-remove:hover {
+        background: rgba(0,0,0,0.1);
+        color: var(--text-primary);
+      }
+
+      .tags-input-wrapper input {
+        border: none;
+        outline: none;
+        flex: 1;
+        min-width: 100px;
+        font-size: 13px;
+        background: transparent;
+      }
+
+      /* Notification preferences subsection */
+      .notification-prefs {
+        margin-top: var(--space-5);
+        padding-top: var(--space-5);
+        border-top: 1px solid var(--border);
+      }
+
+      .notification-prefs-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: var(--space-4);
+      }
+
+      .notification-prefs-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+
       .form-actions {
         display: flex;
         gap: var(--space-2);
@@ -1160,6 +1280,19 @@
                     <span class="data-value">Advanced</span>
                   </div>
                   <div class="data-item">
+                    <span class="data-label">Tags</span>
+                    <span class="data-value">
+                      <div class="tag-list">
+                        <span class="tag">Competition Ready</span>
+                        <span class="tag">Advanced Theory</span>
+                      </div>
+                    </span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Referrer</span>
+                    <span class="data-value">Maria Thompson</span>
+                  </div>
+                  <div class="data-item">
                     <span class="data-label">Student Since</span>
                     <span class="data-value">September 2021</span>
                   </div>
@@ -1170,6 +1303,21 @@
                   <div class="data-item">
                     <span class="data-label">Default Duration</span>
                     <span class="data-value">30 minutes</span>
+                  </div>
+                </div>
+
+                <!-- Notification Preferences -->
+                <div class="notification-prefs">
+                  <div class="notification-prefs-title">Lesson Reminders</div>
+                  <div class="notification-prefs-list">
+                    <div class="switch-wrapper">
+                      <div class="switch active" onclick="this.classList.toggle('active')"></div>
+                      <span class="switch-label">Send email lesson reminders</span>
+                    </div>
+                    <div class="switch-wrapper">
+                      <div class="switch active" onclick="this.classList.toggle('active')"></div>
+                      <span class="switch-label">Send SMS lesson reminders</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1228,12 +1376,36 @@
                     <input type="text" class="form-input" value="Lincoln Middle School" />
                   </div>
                   <div class="form-group">
+                    <label class="form-label">Subjects</label>
+                    <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
+                      <span class="tag">Piano<button class="tag-remove" type="button">&times;</button></span>
+                      <span class="tag">Music Theory<button class="tag-remove" type="button">&times;</button></span>
+                      <input type="text" placeholder="Add subject..." />
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label class="form-label">Skill Level</label>
                     <select class="form-select">
                       <option value="beginner">Beginner</option>
                       <option value="intermediate">Intermediate</option>
                       <option value="advanced" selected>Advanced</option>
                     </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Tags</label>
+                    <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
+                      <span class="tag">Competition Ready<button class="tag-remove" type="button">&times;</button></span>
+                      <span class="tag">Advanced Theory<button class="tag-remove" type="button">&times;</button></span>
+                      <input type="text" placeholder="Add tag..." />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Referrer</label>
+                    <input type="text" class="form-input" value="Maria Thompson" placeholder="Type to search..." />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Student Since</label>
+                    <input type="month" class="form-input" value="2021-09" />
                   </div>
                   <div class="form-group">
                     <label class="form-label">Lesson Category</label>
@@ -1252,6 +1424,22 @@
                     </select>
                   </div>
                 </div>
+
+                <!-- Notification Preferences (Edit Mode) -->
+                <div class="notification-prefs">
+                  <div class="notification-prefs-title">Lesson Reminders</div>
+                  <div class="notification-prefs-list">
+                    <div class="switch-wrapper">
+                      <div class="switch active" onclick="this.classList.toggle('active')"></div>
+                      <span class="switch-label">Send email lesson reminders</span>
+                    </div>
+                    <div class="switch-wrapper">
+                      <div class="switch active" onclick="this.classList.toggle('active')"></div>
+                      <span class="switch-label">Send SMS lesson reminders</span>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="form-actions">
                   <button class="btn btn-secondary" onclick="cancelEdit('studentInfoSection')">Cancel</button>
                   <button class="btn btn-primary" onclick="saveEdit('studentInfoSection')">Save Changes</button>

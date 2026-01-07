@@ -64,10 +64,18 @@ Displays all student details captured during [Add Student](../add-student.md) fl
 | School | Text |
 | Subjects | Comma-separated list or tags |
 | Skill Level | Text |
+| Tags | Tag badges (clickable, editable inline) |
 | Skype Username | Text with copy button |
 | FaceTime ID | Text with copy button |
 | Referrer | Text |
 | Student Since | Formatted date |
+
+**Notification Preferences (Always Displayed)**
+
+| Field | Display Format |
+|-------|----------------|
+| Email Lesson Reminders | Toggle switch (On/Off) |
+| SMS Lesson Reminders | Toggle switch (On/Off) - only shown if phone provided |
 
 **Lesson Settings (Always Displayed)**
 
@@ -101,12 +109,15 @@ When user clicks "Edit":
 | School | Autocomplete text | Optional |
 | Subjects | Multi-select autocomplete | Optional |
 | Skill Level | Select | Optional |
+| Tags | Multi-select autocomplete | Optional, create new tags inline |
 | Skype Username | Text input | Optional |
 | FaceTime ID | Text input | Optional |
 | Referrer | Autocomplete text | Optional |
 | Student Since | Date picker | Optional |
 | Lesson Category | Select | Required |
 | Default Duration | Select or custom input | Required, positive number |
+| Email Lesson Reminders | Toggle switch | Default on |
+| SMS Lesson Reminders | Toggle switch | Default on, only shown if phone provided |
 
 ---
 
