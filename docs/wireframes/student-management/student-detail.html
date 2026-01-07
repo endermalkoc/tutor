@@ -1315,6 +1315,15 @@
                       <span class="data-label">Status</span>
                       <span class="data-value"><span class="badge badge-active">Active</span></span>
                     </div>
+                    <div class="data-item">
+                      <span class="data-label">Tags</span>
+                      <span class="data-value">
+                        <div class="tag-list">
+                          <span class="tag">Competition Ready</span>
+                          <span class="tag">Advanced Theory</span>
+                        </div>
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -1347,9 +1356,9 @@
                   </div>
                 </div>
 
-                <!-- Lesson Settings -->
+                <!-- Lessons -->
                 <div class="form-subsection">
-                  <div class="form-subsection-title">Lesson Settings</div>
+                  <div class="form-subsection-title">Lessons</div>
                   <div class="data-grid">
                     <div class="data-item">
                       <span class="data-label">Lesson Category</span>
@@ -1359,13 +1368,6 @@
                       <span class="data-label">Default Duration</span>
                       <span class="data-value">30 minutes</span>
                     </div>
-                  </div>
-                </div>
-
-                <!-- Learning Profile -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Learning Profile</div>
-                  <div class="data-grid">
                     <div class="data-item">
                       <span class="data-label">Subjects</span>
                       <span class="data-value">
@@ -1378,15 +1380,6 @@
                     <div class="data-item">
                       <span class="data-label">Skill Level</span>
                       <span class="data-value">Advanced</span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Tags</span>
-                      <span class="data-value">
-                        <div class="tag-list">
-                          <span class="tag">Competition Ready</span>
-                          <span class="tag">Advanced Theory</span>
-                        </div>
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -1407,13 +1400,6 @@
                       <span class="data-label">School</span>
                       <span class="data-value">Lincoln Middle School</span>
                     </div>
-                  </div>
-                </div>
-
-                <!-- Additional Info -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Additional Info</div>
-                  <div class="data-grid">
                     <div class="data-item">
                       <span class="data-label">Referrer</span>
                       <span class="data-value">Maria Thompson</span>
@@ -1457,6 +1443,14 @@
                         <option value="inactive">Inactive</option>
                       </select>
                     </div>
+                    <div class="form-group">
+                      <label class="form-label">Tags</label>
+                      <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
+                        <span class="tag">Competition Ready<button class="tag-remove" type="button">&times;</button></span>
+                        <span class="tag">Advanced Theory<button class="tag-remove" type="button">&times;</button></span>
+                        <input type="text" placeholder="Add tag..." />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -1492,9 +1486,9 @@
                   </div>
                 </div>
 
-                <!-- Lesson Settings -->
+                <!-- Lessons -->
                 <div class="form-subsection">
-                  <div class="form-subsection-title">Lesson Settings</div>
+                  <div class="form-subsection-title">Lessons</div>
                   <div class="form-grid">
                     <div class="form-group">
                       <label class="form-label">Lesson Category</label>
@@ -1512,13 +1506,6 @@
                         <option value="90">90 minutes</option>
                       </select>
                     </div>
-                  </div>
-                </div>
-
-                <!-- Learning Profile -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Learning Profile</div>
-                  <div class="form-grid">
                     <div class="form-group">
                       <label class="form-label">Subjects</label>
                       <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
@@ -1534,14 +1521,6 @@
                         <option value="intermediate">Intermediate</option>
                         <option value="advanced" selected>Advanced</option>
                       </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Tags</label>
-                      <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
-                        <span class="tag">Competition Ready<button class="tag-remove" type="button">&times;</button></span>
-                        <span class="tag">Advanced Theory<button class="tag-remove" type="button">&times;</button></span>
-                        <input type="text" placeholder="Add tag..." />
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -1567,13 +1546,6 @@
                       <label class="form-label">School</label>
                       <input type="text" class="form-input" value="Lincoln Middle School" />
                     </div>
-                  </div>
-                </div>
-
-                <!-- Additional Info -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Additional Info</div>
-                  <div class="form-grid">
                     <div class="form-group">
                       <label class="form-label">Referrer</label>
                       <input type="text" class="form-input" value="Maria Thompson" placeholder="Type to search..." />

@@ -54,6 +54,7 @@ Fields are organized into logical subsections with visual dividers.
 | Last Name | Text |
 | Student Type | Badge: "Child" or "Adult" |
 | Status | Colored badge: Active (green), Trial (blue), Waiting (amber), Lead (gray), Inactive (gray) |
+| Tags | Tag badges (clickable, editable inline) |
 
 **Contact & Notifications**
 
@@ -65,20 +66,14 @@ Fields are organized into logical subsections with visual dividers.
 | Email Lesson Reminders | Toggle switch (On/Off) |
 | SMS Lesson Reminders | Toggle switch (On/Off) - only shown if phone provided |
 
-**Lesson Settings**
+**Lessons**
 
 | Field | Display Format |
 |-------|----------------|
 | Lesson Category | "Individual" or "Group" |
 | Default Duration | e.g., "30 minutes", "45 minutes", "60 minutes" |
-
-**Learning Profile** (Displayed if Populated)
-
-| Field | Display Format |
-|-------|----------------|
 | Subjects | Tag badges |
 | Skill Level | Text |
-| Tags | Tag badges (clickable, editable inline) |
 
 **Personal Details** (Displayed if Populated)
 
@@ -87,11 +82,6 @@ Fields are organized into logical subsections with visual dividers.
 | Gender | Text |
 | Birthday | Formatted date (e.g., "January 15, 2015") with calculated age |
 | School | Text |
-
-**Additional Info** (Displayed if Populated)
-
-| Field | Display Format |
-|-------|----------------|
 | Referrer | Text |
 | Student Since | Formatted date |
 
@@ -116,6 +106,7 @@ Fields are organized into the same subsections as view mode.
 | Last Name | Text input | Required |
 | Student Type | Select (Child/Adult) | Required. Changing from Child to Adult removes family association |
 | Status | Select | Required |
+| Tags | Multi-select autocomplete | Optional, create new tags inline |
 
 **Contact & Notifications**
 
@@ -127,20 +118,14 @@ Fields are organized into the same subsections as view mode.
 | Email Lesson Reminders | Toggle switch | Default on |
 | SMS Lesson Reminders | Toggle switch | Default on, only shown if phone provided |
 
-**Lesson Settings**
+**Lessons**
 
 | Field | Input Type | Validation |
 |-------|------------|------------|
 | Lesson Category | Select | Required |
 | Default Duration | Select or custom input | Required, positive number |
-
-**Learning Profile**
-
-| Field | Input Type | Validation |
-|-------|------------|------------|
 | Subjects | Multi-select autocomplete | Optional |
 | Skill Level | Select | Optional |
-| Tags | Multi-select autocomplete | Optional, create new tags inline |
 
 **Personal Details**
 
@@ -149,11 +134,6 @@ Fields are organized into the same subsections as view mode.
 | Gender | Select | Optional |
 | Birthday | Date picker | Optional, must be in past |
 | School | Autocomplete text | Optional |
-
-**Additional Info**
-
-| Field | Input Type | Validation |
-|-------|------------|------------|
 | Referrer | Autocomplete text | Optional |
 | Student Since | Date picker | Optional |
 
