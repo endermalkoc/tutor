@@ -606,40 +606,6 @@
         max-width: 1200px;
       }
 
-      /* Important Info Alert */
-      .important-alert {
-        display: flex;
-        align-items: flex-start;
-        gap: var(--space-3);
-        padding: var(--space-4);
-        background: var(--info-50);
-        border: 1px solid var(--info-600);
-        border-radius: var(--radius-lg);
-        margin-bottom: var(--space-6);
-      }
-
-      .important-alert-icon {
-        color: var(--info-600);
-        font-size: 20px;
-        flex-shrink: 0;
-      }
-
-      .important-alert-content {
-        flex: 1;
-      }
-
-      .important-alert-title {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--info-600);
-        margin-bottom: var(--space-1);
-      }
-
-      .important-alert-text {
-        font-size: 13px;
-        color: var(--fg-secondary);
-      }
-
       /* Pre-Lesson Context */
       .prelesson-card {
         background: var(--primary-50);
@@ -1579,15 +1545,6 @@
 
         <!-- Tab Content: Overview -->
         <div class="tab-content">
-          <!-- Important Info Alert -->
-          <div class="important-alert">
-            <i class="ph ph-info important-alert-icon"></i>
-            <div class="important-alert-content">
-              <div class="important-alert-title">Important Information</div>
-              <div class="important-alert-text">SAT test this Saturday | Prefers visual learning methods</div>
-            </div>
-          </div>
-
           <!-- Pre-Lesson Context -->
           <div class="prelesson-card">
             <div class="prelesson-header">
@@ -2260,8 +2217,10 @@ She responds well to positive reinforcement and enjoys learning about the histor
       }
 
       function editStudent() {
-        toggleEdit('personalDetailsSection');
         document.getElementById('actionsMenu').classList.remove('active');
+        toggleEdit('personalDetailsSection');
+        // Scroll to the section
+        document.getElementById('personalDetailsSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     </script>
   </body>

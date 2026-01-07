@@ -22,11 +22,6 @@ The Overview tab serves as the **relationship portal** for a student, helping tu
 │ │ Avatar | Name | Badges | Next Lesson | Contact | Family     │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
-│ IMPORTANT INFO ALERT (if any)                                   │
-│ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Learning accommodations, special notes, urgent reminders    │ │
-│ └─────────────────────────────────────────────────────────────┘ │
-├─────────────────────────────────────────────────────────────────┤
 │ PRE-LESSON CONTEXT                                   [Collapse] │
 │ ┌─────────────────────────────────────────────────────────────┐ │
 │ │ Last lesson recap | Homework status | Today's focus         │ │
@@ -98,34 +93,6 @@ The header provides identity and key context, remaining visible while scrolling.
 |--------|------|----------|
 | Schedule Lesson | Primary button | Opens lesson scheduling flow |
 | More Actions | Icon button with dropdown | Edit Student, Change Status, Send Message, Archive, Delete |
-
----
-
-## Important Info Alert
-
-**Displayed only when important information exists.** This section surfaces critical context that should not be missed.
-
-### Trigger Conditions
-
-Display alert when any of the following exist:
-- Learning accommodations or special needs noted
-- Important reminders flagged by tutor
-- Upcoming milestone (test, recital, deadline within 7 days)
-- Communication note from parent in last 7 days
-
-### Display Format
-
-| Element | Description |
-|---------|-------------|
-| Icon | Warning/info icon based on severity |
-| Content | Brief text summary of important items |
-| Action | "View Details" expands to full note |
-
-### Examples
-
-- "Learning accommodation: Extra time on tests | Prefers visual learning"
-- "Reminder: SAT test this Saturday"
-- "Parent note: Will be traveling next week"
 
 ---
 

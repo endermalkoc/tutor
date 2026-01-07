@@ -594,11 +594,12 @@
       .student-name {
         font-weight: 500;
         color: var(--text-primary);
+        text-decoration: none;
+        display: block;
       }
 
       .student-name:hover {
         color: var(--accent);
-        cursor: pointer;
       }
 
       /* Status badges - minimal, typography-driven */
@@ -791,6 +792,12 @@
         font-weight: 500;
         color: var(--text-primary);
         margin-bottom: var(--space-1);
+        text-decoration: none;
+        display: block;
+      }
+
+      .card-name:hover {
+        color: var(--accent);
       }
 
       .card-details {
@@ -1253,7 +1260,7 @@
                       onchange="updateBulkActions()"
                     />
                   </td>
-                  <td><span class="student-name">Emily Chen</span></td>
+                  <td><a href="student-detail.html" class="student-name">Emily Chen</a></td>
                   <td class="col-status">
                     <span class="status-badge status-active">Active</span>
                   </td>
@@ -1286,7 +1293,7 @@
                       onchange="updateBulkActions()"
                     />
                   </td>
-                  <td><span class="student-name">Marcus Williams</span></td>
+                  <td><a href="student-detail.html" class="student-name">Marcus Williams</a></td>
                   <td class="col-status">
                     <span class="status-badge status-trial">Trial</span>
                   </td>
@@ -1317,7 +1324,7 @@
                       onchange="updateBulkActions()"
                     />
                   </td>
-                  <td><span class="student-name">Sophie Martinez</span></td>
+                  <td><a href="student-detail.html" class="student-name">Sophie Martinez</a></td>
                   <td class="col-status">
                     <span class="status-badge status-active">Active</span>
                   </td>
@@ -1348,7 +1355,7 @@
                       onchange="updateBulkActions()"
                     />
                   </td>
-                  <td><span class="student-name">Alex Thompson</span></td>
+                  <td><a href="student-detail.html" class="student-name">Alex Thompson</a></td>
                   <td class="col-status">
                     <span class="status-badge status-waiting">Waiting</span>
                   </td>
@@ -1379,7 +1386,7 @@
                       onchange="updateBulkActions()"
                     />
                   </td>
-                  <td><span class="student-name">Ada Malkoc</span></td>
+                  <td><a href="student-detail.html" class="student-name">Ada Malkoc</a></td>
                   <td class="col-status">
                     <span class="status-badge status-active">Active</span>
                   </td>
@@ -1412,7 +1419,7 @@
                       onchange="updateBulkActions()"
                     />
                   </td>
-                  <td><span class="student-name">James Lee</span></td>
+                  <td><a href="student-detail.html" class="student-name">James Lee</a></td>
                   <td class="col-status">
                     <span class="status-badge status-lead">Lead</span>
                   </td>
@@ -1442,7 +1449,7 @@
                       onchange="updateBulkActions()"
                     />
                   </td>
-                  <td><span class="student-name">Olivia Brown</span></td>
+                  <td><a href="student-detail.html" class="student-name">Olivia Brown</a></td>
                   <td class="col-status">
                     <span class="status-badge status-active">Active</span>
                   </td>
@@ -1473,7 +1480,7 @@
                       onchange="updateBulkActions()"
                     />
                   </td>
-                  <td><span class="student-name">Ethan Davis</span></td>
+                  <td><a href="student-detail.html" class="student-name">Ethan Davis</a></td>
                   <td class="col-status">
                     <span class="status-badge status-inactive">Inactive</span>
                   </td>
@@ -1505,7 +1512,7 @@
             <div class="student-card" data-student-id="1">
               <div class="card-header">
                 <div>
-                  <div class="card-name">Emily Chen</div>
+                  <a href="student-detail.html" class="card-name">Emily Chen</a>
                   <span class="status-badge status-active">Active</span>
                 </div>
                 <input
@@ -1533,7 +1540,7 @@
             <div class="student-card" data-student-id="2">
               <div class="card-header">
                 <div>
-                  <div class="card-name">Marcus Williams</div>
+                  <a href="student-detail.html" class="card-name">Marcus Williams</a>
                   <span class="status-badge status-trial">Trial</span>
                 </div>
                 <input
