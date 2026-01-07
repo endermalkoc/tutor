@@ -206,13 +206,6 @@ For Adult students, this section is hidden.
 
 ### View Mode
 
-**Family Header**
-
-| Element | Description |
-|---------|-------------|
-| Family Name | e.g., "Chen Family" - displayed prominently at top of section |
-| Created | Date family was created (e.g., "Created Jan 2024") |
-
 **Primary Contact**
 
 Primary contact is visually distinguished with a left border accent (primary color).
@@ -273,10 +266,34 @@ Primary contact is visually distinguished with a left border accent (primary col
 
 | Action | Description | Availability |
 |--------|-------------|--------------|
-| Add Contact | Opens inline form to add another contact | Always available |
+| Add Contact | Opens Add Contact dialog | Always available |
 | Delete Contact | Opens confirmation dialog before removing contact | Only for non-primary contacts |
 | Set as Primary | Promotes contact to primary (current primary becomes regular contact) | Only for non-primary contacts |
 | Mark as Emergency | Toggles emergency contact status | All contacts |
+
+### Add Contact Dialog
+
+Modal dialog for adding a new contact to the family.
+
+**Fields:**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| First Name | Text input | Required |
+| Last Name | Text input | Required |
+| Relationship | Select + Text | Optional - includes "Other" with custom text input |
+| Email | Email input | At least email or phone required |
+| Phone | Tel input | At least email or phone required |
+| Emergency Contact | Checkbox | Optional |
+| Same as Primary | Checkbox | Default checked; unchecking reveals address fields |
+| Street | Text input | Optional (hidden when "Same as Primary" checked) |
+| City | Text input | Optional |
+| State | Combobox | Optional |
+| Zip | Text input | Optional |
+
+**Actions:**
+- Cancel: Closes dialog without saving
+- Add Contact: Validates and saves new contact, closes dialog
 
 ### Delete Confirmation
 
