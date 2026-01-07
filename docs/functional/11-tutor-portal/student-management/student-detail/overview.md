@@ -2,113 +2,214 @@
 
 ## Purpose
 
-The Overview tab serves as the dashboard for a student, displaying key information at a glance: student details, family information, billing summary, and recent lesson activity.
+The Overview tab serves as the **relationship portal** for a student, helping tutors prepare for lessons and understand their teaching relationship at a glance. It prioritizes actionable information (next lesson, recent context) over administrative data (billing, personal details).
+
+## Design Principles
+
+1. **Relationship over records** - Present information as a teaching relationship, not a database entry
+2. **Future-focused** - Lead with what's next (upcoming lesson), not just what was
+3. **Contextual surfacing** - Show relevant notes and reminders before lessons
+4. **Progressive disclosure** - Primary info visible, secondary info collapsible
+
+---
 
 ## Layout
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ STUDENT INFORMATION                                    [Edit]   │
+│ STUDENT HEADER (Sticky)                                         │
 │ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Core fields + optional fields (if populated)                │ │
+│ │ Avatar | Name | Badges | Next Lesson | Contact | Family     │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
-│ FAMILY                                                 [Edit]   │
-│ (Only displayed for Child student type)                         │
+│ IMPORTANT INFO ALERT (if any)                                   │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ Learning accommodations, special notes, urgent reminders    │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+├─────────────────────────────────────────────────────────────────┤
+│ PRE-LESSON CONTEXT                                   [Collapse] │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ Last lesson recap | Homework status | Today's focus         │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+├─────────────────────────────────────────────────────────────────┤
+│ LESSON SETTINGS (Primary)                               [Edit]  │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ Subjects, duration, category, skill level                   │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+├─────────────────────────────────────────────────────────────────┤
+│ CONTACT & NOTIFICATIONS (Secondary)                     [Edit]  │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ Email, phone, notification preferences                      │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+├─────────────────────────────────────────────────────────────────┤
+│ FAMILY (Secondary, Child only)                          [Edit]  │
 │ ┌─────────────────────────────────────────────────────────────┐ │
 │ │ Guardian info + Address + Siblings                          │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
-│ BILLING SUMMARY                                                 │
+│ NOTES                                            [+ Quick Add]  │
 │ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Billing method, rate, account balance                       │ │
+│ │ Private tutor notes with inline add                         │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
-│ RECENT LESSONS                                      [View All]  │
+│ BILLING SUMMARY (Collapsed by default)               [Expand]   │
 │ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Last 5 lessons with date, duration, status                  │ │
+│ │ Compact: Rate + Balance | Expanded: Full details            │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
-│ NOTES                                                  [Edit]   │
+│ PERSONAL DETAILS (Collapsed by default)              [Expand]   │
 │ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Private tutor notes                                         │ │
+│ │ Birthday, school, referrer, student since                   │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Section 1: Student Information
+## Student Header (Sticky)
 
-Displays all student details captured during [Add Student](../add-student.md) flow.
+The header provides identity and key context, remaining visible while scrolling.
+
+### Display Elements
+
+| Element | Description |
+|---------|-------------|
+| Avatar | Initials with colored background based on name |
+| Full Name | Student's first and last name (prominent) |
+| Student Type Badge | "Child" or "Adult" |
+| Status Badge | Active (green), Trial (indigo), Waiting (amber), Lead (cyan), Inactive (gray) |
+| Next Lesson | Date/time of upcoming scheduled lesson, or "No upcoming lessons" |
+| Relationship Duration | "Teaching since Sep 2024 (4 months)" |
+| Contact Icons | Email and phone quick-access icons |
+| Family Link | For children: "Parent: [Guardian Name]" with link to family |
+
+### Next Lesson Display
+
+| State | Display |
+|-------|---------|
+| Lesson today | "Today at 3:00 PM" (highlighted) |
+| Lesson this week | "Tomorrow at 3:00 PM" or "Friday at 3:00 PM" |
+| Lesson scheduled | "Jan 15 at 3:00 PM" |
+| No lessons | "No upcoming lessons" with "Schedule" action |
+
+### Header Actions
+
+| Action | Type | Behavior |
+|--------|------|----------|
+| Schedule Lesson | Primary button | Opens lesson scheduling flow |
+| More Actions | Icon button with dropdown | Edit Student, Change Status, Send Message, Archive, Delete |
+
+---
+
+## Important Info Alert
+
+**Displayed only when important information exists.** This section surfaces critical context that should not be missed.
+
+### Trigger Conditions
+
+Display alert when any of the following exist:
+- Learning accommodations or special needs noted
+- Important reminders flagged by tutor
+- Upcoming milestone (test, recital, deadline within 7 days)
+- Communication note from parent in last 7 days
+
+### Display Format
+
+| Element | Description |
+|---------|-------------|
+| Icon | Warning/info icon based on severity |
+| Content | Brief text summary of important items |
+| Action | "View Details" expands to full note |
+
+### Examples
+
+- "Learning accommodation: Extra time on tests | Prefers visual learning"
+- "Reminder: SAT test this Saturday"
+- "Parent note: Will be traveling next week"
+
+---
+
+## Pre-Lesson Context
+
+Helps tutors prepare for upcoming lessons by surfacing relevant recent context.
+
+### Display Conditions
+
+- **Expanded by default** when next lesson is within 48 hours
+- **Collapsed** when no lesson scheduled within 48 hours
+- **Hidden** when no lessons have occurred yet
+
+### Content
+
+| Field | Description |
+|-------|-------------|
+| Last Lesson Summary | Date, topics covered, brief outcome |
+| Homework Status | Assigned items and completion status if tracked |
+| Recent Notes | Most recent tutor note (truncated) |
+| Suggested Focus | AI-suggested or manually set focus for next lesson |
+
+### Actions
+
+| Action | Behavior |
+|--------|----------|
+| View Full Lesson History | Switches to Lessons tab |
+| Add Lesson Note | Opens quick note input |
+
+### Empty State
+
+If no previous lessons:
+- Message: "First lesson coming up!"
+- Prompt: "Add notes about what you'd like to cover"
+
+---
+
+## Lesson Settings (Primary Section)
+
+Core lesson configuration used frequently by tutors.
 
 ### View Mode
 
-Fields are organized into logical subsections with visual dividers.
-
-**Basic Information**
-
 | Field | Display Format |
 |-------|----------------|
-| First Name | Text |
-| Last Name | Text |
-| Student Type | Badge: "Child" or "Adult" |
-| Status | Colored badge: Active (green), Trial (blue), Waiting (amber), Lead (gray), Inactive (gray) |
-| Tags | Tag badges (clickable, editable inline) |
+| Subjects | Subject tag badges (visually distinct from custom tags) |
+| Default Duration | e.g., "30 minutes", "45 minutes", "60 minutes" |
+| Lesson Category | "Individual" or "Group" |
+| Skill Level | Text with optional progress indicator |
+| Tags | Custom tag badges (outlined style, distinct from subjects) |
 
-**Contact & Notifications**
+### Tag Differentiation
+
+- **Subject tags**: Filled background with primary color family
+- **Custom tags**: Outlined/bordered style with neutral color
+
+### Edit Mode
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| Subjects | Multi-select autocomplete | Optional |
+| Default Duration | Select or custom input | Required, positive number |
+| Lesson Category | Select | Required |
+| Skill Level | Select | Optional |
+| Tags | Multi-select autocomplete | Optional, create new inline |
+
+---
+
+## Contact & Notifications (Secondary Section)
+
+Communication preferences and contact information.
+
+### View Mode
 
 | Field | Display Format |
 |-------|----------------|
 | Email | Mailto link (or "Not provided") |
 | Phone | Tel link (or "Not provided") |
 | SMS Capable | "Yes" or "No" (only shown if phone provided) |
+| Last Contacted | "3 days ago" or "Never" |
 | Email Lesson Reminders | Toggle switch (On/Off) |
 | SMS Lesson Reminders | Toggle switch (On/Off) - only shown if phone provided |
 
-**Lessons**
-
-| Field | Display Format |
-|-------|----------------|
-| Lesson Category | "Individual" or "Group" |
-| Default Duration | e.g., "30 minutes", "45 minutes", "60 minutes" |
-| Subjects | Tag badges |
-| Skill Level | Text |
-
-**Personal Details** (Displayed if Populated)
-
-| Field | Display Format |
-|-------|----------------|
-| Gender | Text |
-| Birthday | Formatted date (e.g., "January 15, 2015") with calculated age |
-| School | Text |
-| Referrer | Text |
-| Student Since | Formatted date |
-
 ### Edit Mode
-
-When user clicks "Edit":
-
-- Section expands to show all fields (including empty optional fields)
-- Fields become editable inputs matching [Add Student](../add-student.md) field types
-- "Save" and "Cancel" buttons appear in section header
-- Same validation rules as Add Student apply
-
-### Edit Fields
-
-Fields are organized into the same subsections as view mode.
-
-**Basic Information**
-
-| Field | Input Type | Validation |
-|-------|------------|------------|
-| First Name | Text input | Required |
-| Last Name | Text input | Required |
-| Student Type | Select (Child/Adult) | Required. Changing from Child to Adult removes family association |
-| Status | Select | Required |
-| Tags | Multi-select autocomplete | Optional, create new tags inline |
-
-**Contact & Notifications**
 
 | Field | Input Type | Validation |
 |-------|------------|------------|
@@ -118,28 +219,9 @@ Fields are organized into the same subsections as view mode.
 | Email Lesson Reminders | Toggle switch | Default on |
 | SMS Lesson Reminders | Toggle switch | Default on, only shown if phone provided |
 
-**Lessons**
-
-| Field | Input Type | Validation |
-|-------|------------|------------|
-| Lesson Category | Select | Required |
-| Default Duration | Select or custom input | Required, positive number |
-| Subjects | Multi-select autocomplete | Optional |
-| Skill Level | Select | Optional |
-
-**Personal Details**
-
-| Field | Input Type | Validation |
-|-------|------------|------------|
-| Gender | Select | Optional |
-| Birthday | Date picker | Optional, must be in past |
-| School | Autocomplete text | Optional |
-| Referrer | Autocomplete text | Optional |
-| Student Since | Date picker | Optional |
-
 ---
 
-## Section 2: Family
+## Family (Secondary Section)
 
 **Only displayed when Student Type = Child**
 
@@ -159,9 +241,10 @@ For Adult students, this section is hidden.
 | Field | Display Format |
 |-------|----------------|
 | Name | Full name |
-| Relationship | e.g., "Mother", "Father", "Guardian" (if captured) |
+| Relationship | e.g., "Mother", "Father", "Guardian" |
 | Email | Mailto link (or "Not provided") |
 | Phone | Tel link with SMS icon if capable |
+| Contact Actions | Quick action buttons: Call, Email, Message |
 
 **Additional Guardians** (if any)
 
@@ -172,9 +255,6 @@ For Adult students, this section is hidden.
 
 | Field | Display Format |
 |-------|----------------|
-| Street | Text |
-| City | Text |
-| State | Text |
 | Full Address | Combined, formatted address |
 
 **Siblings** (if any)
@@ -184,15 +264,6 @@ For Adult students, this section is hidden.
 - Clicking sibling name navigates to their detail page
 
 ### Edit Mode
-
-When user clicks "Edit":
-
-- Guardian fields become editable
-- Address fields become editable
-- Cannot change family assignment here (must create new family or reassign)
-- Cannot edit siblings from this view (navigate to their detail page)
-
-**Editable Fields**
 
 | Field | Input Type | Validation |
 |-------|------------|------------|
@@ -205,36 +276,72 @@ When user clicks "Edit":
 | City | Text input | Optional |
 | State | Combobox (US) or text input | Optional |
 
-**Family Actions**
+### Family Actions
 
 | Action | Description |
 |--------|-------------|
-| Change Family | Opens family selection to reassign student to different family |
-| Add Guardian | Opens form to add another guardian to this family |
+| Change Family | Opens family selection to reassign student |
+| Add Guardian | Opens form to add another guardian |
 
 ---
 
-## Section 3: Billing Summary
+## Notes
 
-Displays current billing configuration and account status. Read-only in Overview; edit in dedicated billing settings.
+Private tutor notes about the student. Not visible to students or families.
 
-### Display Fields
+### View Mode
+
+| Element | Description |
+|---------|-------------|
+| Note Content | Formatted note text, supports markdown |
+| Last Updated | "Last updated: [date]" |
+| Quick Add | Inline input field always visible at top |
+
+### Quick Add Feature
+
+- Text input with placeholder: "Add a quick note..."
+- Submit on Enter or click "Add" button
+- New notes prepend to existing content with timestamp
+
+### Empty State
+
+- Message: "No notes yet"
+- Prompt: "Add notes about learning style, goals, or important context"
+
+### Edit Mode (Full)
+
+- Textarea input for editing all notes
+- Auto-save or explicit save button
+- Character limit indicator (if any)
+
+---
+
+## Billing Summary (Collapsed by Default)
+
+Displays billing overview with minimal visual weight. Expands on demand.
+
+### Collapsed View (Default)
+
+Single line summary:
+- "$50/lesson | Balance: $150 credit"
+- Link: "View details"
+
+### Expanded View
 
 | Field | Display Format |
 |-------|----------------|
 | Billing Method | "Per Lesson", "Monthly Flat Rate", "Hourly Rate", or "Manual Invoicing" |
-| Rate | Formatted currency (e.g., "$50.00 per lesson", "$200.00 per month") |
+| Rate | Formatted currency (e.g., "$50.00 per lesson") |
 | Auto-Invoicing | "Enabled" with schedule summary, or "Disabled" |
 | Account Balance | Formatted currency with positive/negative indicator |
-| Outstanding Invoices | Count of unpaid invoices with total amount |
+| Outstanding Invoices | Count of unpaid invoices with total amount (linked to Invoices tab) |
 
 ### Actions
 
 | Action | Behavior |
 |--------|----------|
 | View Invoices | Switches to Invoices tab |
-| View Transactions | Switches to Transactions tab |
-| Edit Billing Settings | Opens billing settings modal or navigates to billing configuration |
+| Edit Billing Settings | Opens billing settings modal |
 
 ### Family Notice
 
@@ -243,50 +350,79 @@ For families with multiple students:
 
 ---
 
-## Section 4: Recent Lessons
+## Personal Details (Collapsed by Default)
 
-Shows the last 5 lessons for quick reference.
+Optional student information that is less frequently accessed.
 
-### Display Per Lesson
+### Collapsed View (Default)
+
+Single line summary if data exists:
+- "Female, 14 years old, Lincoln Middle School"
+- Or: "No personal details" with "Add" link
+
+### Expanded View
 
 | Field | Display Format |
 |-------|----------------|
-| Date | Formatted date (e.g., "Mon, Jan 6, 2025") |
-| Time | Formatted time range (e.g., "3:00 PM - 3:30 PM") |
-| Duration | e.g., "30 min" |
-| Status | Badge: Attended (green), Cancelled (red), No-show (amber), Scheduled (blue) |
-| Notes Preview | Truncated first line of lesson notes (if any) |
-
-### Empty State
-
-If no lessons exist:
-- Message: "No lessons recorded yet"
-- Action: "Schedule First Lesson" button
-
-### Actions
-
-| Action | Behavior |
-|--------|----------|
-| View All | Switches to Lessons tab |
-| Click Lesson Row | Opens lesson detail (if applicable) |
-
----
-
-## Section 5: Notes
-
-Private tutor notes about the student. Not visible to students or families.
-
-### View Mode
-
-- Display formatted note text
-- Show "Last updated: [date]" if notes exist
-- Show "No notes" placeholder if empty
+| First Name | Text |
+| Last Name | Text |
+| Student Type | Badge: "Child" or "Adult" |
+| Status | Colored status badge |
+| Gender | Text |
+| Birthday | Formatted date with calculated age |
+| School | Text |
+| Referrer | Text |
+| Student Since | Formatted date |
 
 ### Edit Mode
 
-- Textarea input
-- Auto-save or explicit save button
-- Character limit indicator (if any)
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| First Name | Text input | Required |
+| Last Name | Text input | Required |
+| Student Type | Select (Child/Adult) | Required |
+| Status | Select | Required |
+| Gender | Select | Optional |
+| Birthday | Date picker | Optional, must be in past |
+| School | Autocomplete text | Optional |
+| Referrer | Autocomplete text | Optional |
+| Student Since | Date picker | Optional |
+
+---
+
+## Progress Indicators (Future Enhancement)
+
+Visual indicators of student trajectory and goal completion.
+
+### Planned Elements
+
+| Element | Description |
+|---------|-------------|
+| Trend Indicator | Arrow showing improvement/stable/declining |
+| Session Streak | "6 consecutive weekly sessions" |
+| Goal Progress | Progress bar for defined learning goals |
+| Milestone Badges | Achievements displayed on profile |
+
+---
+
+## Section Priority & Behavior
+
+### Primary Sections
+- Always visible, full visual weight
+- Lesson Settings
+
+### Secondary Sections
+- Visible but lighter visual treatment
+- Contact & Notifications
+- Family (for children)
+- Notes
+
+### Collapsed Sections
+- Show summary line only by default
+- Expand on click
+- Remember user preference per session
+- Billing Summary
+- Personal Details
 
 ---
 

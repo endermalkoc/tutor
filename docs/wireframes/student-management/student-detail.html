@@ -13,49 +13,66 @@
       }
 
       :root {
-        /* Color Foundation: Ocean-tinted neutrals */
-        --bg-page: #f5f8fa;
+        /* Neutral Scale - Ocean-tinted grays */
+        --gray-50: #f5f8fa;
+        --gray-100: #ebf1f5;
+        --gray-200: #d8e3eb;
+        --gray-300: #b8cdd8;
+        --gray-400: #78a3b8;
+        --gray-500: #4a7d98;
+        --gray-600: #3a6278;
+        --gray-700: #2e4d5f;
+        --gray-800: #1f333f;
+        --gray-900: #16262f;
+
+        /* Primary - Ocean blue */
+        --primary-50: #e8f4f8;
+        --primary-100: #c5e4ed;
+        --primary-200: #9ed3e2;
+        --primary-500: #3ba5c5;
+        --primary-600: #3397b7;
+        --primary-700: #2a84a3;
+
+        /* Semantic Colors */
+        --success-50: #f0fdf4;
+        --success-600: #16a34a;
+        --success-700: #15803d;
+
+        --warning-50: #fffbeb;
+        --warning-600: #d97706;
+
+        --error-50: #fef2f2;
+        --error-600: #dc2626;
+
+        --info-50: #eff6ff;
+        --info-600: #2563eb;
+
+        /* Indigo for Trial status */
+        --indigo-50: #eef2ff;
+        --indigo-600: #4f46e5;
+
+        /* Cyan for Lead status */
+        --cyan-50: #ecfeff;
+        --cyan-600: #0891b2;
+
+        /* Semantic mappings */
+        --bg-base: var(--gray-50);
         --bg-surface: #ffffff;
-        --bg-subtle: #ebf1f5;
-        --bg-muted: #d8e3eb;
+        --bg-muted: var(--gray-100);
+        --bg-subtle: var(--gray-100);
 
-        /* Text hierarchy */
-        --text-primary: #16262f;
-        --text-secondary: #3a6278;
-        --text-muted: #4a7d98;
-        --text-faint: #78a3b8;
+        --fg-default: var(--gray-900);
+        --fg-secondary: var(--gray-600);
+        --fg-muted: var(--gray-500);
+        --fg-faint: var(--gray-400);
 
-        /* Borders */
-        --border: rgba(22, 38, 47, 0.08);
-        --border-strong: rgba(22, 38, 47, 0.12);
+        --border-default: var(--gray-200);
+        --border-subtle: var(--gray-100);
+        --border-strong: var(--gray-300);
 
-        /* Single accent: Ocean blue */
-        --accent: #3ba5c5;
-        --accent-hover: #3397b7;
-        --accent-subtle: #e8f4f8;
-
-        /* Semantic colors */
-        --status-active: #16a34a;
-        --status-active-bg: #f0fdf4;
-        --status-trial: #6366f1;
-        --status-trial-bg: #eef2ff;
-        --status-waiting: #d97706;
-        --status-waiting-bg: #fffbeb;
-        --status-lead: #0891b2;
-        --status-lead-bg: #ecfeff;
-        --status-inactive: #4a7d98;
-        --status-inactive-bg: #ebf1f5;
-
-        /* Financial */
-        --positive: #16a34a;
-        --positive-bg: #f0fdf4;
-        --negative: #dc2626;
-        --negative-bg: #fef2f2;
-
-        /* Depth */
-        --shadow-sm: 0 1px 2px rgba(22, 38, 47, 0.05);
-        --shadow: 0 1px 3px rgba(22, 38, 47, 0.08);
-        --shadow-lg: 0 4px 12px rgba(22, 38, 47, 0.1);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
 
         /* Spacing */
         --space-1: 4px;
@@ -68,15 +85,20 @@
 
         /* Border radius */
         --radius-sm: 4px;
-        --radius: 6px;
+        --radius-md: 6px;
         --radius-lg: 8px;
+        --radius-xl: 12px;
+
+        /* Transitions */
+        --transition-fast: 150ms cubic-bezier(0.25, 1, 0.5, 1);
+        --transition-normal: 200ms cubic-bezier(0.25, 1, 0.5, 1);
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif;
-        background: var(--bg-page);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--bg-base);
         min-height: 100vh;
-        color: var(--text-primary);
+        color: var(--fg-default);
         line-height: 1.5;
         font-size: 14px;
         -webkit-font-smoothing: antialiased;
@@ -92,7 +114,7 @@
       .sidebar {
         width: 240px;
         background: var(--bg-surface);
-        border-right: 1px solid var(--border);
+        border-right: 1px solid var(--border-default);
         padding: var(--space-4);
         display: flex;
         flex-direction: column;
@@ -106,7 +128,7 @@
       .sidebar-logo {
         font-size: 15px;
         font-weight: 600;
-        color: var(--text-primary);
+        color: var(--fg-default);
         padding: var(--space-3) var(--space-3);
         margin-bottom: var(--space-4);
         letter-spacing: -0.02em;
@@ -121,23 +143,23 @@
         align-items: center;
         gap: var(--space-3);
         padding: var(--space-2) var(--space-3);
-        border-radius: var(--radius);
-        color: var(--text-secondary);
+        border-radius: var(--radius-md);
+        color: var(--fg-secondary);
         text-decoration: none;
         font-size: 13px;
         font-weight: 500;
         margin-bottom: var(--space-1);
-        transition: background 150ms ease, color 150ms ease;
+        transition: background var(--transition-fast), color var(--transition-fast);
       }
 
       .nav-item:hover {
         background: var(--bg-subtle);
-        color: var(--text-primary);
+        color: var(--fg-default);
       }
 
       .nav-item.active {
-        background: var(--accent-subtle);
-        color: var(--accent);
+        background: var(--primary-50);
+        color: var(--primary-600);
       }
 
       .nav-icon {
@@ -153,7 +175,7 @@
 
       .sidebar-footer {
         padding-top: var(--space-4);
-        border-top: 1px solid var(--border);
+        border-top: 1px solid var(--border-default);
       }
 
       .user-info {
@@ -173,18 +195,18 @@
         justify-content: center;
         font-size: 12px;
         font-weight: 600;
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
       }
 
       .user-name {
         font-size: 13px;
         font-weight: 500;
-        color: var(--text-primary);
+        color: var(--fg-default);
       }
 
       .user-email {
         font-size: 12px;
-        color: var(--text-muted);
+        color: var(--fg-muted);
       }
 
       /* Main content */
@@ -199,7 +221,7 @@
       .breadcrumb {
         padding: var(--space-4) var(--space-8);
         background: var(--bg-surface);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--border-default);
       }
 
       .breadcrumb-list {
@@ -211,20 +233,20 @@
       }
 
       .breadcrumb-link {
-        color: var(--text-muted);
+        color: var(--fg-muted);
         text-decoration: none;
       }
 
       .breadcrumb-link:hover {
-        color: var(--accent);
+        color: var(--primary-600);
       }
 
       .breadcrumb-separator {
-        color: var(--text-faint);
+        color: var(--fg-faint);
       }
 
       .breadcrumb-current {
-        color: var(--text-primary);
+        color: var(--fg-default);
         font-weight: 500;
       }
 
@@ -232,7 +254,7 @@
       .student-header {
         background: var(--bg-surface);
         padding: var(--space-6) var(--space-8);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--border-default);
         position: sticky;
         top: 0;
         z-index: 50;
@@ -255,14 +277,15 @@
         width: 56px;
         height: 56px;
         border-radius: 50%;
-        background: var(--accent-subtle);
+        background: var(--primary-50);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 20px;
         font-weight: 600;
-        color: var(--accent);
+        color: var(--primary-600);
         flex-shrink: 0;
+        box-shadow: 0 0 0 3px var(--bg-surface), 0 0 0 5px var(--primary-100);
       }
 
       .student-info {
@@ -274,19 +297,20 @@
       .student-name-row {
         display: flex;
         align-items: center;
-        gap: var(--space-3);
+        gap: var(--space-4);
       }
 
       .student-name {
-        font-size: 24px;
-        font-weight: 600;
-        color: var(--text-primary);
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--fg-default);
         letter-spacing: -0.02em;
       }
 
       .student-badges {
         display: flex;
         gap: var(--space-2);
+        margin-top: var(--space-1);
       }
 
       .badge {
@@ -302,40 +326,63 @@
 
       .badge-type {
         background: var(--bg-subtle);
-        color: var(--text-muted);
+        color: var(--fg-muted);
       }
 
       .badge-active {
-        background: var(--status-active-bg);
-        color: var(--status-active);
+        background: var(--success-50);
+        color: var(--success-600);
       }
 
       .badge-trial {
-        background: var(--status-trial-bg);
-        color: var(--status-trial);
+        background: var(--indigo-50);
+        color: var(--indigo-600);
       }
 
       .badge-waiting {
-        background: var(--status-waiting-bg);
-        color: var(--status-waiting);
+        background: var(--warning-50);
+        color: var(--warning-600);
       }
 
       .badge-lead {
-        background: var(--status-lead-bg);
-        color: var(--status-lead);
+        background: var(--cyan-50);
+        color: var(--cyan-600);
       }
 
       .badge-inactive {
-        background: var(--status-inactive-bg);
-        color: var(--status-inactive);
+        background: var(--bg-subtle);
+        color: var(--fg-muted);
+      }
+
+      /* Next Lesson in Header */
+      .next-lesson-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-1) var(--space-3);
+        background: var(--primary-50);
+        color: var(--primary-700);
+        border-radius: var(--radius-md);
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .next-lesson-badge i {
+        font-size: 14px;
+      }
+
+      .next-lesson-badge.today {
+        background: var(--success-50);
+        color: var(--success-700);
       }
 
       .student-meta {
         display: flex;
         align-items: center;
         gap: var(--space-4);
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
         font-size: 13px;
+        margin-top: var(--space-2);
       }
 
       .meta-item {
@@ -345,12 +392,12 @@
       }
 
       .meta-item i {
-        color: var(--text-muted);
+        color: var(--fg-muted);
         font-size: 14px;
       }
 
       .meta-link {
-        color: var(--accent);
+        color: var(--primary-600);
         text-decoration: none;
       }
 
@@ -358,14 +405,30 @@
         text-decoration: underline;
       }
 
+      .meta-divider {
+        width: 1px;
+        height: 16px;
+        background: var(--border-strong);
+      }
+
       .student-family {
-        color: var(--text-secondary);
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-1);
+        color: var(--fg-secondary);
         font-size: 13px;
-        margin-top: var(--space-1);
+        padding: var(--space-1) var(--space-2);
+        margin: calc(var(--space-1) * -1) calc(var(--space-2) * -1);
+        border-radius: var(--radius-sm);
+        transition: all var(--transition-fast);
+      }
+
+      .student-family:hover {
+        background: var(--primary-50);
       }
 
       .family-link {
-        color: var(--accent);
+        color: var(--primary-600);
         text-decoration: none;
         font-weight: 500;
       }
@@ -374,10 +437,16 @@
         text-decoration: underline;
       }
 
+      .relationship-duration {
+        color: var(--fg-muted);
+        font-size: 12px;
+      }
+
       /* Header Actions */
       .header-actions {
         display: flex;
-        gap: var(--space-2);
+        gap: var(--space-3);
+        align-items: center;
       }
 
       .btn {
@@ -385,15 +454,15 @@
         align-items: center;
         justify-content: center;
         gap: var(--space-2);
-        padding: var(--space-2) var(--space-3);
-        border-radius: var(--radius);
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-md);
         font-size: 13px;
         font-weight: 500;
         font-family: inherit;
         cursor: pointer;
-        transition: all 150ms ease;
+        transition: all var(--transition-fast);
         border: none;
-        min-height: 32px;
+        min-height: 36px;
         white-space: nowrap;
       }
 
@@ -403,36 +472,42 @@
       }
 
       .btn-primary {
-        background: var(--accent);
+        background: var(--primary-500);
         color: white;
-        padding: var(--space-2) var(--space-4);
       }
 
       .btn-primary:hover:not(:disabled) {
-        background: var(--accent-hover);
+        background: var(--primary-600);
       }
 
       .btn-secondary {
         background: var(--bg-surface);
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
         border: 1px solid var(--border-strong);
       }
 
       .btn-secondary:hover:not(:disabled) {
         background: var(--bg-subtle);
-        border-color: var(--text-faint);
+        border-color: var(--fg-faint);
       }
 
       .btn-ghost {
         background: transparent;
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
+        padding: var(--space-2);
+        min-height: 32px;
       }
 
       .btn-ghost:hover:not(:disabled) {
         background: var(--bg-subtle);
       }
 
-      /* Actions Dropdown */
+      .btn-icon {
+        padding: var(--space-2);
+        min-width: 36px;
+      }
+
+      /* Dropdown */
       .dropdown {
         position: relative;
       }
@@ -446,7 +521,7 @@
         border: 1px solid var(--border-strong);
         border-radius: var(--radius-lg);
         box-shadow: var(--shadow-lg);
-        min-width: 180px;
+        min-width: 200px;
         z-index: 100;
         display: none;
       }
@@ -461,9 +536,9 @@
         gap: var(--space-2);
         padding: var(--space-2) var(--space-3);
         font-size: 13px;
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
         cursor: pointer;
-        transition: background 150ms ease;
+        transition: background var(--transition-fast);
       }
 
       .dropdown-item:first-child {
@@ -476,20 +551,20 @@
 
       .dropdown-item:hover {
         background: var(--bg-subtle);
-        color: var(--text-primary);
+        color: var(--fg-default);
       }
 
       .dropdown-item.danger {
-        color: var(--negative);
+        color: var(--error-600);
       }
 
       .dropdown-item.danger:hover {
-        background: var(--negative-bg);
+        background: var(--error-50);
       }
 
       .dropdown-divider {
         height: 1px;
-        background: var(--border);
+        background: var(--border-default);
         margin: var(--space-1) 0;
       }
 
@@ -497,7 +572,7 @@
       .tab-nav {
         background: var(--bg-surface);
         padding: 0 var(--space-8);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--border-default);
         display: flex;
         gap: var(--space-1);
         overflow-x: auto;
@@ -507,21 +582,21 @@
         padding: var(--space-3) var(--space-4);
         font-size: 13px;
         font-weight: 500;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         text-decoration: none;
         border-bottom: 2px solid transparent;
         margin-bottom: -1px;
-        transition: color 150ms ease, border-color 150ms ease;
+        transition: color var(--transition-fast), border-color var(--transition-fast);
         white-space: nowrap;
       }
 
       .tab-link:hover {
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
       }
 
       .tab-link.active {
-        color: var(--accent);
-        border-bottom-color: var(--accent);
+        color: var(--primary-600);
+        border-bottom-color: var(--primary-600);
       }
 
       /* Tab Content */
@@ -531,13 +606,115 @@
         max-width: 1200px;
       }
 
+      /* Important Info Alert */
+      .important-alert {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-3);
+        padding: var(--space-4);
+        background: var(--info-50);
+        border: 1px solid var(--info-600);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--space-6);
+      }
+
+      .important-alert-icon {
+        color: var(--info-600);
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .important-alert-content {
+        flex: 1;
+      }
+
+      .important-alert-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--info-600);
+        margin-bottom: var(--space-1);
+      }
+
+      .important-alert-text {
+        font-size: 13px;
+        color: var(--fg-secondary);
+      }
+
+      /* Pre-Lesson Context */
+      .prelesson-card {
+        background: var(--primary-50);
+        border: 1px solid var(--primary-200);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--space-6);
+        overflow: hidden;
+      }
+
+      .prelesson-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-4) var(--space-5);
+        background: var(--primary-100);
+        border-bottom: 1px solid var(--primary-200);
+      }
+
+      .prelesson-title {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--primary-700);
+      }
+
+      .prelesson-content {
+        padding: var(--space-5);
+      }
+
+      .prelesson-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-5);
+      }
+
+      .prelesson-item {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+      }
+
+      .prelesson-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--primary-600);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .prelesson-value {
+        font-size: 14px;
+        color: var(--fg-default);
+      }
+
       /* Section Card */
       .section-card {
         background: var(--bg-surface);
-        border: 1px solid var(--border);
+        border: 1px solid var(--border-default);
         border-radius: var(--radius-lg);
         margin-bottom: var(--space-6);
-        box-shadow: var(--shadow);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .section-card--primary {
+        box-shadow: var(--shadow-md);
+      }
+
+      .section-card--secondary {
+        box-shadow: none;
+      }
+
+      .section-card--collapsed {
+        border-color: var(--border-subtle);
       }
 
       .section-header {
@@ -545,26 +722,68 @@
         justify-content: space-between;
         align-items: center;
         padding: var(--space-4) var(--space-5);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--border-default);
+      }
+
+      .section-card--collapsed .section-header {
+        border-bottom: none;
       }
 
       .section-title {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 600;
-        color: var(--text-primary);
+        color: var(--fg-default);
         text-transform: uppercase;
         letter-spacing: 0.03em;
+      }
+
+      .section-header-actions {
+        display: flex;
+        gap: var(--space-2);
+        align-items: center;
       }
 
       .section-content {
         padding: var(--space-5);
       }
 
+      .section-card--collapsed .section-content {
+        display: none;
+      }
+
+      /* Collapsed Summary */
+      .collapsed-summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 var(--space-5) var(--space-4);
+      }
+
+      .collapsed-summary-text {
+        font-size: 13px;
+        color: var(--fg-secondary);
+      }
+
+      .collapsed-summary-link {
+        font-size: 12px;
+        color: var(--primary-600);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .collapsed-summary-link:hover {
+        text-decoration: underline;
+      }
+
       /* Data Display Grid */
       .data-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: var(--space-5);
+      }
+
+      .data-grid--2col {
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .data-item {
@@ -576,23 +795,25 @@
       .data-label {
         font-size: 11px;
         font-weight: 600;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         text-transform: uppercase;
         letter-spacing: 0.05em;
       }
 
       .data-value {
-        font-size: 14px;
-        color: var(--text-primary);
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--fg-default);
       }
 
       .data-value.empty {
-        color: var(--text-faint);
+        color: var(--fg-faint);
         font-style: italic;
+        font-weight: 400;
       }
 
       .data-value a {
-        color: var(--accent);
+        color: var(--primary-600);
         text-decoration: none;
       }
 
@@ -600,26 +821,37 @@
         text-decoration: underline;
       }
 
-      /* Tags display */
+      /* Tags - Subject vs Custom */
       .tag-list {
         display: flex;
-        gap: var(--space-1);
+        gap: var(--space-2);
         flex-wrap: wrap;
       }
 
       .tag {
         padding: 2px var(--space-2);
-        background: var(--bg-subtle);
-        color: var(--text-muted);
         border-radius: var(--radius-sm);
         font-size: 11px;
         font-weight: 500;
       }
 
+      /* Subject tags - filled */
+      .tag--subject {
+        background: var(--primary-100);
+        color: var(--primary-700);
+      }
+
+      /* Custom tags - outlined */
+      .tag--custom {
+        background: transparent;
+        border: 1px solid var(--border-strong);
+        color: var(--fg-secondary);
+      }
+
       /* Family Section */
       .guardian-card {
         background: var(--bg-subtle);
-        border-radius: var(--radius);
+        border-radius: var(--radius-md);
         padding: var(--space-4);
         margin-bottom: var(--space-4);
       }
@@ -638,12 +870,12 @@
       .guardian-name {
         font-size: 14px;
         font-weight: 600;
-        color: var(--text-primary);
+        color: var(--fg-default);
       }
 
       .guardian-role {
         font-size: 12px;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         font-weight: 500;
       }
 
@@ -651,11 +883,11 @@
         display: flex;
         gap: var(--space-4);
         font-size: 13px;
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
       }
 
       .guardian-contact a {
-        color: var(--accent);
+        color: var(--primary-600);
         text-decoration: none;
       }
 
@@ -663,17 +895,43 @@
         text-decoration: underline;
       }
 
-      /* Address */
+      .guardian-actions {
+        display: flex;
+        gap: var(--space-1);
+        margin-top: var(--space-3);
+      }
+
+      .guardian-action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-md);
+        background: var(--bg-surface);
+        border: 1px solid var(--border-default);
+        color: var(--fg-muted);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+      }
+
+      .guardian-action-btn:hover {
+        background: var(--primary-50);
+        border-color: var(--primary-200);
+        color: var(--primary-600);
+      }
+
+      /* Address & Siblings */
       .address-block {
         margin-top: var(--space-4);
         padding-top: var(--space-4);
-        border-top: 1px solid var(--border);
+        border-top: 1px solid var(--border-default);
       }
 
       .address-title {
         font-size: 11px;
         font-weight: 600;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-bottom: var(--space-2);
@@ -681,21 +939,20 @@
 
       .address-text {
         font-size: 13px;
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
         line-height: 1.6;
       }
 
-      /* Siblings */
       .siblings-section {
         margin-top: var(--space-4);
         padding-top: var(--space-4);
-        border-top: 1px solid var(--border);
+        border-top: 1px solid var(--border-default);
       }
 
       .siblings-title {
         font-size: 11px;
         font-weight: 600;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-bottom: var(--space-3);
@@ -711,7 +968,7 @@
       .sibling-name {
         font-size: 13px;
         font-weight: 500;
-        color: var(--accent);
+        color: var(--primary-600);
         text-decoration: none;
       }
 
@@ -719,47 +976,79 @@
         text-decoration: underline;
       }
 
-      /* Billing Summary */
-      .billing-summary {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
+      /* Notes Section */
+      .quick-add-note {
+        display: flex;
+        gap: var(--space-2);
+        margin-bottom: var(--space-4);
+        padding-bottom: var(--space-4);
+        border-bottom: 1px solid var(--border-default);
+      }
+
+      .quick-add-input {
+        flex: 1;
+        padding: var(--space-2) var(--space-3);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-md);
+        font-size: 14px;
+        font-family: inherit;
+        color: var(--fg-default);
+        background: var(--bg-surface);
+        transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      }
+
+      .quick-add-input:focus {
+        outline: none;
+        border-color: var(--primary-500);
+        box-shadow: 0 0 0 3px var(--primary-50);
+      }
+
+      .quick-add-input::placeholder {
+        color: var(--fg-faint);
+      }
+
+      .notes-content {
+        font-size: 14px;
+        color: var(--fg-secondary);
+        line-height: 1.7;
+        white-space: pre-wrap;
+      }
+
+      .notes-meta {
+        margin-top: var(--space-3);
+        font-size: 12px;
+        color: var(--fg-faint);
+      }
+
+      /* Billing Summary - Compact */
+      .billing-compact {
+        display: flex;
+        align-items: center;
         gap: var(--space-4);
+        font-size: 14px;
       }
 
-      .billing-stat {
-        text-align: center;
-        padding: var(--space-4);
-        background: var(--bg-subtle);
-        border-radius: var(--radius);
+      .billing-compact-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
       }
 
-      .billing-stat-value {
-        font-size: 20px;
+      .billing-compact-label {
+        color: var(--fg-muted);
+      }
+
+      .billing-compact-value {
         font-weight: 600;
-        color: var(--text-primary);
-        margin-bottom: var(--space-1);
+        color: var(--fg-default);
       }
 
-      .billing-stat-value.positive {
-        color: var(--positive);
+      .billing-compact-value.positive {
+        color: var(--success-600);
       }
 
-      .billing-stat-value.negative {
-        color: var(--negative);
-      }
-
-      .billing-stat-label {
-        font-size: 11px;
-        font-weight: 500;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-      }
-
-      .billing-detail {
-        margin-top: var(--space-4);
-        padding-top: var(--space-4);
-        border-top: 1px solid var(--border);
+      .billing-compact-value.negative {
+        color: var(--error-600);
       }
 
       /* Recent Lessons */
@@ -773,33 +1062,51 @@
         padding: var(--space-2) var(--space-3);
         font-size: 11px;
         font-weight: 600;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--border-default);
       }
 
       .lessons-table td {
-        padding: var(--space-3);
+        padding: var(--space-4) var(--space-3);
         font-size: 13px;
-        color: var(--text-secondary);
-        border-bottom: 1px solid var(--border);
+        color: var(--fg-secondary);
+        border-bottom: 1px solid var(--border-default);
+        vertical-align: middle;
       }
 
       .lessons-table tr:last-child td {
         border-bottom: none;
       }
 
-      .lessons-table .status-attended {
-        color: var(--status-active);
+      .lesson-status {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--space-1) var(--space-2);
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 500;
       }
 
-      .lessons-table .status-cancelled {
-        color: var(--text-muted);
+      .lesson-status--attended {
+        background: var(--success-50);
+        color: var(--success-600);
       }
 
-      .lessons-table .status-noshow {
-        color: var(--status-waiting);
+      .lesson-status--cancelled {
+        background: var(--bg-muted);
+        color: var(--fg-muted);
+      }
+
+      .lesson-status--noshow {
+        background: var(--warning-50);
+        color: var(--warning-600);
+      }
+
+      .lesson-status--scheduled {
+        background: var(--primary-50);
+        color: var(--primary-600);
       }
 
       .lesson-note {
@@ -807,37 +1114,76 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         font-size: 12px;
       }
 
-      /* Notes Section */
-      .notes-content {
-        font-size: 14px;
-        color: var(--text-secondary);
-        line-height: 1.7;
-        white-space: pre-wrap;
+      /* Toggle Switch */
+      .switch-wrapper {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
       }
 
-      .notes-meta {
-        margin-top: var(--space-3);
+      .switch {
+        position: relative;
+        width: 36px;
+        height: 20px;
+        background: var(--gray-300);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        flex-shrink: 0;
+      }
+
+      .switch::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        background: white;
+        border-radius: 50%;
+        transition: all var(--transition-fast);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .switch.active {
+        background: var(--primary-500);
+      }
+
+      .switch.active::after {
+        left: 18px;
+      }
+
+      .switch-label {
+        font-size: 13px;
+        color: var(--fg-secondary);
+      }
+
+      .notification-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+
+      /* View All Link */
+      .view-all-link {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
         font-size: 12px;
-        color: var(--text-faint);
+        font-weight: 500;
+        color: var(--primary-600);
+        text-decoration: none;
       }
 
-      /* Edit Mode Styles */
-      .edit-form {
-        display: none;
+      .view-all-link:hover {
+        text-decoration: underline;
       }
 
-      .section-card.editing .view-mode {
-        display: none;
-      }
-
-      .section-card.editing .edit-form {
-        display: block;
-      }
-
+      /* Form styles */
       .form-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -857,11 +1203,11 @@
       .form-label {
         font-size: 12px;
         font-weight: 500;
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
       }
 
       .form-label .required {
-        color: var(--negative);
+        color: var(--error-600);
       }
 
       .form-input,
@@ -869,26 +1215,26 @@
       .form-textarea {
         padding: var(--space-2) var(--space-3);
         border: 1px solid var(--border-strong);
-        border-radius: var(--radius);
+        border-radius: var(--radius-md);
         font-size: 14px;
         font-family: inherit;
-        color: var(--text-primary);
+        color: var(--fg-default);
         background: var(--bg-surface);
-        transition: border-color 150ms ease, box-shadow 150ms ease;
+        transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
       }
 
       .form-input:hover,
       .form-select:hover,
       .form-textarea:hover {
-        border-color: var(--text-faint);
+        border-color: var(--fg-faint);
       }
 
       .form-input:focus,
       .form-select:focus,
       .form-textarea:focus {
         outline: none;
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px var(--accent-subtle);
+        border-color: var(--primary-500);
+        box-shadow: 0 0 0 3px var(--primary-50);
       }
 
       .form-textarea {
@@ -896,109 +1242,62 @@
         resize: vertical;
       }
 
-      /* Switch / Toggle */
-      .switch {
-        position: relative;
-        width: 36px;
-        height: 20px;
-        background: var(--bg-muted);
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 150ms ease;
-        flex-shrink: 0;
+      .form-subsection {
+        margin-top: var(--space-5);
+        padding-top: var(--space-5);
+        border-top: 1px solid var(--border-default);
       }
 
-      .switch::after {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 16px;
-        height: 16px;
-        background: white;
-        border-radius: 50%;
-        transition: all 150ms ease;
-        box-shadow: var(--shadow-sm);
+      .form-subsection:first-child {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
       }
 
-      .switch.active {
-        background: var(--accent);
+      .form-subsection-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--fg-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: var(--space-4);
       }
 
-      .switch.active::after {
-        left: 18px;
-      }
-
-      .switch-wrapper {
+      .form-actions {
         display: flex;
-        align-items: center;
-        gap: var(--space-3);
-      }
-
-      .switch-label {
-        font-size: 13px;
-        color: var(--text-secondary);
-      }
-
-      /* Checkbox */
-      .checkbox-wrapper {
-        display: inline-flex;
-        align-items: center;
         gap: var(--space-2);
-        cursor: pointer;
-        user-select: none;
-        font-size: 13px;
-        color: var(--text-secondary);
+        justify-content: flex-end;
+        margin-top: var(--space-4);
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--border-default);
       }
 
-      .checkbox {
-        appearance: none;
-        width: 16px;
-        height: 16px;
-        border: 1.5px solid var(--border-strong);
-        border-radius: var(--radius-sm);
-        background: var(--bg-surface);
-        cursor: pointer;
-        transition: all 150ms ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
+      /* Edit Mode */
+      .edit-form {
+        display: none;
       }
 
-      .checkbox:hover {
-        border-color: var(--accent);
+      .section-card.editing .view-mode {
+        display: none;
       }
 
-      .checkbox:checked {
-        background: var(--accent);
-        border-color: var(--accent);
-      }
-
-      .checkbox:checked::after {
-        content: '';
+      .section-card.editing .edit-form {
         display: block;
-        width: 4px;
-        height: 7px;
-        border: solid white;
-        border-width: 0 2px 2px 0;
-        transform: rotate(45deg);
-        margin-bottom: 2px;
       }
 
-      .checkbox:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 2px;
+      .section-card.editing {
+        border-color: var(--primary-300);
+        box-shadow: 0 0 0 3px rgba(59, 165, 197, 0.1);
       }
 
-      /* Tags input for edit mode */
+      /* Tags input */
       .tags-input-wrapper {
         display: flex;
         flex-wrap: wrap;
         gap: var(--space-2);
         padding: var(--space-2) var(--space-3);
         border: 1px solid var(--border-strong);
-        border-radius: var(--radius);
+        border-radius: var(--radius-md);
         background: var(--bg-surface);
         min-height: 36px;
         align-items: center;
@@ -1006,8 +1305,8 @@
       }
 
       .tags-input-wrapper:focus-within {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px var(--accent-subtle);
+        border-color: var(--primary-500);
+        box-shadow: 0 0 0 3px var(--primary-50);
       }
 
       .tags-input-wrapper .tag {
@@ -1026,14 +1325,14 @@
         background: transparent;
         border: none;
         cursor: pointer;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         font-size: 10px;
         padding: 0;
       }
 
       .tags-input-wrapper .tag-remove:hover {
         background: rgba(0,0,0,0.1);
-        color: var(--text-primary);
+        color: var(--fg-default);
       }
 
       .tags-input-wrapper input {
@@ -1045,65 +1344,50 @@
         background: transparent;
       }
 
-      /* Form Subsections */
-      .form-subsection {
-        margin-top: var(--space-5);
-        padding-top: var(--space-5);
-        border-top: 1px solid var(--border);
-      }
-
-      .form-subsection:first-child {
-        margin-top: 0;
-        padding-top: 0;
-        border-top: none;
-      }
-
-      .form-subsection-title {
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: var(--space-4);
-      }
-
-      .form-subsection .data-grid {
-        margin-bottom: 0;
-      }
-
-      .form-subsection .form-grid {
-        margin-bottom: 0;
-      }
-
-      /* Notification preferences list */
-      .notification-list {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-3);
-      }
-
-      .form-actions {
-        display: flex;
+      /* Checkbox */
+      .checkbox-wrapper {
+        display: inline-flex;
+        align-items: center;
         gap: var(--space-2);
-        justify-content: flex-end;
-        margin-top: var(--space-4);
-        padding-top: var(--space-4);
-        border-top: 1px solid var(--border);
+        cursor: pointer;
+        user-select: none;
+        font-size: 13px;
+        color: var(--fg-secondary);
       }
 
-      /* View All Link */
-      .view-all-link {
+      .checkbox {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 1.5px solid var(--border-strong);
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        cursor: pointer;
+        transition: all var(--transition-fast);
         display: flex;
         align-items: center;
-        gap: var(--space-1);
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--accent);
-        text-decoration: none;
+        justify-content: center;
+        flex-shrink: 0;
       }
 
-      .view-all-link:hover {
-        text-decoration: underline;
+      .checkbox:hover {
+        border-color: var(--primary-500);
+      }
+
+      .checkbox:checked {
+        background: var(--primary-500);
+        border-color: var(--primary-500);
+      }
+
+      .checkbox:checked::after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 7px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        margin-bottom: 2px;
       }
 
       /* Responsive */
@@ -1112,7 +1396,11 @@
           padding: var(--space-4);
         }
 
-        .billing-summary {
+        .data-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .prelesson-grid {
           grid-template-columns: repeat(2, 1fr);
         }
       }
@@ -1144,7 +1432,8 @@
           padding: 0 var(--space-4);
         }
 
-        .billing-summary {
+        .data-grid,
+        .prelesson-grid {
           grid-template-columns: 1fr;
         }
 
@@ -1211,10 +1500,14 @@
               <div class="student-info">
                 <div class="student-name-row">
                   <h1 class="student-name">Emily Chen</h1>
-                  <div class="student-badges">
-                    <span class="badge badge-type">Child</span>
-                    <span class="badge badge-active">Active</span>
+                  <div class="next-lesson-badge">
+                    <i class="ph ph-calendar"></i>
+                    Tomorrow at 3:00 PM
                   </div>
+                </div>
+                <div class="student-badges">
+                  <span class="badge badge-type">Child</span>
+                  <span class="badge badge-active">Active</span>
                 </div>
                 <div class="student-meta">
                   <span class="meta-item">
@@ -1224,29 +1517,32 @@
                   <span class="meta-item">
                     <i class="ph ph-phone"></i>
                     <a href="tel:+15551234567" class="meta-link">(555) 123-4567</a>
-                    <i class="ph ph-chat-circle" title="SMS Capable" style="color: var(--accent);"></i>
+                    <i class="ph ph-chat-circle" title="SMS Capable" style="color: var(--primary-500);"></i>
                   </span>
-                </div>
-                <div class="student-family">
-                  <i class="ph ph-house"></i>
-                  <a href="#" class="family-link">Chen Family</a>
+                  <span class="meta-divider"></span>
+                  <span class="student-family">
+                    <i class="ph ph-house"></i>
+                    Parent: <a href="#" class="family-link">Jennifer Chen</a>
+                  </span>
+                  <span class="meta-divider"></span>
+                  <span class="relationship-duration">Teaching since Sep 2024 (4 months)</span>
                 </div>
               </div>
             </div>
             <div class="header-actions">
-              <button class="btn btn-secondary">
+              <button class="btn btn-primary">
                 <i class="ph ph-calendar-plus"></i>
                 Schedule Lesson
               </button>
-              <button class="btn btn-secondary">
-                <i class="ph ph-paper-plane-tilt"></i>
-                Send Message
-              </button>
               <div class="dropdown">
-                <button class="btn btn-secondary" onclick="toggleActionsMenu()">
-                  <i class="ph ph-dots-three"></i>
+                <button class="btn btn-secondary btn-icon" onclick="toggleActionsMenu()">
+                  <i class="ph ph-dots-three-outline-vertical"></i>
                 </button>
                 <div class="dropdown-menu" id="actionsMenu">
+                  <div class="dropdown-item">
+                    <i class="ph ph-paper-plane-tilt"></i>
+                    Send Message
+                  </div>
                   <div class="dropdown-item" onclick="editStudent()">
                     <i class="ph ph-pencil"></i>
                     Edit Student
@@ -1283,290 +1579,219 @@
 
         <!-- Tab Content: Overview -->
         <div class="tab-content">
-          <!-- Student Information Section -->
-          <section class="section-card" id="studentInfoSection">
+          <!-- Important Info Alert -->
+          <div class="important-alert">
+            <i class="ph ph-info important-alert-icon"></i>
+            <div class="important-alert-content">
+              <div class="important-alert-title">Important Information</div>
+              <div class="important-alert-text">SAT test this Saturday | Prefers visual learning methods</div>
+            </div>
+          </div>
+
+          <!-- Pre-Lesson Context -->
+          <div class="prelesson-card">
+            <div class="prelesson-header">
+              <div class="prelesson-title">
+                <i class="ph ph-lightbulb"></i>
+                Preparing for Tomorrow's Lesson
+              </div>
+              <button class="btn btn-ghost" onclick="togglePrelesson()">
+                <i class="ph ph-caret-up"></i>
+              </button>
+            </div>
+            <div class="prelesson-content" id="prelessonContent">
+              <div class="prelesson-grid">
+                <div class="prelesson-item">
+                  <span class="prelesson-label">Last Lesson</span>
+                  <span class="prelesson-value">Jan 6 - Chopin Nocturne Op. 9 No. 2</span>
+                </div>
+                <div class="prelesson-item">
+                  <span class="prelesson-label">Homework Status</span>
+                  <span class="prelesson-value">Practice measures 24-48 (assigned)</span>
+                </div>
+                <div class="prelesson-item">
+                  <span class="prelesson-label">Recent Note</span>
+                  <span class="prelesson-value">Making great progress on dynamics</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lesson Settings Section (Primary) -->
+          <section class="section-card section-card--primary" id="lessonSettingsSection">
             <div class="section-header">
-              <h2 class="section-title">Student Information</h2>
-              <button class="btn btn-ghost" onclick="toggleEdit('studentInfoSection')">
+              <h2 class="section-title">Lesson Settings</h2>
+              <button class="btn btn-ghost" onclick="toggleEdit('lessonSettingsSection')">
                 <i class="ph ph-pencil"></i>
                 Edit
               </button>
             </div>
             <div class="section-content">
-              <!-- View Mode -->
               <div class="view-mode">
-                <!-- Basic Information -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Basic Information</div>
-                  <div class="data-grid">
-                    <div class="data-item">
-                      <span class="data-label">First Name</span>
-                      <span class="data-value">Emily</span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Last Name</span>
-                      <span class="data-value">Chen</span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Student Type</span>
-                      <span class="data-value">Child</span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Status</span>
-                      <span class="data-value"><span class="badge badge-active">Active</span></span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Tags</span>
-                      <span class="data-value">
-                        <div class="tag-list">
-                          <span class="tag">Competition Ready</span>
-                          <span class="tag">Advanced Theory</span>
-                        </div>
-                      </span>
-                    </div>
+                <div class="data-grid">
+                  <div class="data-item">
+                    <span class="data-label">Subjects</span>
+                    <span class="data-value">
+                      <div class="tag-list">
+                        <span class="tag tag--subject">Piano</span>
+                        <span class="tag tag--subject">Music Theory</span>
+                      </div>
+                    </span>
                   </div>
-                </div>
-
-                <!-- Contact & Notifications -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Contact & Notifications</div>
-                  <div class="data-grid">
-                    <div class="data-item">
-                      <span class="data-label">Email</span>
-                      <span class="data-value"><a href="mailto:emily@example.com">emily@example.com</a></span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Phone</span>
-                      <span class="data-value"><a href="tel:+15551234567">(555) 123-4567</a></span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">SMS Capable</span>
-                      <span class="data-value">Yes</span>
-                    </div>
+                  <div class="data-item">
+                    <span class="data-label">Default Duration</span>
+                    <span class="data-value">30 minutes</span>
                   </div>
-                  <div class="notification-list" style="margin-top: var(--space-4);">
-                    <div class="switch-wrapper">
-                      <div class="switch active" onclick="this.classList.toggle('active')"></div>
-                      <span class="switch-label">Send email lesson reminders</span>
-                    </div>
-                    <div class="switch-wrapper">
-                      <div class="switch active" onclick="this.classList.toggle('active')"></div>
-                      <span class="switch-label">Send SMS lesson reminders</span>
-                    </div>
+                  <div class="data-item">
+                    <span class="data-label">Lesson Category</span>
+                    <span class="data-value">Individual</span>
                   </div>
-                </div>
-
-                <!-- Lessons -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Lessons</div>
-                  <div class="data-grid">
-                    <div class="data-item">
-                      <span class="data-label">Lesson Category</span>
-                      <span class="data-value">Individual</span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Default Duration</span>
-                      <span class="data-value">30 minutes</span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Subjects</span>
-                      <span class="data-value">
-                        <div class="tag-list">
-                          <span class="tag">Piano</span>
-                          <span class="tag">Music Theory</span>
-                        </div>
-                      </span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Skill Level</span>
-                      <span class="data-value">Advanced</span>
-                    </div>
+                  <div class="data-item">
+                    <span class="data-label">Skill Level</span>
+                    <span class="data-value">Advanced</span>
                   </div>
-                </div>
-
-                <!-- Personal Details -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Personal Details</div>
-                  <div class="data-grid">
-                    <div class="data-item">
-                      <span class="data-label">Gender</span>
-                      <span class="data-value">Female</span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Birthday</span>
-                      <span class="data-value">March 15, 2010 (14 years old)</span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">School</span>
-                      <span class="data-value">Lincoln Middle School</span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Referrer</span>
-                      <span class="data-value">Maria Thompson</span>
-                    </div>
-                    <div class="data-item">
-                      <span class="data-label">Student Since</span>
-                      <span class="data-value">September 2021</span>
-                    </div>
+                  <div class="data-item">
+                    <span class="data-label">Tags</span>
+                    <span class="data-value">
+                      <div class="tag-list">
+                        <span class="tag tag--custom">Competition Ready</span>
+                        <span class="tag tag--custom">Advanced Theory</span>
+                      </div>
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <!-- Edit Mode -->
               <div class="edit-form">
-                <!-- Basic Information -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Basic Information</div>
-                  <div class="form-grid">
-                    <div class="form-group">
-                      <label class="form-label">First Name <span class="required">*</span></label>
-                      <input type="text" class="form-input" value="Emily" />
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">Subjects</label>
+                    <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
+                      <span class="tag tag--subject">Piano<button class="tag-remove" type="button">&times;</button></span>
+                      <span class="tag tag--subject">Music Theory<button class="tag-remove" type="button">&times;</button></span>
+                      <input type="text" placeholder="Add subject..." />
                     </div>
-                    <div class="form-group">
-                      <label class="form-label">Last Name <span class="required">*</span></label>
-                      <input type="text" class="form-input" value="Chen" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Student Type <span class="required">*</span></label>
-                      <select class="form-select">
-                        <option value="child" selected>Child</option>
-                        <option value="adult">Adult</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Status <span class="required">*</span></label>
-                      <select class="form-select">
-                        <option value="active" selected>Active</option>
-                        <option value="trial">Trial</option>
-                        <option value="waiting">Waiting</option>
-                        <option value="lead">Lead</option>
-                        <option value="inactive">Inactive</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Tags</label>
-                      <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
-                        <span class="tag">Competition Ready<button class="tag-remove" type="button">&times;</button></span>
-                        <span class="tag">Advanced Theory<button class="tag-remove" type="button">&times;</button></span>
-                        <input type="text" placeholder="Add tag..." />
-                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Default Duration <span class="required">*</span></label>
+                    <select class="form-select">
+                      <option value="30" selected>30 minutes</option>
+                      <option value="45">45 minutes</option>
+                      <option value="60">60 minutes</option>
+                      <option value="90">90 minutes</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Lesson Category <span class="required">*</span></label>
+                    <select class="form-select">
+                      <option value="individual" selected>Individual</option>
+                      <option value="group">Group</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Skill Level</label>
+                    <select class="form-select">
+                      <option value="beginner">Beginner</option>
+                      <option value="intermediate">Intermediate</option>
+                      <option value="advanced" selected>Advanced</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Tags</label>
+                    <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
+                      <span class="tag tag--custom">Competition Ready<button class="tag-remove" type="button">&times;</button></span>
+                      <span class="tag tag--custom">Advanced Theory<button class="tag-remove" type="button">&times;</button></span>
+                      <input type="text" placeholder="Add tag..." />
                     </div>
                   </div>
                 </div>
-
-                <!-- Contact & Notifications -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Contact & Notifications</div>
-                  <div class="form-grid">
-                    <div class="form-group">
-                      <label class="form-label">Email</label>
-                      <input type="email" class="form-input" value="emily@example.com" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Phone</label>
-                      <input type="tel" class="form-input" value="(555) 123-4567" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">SMS Capable</label>
-                      <label class="checkbox-wrapper">
-                        <input type="checkbox" class="checkbox" checked />
-                        <span>This phone can receive SMS</span>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="notification-list" style="margin-top: var(--space-4);">
-                    <div class="switch-wrapper">
-                      <div class="switch active" onclick="this.classList.toggle('active')"></div>
-                      <span class="switch-label">Send email lesson reminders</span>
-                    </div>
-                    <div class="switch-wrapper">
-                      <div class="switch active" onclick="this.classList.toggle('active')"></div>
-                      <span class="switch-label">Send SMS lesson reminders</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Lessons -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Lessons</div>
-                  <div class="form-grid">
-                    <div class="form-group">
-                      <label class="form-label">Lesson Category</label>
-                      <select class="form-select">
-                        <option value="individual" selected>Individual</option>
-                        <option value="group">Group</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Default Duration</label>
-                      <select class="form-select">
-                        <option value="30" selected>30 minutes</option>
-                        <option value="45">45 minutes</option>
-                        <option value="60">60 minutes</option>
-                        <option value="90">90 minutes</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Subjects</label>
-                      <div class="tags-input-wrapper" onclick="this.querySelector('input').focus()">
-                        <span class="tag">Piano<button class="tag-remove" type="button">&times;</button></span>
-                        <span class="tag">Music Theory<button class="tag-remove" type="button">&times;</button></span>
-                        <input type="text" placeholder="Add subject..." />
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Skill Level</label>
-                      <select class="form-select">
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="advanced" selected>Advanced</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Personal Details -->
-                <div class="form-subsection">
-                  <div class="form-subsection-title">Personal Details</div>
-                  <div class="form-grid">
-                    <div class="form-group">
-                      <label class="form-label">Gender</label>
-                      <select class="form-select">
-                        <option value="">Select...</option>
-                        <option value="male">Male</option>
-                        <option value="female" selected>Female</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Birthday</label>
-                      <input type="date" class="form-input" value="2010-03-15" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">School</label>
-                      <input type="text" class="form-input" value="Lincoln Middle School" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Referrer</label>
-                      <input type="text" class="form-input" value="Maria Thompson" placeholder="Type to search..." />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Student Since</label>
-                      <input type="month" class="form-input" value="2021-09" />
-                    </div>
-                  </div>
-                </div>
-
                 <div class="form-actions">
-                  <button class="btn btn-secondary" onclick="cancelEdit('studentInfoSection')">Cancel</button>
-                  <button class="btn btn-primary" onclick="saveEdit('studentInfoSection')">Save Changes</button>
+                  <button class="btn btn-secondary" onclick="cancelEdit('lessonSettingsSection')">Cancel</button>
+                  <button class="btn btn-primary" onclick="saveEdit('lessonSettingsSection')">Save Changes</button>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- Family Section -->
-          <section class="section-card" id="familySection">
+          <!-- Contact & Notifications Section (Secondary) -->
+          <section class="section-card section-card--secondary" id="contactSection">
+            <div class="section-header">
+              <h2 class="section-title">Contact & Notifications</h2>
+              <button class="btn btn-ghost" onclick="toggleEdit('contactSection')">
+                <i class="ph ph-pencil"></i>
+                Edit
+              </button>
+            </div>
+            <div class="section-content">
+              <div class="view-mode">
+                <div class="data-grid data-grid--2col">
+                  <div class="data-item">
+                    <span class="data-label">Email</span>
+                    <span class="data-value"><a href="mailto:emily@example.com">emily@example.com</a></span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Phone</span>
+                    <span class="data-value"><a href="tel:+15551234567">(555) 123-4567</a></span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">SMS Capable</span>
+                    <span class="data-value">Yes</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Last Contacted</span>
+                    <span class="data-value">3 days ago</span>
+                  </div>
+                </div>
+                <div class="notification-list" style="margin-top: var(--space-4);">
+                  <div class="switch-wrapper">
+                    <div class="switch active" onclick="this.classList.toggle('active')"></div>
+                    <span class="switch-label">Send email lesson reminders</span>
+                  </div>
+                  <div class="switch-wrapper">
+                    <div class="switch active" onclick="this.classList.toggle('active')"></div>
+                    <span class="switch-label">Send SMS lesson reminders</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="edit-form">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" value="emily@example.com" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" class="form-input" value="(555) 123-4567" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">SMS Capable</label>
+                    <label class="checkbox-wrapper">
+                      <input type="checkbox" class="checkbox" checked />
+                      <span>This phone can receive SMS</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="notification-list" style="margin-top: var(--space-4);">
+                  <div class="switch-wrapper">
+                    <div class="switch active" onclick="this.classList.toggle('active')"></div>
+                    <span class="switch-label">Send email lesson reminders</span>
+                  </div>
+                  <div class="switch-wrapper">
+                    <div class="switch active" onclick="this.classList.toggle('active')"></div>
+                    <span class="switch-label">Send SMS lesson reminders</span>
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button class="btn btn-secondary" onclick="cancelEdit('contactSection')">Cancel</button>
+                  <button class="btn btn-primary" onclick="saveEdit('contactSection')">Save Changes</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Family Section (Secondary) -->
+          <section class="section-card section-card--secondary" id="familySection">
             <div class="section-header">
               <h2 class="section-title">Family</h2>
               <button class="btn btn-ghost" onclick="toggleEdit('familySection')">
@@ -1575,7 +1800,6 @@
               </button>
             </div>
             <div class="section-content">
-              <!-- View Mode -->
               <div class="view-mode">
                 <div class="guardian-card">
                   <div class="guardian-header">
@@ -1591,6 +1815,17 @@
                       <i class="ph ph-phone"></i>
                       <a href="tel:+15559876543">(555) 987-6543</a>
                     </span>
+                  </div>
+                  <div class="guardian-actions">
+                    <button class="guardian-action-btn" title="Call">
+                      <i class="ph ph-phone"></i>
+                    </button>
+                    <button class="guardian-action-btn" title="Email">
+                      <i class="ph ph-envelope"></i>
+                    </button>
+                    <button class="guardian-action-btn" title="Message">
+                      <i class="ph ph-chat-circle"></i>
+                    </button>
                   </div>
                 </div>
 
@@ -1628,9 +1863,8 @@
                 </div>
               </div>
 
-              <!-- Edit Mode -->
               <div class="edit-form">
-                <h4 style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: var(--space-4);">Primary Guardian</h4>
+                <h4 style="font-size: 13px; font-weight: 600; color: var(--fg-secondary); margin-bottom: var(--space-4);">Primary Guardian</h4>
                 <div class="form-grid">
                   <div class="form-group">
                     <label class="form-label">First Name <span class="required">*</span></label>
@@ -1650,7 +1884,7 @@
                   </div>
                 </div>
 
-                <h4 style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: var(--space-5) 0 var(--space-4);">Address</h4>
+                <h4 style="font-size: 13px; font-weight: 600; color: var(--fg-secondary); margin: var(--space-5) 0 var(--space-4);">Address</h4>
                 <div class="form-grid">
                   <div class="form-group full-width">
                     <label class="form-label">Street Address</label>
@@ -1665,7 +1899,6 @@
                     <select class="form-select">
                       <option value="CA" selected>California</option>
                       <option value="NY">New York</option>
-                      <!-- More states... -->
                     </select>
                   </div>
                 </div>
@@ -1678,55 +1911,216 @@
             </div>
           </section>
 
-          <!-- Billing Summary Section -->
-          <section class="section-card">
+          <!-- Notes Section -->
+          <section class="section-card section-card--secondary" id="notesSection">
             <div class="section-header">
-              <h2 class="section-title">Billing Summary</h2>
-              <a href="student-detail-invoices.html" class="view-all-link">
-                View All
-                <i class="ph ph-arrow-right"></i>
-              </a>
+              <h2 class="section-title">Notes</h2>
+              <button class="btn btn-ghost" onclick="toggleEdit('notesSection')">
+                <i class="ph ph-pencil"></i>
+                Edit
+              </button>
             </div>
             <div class="section-content">
-              <div class="billing-summary">
-                <div class="billing-stat">
-                  <div class="billing-stat-value">$50</div>
-                  <div class="billing-stat-label">Per Lesson</div>
+              <div class="view-mode">
+                <div class="quick-add-note">
+                  <input type="text" class="quick-add-input" placeholder="Add a quick note..." />
+                  <button class="btn btn-primary">Add</button>
                 </div>
-                <div class="billing-stat">
-                  <div class="billing-stat-value positive">$50</div>
-                  <div class="billing-stat-label">Credit Balance</div>
+                <div class="notes-content">Emily is preparing for her spring recital in March. She's been working on Chopin's Nocturne Op. 9 No. 2 and has made excellent progress over the past few months.
+
+Focus areas:
+- Dynamics and expression
+- Pedaling technique
+- Performance confidence
+
+She responds well to positive reinforcement and enjoys learning about the historical context of pieces.</div>
+                <div class="notes-meta">Last updated: January 6, 2025</div>
+              </div>
+
+              <div class="edit-form">
+                <div class="form-group">
+                  <textarea class="form-textarea" rows="8">Emily is preparing for her spring recital in March. She's been working on Chopin's Nocturne Op. 9 No. 2 and has made excellent progress over the past few months.
+
+Focus areas:
+- Dynamics and expression
+- Pedaling technique
+- Performance confidence
+
+She responds well to positive reinforcement and enjoys learning about the historical context of pieces.</textarea>
                 </div>
-                <div class="billing-stat">
-                  <div class="billing-stat-value">2</div>
-                  <div class="billing-stat-label">Unpaid Invoices</div>
-                </div>
-                <div class="billing-stat">
-                  <div class="billing-stat-value negative">$200</div>
-                  <div class="billing-stat-label">Outstanding</div>
+                <div class="form-actions">
+                  <button class="btn btn-secondary" onclick="cancelEdit('notesSection')">Cancel</button>
+                  <button class="btn btn-primary" onclick="saveEdit('notesSection')">Save Changes</button>
                 </div>
               </div>
-              <div class="billing-detail">
+            </div>
+          </section>
+
+          <!-- Billing Summary Section (Collapsed by default) -->
+          <section class="section-card section-card--secondary section-card--collapsed" id="billingSection">
+            <div class="section-header">
+              <h2 class="section-title">Billing Summary</h2>
+              <div class="section-header-actions">
+                <a href="student-detail-invoices.html" class="view-all-link">
+                  View Invoices
+                  <i class="ph ph-arrow-right"></i>
+                </a>
+                <button class="btn btn-ghost" onclick="toggleCollapse('billingSection')">
+                  <i class="ph ph-caret-down"></i>
+                </button>
+              </div>
+            </div>
+            <div class="collapsed-summary">
+              <span class="collapsed-summary-text">$50/lesson | Balance: <span style="color: var(--success-600);">$50 credit</span> | 2 unpaid invoices</span>
+              <a href="#" class="collapsed-summary-link" onclick="toggleCollapse('billingSection'); return false;">View details</a>
+            </div>
+            <div class="section-content">
+              <div class="data-grid data-grid--2col">
+                <div class="data-item">
+                  <span class="data-label">Billing Method</span>
+                  <span class="data-value">Per Lesson</span>
+                </div>
+                <div class="data-item">
+                  <span class="data-label">Rate</span>
+                  <span class="data-value">$50.00 per lesson</span>
+                </div>
+                <div class="data-item">
+                  <span class="data-label">Auto-Invoicing</span>
+                  <span class="data-value">Monthly on the 1st</span>
+                </div>
+                <div class="data-item">
+                  <span class="data-label">Account Balance</span>
+                  <span class="data-value" style="color: var(--success-600);">$50.00 credit</span>
+                </div>
+                <div class="data-item">
+                  <span class="data-label">Outstanding Invoices</span>
+                  <span class="data-value"><a href="student-detail-invoices.html">2 invoices ($200.00)</a></span>
+                </div>
+              </div>
+              <p style="font-size: 12px; color: var(--fg-muted); margin-top: var(--space-4);">
+                <i class="ph ph-info" style="margin-right: 4px;"></i>
+                Billing is managed at the family level for Chen Family
+              </p>
+            </div>
+          </section>
+
+          <!-- Personal Details Section (Collapsed by default) -->
+          <section class="section-card section-card--secondary section-card--collapsed" id="personalDetailsSection">
+            <div class="section-header">
+              <h2 class="section-title">Personal Details</h2>
+              <button class="btn btn-ghost" onclick="toggleCollapse('personalDetailsSection')">
+                <i class="ph ph-caret-down"></i>
+              </button>
+            </div>
+            <div class="collapsed-summary">
+              <span class="collapsed-summary-text">Female, 14 years old, Lincoln Middle School</span>
+              <a href="#" class="collapsed-summary-link" onclick="toggleCollapse('personalDetailsSection'); return false;">View details</a>
+            </div>
+            <div class="section-content">
+              <div class="view-mode">
                 <div class="data-grid">
                   <div class="data-item">
-                    <span class="data-label">Billing Method</span>
-                    <span class="data-value">Per Lesson</span>
+                    <span class="data-label">First Name</span>
+                    <span class="data-value">Emily</span>
                   </div>
                   <div class="data-item">
-                    <span class="data-label">Auto-Invoicing</span>
-                    <span class="data-value">Monthly on the 1st</span>
+                    <span class="data-label">Last Name</span>
+                    <span class="data-value">Chen</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Student Type</span>
+                    <span class="data-value"><span class="badge badge-type">Child</span></span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Status</span>
+                    <span class="data-value"><span class="badge badge-active">Active</span></span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Gender</span>
+                    <span class="data-value">Female</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Birthday</span>
+                    <span class="data-value">March 15, 2010 (14 years old)</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">School</span>
+                    <span class="data-value">Lincoln Middle School</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Referrer</span>
+                    <span class="data-value">Maria Thompson</span>
+                  </div>
+                  <div class="data-item">
+                    <span class="data-label">Student Since</span>
+                    <span class="data-value">September 2024</span>
                   </div>
                 </div>
-                <p style="font-size: 12px; color: var(--text-muted); margin-top: var(--space-3);">
-                  <i class="ph ph-info" style="margin-right: 4px;"></i>
-                  Billing is managed at the family level for Chen Family
-                </p>
+              </div>
+
+              <div class="edit-form">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">First Name <span class="required">*</span></label>
+                    <input type="text" class="form-input" value="Emily" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Last Name <span class="required">*</span></label>
+                    <input type="text" class="form-input" value="Chen" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Student Type <span class="required">*</span></label>
+                    <select class="form-select">
+                      <option value="child" selected>Child</option>
+                      <option value="adult">Adult</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Status <span class="required">*</span></label>
+                    <select class="form-select">
+                      <option value="active" selected>Active</option>
+                      <option value="trial">Trial</option>
+                      <option value="waiting">Waiting</option>
+                      <option value="lead">Lead</option>
+                      <option value="inactive">Inactive</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Gender</label>
+                    <select class="form-select">
+                      <option value="">Select...</option>
+                      <option value="male">Male</option>
+                      <option value="female" selected>Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Birthday</label>
+                    <input type="date" class="form-input" value="2010-03-15" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">School</label>
+                    <input type="text" class="form-input" value="Lincoln Middle School" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Referrer</label>
+                    <input type="text" class="form-input" value="Maria Thompson" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Student Since</label>
+                    <input type="month" class="form-input" value="2024-09" />
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button class="btn btn-secondary" onclick="cancelEdit('personalDetailsSection')">Cancel</button>
+                  <button class="btn btn-primary" onclick="saveEdit('personalDetailsSection')">Save Changes</button>
+                </div>
               </div>
             </div>
           </section>
 
           <!-- Recent Lessons Section -->
-          <section class="section-card">
+          <section class="section-card section-card--secondary">
             <div class="section-header">
               <h2 class="section-title">Recent Lessons</h2>
               <a href="student-detail-lessons.html" class="view-all-link">
@@ -1750,82 +2144,39 @@
                     <td>Mon, Jan 6</td>
                     <td>3:00 - 3:30 PM</td>
                     <td>30 min</td>
-                    <td class="status-attended">Attended</td>
+                    <td><span class="lesson-status lesson-status--attended">Attended</span></td>
                     <td><span class="lesson-note">Worked on Chopin Nocturne Op. 9</span></td>
                   </tr>
                   <tr>
                     <td>Fri, Jan 3</td>
                     <td>3:00 - 3:30 PM</td>
                     <td>30 min</td>
-                    <td class="status-attended">Attended</td>
+                    <td><span class="lesson-status lesson-status--attended">Attended</span></td>
                     <td><span class="lesson-note">Review of scales and arpeggios</span></td>
                   </tr>
                   <tr>
                     <td>Mon, Dec 30</td>
                     <td>3:00 - 3:30 PM</td>
                     <td>30 min</td>
-                    <td class="status-cancelled">Cancelled</td>
+                    <td><span class="lesson-status lesson-status--cancelled">Cancelled</span></td>
                     <td><span class="lesson-note">Holiday break</span></td>
                   </tr>
                   <tr>
                     <td>Fri, Dec 27</td>
                     <td>3:00 - 3:30 PM</td>
                     <td>30 min</td>
-                    <td class="status-attended">Attended</td>
+                    <td><span class="lesson-status lesson-status--attended">Attended</span></td>
                     <td><span class="lesson-note">Prepared for winter recital</span></td>
                   </tr>
                   <tr>
                     <td>Mon, Dec 23</td>
                     <td>3:00 - 3:30 PM</td>
                     <td>30 min</td>
-                    <td class="status-attended">Attended</td>
+                    <td><span class="lesson-status lesson-status--attended">Attended</span></td>
                     <td><span class="lesson-note">Final recital practice</span></td>
                   </tr>
                 </tbody>
               </table>
-            </div>
-          </section>
-
-          <!-- Notes Section -->
-          <section class="section-card" id="notesSection">
-            <div class="section-header">
-              <h2 class="section-title">Notes</h2>
-              <button class="btn btn-ghost" onclick="toggleEdit('notesSection')">
-                <i class="ph ph-pencil"></i>
-                Edit
-              </button>
-            </div>
-            <div class="section-content">
-              <!-- View Mode -->
-              <div class="view-mode">
-                <div class="notes-content">Emily is preparing for her spring recital in March. She's been working on Chopin's Nocturne Op. 9 No. 2 and has made excellent progress over the past few months.
-
-Focus areas:
-- Dynamics and expression
-- Pedaling technique
-- Performance confidence
-
-She responds well to positive reinforcement and enjoys learning about the historical context of pieces.</div>
-                <div class="notes-meta">Last updated: January 6, 2025</div>
-              </div>
-
-              <!-- Edit Mode -->
-              <div class="edit-form">
-                <div class="form-group">
-                  <textarea class="form-textarea" rows="8">Emily is preparing for her spring recital in March. She's been working on Chopin's Nocturne Op. 9 No. 2 and has made excellent progress over the past few months.
-
-Focus areas:
-- Dynamics and expression
-- Pedaling technique
-- Performance confidence
-
-She responds well to positive reinforcement and enjoys learning about the historical context of pieces.</textarea>
-                </div>
-                <div class="form-actions">
-                  <button class="btn btn-secondary" onclick="cancelEdit('notesSection')">Cancel</button>
-                  <button class="btn btn-primary" onclick="saveEdit('notesSection')">Save Changes</button>
-                </div>
-              </div>
             </div>
           </section>
         </div>
@@ -1851,6 +2202,10 @@ She responds well to positive reinforcement and enjoys learning about the histor
       // Edit Mode Toggle
       function toggleEdit(sectionId) {
         const section = document.getElementById(sectionId);
+        // First expand if collapsed
+        if (section.classList.contains('section-card--collapsed')) {
+          section.classList.remove('section-card--collapsed');
+        }
         section.classList.add('editing');
       }
 
@@ -1861,14 +2216,45 @@ She responds well to positive reinforcement and enjoys learning about the histor
 
       function saveEdit(sectionId) {
         const section = document.getElementById(sectionId);
-        // In a real app, this would save data to the server
         section.classList.remove('editing');
-        // Show success feedback
         alert('Changes saved successfully!');
       }
 
+      // Collapse Toggle
+      function toggleCollapse(sectionId) {
+        const section = document.getElementById(sectionId);
+        section.classList.toggle('section-card--collapsed');
+
+        // Update caret icon
+        const caret = section.querySelector('.section-header .ph-caret-down, .section-header .ph-caret-up');
+        if (caret) {
+          if (section.classList.contains('section-card--collapsed')) {
+            caret.classList.remove('ph-caret-up');
+            caret.classList.add('ph-caret-down');
+          } else {
+            caret.classList.remove('ph-caret-down');
+            caret.classList.add('ph-caret-up');
+          }
+        }
+      }
+
+      // Pre-lesson toggle
+      function togglePrelesson() {
+        const content = document.getElementById('prelessonContent');
+        const btn = document.querySelector('.prelesson-header button i');
+        if (content.style.display === 'none') {
+          content.style.display = 'block';
+          btn.classList.remove('ph-caret-down');
+          btn.classList.add('ph-caret-up');
+        } else {
+          content.style.display = 'none';
+          btn.classList.remove('ph-caret-up');
+          btn.classList.add('ph-caret-down');
+        }
+      }
+
       function editStudent() {
-        toggleEdit('studentInfoSection');
+        toggleEdit('personalDetailsSection');
         document.getElementById('actionsMenu').classList.remove('active');
       }
     </script>
