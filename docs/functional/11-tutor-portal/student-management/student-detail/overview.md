@@ -172,6 +172,7 @@ Communication preferences and contact information.
 | Email | Mailto link (or "Not provided") |
 | Phone | Tel link (or "Not provided") |
 | SMS Capable | "Yes" or "No" (only shown if phone provided) |
+| Address | Full formatted address (only for Adult students) |
 | Last Contacted | "3 days ago" or "Never" |
 | Email Lesson Reminders | Toggle switch (On/Off) |
 | SMS Lesson Reminders | Toggle switch (On/Off) - only shown if phone provided |
@@ -185,6 +186,15 @@ Communication preferences and contact information.
 | SMS Capable | Checkbox | Only shown if phone provided |
 | Email Lesson Reminders | Toggle switch | Default on |
 | SMS Lesson Reminders | Toggle switch | Default on, only shown if phone provided |
+
+**Address Fields (Adult students only):**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| Street | Text input | Optional |
+| City | Text input | Optional |
+| State | Combobox (US) or text input | Optional |
+| Zip | Text input | Optional |
 
 ---
 
@@ -213,6 +223,7 @@ For Adult students, this section is hidden.
 | Display Format | "Primary Contact · Mother" (relationship shown inline if provided) |
 | Email | Mailto link (or "Not provided") |
 | Phone | Tel link with SMS icon if capable |
+| Address | Full formatted address (or "No address") |
 | Contact Actions | Quick action buttons: Call, Email, Message |
 
 **Additional Contacts** (if any)
@@ -220,12 +231,8 @@ For Adult students, this section is hidden.
 - Listed below primary contact
 - Same fields as primary contact
 - Role displays as "Contact" with optional relationship inline
-
-**Address** (if provided)
-
-| Field | Display Format |
-|-------|----------------|
-| Full Address | Combined, formatted address |
+- Each contact has their own address (may use "Same as primary contact" option)
+- Delete action available (not available for primary contact)
 
 **Siblings** (if any)
 
@@ -235,6 +242,8 @@ For Adult students, this section is hidden.
 
 ### Edit Mode
 
+**Per Contact Fields:**
+
 | Field | Input Type | Validation |
 |-------|------------|------------|
 | First Name | Text input | Required |
@@ -243,16 +252,30 @@ For Adult students, this section is hidden.
 | Email | Email input | At least email or phone required |
 | Phone | Tel input | At least email or phone required |
 | SMS Capable | Checkbox | Only shown if phone provided |
+
+**Address Fields (per contact):**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| Same as Primary | Checkbox | Only shown for additional contacts; hides address fields when checked |
 | Street | Text input | Optional |
 | City | Text input | Optional |
 | State | Combobox (US) or text input | Optional |
+| Zip | Text input | Optional |
+
+### Contact Actions
+
+| Action | Description | Availability |
+|--------|-------------|--------------|
+| Add Contact | Opens inline form to add another contact | Always available |
+| Delete Contact | Removes contact after confirmation | Only for non-primary contacts |
+| Set as Primary | Promotes contact to primary | Only for non-primary contacts |
 
 ### Family Actions
 
 | Action | Description |
 |--------|-------------|
 | Change Family | Opens family selection to reassign student |
-| Add Contact | Opens form to add another contact |
 
 ---
 

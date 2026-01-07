@@ -869,6 +869,19 @@
         text-decoration: underline;
       }
 
+      .guardian-address {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        font-size: 13px;
+        color: var(--fg-muted);
+        margin-top: var(--space-2);
+      }
+
+      .guardian-address i {
+        font-size: 14px;
+      }
+
       .guardian-actions {
         display: flex;
         gap: var(--space-1);
@@ -1418,6 +1431,14 @@
     </style>
   </head>
   <body>
+    <!-- Wireframe Demo Controls -->
+    <div class="demo-controls" style="position: fixed; top: 16px; right: 16px; z-index: 1000; background: var(--bg-default); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+      <label style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary); cursor: pointer;">
+        <input type="checkbox" id="adultStudentToggle" onchange="toggleStudentType()" />
+        <span>Adult Student View</span>
+      </label>
+    </div>
+
     <div class="app-layout">
       <!-- Sidebar Navigation -->
       <aside class="sidebar" role="navigation" aria-label="Main navigation">
@@ -1706,6 +1727,11 @@
                     <span class="data-label">Last Contacted</span>
                     <span class="data-value">3 days ago</span>
                   </div>
+                  <!-- Address fields shown for Adult students only -->
+                  <div class="data-item full-width adult-only" style="display: none;">
+                    <span class="data-label">Address</span>
+                    <span class="data-value">456 Maple Ave, San Francisco, CA 94103</span>
+                  </div>
                 </div>
                 <div class="notification-list" style="margin-top: var(--space-4);">
                   <div class="switch-wrapper">
@@ -1737,6 +1763,33 @@
                     </label>
                   </div>
                 </div>
+
+                <!-- Address fields shown for Adult students only -->
+                <div class="adult-only" style="display: none;">
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
+                  <div class="form-grid">
+                    <div class="form-group full-width">
+                      <label class="form-label">Street Address</label>
+                      <input type="text" class="form-input" value="456 Maple Ave" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">City</label>
+                      <input type="text" class="form-input" value="San Francisco" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">State</label>
+                      <select class="form-select">
+                        <option value="CA" selected>California</option>
+                        <option value="NY">New York</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Zip Code</label>
+                      <input type="text" class="form-input" value="94103" />
+                    </div>
+                  </div>
+                </div>
+
                 <div class="notification-list" style="margin-top: var(--space-4);">
                   <div class="switch-wrapper">
                     <div class="switch active" onclick="this.classList.toggle('active')"></div>
@@ -1781,6 +1834,10 @@
                       <a href="tel:+15559876543">(555) 987-6543</a>
                     </span>
                   </div>
+                  <div class="guardian-address">
+                    <i class="ph ph-map-pin"></i>
+                    <span>123 Oak Street, San Francisco, CA 94102</span>
+                  </div>
                   <div class="guardian-actions">
                     <button class="guardian-action-btn" title="Call">
                       <i class="ph ph-phone"></i>
@@ -1798,6 +1855,9 @@
                   <div class="guardian-header">
                     <span class="guardian-name">David Chen</span>
                     <span class="guardian-role">Contact · Father</span>
+                    <button class="btn btn-ghost btn-icon btn-sm" title="Delete contact" style="margin-left: auto;">
+                      <i class="ph ph-trash"></i>
+                    </button>
                   </div>
                   <div class="guardian-contact">
                     <span>
@@ -1809,15 +1869,16 @@
                       <a href="tel:+15559876544">(555) 987-6544</a>
                     </span>
                   </div>
-                </div>
-
-                <div class="address-block">
-                  <div class="address-title">Address</div>
-                  <div class="address-text">
-                    123 Oak Street<br />
-                    San Francisco, CA 94102
+                  <div class="guardian-address">
+                    <i class="ph ph-map-pin"></i>
+                    <span>Same as primary contact</span>
                   </div>
                 </div>
+
+                <button class="btn btn-secondary" style="margin-top: var(--space-4);">
+                  <i class="ph ph-plus"></i>
+                  Add Contact
+                </button>
 
                 <div class="siblings-section">
                   <div class="siblings-title">Other Students in Family</div>
@@ -1829,61 +1890,149 @@
               </div>
 
               <div class="edit-form">
-                <h4 style="font-size: 13px; font-weight: 600; color: var(--fg-secondary); margin-bottom: var(--space-4);">Primary Contact</h4>
-                <div class="form-grid">
-                  <div class="form-group">
-                    <label class="form-label">First Name <span class="required">*</span></label>
-                    <input type="text" class="form-input" value="Jennifer" />
+                <!-- Primary Contact -->
+                <div class="contact-edit-card" style="background: var(--bg-subtle); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-4);">
+                  <h4 style="font-size: 13px; font-weight: 600; color: var(--fg-secondary); margin-bottom: var(--space-4);">Primary Contact</h4>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">First Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Jennifer" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Last Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Chen" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Relationship</label>
+                      <select class="form-select">
+                        <option value="">Select relationship...</option>
+                        <option value="mother" selected>Mother</option>
+                        <option value="father">Father</option>
+                        <option value="stepmother">Stepmother</option>
+                        <option value="stepfather">Stepfather</option>
+                        <option value="grandmother">Grandmother</option>
+                        <option value="grandfather">Grandfather</option>
+                        <option value="aunt">Aunt</option>
+                        <option value="uncle">Uncle</option>
+                        <option value="sibling">Sibling</option>
+                        <option value="foster-parent">Foster Parent</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Email <span class="required">*</span></label>
+                      <input type="email" class="form-input" value="jennifer.chen@example.com" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Phone</label>
+                      <input type="tel" class="form-input" value="(555) 987-6543" />
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">Last Name <span class="required">*</span></label>
-                    <input type="text" class="form-input" value="Chen" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Relationship</label>
-                    <select class="form-select">
-                      <option value="">Select relationship...</option>
-                      <option value="mother" selected>Mother</option>
-                      <option value="father">Father</option>
-                      <option value="stepmother">Stepmother</option>
-                      <option value="stepfather">Stepfather</option>
-                      <option value="grandmother">Grandmother</option>
-                      <option value="grandfather">Grandfather</option>
-                      <option value="aunt">Aunt</option>
-                      <option value="uncle">Uncle</option>
-                      <option value="sibling">Sibling</option>
-                      <option value="foster-parent">Foster Parent</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Email <span class="required">*</span></label>
-                    <input type="email" class="form-input" value="jennifer.chen@example.com" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Phone</label>
-                    <input type="tel" class="form-input" value="(555) 987-6543" />
+
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
+                  <div class="form-grid">
+                    <div class="form-group full-width">
+                      <label class="form-label">Street Address</label>
+                      <input type="text" class="form-input" value="123 Oak Street" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">City</label>
+                      <input type="text" class="form-input" value="San Francisco" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">State</label>
+                      <select class="form-select">
+                        <option value="CA" selected>California</option>
+                        <option value="NY">New York</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Zip Code</label>
+                      <input type="text" class="form-input" value="94102" />
+                    </div>
                   </div>
                 </div>
 
-                <h4 style="font-size: 13px; font-weight: 600; color: var(--fg-secondary); margin: var(--space-5) 0 var(--space-4);">Address</h4>
-                <div class="form-grid">
-                  <div class="form-group full-width">
-                    <label class="form-label">Street Address</label>
-                    <input type="text" class="form-input" value="123 Oak Street" />
+                <!-- Additional Contact -->
+                <div class="contact-edit-card" style="background: var(--bg-subtle); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-4);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                    <h4 style="font-size: 13px; font-weight: 600; color: var(--fg-secondary); margin: 0;">Contact</h4>
+                    <button class="btn btn-ghost btn-sm" style="color: var(--danger-600);" title="Delete contact">
+                      <i class="ph ph-trash"></i>
+                      Delete
+                    </button>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">City</label>
-                    <input type="text" class="form-input" value="San Francisco" />
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">First Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="David" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Last Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Chen" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Relationship</label>
+                      <select class="form-select">
+                        <option value="">Select relationship...</option>
+                        <option value="mother">Mother</option>
+                        <option value="father" selected>Father</option>
+                        <option value="stepmother">Stepmother</option>
+                        <option value="stepfather">Stepfather</option>
+                        <option value="grandmother">Grandmother</option>
+                        <option value="grandfather">Grandfather</option>
+                        <option value="aunt">Aunt</option>
+                        <option value="uncle">Uncle</option>
+                        <option value="sibling">Sibling</option>
+                        <option value="foster-parent">Foster Parent</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Email <span class="required">*</span></label>
+                      <input type="email" class="form-input" value="david.chen@example.com" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Phone</label>
+                      <input type="tel" class="form-input" value="(555) 987-6544" />
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">State</label>
-                    <select class="form-select">
-                      <option value="CA" selected>California</option>
-                      <option value="NY">New York</option>
-                    </select>
+
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
+                  <div class="form-group" style="margin-bottom: var(--space-3);">
+                    <label class="checkbox-label">
+                      <input type="checkbox" checked />
+                      <span>Same as primary contact</span>
+                    </label>
+                  </div>
+                  <div class="form-grid" id="secondaryAddressFields" style="display: none;">
+                    <div class="form-group full-width">
+                      <label class="form-label">Street Address</label>
+                      <input type="text" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">City</label>
+                      <input type="text" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">State</label>
+                      <select class="form-select">
+                        <option value="">Select state...</option>
+                        <option value="CA">California</option>
+                        <option value="NY">New York</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Zip Code</label>
+                      <input type="text" class="form-input" />
+                    </div>
                   </div>
                 </div>
+
+                <button class="btn btn-secondary" style="margin-bottom: var(--space-4);">
+                  <i class="ph ph-plus"></i>
+                  Add Contact
+                </button>
 
                 <div class="form-actions">
                   <button class="btn btn-secondary" onclick="cancelEdit('familySection')">Cancel</button>
@@ -2186,6 +2335,30 @@ She responds well to positive reinforcement and enjoys learning about the histor
           menu.classList.remove('active');
         }
       });
+
+      // Student Type Toggle (Adult vs Child)
+      function toggleStudentType() {
+        const isAdult = document.getElementById('adultStudentToggle').checked;
+        const familySection = document.getElementById('familySection');
+        const adultOnlyElements = document.querySelectorAll('.adult-only');
+        const familyLink = document.querySelector('.student-family');
+
+        if (isAdult) {
+          // Hide Family section for adults
+          if (familySection) familySection.style.display = 'none';
+          // Show address fields in Contact & Notifications
+          adultOnlyElements.forEach(el => el.style.display = 'block');
+          // Hide family link in header
+          if (familyLink) familyLink.style.display = 'none';
+        } else {
+          // Show Family section for children
+          if (familySection) familySection.style.display = 'block';
+          // Hide address fields in Contact & Notifications
+          adultOnlyElements.forEach(el => el.style.display = 'none');
+          // Show family link in header
+          if (familyLink) familyLink.style.display = 'flex';
+        }
+      }
 
       // Edit Mode Toggle
       function toggleEdit(sectionId) {
