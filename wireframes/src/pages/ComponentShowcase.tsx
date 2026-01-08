@@ -93,6 +93,251 @@ export function ComponentShowcase() {
         subtitle="Design system components for wireframes"
       />
 
+      {/* Micro-interactions & Animations */}
+      <section className="showcase-section">
+        <h2 className="showcase-title">Micro-interactions & Animations</h2>
+        <p className="text-secondary body-sm mb-4">
+          Thoughtful animations add delight without distraction. All animations respect <code>prefers-reduced-motion</code> for accessibility.
+        </p>
+
+        <div className="showcase-grid">
+          <div className="showcase-card full-width">
+            <div className="showcase-label">Design Philosophy</div>
+            <div className="animation-philosophy">
+              <div className="philosophy-item">
+                <div className="philosophy-icon">
+                  <i className="ph ph-sparkle" />
+                </div>
+                <div>
+                  <strong>Purposeful</strong>
+                  <p className="body-sm text-secondary">Every animation serves a function—guiding attention, confirming actions, or showing state changes.</p>
+                </div>
+              </div>
+              <div className="philosophy-item">
+                <div className="philosophy-icon">
+                  <i className="ph ph-timer" />
+                </div>
+                <div>
+                  <strong>Swift</strong>
+                  <p className="body-sm text-secondary">Animations are fast (150-300ms) so they enhance rather than slow down the experience.</p>
+                </div>
+              </div>
+              <div className="philosophy-item">
+                <div className="philosophy-icon">
+                  <i className="ph ph-eye" />
+                </div>
+                <div>
+                  <strong>Subtle</strong>
+                  <p className="body-sm text-secondary">Micro-interactions provide feedback without demanding attention or causing distraction.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="showcase-card">
+            <div className="showcase-label">Checkbox Animation</div>
+            <p className="body-sm text-secondary mb-3">
+              Elastic "pop" animation on check provides satisfying tactile feedback.
+            </p>
+            <div className="showcase-row">
+              <Checkbox label="Click to see animation" />
+              <Checkbox label="Already checked" defaultChecked />
+            </div>
+            <div className="animation-spec">
+              <code>0.2s cubic-bezier(0.34, 1.56, 0.64, 1)</code>
+            </div>
+          </div>
+
+          <div className="showcase-card">
+            <div className="showcase-label">Badge Hover</div>
+            <p className="body-sm text-secondary mb-3">
+              Subtle lift on hover indicates interactivity.
+            </p>
+            <div className="showcase-row">
+              <Badge variant="success">Hover me</Badge>
+              <Badge variant="warning">Interactive</Badge>
+              <Badge variant="primary">Badges</Badge>
+            </div>
+            <div className="animation-spec">
+              <code>transform: translateY(-1px)</code>
+            </div>
+          </div>
+
+          <div className="showcase-card">
+            <div className="showcase-label">Link Underline</div>
+            <p className="body-sm text-secondary mb-3">
+              Underline grows from left on hover, creating an elegant reveal effect.
+            </p>
+            <div className="demo-link-container">
+              <a href="#" className="demo-animated-link" onClick={(e) => e.preventDefault()}>
+                Emily Chen
+              </a>
+              <a href="#" className="demo-animated-link" onClick={(e) => e.preventDefault()}>
+                Marcus Williams
+              </a>
+            </div>
+            <div className="animation-spec">
+              <code>width: 0 → 100% over 0.25s ease</code>
+            </div>
+          </div>
+
+          <div className="showcase-card">
+            <div className="showcase-label">Pulsing Indicator</div>
+            <p className="body-sm text-secondary mb-3">
+              Draws attention to time-sensitive items like today's lessons.
+            </p>
+            <div className="showcase-row">
+              <span className="demo-lesson-indicator">
+                <span className="demo-pulse-dot" />
+                Today, 3:00 PM
+              </span>
+              <StatusDot variant="success" pulse />
+              <span className="body-sm">Online</span>
+            </div>
+            <div className="animation-spec">
+              <code>2s ease-in-out infinite pulse</code>
+            </div>
+          </div>
+
+          <div className="showcase-card full-width">
+            <div className="showcase-label">Row Selection</div>
+            <p className="body-sm text-secondary mb-3">
+              Selected rows get a subtle highlight and animated accent bar. Hover shifts rows slightly to indicate interactivity.
+            </p>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableHeaderCell checkbox><Checkbox /></TableHeaderCell>
+                  <TableHeaderCell>Name</TableHeaderCell>
+                  <TableHeaderCell>Status</TableHeaderCell>
+                  <TableHeaderCell>Next Lesson</TableHeaderCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell><Checkbox /></TableCell>
+                  <TableCell><span className="demo-animated-link">Emily Chen</span></TableCell>
+                  <TableCell><Badge variant="success">Active</Badge></TableCell>
+                  <TableCell>
+                    <span className="demo-lesson-indicator">
+                      <span className="demo-pulse-dot" />
+                      Today, 3:00 PM
+                    </span>
+                  </TableCell>
+                </TableRow>
+                <TableRow selected>
+                  <TableCell><Checkbox defaultChecked /></TableCell>
+                  <TableCell><span className="demo-animated-link">Marcus Williams</span></TableCell>
+                  <TableCell><Badge variant="indigo">Trial</Badge></TableCell>
+                  <TableCell>Tomorrow, 4:30 PM</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell><Checkbox /></TableCell>
+                  <TableCell><span className="demo-animated-link">Sophie Martinez</span></TableCell>
+                  <TableCell><Badge variant="success">Active</Badge></TableCell>
+                  <TableCell>Jan 8, 2:00 PM</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+            <div className="animation-spec">
+              <code>2px translateX on hover · 3px accent bar animates scaleY(0→1)</code>
+            </div>
+          </div>
+
+          <div className="showcase-card">
+            <div className="showcase-label">Loading Skeleton</div>
+            <p className="body-sm text-secondary mb-3">
+              Shimmer animation indicates loading state and preserves layout.
+            </p>
+            <div className="demo-skeleton-container">
+              <div className="demo-skeleton-row">
+                <div className="demo-skeleton demo-skeleton-checkbox" />
+                <div className="demo-skeleton demo-skeleton-name" />
+                <div className="demo-skeleton demo-skeleton-badge" />
+                <div className="demo-skeleton demo-skeleton-text" />
+              </div>
+              <div className="demo-skeleton-row">
+                <div className="demo-skeleton demo-skeleton-checkbox" />
+                <div className="demo-skeleton demo-skeleton-name" />
+                <div className="demo-skeleton demo-skeleton-badge" />
+                <div className="demo-skeleton demo-skeleton-text" />
+              </div>
+              <div className="demo-skeleton-row">
+                <div className="demo-skeleton demo-skeleton-checkbox" />
+                <div className="demo-skeleton demo-skeleton-name" />
+                <div className="demo-skeleton demo-skeleton-badge" />
+                <div className="demo-skeleton demo-skeleton-text" />
+              </div>
+            </div>
+            <div className="animation-spec">
+              <code>1.5s ease-in-out infinite opacity pulse</code>
+            </div>
+          </div>
+
+          <div className="showcase-card">
+            <div className="showcase-label">Empty State</div>
+            <p className="body-sm text-secondary mb-3">
+              Gentle bounce animation adds life to empty states.
+            </p>
+            <div className="demo-empty-state">
+              <div className="demo-empty-illustration">
+                <i className="ph ph-music-notes-simple" />
+              </div>
+              <h4>No students yet</h4>
+              <p className="body-sm text-secondary">Add your first student to get started</p>
+            </div>
+            <div className="animation-spec">
+              <code>2s ease-in-out infinite translateY bounce</code>
+            </div>
+          </div>
+
+          <div className="showcase-card full-width">
+            <div className="showcase-label">Staggered Entrance</div>
+            <p className="body-sm text-secondary mb-3">
+              List items animate in with staggered delays for a polished feel. Each row has a 20ms offset.
+            </p>
+            <div className="demo-stagger-container">
+              <button className="btn btn-secondary btn-sm" onClick={() => {
+                const container = document.querySelector('.demo-stagger-items');
+                if (container) {
+                  container.classList.remove('demo-animate');
+                  void (container as HTMLElement).offsetWidth; // Trigger reflow
+                  container.classList.add('demo-animate');
+                }
+              }}>
+                <i className="ph ph-play" /> Replay Animation
+              </button>
+              <div className="demo-stagger-items demo-animate">
+                <div className="demo-stagger-item">Row 1 · 0ms delay</div>
+                <div className="demo-stagger-item">Row 2 · 20ms delay</div>
+                <div className="demo-stagger-item">Row 3 · 40ms delay</div>
+                <div className="demo-stagger-item">Row 4 · 60ms delay</div>
+                <div className="demo-stagger-item">Row 5 · 80ms delay</div>
+              </div>
+            </div>
+            <div className="animation-spec">
+              <code>0.3s ease-out backwards · animation-delay: n * 20ms</code>
+            </div>
+          </div>
+
+          <div className="showcase-card full-width">
+            <div className="showcase-label">Filter Tab Indicator</div>
+            <p className="body-sm text-secondary mb-3">
+              Active tab shows an animated underline indicator that expands from center.
+            </p>
+            <FilterTabs>
+              <FilterTab active={activeFilter === 'all'} onClick={() => setActiveFilter('all')}>All</FilterTab>
+              <FilterTab active={activeFilter === 'active'} onClick={() => setActiveFilter('active')}>Active</FilterTab>
+              <FilterTab active={activeFilter === 'trial'} onClick={() => setActiveFilter('trial')}>Trial</FilterTab>
+              <FilterTab active={activeFilter === 'inactive'} onClick={() => setActiveFilter('inactive')}>Inactive</FilterTab>
+            </FilterTabs>
+            <div className="animation-spec mt-4">
+              <code>::after pseudo-element · width: 0 → 16px over 0.2s</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Navigation */}
       <section className="showcase-section">
         <h2 className="showcase-title">Navigation</h2>

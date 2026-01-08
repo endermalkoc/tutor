@@ -29,10 +29,11 @@ export type StatusDotVariant = 'success' | 'warning' | 'error' | 'neutral';
 
 export interface StatusDotProps {
   variant?: StatusDotVariant;
+  pulse?: boolean;
   className?: string;
 }
 
-export function StatusDot({ variant = 'neutral', className = '' }: StatusDotProps) {
-  const classNames = ['status-dot', variant, className].filter(Boolean).join(' ');
+export function StatusDot({ variant = 'neutral', pulse = false, className = '' }: StatusDotProps) {
+  const classNames = ['status-dot', variant, pulse && 'pulse', className].filter(Boolean).join(' ');
   return <span className={classNames} />;
 }
