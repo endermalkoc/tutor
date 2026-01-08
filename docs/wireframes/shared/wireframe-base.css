@@ -1,48 +1,24 @@
 /* ============================================
    WIREFRAME BASE CSS
-   Shared styles for all wireframes
-   Based on the Design System
+   Extends the Design System with wireframe-specific styles
+
+   IMPORTANT: This file must be loaded AFTER design-system.css
    ============================================ */
 
 /* ============================================
-   CSS CUSTOM PROPERTIES - Design Tokens
+   ADDITIONAL CSS VARIABLES
+   Wireframe-specific tokens not in design system
    ============================================ */
 :root {
-  /* Neutral Scale - Ocean-tinted grays */
-  --gray-50: #f5f8fa;
-  --gray-100: #ebf1f5;
-  --gray-200: #d8e3eb;
-  --gray-300: #b8cdd8;
-  --gray-400: #78a3b8;
-  --gray-500: #4a7d98;
-  --gray-600: #3a6278;
-  --gray-700: #2e4d5f;
-  --gray-800: #1f333f;
-  --gray-900: #16262f;
+  /* Semantic mappings for wireframes */
+  --bg-default: #ffffff;
 
-  /* Primary - Ocean blue */
-  --primary-50: #e8f4f8;
-  --primary-100: #c5e4ed;
-  --primary-200: #9ed3e2;
-  --primary-500: #3ba5c5;
-  --primary-600: #3397b7;
-  --primary-700: #2a84a3;
+  /* Danger color aliases */
+  --danger-50: var(--error-50);
+  --danger-600: var(--error-600);
+  --danger-700: var(--error-700);
 
-  /* Semantic Colors */
-  --success-50: #f0fdf4;
-  --success-600: #16a34a;
-  --success-700: #15803d;
-
-  --warning-50: #fffbeb;
-  --warning-600: #d97706;
-
-  --error-50: #fef2f2;
-  --error-600: #dc2626;
-
-  --danger-50: #fef2f2;
-  --danger-600: #dc2626;
-  --danger-700: #b91c1c;
-
+  /* Info color */
   --info-50: #eff6ff;
   --info-600: #2563eb;
 
@@ -53,78 +29,11 @@
   /* Cyan for Lead status */
   --cyan-50: #ecfeff;
   --cyan-600: #0891b2;
-
-  /* Semantic mappings */
-  --bg-default: #ffffff;
-  --bg-base: var(--gray-50);
-  --bg-surface: #ffffff;
-  --bg-muted: var(--gray-100);
-  --bg-subtle: var(--gray-100);
-
-  --fg-default: var(--gray-900);
-  --fg-secondary: var(--gray-600);
-  --fg-muted: var(--gray-500);
-  --fg-faint: var(--gray-400);
-
-  --border-default: var(--gray-200);
-  --border-subtle: var(--gray-100);
-  --border-strong: var(--gray-300);
-
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
-
-  /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-
-  /* Spacing */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
-
-  /* Border radius */
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-
-  /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.25, 1, 0.5, 1);
-  --transition-normal: 200ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* ============================================
-   BASE RESET
-   ============================================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-body {
-  font-family: var(--font-sans);
-  background: var(--bg-base);
-  min-height: 100vh;
-  color: var(--fg-default);
-  line-height: 1.5;
-  font-size: 14px;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ============================================
-   LAYOUT
+   APP LAYOUT
+   Wireframe-specific layout structure
    ============================================ */
 .app-layout {
   display: flex;
@@ -132,15 +41,10 @@ body {
 }
 
 /* ============================================
-   SIDEBAR
+   SIDEBAR OVERRIDES
+   Wireframe-specific sidebar adjustments
    ============================================ */
 .sidebar {
-  width: 240px;
-  background: var(--bg-surface);
-  border-right: 1px solid var(--border-default);
-  padding: var(--space-4);
-  display: flex;
-  flex-direction: column;
   position: fixed;
   top: 0;
   left: 0;
@@ -148,17 +52,9 @@ body {
   z-index: 100;
 }
 
-.sidebar-logo {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--fg-default);
-  padding: var(--space-3) var(--space-3);
-  margin-bottom: var(--space-4);
-  letter-spacing: -0.02em;
-}
-
 .sidebar-nav {
   flex: 1;
+  list-style: none;
 }
 
 .nav-item {
@@ -233,7 +129,7 @@ body {
 }
 
 /* ============================================
-   MAIN CONTENT
+   MAIN CONTENT OVERRIDES
    ============================================ */
 .main-content {
   flex: 1;
@@ -463,48 +359,12 @@ body {
 }
 
 /* ============================================
-   BUTTONS
+   BUTTON EXTENSIONS
+   Wireframe-specific button variations
    ============================================ */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-md);
-  font-size: 13px;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  border: none;
   min-height: 36px;
   white-space: nowrap;
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background: var(--primary-500);
-  color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background: var(--primary-600);
-}
-
-.btn-secondary {
-  background: var(--bg-surface);
-  color: var(--fg-secondary);
-  border: 1px solid var(--border-strong);
-}
-
-.btn-secondary:hover:not(:disabled) {
-  background: var(--bg-subtle);
-  border-color: var(--fg-faint);
 }
 
 .btn-danger {
@@ -516,89 +376,9 @@ body {
   background: var(--danger-700);
 }
 
-.btn-ghost {
-  background: transparent;
-  color: var(--fg-secondary);
-  padding: var(--space-2);
-  min-height: 32px;
-}
-
-.btn-ghost:hover:not(:disabled) {
-  background: var(--bg-subtle);
-}
-
 .btn-icon {
   padding: var(--space-2);
   min-width: 36px;
-}
-
-.btn-sm {
-  min-height: 28px;
-  padding: var(--space-1) var(--space-2);
-  font-size: 12px;
-}
-
-/* ============================================
-   DROPDOWN
-   ============================================ */
-.dropdown {
-  position: relative;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: var(--space-1);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  min-width: 200px;
-  z-index: 100;
-  display: none;
-}
-
-.dropdown-menu.active {
-  display: block;
-}
-
-.dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  font-size: 13px;
-  color: var(--fg-secondary);
-  cursor: pointer;
-  transition: background var(--transition-fast);
-}
-
-.dropdown-item:first-child {
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-}
-
-.dropdown-item:last-child {
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-}
-
-.dropdown-item:hover {
-  background: var(--bg-subtle);
-  color: var(--fg-default);
-}
-
-.dropdown-item.danger {
-  color: var(--error-600);
-}
-
-.dropdown-item.danger:hover {
-  background: var(--error-50);
-}
-
-.dropdown-divider {
-  height: 1px;
-  background: var(--border-default);
-  margin: var(--space-1) 0;
 }
 
 /* ============================================
@@ -635,28 +415,9 @@ body {
 }
 
 /* ============================================
-   TAB CONTENT
+   WIREFRAME BADGES
+   Status-specific badge variants
    ============================================ */
-.tab-content {
-  flex: 1;
-  padding: var(--space-6) var(--space-8);
-  max-width: 1200px;
-}
-
-/* ============================================
-   BADGES
-   ============================================ */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius-sm);
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
 .badge-type {
   background: var(--bg-subtle);
   color: var(--fg-muted);
@@ -817,7 +578,7 @@ body {
 }
 
 /* ============================================
-   TAGS
+   TAG LIST
    ============================================ */
 .tag-list {
   display: flex;
@@ -825,36 +586,9 @@ body {
   flex-wrap: wrap;
 }
 
-.tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px var(--space-2);
-  border-radius: var(--radius-sm);
-  font-size: 11px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-/* Subject tags - colorful */
-.tag-blue { background: #dbeafe; color: #1e40af; }
-.tag-purple { background: #ede9fe; color: #5b21b6; }
-.tag-pink { background: #fce7f3; color: #9d174d; }
-.tag-orange { background: #ffedd5; color: #9a3412; }
-.tag-yellow { background: #fef9c3; color: #854d0e; }
-.tag-green { background: #dcfce7; color: #166534; }
-.tag-teal { background: #ccfbf1; color: #115e59; }
-.tag-indigo { background: #e0e7ff; color: #3730a3; }
-
-/* Outlined tags */
-.tag-outline {
-  background: transparent;
-  border: 1px solid var(--border-strong);
-  color: var(--fg-secondary);
-  padding: 1px calc(var(--space-2) - 1px);
-}
-
 /* ============================================
-   FORM ELEMENTS
+   FORM EXTENSIONS
+   Wireframe-specific form styles
    ============================================ */
 .form-grid {
   display: grid;
@@ -862,20 +596,8 @@ body {
   gap: var(--space-4);
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
 .form-group.full-width {
   grid-column: 1 / -1;
-}
-
-.form-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--fg-secondary);
 }
 
 .form-label .required {
@@ -944,96 +666,6 @@ body {
   border-top: 1px solid var(--border-default);
 }
 
-/* Checkbox */
-.checkbox-wrapper {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  cursor: pointer;
-  user-select: none;
-  font-size: 13px;
-  color: var(--fg-secondary);
-}
-
-.checkbox {
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  border: 1.5px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  background: var(--bg-surface);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.checkbox:hover {
-  border-color: var(--primary-500);
-}
-
-.checkbox:checked {
-  background: var(--primary-500);
-  border-color: var(--primary-500);
-}
-
-.checkbox:checked::after {
-  content: '';
-  display: block;
-  width: 4px;
-  height: 7px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-  margin-bottom: 2px;
-}
-
-/* Toggle Switch */
-.switch-wrapper {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.switch {
-  position: relative;
-  width: 36px;
-  height: 20px;
-  background: var(--gray-300);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  flex-shrink: 0;
-}
-
-.switch::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
-  background: white;
-  border-radius: 50%;
-  transition: all var(--transition-fast);
-  box-shadow: var(--shadow-sm);
-}
-
-.switch.active {
-  background: var(--primary-500);
-}
-
-.switch.active::after {
-  left: 18px;
-}
-
-.switch-label {
-  font-size: 13px;
-  color: var(--fg-secondary);
-}
-
 /* Tags Input */
 .tags-input-wrapper {
   display: flex;
@@ -1075,7 +707,7 @@ body {
 }
 
 .tags-input-wrapper .tag-remove:hover {
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
   color: var(--fg-default);
 }
 
@@ -1107,7 +739,7 @@ body {
 }
 
 /* ============================================
-   TABLES
+   DATA TABLE
    ============================================ */
 .data-table {
   width: 100%;
@@ -1172,7 +804,7 @@ body {
 }
 
 /* ============================================
-   MODAL
+   MODAL EXTENSIONS
    ============================================ */
 .modal-overlay {
   position: fixed;
@@ -1193,15 +825,6 @@ body {
 .modal-overlay.active {
   opacity: 1;
   visibility: visible;
-}
-
-.modal {
-  background: var(--bg-default);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .modal--large {
