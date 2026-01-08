@@ -57,7 +57,7 @@ import {
   TagInput,
 } from '../components/design-system';
 import type { ComboboxOption } from '../components/design-system';
-import { PageHeader } from '../components/layout';
+import { PageHeader, Breadcrumb } from '../components/layout';
 import './ComponentShowcase.css';
 
 // Mock data for Combobox
@@ -86,6 +86,56 @@ export function ComponentShowcase() {
         title="Component Showcase"
         subtitle="Design system components for wireframes"
       />
+
+      {/* Navigation */}
+      <section className="showcase-section">
+        <h2 className="showcase-title">Navigation</h2>
+        <div className="showcase-grid">
+          <div className="showcase-card">
+            <div className="showcase-label">Breadcrumb</div>
+            <Breadcrumb
+              items={[
+                { label: 'Students', href: '/students' },
+                { label: 'Emily Chen' },
+              ]}
+            />
+            <div style={{ marginTop: 'var(--space-4)' }}>
+              <Breadcrumb
+                items={[
+                  { label: 'Dashboard', href: '/' },
+                  { label: 'Settings', href: '/settings' },
+                  { label: 'Notifications' },
+                ]}
+              />
+            </div>
+          </div>
+          <div className="showcase-card">
+            <div className="showcase-label">Page Header</div>
+            <PageHeader
+              title="Students"
+              subtitle="247 total students"
+              actions={<Button variant="primary"><i className="ph ph-plus" /> Add Student</Button>}
+            />
+          </div>
+          <div className="showcase-card full-width">
+            <div className="showcase-label">Page Header with Breadcrumbs</div>
+            <PageHeader
+              title="Emily Chen"
+              subtitle="Active · Piano, Music Theory"
+              breadcrumbs={[
+                { label: 'Students', href: '/students' },
+                { label: 'Emily Chen' },
+              ]}
+              actions={
+                <>
+                  <Button variant="secondary">Edit</Button>
+                  <Button variant="primary"><i className="ph ph-calendar-plus" /> Schedule Lesson</Button>
+                </>
+              }
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Buttons */}
       <section className="showcase-section">

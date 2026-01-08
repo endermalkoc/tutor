@@ -21,6 +21,10 @@
   gap: var(--space-4);
 }
 
+.showcase-card.full-width {
+  grid-column: 1 / -1;
+}
+
 .showcase-grid-3 {
   grid-template-columns: repeat(3, 1fr);
 }
