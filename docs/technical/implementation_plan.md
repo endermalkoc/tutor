@@ -54,9 +54,9 @@ This document outlines the phased approach for setting up the Tutor Management S
   - [x] `.env.example` template
   - [x] `README.md` with setup instructions
 
-- [ ] Validate setup
-  - [ ] Run `pnpm install` successfully
-  - [ ] Run `pnpm turbo build` (should complete with empty packages)
+- [x] Validate setup
+  - [x] Run `pnpm install` successfully
+  - [x] Run `pnpm turbo build` (should complete with empty packages)
 
 ---
 
