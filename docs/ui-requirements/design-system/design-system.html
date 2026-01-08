@@ -36,6 +36,14 @@
           <li><a href="#drawer"><i class="ph ph-sidebar-simple"></i> Drawer</a></li>
           <li><a href="#empty-state"><i class="ph ph-placeholder"></i> Empty State</a></li>
           <li><a href="#toast"><i class="ph ph-bell-ringing"></i> Toast</a></li>
+          <li><a href="#toolbar"><i class="ph ph-sliders-horizontal"></i> Toolbar</a></li>
+          <li><a href="#search-icon"><i class="ph ph-magnifying-glass"></i> Search Input</a></li>
+          <li><a href="#filter-tags"><i class="ph ph-x-circle"></i> Filter Tags</a></li>
+          <li><a href="#bulk-actions"><i class="ph ph-check-square"></i> Bulk Actions</a></li>
+          <li><a href="#multi-select"><i class="ph ph-list-checks"></i> Multi-Select</a></li>
+          <li><a href="#sortable-tables"><i class="ph ph-sort-ascending"></i> Sortable Tables</a></li>
+          <li><a href="#pagination-full"><i class="ph ph-caret-left"></i> Pagination</a></li>
+          <li><a href="#mobile-cards"><i class="ph ph-device-mobile"></i> Mobile Cards</a></li>
           <li><a href="#list-screen"><i class="ph ph-list"></i> Sample List</a></li>
           <li><a href="#form-screen"><i class="ph ph-note-pencil"></i> Sample Form</a></li>
         </ul>
@@ -1510,7 +1518,299 @@
         </div>
       </section>
 
+      <!-- Toolbar -->
+      <section class="section" id="toolbar">
+        <h2 class="section-title">Toolbar</h2>
+        <p class="section-desc">Container for search, filters, and actions in list views. Supports multiple rows.</p>
+
+        <div class="component-card">
+          <div class="component-label">Basic Toolbar</div>
+          <div class="toolbar" style="border: 1px solid var(--border-default); border-radius: var(--radius-lg);">
+            <div class="toolbar-row">
+              <div class="search-container">
+                <i class="ph ph-magnifying-glass search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search...">
+              </div>
+              <div class="filter-tabs">
+                <button class="filter-tab active">All</button>
+                <button class="filter-tab">Active</button>
+                <button class="filter-tab">Inactive</button>
+              </div>
+              <button class="btn btn-secondary btn-md">
+                <i class="ph ph-funnel"></i> Filter
+              </button>
+              <button class="btn btn-primary btn-md">
+                <i class="ph ph-plus"></i> Add New
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search with Icon -->
+      <section class="section" id="search-icon">
+        <h2 class="section-title">Search Input with Icon</h2>
+        <p class="section-desc">Search input with integrated magnifying glass icon. Use in toolbars and list headers.</p>
+
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="component-label">Default</div>
+            <div class="search-container" style="max-width: 100%;">
+              <i class="ph ph-magnifying-glass search-icon"></i>
+              <input type="text" class="search-input" placeholder="Search students...">
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-label">With Value</div>
+            <div class="search-container" style="max-width: 100%;">
+              <i class="ph ph-magnifying-glass search-icon"></i>
+              <input type="text" class="search-input" value="Emily Martinez">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Active Filter Tags -->
+      <section class="section" id="filter-tags">
+        <h2 class="section-title">Active Filter Tags</h2>
+        <p class="section-desc">Removable tags showing currently active filters. Include a clear all button.</p>
+
+        <div class="component-card">
+          <div class="component-label">With Active Filters</div>
+          <div class="flex items-center gap-3">
+            <div class="active-filters">
+              <span class="filter-tag">
+                "Emily"
+                <span class="remove">×</span>
+              </span>
+              <span class="filter-tag">
+                Active
+                <span class="remove">×</span>
+              </span>
+              <span class="filter-tag">
+                Piano
+                <span class="remove">×</span>
+              </span>
+            </div>
+            <button class="clear-filters-btn">Clear all</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bulk Actions Bar -->
+      <section class="section" id="bulk-actions">
+        <h2 class="section-title">Bulk Actions Bar</h2>
+        <p class="section-desc">Action bar that appears when items are selected. Shows selection count and available actions.</p>
+
+        <div class="component-card">
+          <div class="component-label">Selection Bar</div>
+          <div class="bulk-actions">
+            <span class="bulk-actions-label"><strong>3</strong> selected</span>
+            <button class="btn btn-ghost btn-sm">Assign Tag</button>
+            <button class="btn btn-ghost btn-sm">Set Status</button>
+            <button class="btn btn-ghost btn-sm">Send Email</button>
+            <button class="btn btn-ghost btn-sm">Export</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Multi-Select Dropdown -->
+      <section class="section" id="multi-select">
+        <h2 class="section-title">Multi-Select Dropdown</h2>
+        <p class="section-desc">Dropdown with checkboxes for selecting multiple options. Use for column visibility, bulk tagging, etc.</p>
+
+        <div class="component-card">
+          <div class="component-label">Column Selector Example</div>
+          <div class="multi-select-dropdown open" id="demo-multi-select" style="position: relative;">
+            <button class="btn btn-secondary btn-md" onclick="toggleMultiSelect()">
+              <i class="ph ph-dots-three-vertical"></i> Columns
+            </button>
+            <div class="multi-select-menu" style="position: relative; opacity: 1; visibility: visible; transform: none;">
+              <div class="multi-select-header">Visible Columns</div>
+              <div class="multi-select-option disabled">
+                <input type="checkbox" id="demo-col-name" checked disabled>
+                <label for="demo-col-name">Name</label>
+              </div>
+              <div class="multi-select-option">
+                <input type="checkbox" id="demo-col-status" checked>
+                <label for="demo-col-status">Status</label>
+              </div>
+              <div class="multi-select-option">
+                <input type="checkbox" id="demo-col-age" checked>
+                <label for="demo-col-age">Age</label>
+              </div>
+              <div class="multi-select-option">
+                <input type="checkbox" id="demo-col-tags">
+                <label for="demo-col-tags">Tags</label>
+              </div>
+              <div class="multi-select-option">
+                <input type="checkbox" id="demo-col-notes">
+                <label for="demo-col-notes">Notes</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sortable Tables -->
+      <section class="section" id="sortable-tables">
+        <h2 class="section-title">Sortable Tables</h2>
+        <p class="section-desc">Table headers with sort indicators. Click to toggle ascending/descending order.</p>
+
+        <div class="component-card">
+          <div class="table-wrapper">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="checkbox-col">
+                    <input type="checkbox" class="table-checkbox">
+                  </th>
+                  <th class="sortable sorted-asc">Name</th>
+                  <th class="sortable">Status</th>
+                  <th class="sortable">Age</th>
+                  <th class="sortable sorted-desc">Credits</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" class="table-checkbox"></td>
+                  <td style="font-weight: 500;">Emily Martinez</td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td><span class="data-value-numeric">14</span></td>
+                  <td><span class="data-value-numeric">2</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button class="table-action-btn"><i class="ph ph-pencil-simple"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="selected">
+                  <td><input type="checkbox" class="table-checkbox" checked></td>
+                  <td style="font-weight: 500;">James Chen</td>
+                  <td><span class="badge badge-warning">On Hold</span></td>
+                  <td><span class="data-value-numeric">12</span></td>
+                  <td><span class="data-value-numeric">0</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button class="table-action-btn"><i class="ph ph-pencil-simple"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="component-grid mt-4">
+          <div class="component-card">
+            <div class="component-label">Text Preview</div>
+            <div class="text-preview">This is a long note that will be truncated with an ellipsis when it exceeds the maximum width.</div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-label">Contact Info</div>
+            <div class="contact-info">
+              <a href="mailto:emily@example.com">emily@example.com</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Full Pagination -->
+      <section class="section" id="pagination-full">
+        <h2 class="section-title">Full Pagination</h2>
+        <p class="section-desc">Complete pagination with info, page size selector, and page navigation.</p>
+
+        <div class="component-card">
+          <div class="pagination" style="border: 1px solid var(--border-default); border-radius: var(--radius-lg);">
+            <div class="pagination-info">
+              Showing <strong>1–25</strong> of <strong>247</strong>
+            </div>
+            <div class="pagination-controls">
+              <div class="page-size-selector">
+                <label for="demo-page-size">Show</label>
+                <select id="demo-page-size">
+                  <option value="25" selected>25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+              <div class="page-nav">
+                <button class="pagination-btn" disabled>←</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">…</button>
+                <button class="pagination-btn">10</button>
+                <button class="pagination-btn">→</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mobile Cards -->
+      <section class="section" id="mobile-cards">
+        <h2 class="section-title">Mobile Cards</h2>
+        <p class="section-desc">Card-based alternative to tables for mobile screens. Shows automatically at 768px breakpoint.</p>
+
+        <div class="component-card">
+          <div class="component-label">Mobile Card View (visible on mobile)</div>
+          <div style="border: 1px solid var(--border-default); border-radius: var(--radius-lg);">
+            <div class="mobile-card">
+              <div class="mobile-card-header">
+                <div>
+                  <a href="#" class="mobile-card-name">Emily Martinez</a>
+                  <span class="badge badge-success">Active</span>
+                </div>
+                <input type="checkbox" class="table-checkbox">
+              </div>
+              <div class="mobile-card-details">
+                <div class="mobile-card-row">
+                  <span class="mobile-card-label">Age</span>
+                  <span>14 · Piano · Advanced</span>
+                </div>
+                <div class="mobile-card-row">
+                  <span class="mobile-card-label">Next</span>
+                  <span>Today, 3:00 PM</span>
+                </div>
+                <div class="mobile-card-row">
+                  <span class="mobile-card-label">Credits</span>
+                  <span>2</span>
+                </div>
+              </div>
+            </div>
+            <div class="mobile-card">
+              <div class="mobile-card-header">
+                <div>
+                  <a href="#" class="mobile-card-name">James Chen</a>
+                  <span class="badge badge-warning">On Hold</span>
+                </div>
+                <input type="checkbox" class="table-checkbox">
+              </div>
+              <div class="mobile-card-details">
+                <div class="mobile-card-row">
+                  <span class="mobile-card-label">Age</span>
+                  <span>12 · Guitar · Beginner</span>
+                </div>
+                <div class="mobile-card-row">
+                  <span class="mobile-card-label">Next</span>
+                  <span class="text-muted">—</span>
+                </div>
+                <div class="mobile-card-row">
+                  <span class="mobile-card-label">Credits</span>
+                  <span>0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Sample List Screen -->
+      <section class="section" id="list-screen">
         <h2 class="section-title">Sample List Screen</h2>
         <p class="section-desc">A complete list view with search, filters, table, and pagination.</p>
 
