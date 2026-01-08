@@ -100,11 +100,6 @@
   min-width: 80px;
 }
 
-/* Modal checkbox styling for tag filter */
-.student-list-page .checkbox-wrapper {
-  margin-bottom: var(--space-2);
-}
-
 /* Responsive */
 @media (max-width: 1024px) {
   .search-input-flex {

@@ -571,20 +571,22 @@ export function StudentListPage() {
           <p className="text-secondary mb-4">
             Select tags to filter students. Students with any of the selected tags will be shown.
           </p>
-          {availableTags.map((tag) => (
-            <Checkbox
-              key={tag}
-              label={tag}
-              checked={tempSelectedTags.includes(tag)}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setTempSelectedTags([...tempSelectedTags, tag]);
-                } else {
-                  setTempSelectedTags(tempSelectedTags.filter((t) => t !== tag));
-                }
-              }}
-            />
-          ))}
+          <div className="checkbox-list">
+            {availableTags.map((tag) => (
+              <Checkbox
+                key={tag}
+                label={tag}
+                checked={tempSelectedTags.includes(tag)}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setTempSelectedTags([...tempSelectedTags, tag]);
+                  } else {
+                    setTempSelectedTags(tempSelectedTags.filter((t) => t !== tag));
+                  }
+                }}
+              />
+            ))}
+          </div>
         </ModalBody>
         <ModalFooter>
           <Button variant="secondary" size="md" onClick={() => setTagModalOpen(false)}>
