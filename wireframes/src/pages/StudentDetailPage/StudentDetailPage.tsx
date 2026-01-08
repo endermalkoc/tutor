@@ -263,13 +263,13 @@ function OverviewTab({ isAdult }: { isAdult: boolean }) {
             onSave={setLessonSettings}
           />
 
-          {isAdult ? (
-            <ContactSection
-              data={contactInfo}
-              isAdult
-              onSave={setContactInfo}
-            />
-          ) : (
+          <ContactSection
+            data={contactInfo}
+            isAdult={isAdult}
+            onSave={setContactInfo}
+          />
+
+          {!isAdult && (
             <FamilySection
               guardians={guardians}
               siblings={siblingsData}
@@ -312,14 +312,6 @@ function OverviewTab({ isAdult }: { isAdult: boolean }) {
             data={personalDetails}
             onSave={setPersonalDetails}
           />
-
-          {isAdult && (
-            <ContactSection
-              data={contactInfo}
-              isAdult={false}
-              onSave={setContactInfo}
-            />
-          )}
 
           <RecentLessonsSection
             lessons={recentLessonsData}
