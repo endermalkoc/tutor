@@ -16,6 +16,35 @@ If a component doesn't exist in the design system, add it to the design system F
 
 ---
 
+## CRITICAL: Spec-First Workflow
+
+**Before making any changes to wireframes or implementations, ensure the related spec is updated first.**
+
+### Workflow
+
+1. **Check the spec** - Read the relevant functional spec (`docs/functional/`) for the feature being modified
+2. **Update if needed** - If the spec doesn't sufficiently describe the behavior you're implementing, update it first
+3. **Then implement** - Only after the spec is complete, make changes to wireframes or code
+
+### Why Spec-First?
+
+- Specs are the source of truth for business logic and behavior
+- Forces thinking through edge cases before implementation
+- Keeps documentation in sync with actual behavior
+- Makes it easier for others to understand design decisions
+
+### Examples
+
+**Changing phone number display behavior:**
+1. First update `docs/functional/entities/guardian.md` with display priority rules
+2. Then modify the wireframe HTML
+
+**Adding a new validation rule:**
+1. First document the rule in the relevant entity or workflow spec
+2. Then implement in wireframes/code
+
+---
+
 ## Functional Specifications Philosophy
 
 ### UI Element Specification Approach
