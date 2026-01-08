@@ -1,0 +1,117 @@
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--fg-muted);
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-default);
+  white-space: nowrap;
+}
+
+.table th:first-child { border-radius: var(--radius-lg) 0 0 0; }
+.table th:last-child { border-radius: 0 var(--radius-lg) 0 0; }
+
+.table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--fg-default);
+}
+
+.table tr:last-child td { border-bottom: none; }
+
+.table tr:hover td {
+  background: var(--bg-subtle);
+}
+
+.table tr.selected td {
+  background: var(--primary-50);
+}
+
+[data-theme="dark"] .table tr.selected td {
+  background: rgba(59, 165, 197, 0.1);
+}
+
+.table .mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-secondary);
+}
+
+/* Sortable headers */
+.table th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table th.sortable:hover {
+  color: var(--fg-secondary);
+}
+
+.table th.sortable::after {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  margin-left: var(--space-1);
+}
+
+.table th.sorted-asc::after {
+  content: "\2191"; /* ↑ */
+  color: var(--primary-600);
+}
+
+.table th.sorted-desc::after {
+  content: "\2193"; /* ↓ */
+  color: var(--primary-600);
+}
+
+/* Checkbox column */
+.table th.checkbox-col {
+  width: 40px;
+  padding-left: var(--space-4);
+}
+
+/* Table actions */
+.table-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.table-action-btn {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--fg-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.table-action-btn:hover {
+  background: var(--bg-muted);
+  color: var(--fg-default);
+}
+
+/* Table checkbox */
+.table-checkbox {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: var(--primary-600);
+}

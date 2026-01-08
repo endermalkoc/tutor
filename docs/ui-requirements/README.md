@@ -1,10 +1,64 @@
 # UI Requirements
 
-**Last Updated**: 2026-01-04
+**Last Updated**: 2026-01-08
 
 ## Overview
 
 This directory contains all UI/UX requirements, specifications, and design system documentation for the tutor management application.
+
+---
+
+## Wireframe Development Approach
+
+### React Component-Based Wireframes
+
+We use a **React-based wireframe system** located at `/wireframes/` in the project root. This approach provides:
+
+1. **Faster Iteration** - Smaller component files are easier to modify and test
+2. **Production-Ready Components** - Components can be directly used in the Next.js application
+3. **Consistent Design System** - Single source of truth for all UI components
+4. **Better Maintainability** - Changes to a component propagate everywhere automatically
+
+### Getting Started with Wireframes
+
+```bash
+cd wireframes
+npm install
+npm run dev
+```
+
+The wireframe app runs on `http://localhost:5173` with hot module replacement for instant feedback.
+
+### Wireframe Structure
+
+```
+wireframes/
+├── src/
+│   ├── components/
+│   │   ├── design-system/    # Core UI components (Button, Input, Modal, etc.)
+│   │   └── layout/           # Layout components (Sidebar, AppLayout, PageHeader)
+│   ├── pages/                # Wireframe pages (will mirror app structure)
+│   └── styles/               # Design tokens and base styles
+└── package.json
+```
+
+### Migrating to Production (Next.js)
+
+Components are designed to work with minimal changes in Next.js:
+
+1. **Add `'use client'` directive** - For components with interactivity (onClick, useState, etc.)
+2. **Props in, callbacks out** - Components receive data via props, don't fetch internally
+3. **Standard React patterns** - Hooks, event handlers, controlled inputs all transfer directly
+
+**Example:**
+```tsx
+// Wireframe component
+export function Button({ variant, onClick, children }) { ... }
+
+// Next.js usage (add 'use client' at file top)
+'use client';
+export function Button({ variant, onClick, children }) { ... }
+```
 
 ---
 
@@ -17,7 +71,7 @@ Complete visual design system including color palette, typography, components, a
 - [Color System](./design-system/color-system.md) - Complete color palette with semantic meanings
 - [Component Library](./design-system/component-library.md) - Reusable UI components with specifications
 - [Design Patterns](./design-system/design-patterns.md) - Interaction patterns and best practices
-- [Design System Demo](./design-system/design-system-demo.html) - Live interactive showcase of all components
+- [Design System Demo](./design-system/design-system.html) - Live interactive showcase of all components
 - [Design System README](./design-system/README.md) - Quick reference guide
 
 ### 📝 UI Requirement Documents

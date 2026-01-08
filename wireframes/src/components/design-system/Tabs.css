@@ -1,0 +1,71 @@
+/* Standard Tabs (underline style) */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-default);
+  gap: var(--space-1);
+}
+
+.tab {
+  padding: var(--space-3) var(--space-4);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-fast);
+  font-family: var(--font-sans);
+}
+
+.tab:hover {
+  color: var(--fg-default);
+}
+
+.tab.active {
+  color: var(--fg-default);
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary-600);
+  border-radius: 1px 1px 0 0;
+}
+
+/* Filter Tabs (pill/segmented style) */
+.filter-tabs {
+  display: inline-flex;
+  gap: var(--space-1);
+  background: var(--bg-muted);
+  padding: var(--space-1);
+  border-radius: var(--radius-md);
+}
+
+.filter-tab {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  font-family: var(--font-sans);
+}
+
+.filter-tab:hover {
+  color: var(--fg-secondary);
+}
+
+.filter-tab.active {
+  background: var(--bg-surface);
+  color: var(--fg-default);
+  box-shadow: var(--shadow-sm);
+}
