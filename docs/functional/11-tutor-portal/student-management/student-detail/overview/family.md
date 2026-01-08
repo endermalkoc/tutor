@@ -58,6 +58,21 @@ Toggle text changes to "Hide details" when expanded. Caret icon rotates to indic
 - Each sibling shows: Name, Status badge
 - Clicking sibling name navigates to their detail page
 
+### Billing Indicator
+
+A minimal billing indicator appears at the bottom of the Family section, providing quick visibility without the full billing details (which live in the Billing & Invoices tab).
+
+**Display:**
+- Single line showing: Rate + Balance (if overdue, show warning)
+- Link to Billing & Invoices tab
+
+**Examples:**
+- Normal: `$50/lesson` → [View billing](../billing-invoices.md)
+- Overdue: `$50/lesson · ⚠️ $200 overdue` → [View billing](../billing-invoices.md)
+- Credit: `$50/lesson · $50 credit` → [View billing](../billing-invoices.md)
+
+**Rationale:** This provides just enough billing awareness for lesson prep (knowing the rate) while keeping the Overview focused on the teaching relationship. Urgent financial issues (overdue balances) are surfaced with a warning indicator.
+
 ---
 
 ## Edit Mode (Per-Contact)

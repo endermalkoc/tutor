@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Emily Chen - Invoices</title>
+    <title>Emily Chen - Billing & Invoices</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -210,7 +210,7 @@
           <a href="student-detail-lessons.html" class="tab-link">Lessons</a>
           <a href="student-detail-homework.html" class="tab-link">Homework</a>
           <a href="student-detail-messages.html" class="tab-link">Messages</a>
-          <a href="student-detail-invoices.html" class="tab-link active" aria-selected="true">Invoices</a>
+          <a href="student-detail-invoices.html" class="tab-link active" aria-selected="true">Billing & Invoices</a>
           <a href="student-detail-transactions.html" class="tab-link">Transactions</a>
           <a href="student-detail-files.html" class="tab-link">Files</a>
         </nav>
@@ -218,7 +218,37 @@
         <div class="tab-content">
           <div class="family-notice">
             <i class="ph ph-info"></i>
-            <span>Showing all invoices for <strong>Chen Family</strong>. This includes charges for Emily and Michael Chen.</span>
+            <span>Billing managed for <strong>Chen Family</strong>. Includes charges for Emily and Michael Chen.</span>
+          </div>
+
+          <!-- Billing Settings Card -->
+          <div class="billing-settings-card" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5); margin-bottom: var(--space-4); box-shadow: var(--shadow);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-3);">
+              <h3 style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin: 0;">Billing Settings</h3>
+              <button class="btn btn-secondary" style="padding: var(--space-1) var(--space-2); font-size: 12px;">
+                <i class="ph ph-pencil"></i>
+                Edit
+              </button>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3) var(--space-6);">
+              <div>
+                <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Billing Method</span>
+                <div style="font-size: 14px; font-weight: 500; color: var(--text-primary); margin-top: 2px;">Per Lesson</div>
+              </div>
+              <div>
+                <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Rate</span>
+                <div style="font-size: 14px; font-weight: 500; color: var(--text-primary); margin-top: 2px;">$50.00 per lesson</div>
+              </div>
+              <div style="grid-column: span 2;">
+                <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Auto-Invoicing</span>
+                <div style="display: flex; align-items: center; gap: var(--space-2); margin-top: 2px;">
+                  <i class="ph ph-gear" style="color: var(--accent); font-size: 14px;"></i>
+                  <span style="font-size: 14px; font-weight: 500; color: var(--text-primary);">Monthly on the 1st</span>
+                  <span style="font-size: 12px; color: var(--text-muted);">·</span>
+                  <span style="font-size: 13px; color: var(--text-secondary);">Next invoice: Feb 1, 2025</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="content-header">

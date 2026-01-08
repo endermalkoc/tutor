@@ -1,15 +1,26 @@
-# Student Detail - Invoices Tab
+# Student Detail - Billing & Invoices Tab
 
 ## Purpose
 
-The Invoices tab displays all invoices for the student's family. Since invoicing is managed at the family level, this shows invoices for all students in the family, not just the current student.
+The Billing & Invoices tab consolidates all financial information for a student's family in one place. It displays billing configuration (how the family is charged), auto-invoicing settings (when invoices are generated), and the complete invoice history. Since billing is managed at the family level, this shows settings and invoices for all students in the family.
+
+## Design Rationale
+
+This tab tells the complete "money story" by grouping:
+1. **Cause** — Billing settings define how charges are calculated
+2. **Mechanism** — Auto-invoicing schedules automatic invoice generation
+3. **Effect** — Invoices show the result of billing activities
+
+This consolidation removes billing configuration from the Overview tab, allowing Overview to focus purely on the teaching relationship.
+
+---
 
 ## Family-Level Notice
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ ℹ️  Showing all invoices for Smith Family                       │
-│     This includes charges for John, Emma, and Michael.          │
+│ ℹ️  Billing managed for Smith Family                            │
+│     Includes charges for John, Emma, and Michael.               │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -23,11 +34,18 @@ This notice appears at the top of the tab when the family has multiple students.
 ┌─────────────────────────────────────────────────────────────────┐
 │ FAMILY NOTICE (if multiple students)                            │
 ├─────────────────────────────────────────────────────────────────┤
-│ FILTERS & ACTIONS                                               │
-│ [Status ▼] [Date Range ▼] [Search...]          [+ New Invoice]  │
+│ BILLING SETTINGS                                        [Edit]  │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ Method: Per Lesson    Rate: $50.00/lesson                   │ │
+│ │                                                             │ │
+│ │ Auto-Invoicing: Monthly on the 1st | Next: Feb 1, 2025      │ │
+│ └─────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
 │ INVOICE SUMMARY                                                 │
 │ Total: $2,400  |  Paid: $2,000  |  Outstanding: $400            │
+├─────────────────────────────────────────────────────────────────┤
+│ FILTERS & ACTIONS                                               │
+│ [Status ▼] [Date Range ▼] [Search...]          [+ New Invoice]  │
 ├─────────────────────────────────────────────────────────────────┤
 │ INVOICE LIST                                                    │
 │ ┌─────────────────────────────────────────────────────────────┐ │
@@ -41,6 +59,65 @@ This notice appears at the top of the tab when the family has multiple students.
 │ PAGINATION                                                      │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## Billing Settings Section
+
+The billing settings card appears at the top of the tab, providing immediate context for the invoices below.
+
+### View Mode (Default)
+
+Displays billing configuration in a compact, scannable format:
+
+| Field | Display Format | Example |
+|-------|----------------|---------|
+| Billing Method | Label | "Per Lesson", "Monthly Flat Rate", "Hourly Rate", or "Manual Invoicing" |
+| Rate | Currency with unit | "$50.00 per lesson", "$200.00 per month", "$75.00 per hour" |
+| Auto-Invoicing | Schedule summary | "Monthly on the 1st" or "Disabled" |
+| Next Invoice | Date (if auto-invoicing enabled) | "February 1, 2025" |
+
+### Edit Mode
+
+User clicks "Edit" button to modify billing settings. Opens inline edit or modal with:
+
+**Billing Method**
+
+| Option | Description |
+|--------|-------------|
+| Per Lesson | Fixed amount per lesson |
+| Monthly Flat Rate | Fixed amount per month regardless of lessons |
+| Hourly Rate | Amount per hour of instruction |
+| Manual Invoicing | No automatic rate calculation |
+
+**Rate**
+
+- Currency input field
+- Required when billing method is not "Manual Invoicing"
+- Format validated (positive number)
+
+**Auto-Invoicing Configuration**
+
+Display the [Invoice Scheduling Settings](../../invoicing/invoice-scheduling.md) form.
+
+Quick presets available:
+- No auto-invoicing (default)
+- Simple Monthly — Invoice monthly on 1st, due on receipt
+- Bi-weekly — Invoice every 2 weeks
+- Custom — Full configuration options
+
+### Edit Actions
+
+| Action | Behavior |
+|--------|----------|
+| Save | Validates and saves billing settings |
+| Cancel | Discards changes, returns to view mode |
+
+### Validation
+
+- Rate must be positive number if billing method selected
+- Auto-invoicing start date must be today or future
+- Changes take effect for future invoices only
 
 ---
 
@@ -320,16 +397,14 @@ When multiple invoices selected:
 
 ---
 
-## Auto-Invoicing Status
+## Auto-Invoicing Behavior
 
-If family has auto-invoicing configured:
+When auto-invoicing is enabled in the Billing Settings section:
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│ ⚙️  Auto-invoicing: Monthly on the 1st                          │
-│     Next invoice: February 1, 2025           [Edit Settings]    │
-└─────────────────────────────────────────────────────────────────┘
-```
+- Invoices are automatically created based on the configured schedule
+- New invoices appear in the invoice list with "Draft" status (or sent automatically if configured)
+- The "Next invoice" date shown in Billing Settings updates after each generation
+- Tutors receive notification when auto-invoices are created
 
 ---
 

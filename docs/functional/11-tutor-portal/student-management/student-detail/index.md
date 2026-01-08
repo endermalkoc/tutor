@@ -22,7 +22,7 @@ The Student Detail page provides a comprehensive view of a student's information
 │ │                                        [Actions Menu]       │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
-│ [Overview] [Lessons] [Homework] [Messages] [Invoices]           │
+│ [Overview] [Lessons] [Homework] [Messages] [Billing & Invoices] │
 │ [Transactions] [Files]                                          │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
@@ -69,11 +69,11 @@ The header remains visible across all tabs, providing persistent context about w
 
 | Tab | Description | Content Spec |
 |-----|-------------|--------------|
-| **Overview** | Student info, family details, billing summary, recent lessons | [overview.md](./overview.md) |
+| **Overview** | Student info, family details, lesson settings, notes | [overview.md](./overview.md) |
 | **Lessons** | Attendance history and lesson notes | [lessons.md](./lessons.md) |
 | **Homework** | Homework submissions and status | [homework.md](./homework.md) |
 | **Messages** | Communication history with student/family | [messages.md](./messages.md) |
-| **Invoices** | Family invoices (shared across siblings) | [invoices.md](./invoices.md) |
+| **Billing & Invoices** | Billing settings and family invoices (shared across siblings) | [billing-invoices.md](./billing-invoices.md) |
 | **Transactions** | Family transactions (shared across siblings) | [transactions.md](./transactions.md) |
 | **Files** | Student attachments and documents | [files.md](./files.md) |
 

@@ -39,17 +39,12 @@ The Overview tab serves as the **relationship portal** for a student, helping tu
 ├─────────────────────────────────────────────────────────────────┤
 │ FAMILY (Secondary, Child only)                          [Edit]  │
 │ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Guardian info + Address + Siblings                          │ │
+│ │ Guardian info + Address + Siblings + Billing indicator      │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
 │ NOTES                                            [+ Quick Add]  │
 │ ┌─────────────────────────────────────────────────────────────┐ │
 │ │ Private tutor notes with inline add                         │ │
-│ └─────────────────────────────────────────────────────────────┘ │
-├─────────────────────────────────────────────────────────────────┤
-│ BILLING SUMMARY (Collapsed by default)               [Expand]   │
-│ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Compact: Rate + Balance | Expanded: Full details            │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
 │ PERSONAL DETAILS (Collapsed by default)              [Expand]   │
@@ -71,8 +66,9 @@ The Overview tab serves as the **relationship portal** for a student, helping tu
 | [Contact & Notifications](./contact-notifications.md) | `contact-notifications.md` | Secondary |
 | [Family](./family.md) | `family.md` | Secondary (Child only) |
 | [Notes](./notes.md) | `notes.md` | Secondary |
-| [Billing Summary](./billing-summary.md) | `billing-summary.md` | Collapsed |
 | [Personal Details](./personal-details.md) | `personal-details.md` | Collapsed |
+
+**Note:** Billing configuration has moved to the [Billing & Invoices](../billing-invoices.md) tab. The Family section displays a minimal billing indicator (rate + overdue balance warning) with a link to the Billing & Invoices tab.
 
 ---
 
@@ -92,7 +88,6 @@ The Overview tab serves as the **relationship portal** for a student, helping tu
 - Show summary line only by default
 - Expand on click
 - Remember user preference per session
-- Billing Summary
 - Personal Details
 
 ---

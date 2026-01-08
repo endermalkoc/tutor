@@ -106,6 +106,15 @@ Display the [Invoice Scheduling Settings](../invoicing/invoice-scheduling.md) fo
 2. Invoice Type...
 ```
 
+### Delete Obsolete Specs
+
+When a feature is removed or consolidated elsewhere:
+
+- **DELETE** the obsolete spec file entirely
+- **DO NOT** keep deprecated/obsolete specs with "DEPRECATED" markers
+- Update any files that referenced the deleted spec to point to the new location
+- Keep the codebase clean — obsolete documentation creates confusion
+
 ---
 
 ## Design System & UI Creation Guidelines
