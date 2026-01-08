@@ -48,11 +48,11 @@ This document outlines the phased approach for setting up the Tutor Management S
   - [x] Prettier config (`.prettierrc`)
   - [x] Tailwind preset for web apps
 
-- [ ] Create root development files
-  - [ ] `.gitignore` (node_modules, .env.local, .turbo, etc.)
-  - [ ] `.nvmrc` with Node.js 24
-  - [ ] `.env.example` template
-  - [ ] `README.md` with setup instructions
+- [x] Create root development files
+  - [x] `.gitignore` (node_modules, .env.local, .turbo, etc.)
+  - [x] `.nvmrc` with Node.js 24
+  - [x] `.env.example` template
+  - [x] `README.md` with setup instructions
 
 - [ ] Validate setup
   - [ ] Run `pnpm install` successfully
