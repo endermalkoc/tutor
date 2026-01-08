@@ -12,6 +12,14 @@ import {
   PersonalDetailsSection,
   RecentLessonsSection,
 } from './components';
+import {
+  LessonsTab,
+  HomeworkTab,
+  MessagesTab,
+  InvoicesTab,
+  TransactionsTab,
+  FilesTab,
+} from './tabs';
 import type {
   LessonSettingsData,
   ContactData,
@@ -323,17 +331,6 @@ function OverviewTab({ isAdult }: { isAdult: boolean }) {
   );
 }
 
-// Placeholder Tab Component
-function PlaceholderTab({ name }: { name: string }) {
-  return (
-    <div className="placeholder-tab">
-      <h2 className="placeholder-tab-title">{name}</h2>
-      <p className="placeholder-tab-message">
-        This tab will be implemented in Phase 6.
-      </p>
-    </div>
-  );
-}
 
 export function StudentDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -381,12 +378,12 @@ export function StudentDetailPage() {
       <div className="tab-content">
         <Routes>
           <Route index element={<OverviewTab isAdult={isAdult} />} />
-          <Route path="lessons" element={<PlaceholderTab name="Lessons" />} />
-          <Route path="homework" element={<PlaceholderTab name="Homework" />} />
-          <Route path="messages" element={<PlaceholderTab name="Messages" />} />
-          <Route path="invoices" element={<PlaceholderTab name="Billing & Invoices" />} />
-          <Route path="transactions" element={<PlaceholderTab name="Transactions" />} />
-          <Route path="files" element={<PlaceholderTab name="Files" />} />
+          <Route path="lessons" element={<LessonsTab />} />
+          <Route path="homework" element={<HomeworkTab />} />
+          <Route path="messages" element={<MessagesTab />} />
+          <Route path="invoices" element={<InvoicesTab />} />
+          <Route path="transactions" element={<TransactionsTab />} />
+          <Route path="files" element={<FilesTab />} />
         </Routes>
       </div>
     </div>

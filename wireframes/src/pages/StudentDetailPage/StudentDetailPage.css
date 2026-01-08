@@ -57,30 +57,6 @@
   gap: var(--space-6);
 }
 
-/* Placeholder Tab Styles */
-.placeholder-tab {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px;
-  background: var(--bg-subtle);
-  border-radius: var(--radius-lg);
-  border: 2px dashed var(--border-default);
-}
-
-.placeholder-tab-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--fg-default);
-  margin-bottom: var(--space-2);
-}
-
-.placeholder-tab-message {
-  font-size: 14px;
-  color: var(--fg-muted);
-}
-
 /* Responsive */
 @media (max-width: 1024px) {
   .overview-columns {
