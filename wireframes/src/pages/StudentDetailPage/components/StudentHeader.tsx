@@ -141,7 +141,7 @@ export function StudentHeader({
               <i className="ph ph-dots-three-outline-vertical" />
             </Button>
             {menuOpen && (
-              <div className="dropdown-menu">
+              <div className="dropdown-menu open">
                 <button className="dropdown-item" onClick={() => { onSendMessage?.(); setMenuOpen(false); }}>
                   <i className="ph ph-paper-plane-tilt" />
                   Send Message
