@@ -1279,6 +1279,8 @@
       /* Notes Section */
       .quick-add-note {
         display: flex;
+        flex-direction: column;
+        align-items: stretch;
         gap: var(--space-2);
         margin-bottom: var(--space-4);
         padding-bottom: var(--space-4);
@@ -1286,7 +1288,7 @@
       }
 
       .quick-add-input {
-        flex: 1;
+        width: 100%;
         padding: var(--space-2) var(--space-3);
         border: 1px solid var(--border-strong);
         border-radius: var(--radius-md);
@@ -1294,17 +1296,39 @@
         font-family: inherit;
         color: var(--fg-default);
         background: var(--bg-surface);
-        transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        transition: border-color var(--transition-fast), box-shadow var(--transition-fast), min-height var(--transition-fast);
+        resize: none;
+        overflow: hidden;
+        min-height: 38px;
+        line-height: 1.5;
       }
 
       .quick-add-input:focus {
         outline: none;
         border-color: var(--primary-500);
         box-shadow: 0 0 0 3px var(--primary-50);
+        min-height: 80px;
+        overflow: auto;
       }
 
       .quick-add-input::placeholder {
         color: var(--fg-faint);
+      }
+
+      .quick-add-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--space-2);
+        margin-top: var(--space-2);
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: opacity var(--transition-fast), max-height var(--transition-fast);
+      }
+
+      .quick-add-note:focus-within .quick-add-actions {
+        opacity: 1;
+        max-height: 40px;
       }
 
       .notes-content {
@@ -1318,6 +1342,184 @@
         margin-top: var(--space-3);
         font-size: 12px;
         color: var(--fg-faint);
+      }
+
+      /* Note Entries */
+      .pinned-note {
+        background: var(--primary-50);
+        border: 1px solid var(--primary-200);
+        border-radius: var(--radius-md);
+        padding: var(--space-4);
+        margin-bottom: var(--space-4);
+        position: relative;
+      }
+
+      .pinned-note-header {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin-bottom: var(--space-2);
+      }
+
+      .pinned-note-label {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--primary-600);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .pinned-note-label i {
+        font-size: 12px;
+      }
+
+      .pinned-note-content {
+        font-size: 14px;
+        color: var(--fg-default);
+        line-height: 1.6;
+      }
+
+      .pinned-note-actions {
+        position: absolute;
+        top: var(--space-3);
+        right: var(--space-3);
+        display: flex;
+        gap: var(--space-1);
+        opacity: 0;
+        transition: opacity var(--transition-fast);
+      }
+
+      .pinned-note:hover .pinned-note-actions {
+        opacity: 1;
+      }
+
+      .note-action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        border: 1px solid var(--border-default);
+        color: var(--fg-muted);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+      }
+
+      .note-action-btn:hover {
+        background: var(--bg-subtle);
+        color: var(--fg-default);
+      }
+
+      .note-action-btn--danger:hover {
+        background: var(--danger-50);
+        color: var(--danger-600);
+        border-color: var(--danger-200);
+      }
+
+      .notes-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+
+      .notes-list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--space-2);
+      }
+
+      .notes-list-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--fg-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .note-entry {
+        background: var(--bg-subtle);
+        border-radius: var(--radius-md);
+        padding: var(--space-3) var(--space-4);
+        position: relative;
+        transition: background var(--transition-fast);
+      }
+
+      .note-entry:hover {
+        background: var(--bg-muted);
+      }
+
+      .note-entry-content {
+        font-size: 14px;
+        color: var(--fg-secondary);
+        line-height: 1.6;
+        padding-right: var(--space-8);
+      }
+
+      .note-entry-meta {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin-top: var(--space-2);
+        font-size: 12px;
+        color: var(--fg-faint);
+      }
+
+      .note-entry-actions {
+        position: absolute;
+        top: var(--space-3);
+        right: var(--space-3);
+        display: flex;
+        gap: var(--space-1);
+        opacity: 0;
+        transition: opacity var(--transition-fast);
+      }
+
+      .note-entry:hover .note-entry-actions {
+        opacity: 1;
+      }
+
+      .show-all-notes {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-1);
+        padding: var(--space-2);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--primary-600);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: color var(--transition-fast);
+      }
+
+      .show-all-notes:hover {
+        color: var(--primary-700);
+        text-decoration: underline;
+      }
+
+      .notes-empty {
+        text-align: center;
+        padding: var(--space-6) var(--space-4);
+        color: var(--fg-muted);
+      }
+
+      .notes-empty-message {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--fg-secondary);
+        margin-bottom: var(--space-1);
+      }
+
+      .notes-empty-prompt {
+        font-size: 13px;
+        color: var(--fg-muted);
       }
 
       /* Billing Summary - Compact */
@@ -2585,44 +2787,128 @@
           <section class="section-card section-card--secondary" id="notesSection">
             <div class="section-header">
               <h2 class="section-title">Notes</h2>
-              <button class="btn btn-ghost" onclick="toggleEdit('notesSection')">
-                <i class="ph ph-pencil"></i>
-                Edit
-              </button>
             </div>
             <div class="section-content">
-              <div class="view-mode">
-                <div class="quick-add-note">
-                  <input type="text" class="quick-add-input" placeholder="Add a quick note..." />
-                  <button class="btn btn-primary">Add</button>
-                </div>
-                <div class="notes-content">Emily is preparing for her spring recital in March. She's been working on Chopin's Nocturne Op. 9 No. 2 and has made excellent progress over the past few months.
-
-Focus areas:
-- Dynamics and expression
-- Pedaling technique
-- Performance confidence
-
-She responds well to positive reinforcement and enjoys learning about the historical context of pieces.</div>
-                <div class="notes-meta">Last updated: January 6, 2025</div>
-              </div>
-
-              <div class="edit-form">
-                <div class="form-group">
-                  <textarea class="form-textarea" rows="8">Emily is preparing for her spring recital in March. She's been working on Chopin's Nocturne Op. 9 No. 2 and has made excellent progress over the past few months.
-
-Focus areas:
-- Dynamics and expression
-- Pedaling technique
-- Performance confidence
-
-She responds well to positive reinforcement and enjoys learning about the historical context of pieces.</textarea>
-                </div>
-                <div class="form-actions">
-                  <button class="btn btn-secondary" onclick="cancelEdit('notesSection')">Cancel</button>
-                  <button class="btn btn-primary" onclick="saveEdit('notesSection')">Save Changes</button>
+              <!-- Quick Add -->
+              <div class="quick-add-note">
+                <textarea class="quick-add-input" placeholder="Add a quick note..." id="quickNoteInput" rows="1" onkeydown="handleNoteKeydown(event)"></textarea>
+                <div class="quick-add-actions">
+                  <button class="btn btn-secondary" onclick="clearQuickNote()">Cancel</button>
+                  <button class="btn btn-primary" onclick="addQuickNote()">Add Note</button>
                 </div>
               </div>
+
+              <!-- Pinned Note -->
+              <div class="pinned-note" id="pinnedNote">
+                <div class="pinned-note-header">
+                  <span class="pinned-note-label">
+                    <i class="ph ph-push-pin"></i>
+                    Pinned
+                  </span>
+                </div>
+                <div class="pinned-note-content">
+                  Responds well to positive reinforcement. Enjoys learning about historical context of pieces. Has mild performance anxiety - needs extra encouragement before recitals.
+                </div>
+                <div class="pinned-note-actions">
+                  <button class="note-action-btn" title="Edit" onclick="editNote('pinned')">
+                    <i class="ph ph-pencil"></i>
+                  </button>
+                  <button class="note-action-btn" title="Unpin" onclick="unpinNote()">
+                    <i class="ph ph-push-pin-slash"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Notes List -->
+              <div class="notes-list-header">
+                <span class="notes-list-title">Recent Notes</span>
+              </div>
+              <div class="notes-list" id="notesList">
+                <div class="note-entry" data-note-id="1">
+                  <div class="note-entry-content">
+                    Making great progress on dynamics in Chopin Nocturne. Ready to start working on the coda section next lesson.
+                  </div>
+                  <div class="note-entry-meta">
+                    <span>Jan 6</span>
+                  </div>
+                  <div class="note-entry-actions">
+                    <button class="note-action-btn" title="Pin" onclick="pinNote(1)">
+                      <i class="ph ph-push-pin"></i>
+                    </button>
+                    <button class="note-action-btn" title="Edit" onclick="editNote(1)">
+                      <i class="ph ph-pencil"></i>
+                    </button>
+                    <button class="note-action-btn note-action-btn--danger" title="Delete" onclick="deleteNote(1)">
+                      <i class="ph ph-trash"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="note-entry" data-note-id="2">
+                  <div class="note-entry-content">
+                    Struggled with left hand crossovers in measures 24-32. Assigned Hanon exercises #12-15 for strength building.
+                  </div>
+                  <div class="note-entry-meta">
+                    <span>Dec 20</span>
+                  </div>
+                  <div class="note-entry-actions">
+                    <button class="note-action-btn" title="Pin" onclick="pinNote(2)">
+                      <i class="ph ph-push-pin"></i>
+                    </button>
+                    <button class="note-action-btn" title="Edit" onclick="editNote(2)">
+                      <i class="ph ph-pencil"></i>
+                    </button>
+                    <button class="note-action-btn note-action-btn--danger" title="Delete" onclick="deleteNote(2)">
+                      <i class="ph ph-trash"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="note-entry" data-note-id="3">
+                  <div class="note-entry-content">
+                    Preparing for spring recital in March. Selected Chopin's Nocturne Op. 9 No. 2 as performance piece.
+                  </div>
+                  <div class="note-entry-meta">
+                    <span>Dec 13</span>
+                  </div>
+                  <div class="note-entry-actions">
+                    <button class="note-action-btn" title="Pin" onclick="pinNote(3)">
+                      <i class="ph ph-push-pin"></i>
+                    </button>
+                    <button class="note-action-btn" title="Edit" onclick="editNote(3)">
+                      <i class="ph ph-pencil"></i>
+                    </button>
+                    <button class="note-action-btn note-action-btn--danger" title="Delete" onclick="deleteNote(3)">
+                      <i class="ph ph-trash"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="note-entry" data-note-id="4">
+                  <div class="note-entry-content">
+                    Focus areas identified: dynamics/expression, pedaling technique, performance confidence.
+                  </div>
+                  <div class="note-entry-meta">
+                    <span>Dec 6</span>
+                  </div>
+                  <div class="note-entry-actions">
+                    <button class="note-action-btn" title="Pin" onclick="pinNote(4)">
+                      <i class="ph ph-push-pin"></i>
+                    </button>
+                    <button class="note-action-btn" title="Edit" onclick="editNote(4)">
+                      <i class="ph ph-pencil"></i>
+                    </button>
+                    <button class="note-action-btn note-action-btn--danger" title="Delete" onclick="deleteNote(4)">
+                      <i class="ph ph-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <button class="show-all-notes" onclick="showAllNotes()">
+                Show all 8 notes
+                <i class="ph ph-caret-down"></i>
+              </button>
             </div>
           </section>
 
@@ -2951,6 +3237,207 @@ She responds well to positive reinforcement and enjoys learning about the histor
           btn.classList.remove('ph-caret-up');
           btn.classList.add('ph-caret-down');
         }
+      }
+
+      // Notes Functions
+      function handleNoteKeydown(event) {
+        // Cmd/Ctrl + Enter to submit
+        if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
+          event.preventDefault();
+          addQuickNote();
+        }
+        // Escape to cancel
+        if (event.key === 'Escape') {
+          clearQuickNote();
+          event.target.blur();
+        }
+      }
+
+      function clearQuickNote() {
+        const input = document.getElementById('quickNoteInput');
+        input.value = '';
+        input.blur();
+      }
+
+      function addQuickNote() {
+        const input = document.getElementById('quickNoteInput');
+        const noteText = input.value.trim();
+        if (!noteText) return;
+
+        const notesList = document.getElementById('notesList');
+        const today = new Date();
+        const dateStr = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+        const newNote = document.createElement('div');
+        newNote.className = 'note-entry';
+        newNote.dataset.noteId = Date.now();
+        newNote.innerHTML = `
+          <div class="note-entry-content">${noteText}</div>
+          <div class="note-entry-meta">
+            <span>${dateStr}</span>
+          </div>
+          <div class="note-entry-actions">
+            <button class="note-action-btn" title="Pin" onclick="pinNote(${Date.now()})">
+              <i class="ph ph-push-pin"></i>
+            </button>
+            <button class="note-action-btn" title="Edit" onclick="editNote(${Date.now()})">
+              <i class="ph ph-pencil"></i>
+            </button>
+            <button class="note-action-btn note-action-btn--danger" title="Delete" onclick="deleteNote(${Date.now()})">
+              <i class="ph ph-trash"></i>
+            </button>
+          </div>
+        `;
+
+        notesList.insertBefore(newNote, notesList.firstChild);
+        input.value = '';
+
+        // Brief highlight effect
+        newNote.style.background = 'var(--primary-50)';
+        setTimeout(() => {
+          newNote.style.background = '';
+        }, 1000);
+      }
+
+      function editNote(noteId) {
+        const noteEntry = noteId === 'pinned'
+          ? document.getElementById('pinnedNote')
+          : document.querySelector(`[data-note-id="${noteId}"]`);
+
+        const contentEl = noteEntry.querySelector('.note-entry-content, .pinned-note-content');
+        const currentText = contentEl.textContent.trim();
+
+        const input = document.createElement('textarea');
+        input.className = 'form-textarea';
+        input.value = currentText;
+        input.style.width = '100%';
+        input.style.minHeight = '80px';
+        input.style.marginBottom = 'var(--space-2)';
+        input.style.boxSizing = 'border-box';
+
+        const actions = document.createElement('div');
+        actions.style.display = 'flex';
+        actions.style.gap = 'var(--space-2)';
+        actions.style.justifyContent = 'flex-end';
+        actions.innerHTML = `
+          <button class="btn btn-secondary btn-sm" onclick="cancelNoteEdit(this, '${currentText}')">Cancel</button>
+          <button class="btn btn-primary btn-sm" onclick="saveNoteEdit(this)">Save</button>
+        `;
+
+        contentEl.innerHTML = '';
+        contentEl.appendChild(input);
+        contentEl.appendChild(actions);
+        input.focus();
+      }
+
+      function cancelNoteEdit(btn, originalText) {
+        const contentEl = btn.closest('.note-entry-content, .pinned-note-content');
+        contentEl.innerHTML = originalText;
+      }
+
+      function saveNoteEdit(btn) {
+        const contentEl = btn.closest('.note-entry-content, .pinned-note-content');
+        const textarea = contentEl.querySelector('textarea');
+        const newText = textarea.value.trim();
+        contentEl.innerHTML = newText;
+      }
+
+      function deleteNote(noteId) {
+        if (confirm('Delete this note?')) {
+          const noteEntry = document.querySelector(`[data-note-id="${noteId}"]`);
+          noteEntry.style.opacity = '0';
+          noteEntry.style.transform = 'translateX(20px)';
+          noteEntry.style.transition = 'all 0.2s ease';
+          setTimeout(() => {
+            noteEntry.remove();
+          }, 200);
+        }
+      }
+
+      function pinNote(noteId) {
+        const noteEntry = document.querySelector(`[data-note-id="${noteId}"]`);
+        const pinnedNote = document.getElementById('pinnedNote');
+        const noteContent = noteEntry.querySelector('.note-entry-content').textContent.trim();
+
+        // Get current pinned content
+        const currentPinnedContent = pinnedNote.querySelector('.pinned-note-content').textContent.trim();
+
+        // Update pinned note with new content
+        pinnedNote.querySelector('.pinned-note-content').textContent = noteContent;
+
+        // Move old pinned content to notes list
+        if (currentPinnedContent) {
+          const notesList = document.getElementById('notesList');
+          const today = new Date();
+          const dateStr = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+          const newNote = document.createElement('div');
+          newNote.className = 'note-entry';
+          newNote.dataset.noteId = Date.now();
+          newNote.innerHTML = `
+            <div class="note-entry-content">${currentPinnedContent}</div>
+            <div class="note-entry-meta">
+              <span>${dateStr}</span>
+            </div>
+            <div class="note-entry-actions">
+              <button class="note-action-btn" title="Pin" onclick="pinNote(${Date.now()})">
+                <i class="ph ph-push-pin"></i>
+              </button>
+              <button class="note-action-btn" title="Edit" onclick="editNote(${Date.now()})">
+                <i class="ph ph-pencil"></i>
+              </button>
+              <button class="note-action-btn note-action-btn--danger" title="Delete" onclick="deleteNote(${Date.now()})">
+                <i class="ph ph-trash"></i>
+              </button>
+            </div>
+          `;
+          notesList.insertBefore(newNote, notesList.firstChild);
+        }
+
+        // Remove the note that was pinned
+        noteEntry.remove();
+
+        // Show pinned section
+        pinnedNote.style.display = 'block';
+      }
+
+      function unpinNote() {
+        const pinnedNote = document.getElementById('pinnedNote');
+        const pinnedContent = pinnedNote.querySelector('.pinned-note-content').textContent.trim();
+
+        // Move to notes list
+        const notesList = document.getElementById('notesList');
+        const today = new Date();
+        const dateStr = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+        const newNote = document.createElement('div');
+        newNote.className = 'note-entry';
+        newNote.dataset.noteId = Date.now();
+        newNote.innerHTML = `
+          <div class="note-entry-content">${pinnedContent}</div>
+          <div class="note-entry-meta">
+            <span>${dateStr}</span>
+          </div>
+          <div class="note-entry-actions">
+            <button class="note-action-btn" title="Pin" onclick="pinNote(${Date.now()})">
+              <i class="ph ph-push-pin"></i>
+            </button>
+            <button class="note-action-btn" title="Edit" onclick="editNote(${Date.now()})">
+              <i class="ph ph-pencil"></i>
+            </button>
+            <button class="note-action-btn note-action-btn--danger" title="Delete" onclick="deleteNote(${Date.now()})">
+              <i class="ph ph-trash"></i>
+            </button>
+          </div>
+        `;
+        notesList.insertBefore(newNote, notesList.firstChild);
+
+        // Hide pinned section
+        pinnedNote.style.display = 'none';
+      }
+
+      function showAllNotes() {
+        alert('This would open a modal or expand to show all 8 notes');
       }
 
       function editStudent() {
