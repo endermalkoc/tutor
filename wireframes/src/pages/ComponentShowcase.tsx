@@ -47,9 +47,24 @@ import {
   Toast,
   Pagination,
   EmptyState,
+  FormSection,
+  FormRow,
+  Fieldset,
+  ExpandToggle,
+  ExpandableContent,
+  Combobox,
+  InlineForm,
 } from '../components/design-system';
+import type { ComboboxOption } from '../components/design-system';
 import { PageHeader } from '../components/layout';
 import './ComponentShowcase.css';
+
+// Mock data for Combobox
+const familyOptions: ComboboxOption[] = [
+  { value: '1', label: 'Anderson Family', description: 'John Anderson · john@example.com' },
+  { value: '2', label: 'Martinez Family', description: 'Maria Martinez · maria@example.com' },
+  { value: '3', label: 'Thompson Family', description: 'Sarah Thompson · sarah@example.com' },
+];
 
 export function ComponentShowcase() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -58,6 +73,10 @@ export function ComponentShowcase() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [switchOn, setSwitchOn] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  // New component states
+  const [expandedSection, setExpandedSection] = useState(false);
+  const [selectedFamily, setSelectedFamily] = useState('');
+  const [showInlineForm, setShowInlineForm] = useState(false);
 
   return (
     <div className="showcase">
@@ -247,6 +266,128 @@ export function ComponentShowcase() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Form Sections & Layout */}
+      <section className="showcase-section">
+        <h2 className="showcase-title">Form Sections & Layout</h2>
+        <Card>
+          <CardBody>
+            <FormSection title="Student Information" badge="Required">
+              <FormRow>
+                <FormGroup>
+                  <FormLabel required>First Name</FormLabel>
+                  <Input placeholder="Enter first name" />
+                </FormGroup>
+                <FormGroup>
+                  <FormLabel required>Last Name</FormLabel>
+                  <Input placeholder="Enter last name" />
+                </FormGroup>
+              </FormRow>
+              <FormRow>
+                <Fieldset legend="Student Type" required>
+                  <RadioGroup orientation="horizontal">
+                    <Radio name="type-demo" label="Child" defaultChecked />
+                    <Radio name="type-demo" label="Adult" />
+                  </RadioGroup>
+                </Fieldset>
+                <FormGroup>
+                  <FormLabel>Email</FormLabel>
+                  <Input type="email" placeholder="student@example.com" />
+                </FormGroup>
+              </FormRow>
+
+              <ExpandToggle
+                label="Add additional details..."
+                expanded={expandedSection}
+                onToggle={() => setExpandedSection(!expandedSection)}
+              />
+              <ExpandableContent expanded={expandedSection}>
+                <FormRow>
+                  <FormGroup>
+                    <FormLabel>Birthday</FormLabel>
+                    <Input type="date" />
+                  </FormGroup>
+                  <FormGroup>
+                    <FormLabel>School</FormLabel>
+                    <Input placeholder="School name" />
+                  </FormGroup>
+                </FormRow>
+              </ExpandableContent>
+            </FormSection>
+
+            <FormSection title="Notes" badge="Optional" badgeVariant="optional" noBorder>
+              <FormRow columns={1}>
+                <FormGroup>
+                  <Textarea placeholder="Add notes..." />
+                  <FormHint>Only visible to you</FormHint>
+                </FormGroup>
+              </FormRow>
+            </FormSection>
+          </CardBody>
+        </Card>
+      </section>
+
+      {/* Combobox */}
+      <section className="showcase-section">
+        <h2 className="showcase-title">Combobox</h2>
+        <div className="showcase-grid">
+          <div className="showcase-card">
+            <div className="showcase-label">Searchable Dropdown</div>
+            <div style={{ maxWidth: 400 }}>
+              <Combobox
+                options={familyOptions}
+                value={selectedFamily}
+                placeholder="Search families..."
+                searchPlaceholder="Search by name or email..."
+                onChange={setSelectedFamily}
+                onCreateNew={() => setShowInlineForm(true)}
+                createNewLabel="Create new family"
+              />
+            </div>
+          </div>
+          <div className="showcase-card">
+            <div className="showcase-label">Selected Value</div>
+            <p className="text-secondary body-sm">
+              {selectedFamily
+                ? `Selected: ${familyOptions.find((f) => f.value === selectedFamily)?.label}`
+                : 'No family selected'}
+            </p>
+            {selectedFamily && (
+              <Button variant="ghost" size="sm" onClick={() => setSelectedFamily('')}>
+                Clear Selection
+              </Button>
+            )}
+          </div>
+        </div>
+
+        {showInlineForm && (
+          <div style={{ marginTop: 'var(--space-4)', maxWidth: 600 }}>
+            <InlineForm title="New Family - Guardian" onCancel={() => setShowInlineForm(false)}>
+              <FormRow>
+                <FormGroup>
+                  <FormLabel required>First Name</FormLabel>
+                  <Input placeholder="First name" />
+                </FormGroup>
+                <FormGroup>
+                  <FormLabel required>Last Name</FormLabel>
+                  <Input placeholder="Last name" />
+                </FormGroup>
+              </FormRow>
+              <FormRow>
+                <FormGroup>
+                  <FormLabel>Email</FormLabel>
+                  <Input type="email" placeholder="parent@example.com" />
+                </FormGroup>
+                <FormGroup>
+                  <FormLabel>Phone</FormLabel>
+                  <Input type="tel" placeholder="(555) 123-4567" />
+                  <FormHint>Email or phone required</FormHint>
+                </FormGroup>
+              </FormRow>
+            </InlineForm>
+          </div>
+        )}
       </section>
 
       {/* Cards */}
