@@ -38,6 +38,23 @@ The Guardian entity represents a parent or guardian responsible for a student. G
 - Preferred Invoice Recipient must be a boolean value
 - Show in Student Portal Contacts must be a boolean value
 
+## Display Behavior
+
+### Primary Phone Number
+When displaying guardian contact information in compact views (e.g., student detail page), only one phone number is shown initially:
+1. **Mobile** - Show mobile number if available (preferred for SMS capability)
+2. **Home** - Show home number if no mobile exists
+3. **Work** - Show work number only if no mobile or home exists
+
+### Expandable Details
+The following information is hidden under a "Show details" toggle:
+- Additional phone numbers (Home, Work) beyond the primary
+- Address
+- Communication preferences (Invoice Recipient, Email/SMS Reminders)
+- Private notes
+
+This reduces visual clutter while keeping essential contact info (email + one phone) immediately accessible.
+
 ## Notes
 
 - Guardians inherit all contact information fields from the Contact entity (name, email, phone numbers, etc.)

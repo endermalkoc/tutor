@@ -2350,27 +2350,12 @@
                       <a href="mailto:jennifer.chen@example.com">jennifer.chen@example.com</a>
                     </span>
                   </div>
-                  <div class="guardian-phone-list" style="display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-2);">
-                    <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
-                      <i class="ph ph-device-mobile" style="color: var(--fg-muted);"></i>
-                      <a href="tel:+15559876543" style="color: var(--primary-600); text-decoration: none;">(555) 987-6543</a>
-                      <span style="font-size: 11px; color: var(--fg-muted);">Mobile</span>
-                      <i class="ph ph-chat-circle" title="SMS Capable" style="color: var(--primary-500); font-size: 14px;"></i>
-                    </span>
-                    <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
-                      <i class="ph ph-house" style="color: var(--fg-muted);"></i>
-                      <a href="tel:+15551234567" style="color: var(--primary-600); text-decoration: none;">(555) 123-4567</a>
-                      <span style="font-size: 11px; color: var(--fg-muted);">Home</span>
-                    </span>
-                    <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
-                      <i class="ph ph-briefcase" style="color: var(--fg-muted);"></i>
-                      <a href="tel:+15559998888" style="color: var(--primary-600); text-decoration: none;">(555) 999-8888</a>
-                      <span style="font-size: 11px; color: var(--fg-muted);">Work</span>
-                    </span>
-                  </div>
-                  <div class="guardian-address">
-                    <i class="ph ph-map-pin"></i>
-                    <span>123 Oak Street, San Francisco, CA 94102</span>
+                  <!-- Primary phone number (Mobile preferred, else Home) -->
+                  <div class="guardian-phone-primary" style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
+                    <i class="ph ph-device-mobile" style="color: var(--fg-muted);"></i>
+                    <a href="tel:+15559876543" style="color: var(--primary-600); text-decoration: none;">(555) 987-6543</a>
+                    <span style="font-size: 11px; color: var(--fg-muted);">Mobile</span>
+                    <i class="ph ph-chat-circle" title="SMS Capable" style="color: var(--primary-500); font-size: 14px;"></i>
                   </div>
                   <div class="guardian-details-toggle" style="margin-top: var(--space-3);">
                     <button class="btn-link" onclick="toggleContactDetails('contact-jennifer')" style="background: none; border: none; padding: 0; font-size: 12px; color: var(--primary-600); cursor: pointer; display: flex; align-items: center; gap: var(--space-1);">
@@ -2379,6 +2364,25 @@
                     </button>
                   </div>
                   <div class="guardian-details" style="display: none; margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--border-default);">
+                    <!-- Additional phone numbers -->
+                    <div class="guardian-phone-list" style="display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-3);">
+                      <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
+                        <i class="ph ph-house" style="color: var(--fg-muted);"></i>
+                        <a href="tel:+15551234567" style="color: var(--primary-600); text-decoration: none;">(555) 123-4567</a>
+                        <span style="font-size: 11px; color: var(--fg-muted);">Home</span>
+                      </span>
+                      <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
+                        <i class="ph ph-briefcase" style="color: var(--fg-muted);"></i>
+                        <a href="tel:+15559998888" style="color: var(--primary-600); text-decoration: none;">(555) 999-8888</a>
+                        <span style="font-size: 11px; color: var(--fg-muted);">Work</span>
+                      </span>
+                    </div>
+                    <!-- Address -->
+                    <div class="guardian-address" style="margin-bottom: var(--space-3);">
+                      <i class="ph ph-map-pin"></i>
+                      <span>123 Oak Street, San Francisco, CA 94102</span>
+                    </div>
+                    <!-- Preferences -->
                     <div class="guardian-preferences" style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
                       <span class="badge" style="background: var(--info-50); color: var(--info-600);">
                         <i class="ph ph-receipt" style="margin-right: 4px;"></i>
@@ -2579,22 +2583,12 @@
                       <a href="mailto:david.chen@example.com">david.chen@example.com</a>
                     </span>
                   </div>
-                  <div class="guardian-phone-list" style="display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-2);">
-                    <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
-                      <i class="ph ph-device-mobile" style="color: var(--fg-muted);"></i>
-                      <a href="tel:+15559876544" style="color: var(--primary-600); text-decoration: none;">(555) 987-6544</a>
-                      <span style="font-size: 11px; color: var(--fg-muted);">Mobile</span>
-                      <i class="ph ph-chat-circle" title="SMS Capable" style="color: var(--primary-500); font-size: 14px;"></i>
-                    </span>
-                    <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
-                      <i class="ph ph-briefcase" style="color: var(--fg-muted);"></i>
-                      <a href="tel:+15557776666" style="color: var(--primary-600); text-decoration: none;">(555) 777-6666</a>
-                      <span style="font-size: 11px; color: var(--fg-muted);">Work</span>
-                    </span>
-                  </div>
-                  <div class="guardian-address">
-                    <i class="ph ph-map-pin"></i>
-                    <span>123 Oak Street, San Francisco, CA 94102 <span class="address-note">(same as Jennifer)</span></span>
+                  <!-- Primary phone number (Mobile preferred, else Home) -->
+                  <div class="guardian-phone-primary" style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
+                    <i class="ph ph-device-mobile" style="color: var(--fg-muted);"></i>
+                    <a href="tel:+15559876544" style="color: var(--primary-600); text-decoration: none;">(555) 987-6544</a>
+                    <span style="font-size: 11px; color: var(--fg-muted);">Mobile</span>
+                    <i class="ph ph-chat-circle" title="SMS Capable" style="color: var(--primary-500); font-size: 14px;"></i>
                   </div>
                   <div class="guardian-details-toggle" style="margin-top: var(--space-3);">
                     <button class="btn-link" onclick="toggleContactDetails('contact-david')" style="background: none; border: none; padding: 0; font-size: 12px; color: var(--primary-600); cursor: pointer; display: flex; align-items: center; gap: var(--space-1);">
@@ -2603,6 +2597,20 @@
                     </button>
                   </div>
                   <div class="guardian-details" style="display: none; margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--border-default);">
+                    <!-- Additional phone numbers -->
+                    <div class="guardian-phone-list" style="display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-3);">
+                      <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
+                        <i class="ph ph-briefcase" style="color: var(--fg-muted);"></i>
+                        <a href="tel:+15557776666" style="color: var(--primary-600); text-decoration: none;">(555) 777-6666</a>
+                        <span style="font-size: 11px; color: var(--fg-muted);">Work</span>
+                      </span>
+                    </div>
+                    <!-- Address -->
+                    <div class="guardian-address" style="margin-bottom: var(--space-3);">
+                      <i class="ph ph-map-pin"></i>
+                      <span>123 Oak Street, San Francisco, CA 94102 <span class="address-note">(same as Jennifer)</span></span>
+                    </div>
+                    <!-- Preferences -->
                     <div class="guardian-preferences" style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
                       <span class="badge" style="background: var(--bg-subtle); color: var(--fg-muted);">
                         <i class="ph ph-envelope" style="margin-right: 4px;"></i>
