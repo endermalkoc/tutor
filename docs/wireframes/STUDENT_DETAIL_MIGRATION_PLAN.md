@@ -78,64 +78,64 @@ This document outlines the plan to convert the HTML wireframe `student-detail.ht
 
 ---
 
-## Phase 4: Overview Tab Components
+## Phase 4: Overview Tab Components ✅ COMPLETE
 
 ### 4.1 PreLessonCard Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/PreLessonCard.tsx`
-- [ ] Gradient background styling
-- [ ] Collapsible content
-- [ ] Grid layout: Last Lesson, Homework Status, Recent Note
-- [ ] Conditional display (only show if lesson is upcoming)
+- [x] Create `wireframes/src/pages/StudentDetailPage/components/PreLessonCard.tsx`
+- [x] Gradient background styling
+- [x] Collapsible content
+- [x] Grid layout: Last Lesson, Homework Status, Recent Note
+- [x] Conditional display (only show if lesson is upcoming)
 
 ### 4.2 LessonSettingsSection Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/LessonSettingsSection.tsx`
-- [ ] View mode: Subjects (tags), Duration, Category, Skill Level, Tags
-- [ ] Edit mode: Form with TagInput for subjects, Select for duration/category/level
-- [ ] Uses SectionCard wrapper
+- [x] Create `wireframes/src/pages/StudentDetailPage/components/LessonSettingsSection.tsx`
+- [x] View mode: Subjects (tags), Duration, Category, Skill Level, Tags
+- [x] Edit mode: Form with TagInput for subjects, Select for duration/category/level
+- [x] Uses SectionCard wrapper
 
 ### 4.3 ContactSection Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/ContactSection.tsx`
-- [ ] View mode: Email, Phone, SMS status, Last contacted
-- [ ] Adult-only: Address fields
-- [ ] Notification switches: Email/SMS reminders
-- [ ] Edit mode: Form fields + switches
-- [ ] Uses SectionCard wrapper
+- [x] Create `wireframes/src/pages/StudentDetailPage/components/ContactSection.tsx`
+- [x] View mode: Email, Phone, SMS status, Last contacted
+- [x] Adult-only: Address fields
+- [x] Notification switches: Email/SMS reminders
+- [x] Edit mode: Form fields + switches
+- [x] Uses SectionCard wrapper
 
 ### 4.4 FamilySection Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/FamilySection.tsx`
-- [ ] Guardian cards list
-- [ ] Siblings section
-- [ ] Billing indicator row
-- [ ] Add Contact button + inline form
+- [x] Create `wireframes/src/pages/StudentDetailPage/components/FamilySection.tsx`
+- [x] Guardian cards list
+- [x] Siblings section
+- [x] Billing indicator row
+- [x] Add Contact button + inline form
 
 ### 4.5 GuardianCard Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/GuardianCard.tsx`
-- [ ] Props: `isPrimary`, `guardian` data object
-- [ ] View mode: Name, role, emergency badge, contact info
-- [ ] Expandable details: additional phones, address, preferences, private note
-- [ ] Edit mode: Full form for all fields
-- [ ] Action buttons: Call, Email, Message
-- [ ] Menu: Set as Primary, Emergency toggle, Delete
+- [x] Create `wireframes/src/pages/StudentDetailPage/components/GuardianCard.tsx`
+- [x] Props: `isPrimary`, `guardian` data object
+- [x] View mode: Name, role, emergency badge, contact info
+- [x] Expandable details: additional phones, address, preferences, private note
+- [x] Edit mode: Full form for all fields
+- [x] Action buttons: Call, Email, Message
+- [x] Menu: Set as Primary, Emergency toggle, Delete
 
 ### 4.6 NotesSection Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/NotesSection.tsx`
-- [ ] Quick add input (expandable textarea)
-- [ ] Pinned note display with actions
-- [ ] Notes list with hover actions (pin, edit, delete)
-- [ ] "Show all X notes" button
+- [x] Create `wireframes/src/pages/StudentDetailPage/components/NotesSection.tsx`
+- [x] Quick add input (expandable textarea)
+- [x] Pinned note display with actions
+- [x] Notes list with hover actions (pin, edit, delete)
+- [x] "Show all X notes" button
 
 ### 4.7 PersonalDetailsSection Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/PersonalDetailsSection.tsx`
-- [ ] Default collapsed with summary
-- [ ] View: Name, Type, Status, Gender, Birthday, School, Referrer, Since
-- [ ] Edit: Full form
-- [ ] Uses SectionCard wrapper with collapsible
+- [x] Create `wireframes/src/pages/StudentDetailPage/components/PersonalDetailsSection.tsx`
+- [x] Default collapsed with summary
+- [x] View: Name, Type, Status, Gender, Birthday, School, Referrer, Since
+- [x] Edit: Full form
+- [x] Uses SectionCard wrapper with collapsible
 
 ### 4.8 RecentLessonsSection Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/RecentLessonsSection.tsx`
-- [ ] Simple table: Date, Time, Duration, Status, Notes
-- [ ] "View All" link to Lessons tab
-- [ ] Status badges: Attended, Cancelled, etc.
+- [x] Create `wireframes/src/pages/StudentDetailPage/components/RecentLessonsSection.tsx`
+- [x] Simple table: Date, Time, Duration, Status, Notes
+- [x] "View All" link to Lessons tab
+- [x] Status badges: Attended, Cancelled, etc.
 
 ---
 
@@ -226,17 +226,17 @@ This document outlines the plan to convert the HTML wireframe `student-detail.ht
 5. ~~SectionCard component~~ (used by multiple sections)
 6. ~~DataGrid component~~ (used in view modes)
 
-**Next up (Phase 4):**
-7. PreLessonCard
-8. LessonSettingsSection
-9. ContactSection
-10. GuardianCard
-11. FamilySection
-12. NotesSection
-13. PersonalDetailsSection
-14. RecentLessonsSection
+**Phase 4 ✅ Complete:**
+7. ~~PreLessonCard~~
+8. ~~LessonSettingsSection~~
+9. ~~ContactSection~~
+10. ~~GuardianCard~~
+11. ~~FamilySection~~
+12. ~~NotesSection~~
+13. ~~PersonalDetailsSection~~
+14. ~~RecentLessonsSection~~
 
-**Finally (Phase 5-6):**
+**Next up (Phase 5-6):**
 15. Assemble StudentDetailPage
 16. Wire up routing
 17. Implement other tabs incrementally
@@ -266,18 +266,21 @@ wireframes/src/
         │   ├── StudentHeader.tsx ✅
         │   ├── StudentHeader.css ✅
         │   ├── StudentDetailTabs.tsx ✅
-        │   ├── PreLessonCard.tsx
-        │   ├── PreLessonCard.css
-        │   ├── LessonSettingsSection.tsx
-        │   ├── ContactSection.tsx
-        │   ├── FamilySection.tsx
-        │   ├── GuardianCard.tsx
-        │   ├── GuardianCard.css
-        │   ├── NotesSection.tsx
-        │   ├── NotesSection.css
-        │   ├── PersonalDetailsSection.tsx
-        │   ├── RecentLessonsSection.tsx
-        │   └── index.ts
+        │   ├── PreLessonCard.tsx ✅
+        │   ├── PreLessonCard.css ✅
+        │   ├── LessonSettingsSection.tsx ✅
+        │   ├── ContactSection.tsx ✅
+        │   ├── ContactSection.css ✅
+        │   ├── FamilySection.tsx ✅
+        │   ├── FamilySection.css ✅
+        │   ├── GuardianCard.tsx ✅
+        │   ├── GuardianCard.css ✅
+        │   ├── NotesSection.tsx ✅
+        │   ├── NotesSection.css ✅
+        │   ├── PersonalDetailsSection.tsx ✅
+        │   ├── RecentLessonsSection.tsx ✅
+        │   ├── RecentLessonsSection.css ✅
+        │   └── index.ts ✅
         ├── tabs/
         │   ├── LessonsTab.tsx
         │   ├── HomeworkTab.tsx
@@ -297,7 +300,7 @@ wireframes/src/
 | Phase 1 | 2 | Low | ✅ Complete |
 | Phase 2 | 2 | Medium | ✅ Complete |
 | Phase 3 | 2 | Medium | ✅ Complete |
-| Phase 4 | 8 | Medium-High | Pending |
+| Phase 4 | 8 | Medium-High | ✅ Complete |
 | Phase 5 | 2 | Medium | Pending |
 | Phase 6 | 6 | Medium | Pending |
 

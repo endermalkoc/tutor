@@ -1,0 +1,393 @@
+/* Guardian Card */
+.guardian-card {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.guardian-card--primary {
+  background: var(--primary-50);
+  border: 1px solid var(--primary-200);
+}
+
+.guardian-card--editing {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+}
+
+/* Guardian Header */
+.guardian-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.guardian-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg-default);
+}
+
+.guardian-role {
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin-left: var(--space-3);
+}
+
+.emergency-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  margin-left: var(--space-2);
+}
+
+.emergency-badge i {
+  font-size: 12px;
+}
+
+.guardian-edit-btn {
+  margin-left: auto;
+}
+
+/* Contact Info */
+.guardian-contact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 13px;
+  color: var(--fg-secondary);
+  margin-top: var(--space-2);
+}
+
+.guardian-contact i {
+  color: var(--fg-muted);
+}
+
+.guardian-contact a {
+  color: var(--primary-600);
+  text-decoration: none;
+}
+
+.guardian-contact a:hover {
+  text-decoration: underline;
+}
+
+/* Primary Phone */
+.guardian-phone-primary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-size: 13px;
+  color: var(--fg-secondary);
+}
+
+.guardian-phone-primary i {
+  color: var(--fg-muted);
+}
+
+.guardian-phone-primary a {
+  color: var(--primary-600);
+  text-decoration: none;
+}
+
+.guardian-phone-primary a:hover {
+  text-decoration: underline;
+}
+
+.phone-type {
+  font-size: 11px;
+  color: var(--fg-muted);
+}
+
+.sms-icon {
+  color: var(--primary-500);
+  font-size: 14px;
+}
+
+/* Details Toggle */
+.guardian-details-toggle {
+  margin-top: var(--space-3);
+}
+
+.guardian-details-toggle .btn-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  color: var(--primary-600);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.guardian-details-toggle .btn-link:hover {
+  text-decoration: underline;
+}
+
+.details-caret {
+  transition: transform var(--transition-fast);
+}
+
+/* Guardian Details (Expandable) */
+.guardian-details {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-default);
+}
+
+.guardian-phone-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.guardian-phone-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 13px;
+  color: var(--fg-secondary);
+}
+
+.guardian-phone-item i {
+  color: var(--fg-muted);
+}
+
+.guardian-phone-item a {
+  color: var(--primary-600);
+  text-decoration: none;
+}
+
+.guardian-phone-item a:hover {
+  text-decoration: underline;
+}
+
+/* Address */
+.guardian-address {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 13px;
+  color: var(--fg-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.guardian-address i {
+  color: var(--fg-muted);
+}
+
+/* Preferences */
+.guardian-preferences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.guardian-preferences .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.guardian-preferences .badge i {
+  font-size: 12px;
+}
+
+/* Private Note */
+.guardian-private-note {
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--warning-50);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--fg-secondary);
+}
+
+.guardian-private-note i {
+  color: var(--warning-600);
+  margin-right: 4px;
+}
+
+/* Action Buttons */
+.guardian-actions {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: flex;
+  gap: var(--space-1);
+}
+
+.guardian-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.guardian-action-btn:hover {
+  background: var(--primary-50);
+  border-color: var(--primary-200);
+  color: var(--primary-600);
+}
+
+/* Contact Menu */
+.contact-menu-wrapper {
+  position: relative;
+  margin-left: auto;
+}
+
+.contact-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.contact-menu-btn:hover {
+  background: var(--bg-subtle);
+  color: var(--fg-default);
+}
+
+.contact-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-1);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  min-width: 200px;
+  z-index: 100;
+}
+
+.contact-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-size: 13px;
+  color: var(--fg-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  text-align: left;
+}
+
+.contact-menu-item:hover {
+  background: var(--bg-subtle);
+}
+
+.contact-menu-item--danger {
+  color: var(--danger-600);
+}
+
+.contact-menu-item--danger:hover {
+  background: var(--danger-50);
+}
+
+.contact-menu-divider {
+  height: 1px;
+  background: var(--border-default);
+  margin: var(--space-1) 0;
+}
+
+/* Edit Form */
+.guardian-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.guardian-edit-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.guardian-edit-form .form-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+.guardian-edit-form .form-subsection-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-muted);
+  margin: var(--space-4) 0 var(--space-3);
+}
+
+.guardian-edit-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.guardian-edit-form .form-hint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 11px;
+  color: var(--fg-muted);
+  margin-top: 4px;
+}
+
+.phone-input-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.phone-input-row > input {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .guardian-edit-form .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guardian-edit-form .form-grid .full-width {
+    grid-column: 1;
+  }
+
+  .guardian-actions {
+    position: static;
+    margin-top: var(--space-3);
+    justify-content: flex-start;
+  }
+
+  .phone-input-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .phone-input-row > input {
+    width: 100%;
+  }
+}

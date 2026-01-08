@@ -1,0 +1,81 @@
+/* Pre-Lesson Context Card */
+.prelesson-card {
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--bg-surface) 100%);
+  border: 1px solid var(--primary-200);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.prelesson-card--collapsed {
+  margin-bottom: var(--space-4);
+}
+
+.prelesson-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--primary-100);
+}
+
+.prelesson-card--collapsed .prelesson-header {
+  border-bottom: none;
+}
+
+.prelesson-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-700);
+}
+
+.prelesson-title i {
+  font-size: 18px;
+  color: var(--primary-500);
+}
+
+.prelesson-content {
+  padding: var(--space-4) var(--space-5);
+}
+
+.prelesson-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.prelesson-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.prelesson-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prelesson-value {
+  font-size: 14px;
+  color: var(--fg-secondary);
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .prelesson-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .prelesson-grid {
+    grid-template-columns: 1fr;
+  }
+}

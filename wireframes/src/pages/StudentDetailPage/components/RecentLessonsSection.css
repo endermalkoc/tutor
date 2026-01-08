@@ -1,0 +1,46 @@
+/* Recent Lessons Section */
+.recent-lessons-content {
+  margin: calc(var(--space-4) * -1);
+  margin-top: 0;
+}
+
+/* View All Link */
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary-600);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.view-all-link:hover {
+  color: var(--primary-700);
+  text-decoration: underline;
+}
+
+.view-all-link i {
+  font-size: 14px;
+}
+
+/* Lesson Status Badge */
+.lesson-status {
+  font-size: 12px;
+}
+
+/* Lesson Note */
+.lesson-note {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+.lesson-note-empty {
+  color: var(--fg-faint);
+}
