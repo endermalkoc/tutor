@@ -2041,15 +2041,11 @@
           <section class="section-card section-card--secondary" id="familySection">
             <div class="section-header">
               <h2 class="section-title">Family</h2>
-              <button class="btn btn-ghost" onclick="toggleEdit('familySection')">
-                <i class="ph ph-pencil"></i>
-                Edit
-              </button>
             </div>
             <div class="section-content">
-              <div class="view-mode">
-                <!-- Primary Contact -->
-                <div class="guardian-card guardian-card--primary">
+              <!-- Primary Contact -->
+              <div class="guardian-card guardian-card--primary" id="contact-jennifer">
+                <div class="contact-view-mode">
                   <div class="guardian-header">
                     <span class="guardian-name">Jennifer Chen</span>
                     <span class="guardian-role">Primary Contact · Mother</span>
@@ -2057,6 +2053,10 @@
                       <i class="ph ph-first-aid-kit"></i>
                       Emergency
                     </span>
+                    <button class="btn btn-ghost btn-sm" onclick="toggleContactEdit('contact-jennifer')" style="margin-left: auto;">
+                      <i class="ph ph-pencil"></i>
+                      Edit
+                    </button>
                   </div>
                   <div class="guardian-contact">
                     <span>
@@ -2084,9 +2084,79 @@
                     </button>
                   </div>
                 </div>
+                <div class="contact-edit-mode" style="display: none;">
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">First Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Jennifer" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Last Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Chen" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Relationship</label>
+                      <select class="form-select" onchange="handleRelationshipChange(this)">
+                        <option value="">Select...</option>
+                        <option value="mother" selected>Mother</option>
+                        <option value="father">Father</option>
+                        <option value="stepmother">Stepmother</option>
+                        <option value="stepfather">Stepfather</option>
+                        <option value="grandmother">Grandmother</option>
+                        <option value="grandfather">Grandfather</option>
+                        <option value="aunt">Aunt</option>
+                        <option value="uncle">Uncle</option>
+                        <option value="other">Other</option>
+                      </select>
+                      <input type="text" class="form-input relationship-other-input" placeholder="Specify..." style="display: none; margin-top: var(--space-2);" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Email</label>
+                      <input type="email" class="form-input" value="jennifer.chen@example.com" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Phone</label>
+                      <input type="tel" class="form-input" value="(555) 987-6543" />
+                    </div>
+                    <div class="form-group">
+                      <label class="checkbox-label">
+                        <input type="checkbox" checked />
+                        <span>Emergency Contact</span>
+                      </label>
+                    </div>
+                  </div>
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
+                  <div class="form-grid">
+                    <div class="form-group full-width">
+                      <label class="form-label">Street</label>
+                      <input type="text" class="form-input" value="123 Oak Street" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">City</label>
+                      <input type="text" class="form-input" value="San Francisco" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">State</label>
+                      <select class="form-select">
+                        <option value="CA" selected>CA</option>
+                        <option value="NY">NY</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Zip</label>
+                      <input type="text" class="form-input" value="94102" />
+                    </div>
+                  </div>
+                  <div class="form-actions" style="margin-top: var(--space-4);">
+                    <button class="btn btn-secondary" onclick="toggleContactEdit('contact-jennifer')">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveContactEdit('contact-jennifer')">Save</button>
+                  </div>
+                </div>
+              </div>
 
-                <!-- Secondary Contact -->
-                <div class="guardian-card">
+              <!-- Secondary Contact -->
+              <div class="guardian-card" id="contact-david">
+                <div class="contact-view-mode">
                   <div class="guardian-header">
                     <span class="guardian-name">David Chen</span>
                     <span class="guardian-role">Contact · Father</span>
@@ -2110,6 +2180,10 @@
                         </div>
                       </div>
                     </div>
+                    <button class="btn btn-ghost btn-sm" onclick="toggleContactEdit('contact-david')" style="margin-left: var(--space-2);">
+                      <i class="ph ph-pencil"></i>
+                      Edit
+                    </button>
                   </div>
                   <div class="guardian-contact">
                     <span>
@@ -2137,8 +2211,84 @@
                     </button>
                   </div>
                 </div>
+                <div class="contact-edit-mode" style="display: none;">
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">First Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="David" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Last Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Chen" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Relationship</label>
+                      <select class="form-select" onchange="handleRelationshipChange(this)">
+                        <option value="">Select...</option>
+                        <option value="mother">Mother</option>
+                        <option value="father" selected>Father</option>
+                        <option value="stepmother">Stepmother</option>
+                        <option value="stepfather">Stepfather</option>
+                        <option value="grandmother">Grandmother</option>
+                        <option value="grandfather">Grandfather</option>
+                        <option value="aunt">Aunt</option>
+                        <option value="uncle">Uncle</option>
+                        <option value="other">Other</option>
+                      </select>
+                      <input type="text" class="form-input relationship-other-input" placeholder="Specify..." style="display: none; margin-top: var(--space-2);" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Email</label>
+                      <input type="email" class="form-input" value="david.chen@example.com" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Phone</label>
+                      <input type="tel" class="form-input" value="(555) 987-6544" />
+                    </div>
+                    <div class="form-group">
+                      <label class="checkbox-label">
+                        <input type="checkbox" />
+                        <span>Emergency Contact</span>
+                      </label>
+                    </div>
+                  </div>
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
+                  <div class="form-group" style="margin-bottom: var(--space-3);">
+                    <label class="checkbox-label">
+                      <input type="checkbox" checked onchange="toggleSameAsAddress(this, 'contact-david')" />
+                      <span>Same as primary contact</span>
+                    </label>
+                  </div>
+                  <div class="form-grid contact-address-fields" style="display: none;">
+                    <div class="form-group full-width">
+                      <label class="form-label">Street</label>
+                      <input type="text" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">City</label>
+                      <input type="text" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">State</label>
+                      <select class="form-select">
+                        <option value="">Select...</option>
+                        <option value="CA">CA</option>
+                        <option value="NY">NY</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Zip</label>
+                      <input type="text" class="form-input" />
+                    </div>
+                  </div>
+                  <div class="form-actions" style="margin-top: var(--space-4);">
+                    <button class="btn btn-secondary" onclick="toggleContactEdit('contact-david')">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveContactEdit('contact-david')">Save</button>
+                  </div>
+                </div>
+              </div>
 
-                <!-- Add Contact Inline Panel -->
+              <!-- Add Contact Inline Panel -->
                 <div class="add-contact-card">
                   <div class="add-contact-trigger" id="addContactBtn" onclick="toggleAddContactPanel()">
                     <span class="add-contact-trigger-label">
@@ -2236,174 +2386,6 @@
                     <span class="badge badge-active">Active</span>
                   </div>
                 </div>
-              </div>
-
-              <div class="edit-form">
-                <!-- Primary Contact -->
-                <div class="contact-edit-card" style="background: var(--bg-subtle); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-4); border-left: 3px solid var(--primary-500);">
-                  <h4 style="font-size: 13px; font-weight: 600; color: var(--fg-secondary); margin-bottom: var(--space-4);">Primary Contact</h4>
-                  <div class="form-grid">
-                    <div class="form-group">
-                      <label class="form-label">First Name <span class="required">*</span></label>
-                      <input type="text" class="form-input" value="Jennifer" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Last Name <span class="required">*</span></label>
-                      <input type="text" class="form-input" value="Chen" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Relationship</label>
-                      <select class="form-select" onchange="handleRelationshipChange(this)">
-                        <option value="">Select relationship...</option>
-                        <option value="mother" selected>Mother</option>
-                        <option value="father">Father</option>
-                        <option value="stepmother">Stepmother</option>
-                        <option value="stepfather">Stepfather</option>
-                        <option value="grandmother">Grandmother</option>
-                        <option value="grandfather">Grandfather</option>
-                        <option value="aunt">Aunt</option>
-                        <option value="uncle">Uncle</option>
-                        <option value="sibling">Sibling</option>
-                        <option value="foster-parent">Foster Parent</option>
-                        <option value="other">Other</option>
-                      </select>
-                      <input type="text" class="form-input relationship-other-input" placeholder="Specify relationship..." style="display: none; margin-top: var(--space-2);" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Email <span class="required">*</span></label>
-                      <input type="email" class="form-input" value="jennifer.chen@example.com" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Phone</label>
-                      <input type="tel" class="form-input" value="(555) 987-6543" />
-                    </div>
-                    <div class="form-group full-width">
-                      <label class="checkbox-label">
-                        <input type="checkbox" checked />
-                        <span>Emergency Contact</span>
-                      </label>
-                      <span style="font-size: 12px; color: var(--fg-muted); margin-left: var(--space-6);">This person can be contacted in case of emergency</span>
-                    </div>
-                  </div>
-
-                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
-                  <div class="form-grid">
-                    <div class="form-group full-width">
-                      <label class="form-label">Street Address</label>
-                      <input type="text" class="form-input" value="123 Oak Street" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">City</label>
-                      <input type="text" class="form-input" value="San Francisco" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">State</label>
-                      <select class="form-select">
-                        <option value="CA" selected>California</option>
-                        <option value="NY">New York</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Zip Code</label>
-                      <input type="text" class="form-input" value="94102" />
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Additional Contact -->
-                <div class="contact-edit-card" style="background: var(--bg-subtle); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-4);">
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
-                    <h4 style="font-size: 13px; font-weight: 600; color: var(--fg-secondary); margin: 0;">Contact</h4>
-                    <button class="btn btn-ghost btn-sm" style="color: var(--danger-600);" title="Delete contact" onclick="showDeleteConfirmation('David Chen')">
-                      <i class="ph ph-trash"></i>
-                      Delete
-                    </button>
-                  </div>
-                  <div class="form-grid">
-                    <div class="form-group">
-                      <label class="form-label">First Name <span class="required">*</span></label>
-                      <input type="text" class="form-input" value="David" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Last Name <span class="required">*</span></label>
-                      <input type="text" class="form-input" value="Chen" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Relationship</label>
-                      <select class="form-select" onchange="handleRelationshipChange(this)">
-                        <option value="">Select relationship...</option>
-                        <option value="mother">Mother</option>
-                        <option value="father" selected>Father</option>
-                        <option value="stepmother">Stepmother</option>
-                        <option value="stepfather">Stepfather</option>
-                        <option value="grandmother">Grandmother</option>
-                        <option value="grandfather">Grandfather</option>
-                        <option value="aunt">Aunt</option>
-                        <option value="uncle">Uncle</option>
-                        <option value="sibling">Sibling</option>
-                        <option value="foster-parent">Foster Parent</option>
-                        <option value="other">Other</option>
-                      </select>
-                      <input type="text" class="form-input relationship-other-input" placeholder="Specify relationship..." style="display: none; margin-top: var(--space-2);" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Email <span class="required">*</span></label>
-                      <input type="email" class="form-input" value="david.chen@example.com" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Phone</label>
-                      <input type="tel" class="form-input" value="(555) 987-6544" />
-                    </div>
-                    <div class="form-group full-width">
-                      <label class="checkbox-label">
-                        <input type="checkbox" />
-                        <span>Emergency Contact</span>
-                      </label>
-                      <span style="font-size: 12px; color: var(--fg-muted); margin-left: var(--space-6);">This person can be contacted in case of emergency</span>
-                    </div>
-                  </div>
-
-                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
-                  <div class="form-group" style="margin-bottom: var(--space-3);">
-                    <label class="checkbox-label">
-                      <input type="checkbox" checked />
-                      <span>Same as primary contact</span>
-                    </label>
-                  </div>
-                  <div class="form-grid" id="secondaryAddressFields" style="display: none;">
-                    <div class="form-group full-width">
-                      <label class="form-label">Street Address</label>
-                      <input type="text" class="form-input" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">City</label>
-                      <input type="text" class="form-input" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">State</label>
-                      <select class="form-select">
-                        <option value="">Select state...</option>
-                        <option value="CA">California</option>
-                        <option value="NY">New York</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Zip Code</label>
-                      <input type="text" class="form-input" />
-                    </div>
-                  </div>
-                </div>
-
-                <button class="btn btn-secondary" style="margin-bottom: var(--space-4);">
-                  <i class="ph ph-plus"></i>
-                  Add Contact
-                </button>
-
-                <div class="form-actions">
-                  <button class="btn btn-secondary" onclick="cancelEdit('familySection')">Cancel</button>
-                  <button class="btn btn-primary" onclick="saveEdit('familySection')">Save Changes</button>
-                </div>
-              </div>
             </div>
           </section>
 
@@ -2823,6 +2805,40 @@ She responds well to positive reinforcement and enjoys learning about the histor
         document.querySelectorAll('.contact-menu').forEach(m => m.classList.remove('active'));
         document.getElementById('deleteContactName').textContent = name;
         document.getElementById('deleteConfirmModal').classList.add('active');
+      }
+
+      // Per-Contact Edit Toggle
+      function toggleContactEdit(contactId) {
+        const card = document.getElementById(contactId);
+        const viewMode = card.querySelector('.contact-view-mode');
+        const editMode = card.querySelector('.contact-edit-mode');
+
+        if (editMode.style.display === 'none') {
+          viewMode.style.display = 'none';
+          editMode.style.display = 'block';
+          // Focus first input
+          editMode.querySelector('input').focus();
+        } else {
+          viewMode.style.display = 'block';
+          editMode.style.display = 'none';
+        }
+      }
+
+      // Save Contact Edit
+      function saveContactEdit(contactId) {
+        toggleContactEdit(contactId);
+        alert('Contact updated successfully!');
+      }
+
+      // Toggle Same As Address
+      function toggleSameAsAddress(checkbox, contactId) {
+        const card = document.getElementById(contactId);
+        const addressFields = card.querySelector('.contact-address-fields');
+        if (checkbox.checked) {
+          addressFields.style.display = 'none';
+        } else {
+          addressFields.style.display = 'grid';
+        }
       }
 
       // Hide Delete Confirmation Modal

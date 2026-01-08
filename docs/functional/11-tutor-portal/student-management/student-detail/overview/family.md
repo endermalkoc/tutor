@@ -8,6 +8,8 @@ For Adult students, this section is hidden. This is a **Secondary Section**.
 
 ## View Mode
 
+**Note:** This section does NOT have a section-level Edit button. Each contact has its own Edit button for per-contact editing.
+
 ### Primary Contact
 
 Primary contact is visually distinguished with a left border accent (primary color).
@@ -23,6 +25,7 @@ Primary contact is visually distinguished with a left border accent (primary col
 | Phone | Tel link with SMS icon if capable |
 | Address | Full formatted address (or "No address") |
 | Contact Actions | Quick action buttons: Call, Email, Message |
+| Edit Button | Inline Edit button to edit this contact only |
 
 ### Additional Contacts
 
@@ -33,6 +36,7 @@ Primary contact is visually distinguished with a left border accent (primary col
 - Emergency Badge shown if marked as emergency contact
 - Quick action buttons (Call, Email, Message) for each contact
 - Overflow menu (⋮) with actions: Set as Primary Contact, Mark as Emergency Contact, Delete Contact
+- Edit button for per-contact editing
 
 ### Siblings
 
@@ -42,7 +46,15 @@ Primary contact is visually distinguished with a left border accent (primary col
 
 ---
 
-## Edit Mode
+## Edit Mode (Per-Contact)
+
+Each contact has its own Edit button. Clicking it expands the edit form inline within that contact's card. Only one contact can be edited at a time.
+
+**Benefits of per-contact editing:**
+- Smaller, focused forms (8 fields vs 32+ for 4 contacts)
+- User edits one contact at a time - matches real usage patterns
+- Less overwhelming, fewer accidental edits
+- No giant scroll through massive forms
 
 ### Per Contact Fields
 
