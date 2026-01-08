@@ -144,7 +144,7 @@ import { Button, Badge, Input, Modal } from './components/design-system';
 3. **Create page directory** - In `src/pages/[PageName]/`
 4. **Use design system components** - Import from `components/design-system/`
 5. **Add routing** - Update `App.tsx` with new route
-6. **Follow checklist** - See `docs/wireframes/WIREFRAME_CHECKLIST.md`
+6. **Follow checklist** - See `WIREFRAME_CHECKLIST.md`
 
 ## Adding New Components
 
