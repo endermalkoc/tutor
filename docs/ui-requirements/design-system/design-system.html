@@ -27,6 +27,15 @@
           <li><a href="#alerts"><i class="ph ph-info"></i> Alerts</a></li>
           <li><a href="#modals"><i class="ph ph-frame-corners"></i> Modals</a></li>
           <li><a href="#misc"><i class="ph ph-puzzle-piece"></i> Misc Components</a></li>
+          <li><a href="#page-layout"><i class="ph ph-layout"></i> Page Layout</a></li>
+          <li><a href="#data-grid"><i class="ph ph-grid-four"></i> Data Grid</a></li>
+          <li><a href="#tag-list"><i class="ph ph-tag-simple"></i> Tag List</a></li>
+          <li><a href="#form-layout"><i class="ph ph-textbox"></i> Form Layout</a></li>
+          <li><a href="#tags-input"><i class="ph ph-hash"></i> Tags Input</a></li>
+          <li><a href="#filter-tabs"><i class="ph ph-funnel"></i> Filter Tabs</a></li>
+          <li><a href="#drawer"><i class="ph ph-sidebar-simple"></i> Drawer</a></li>
+          <li><a href="#empty-state"><i class="ph ph-placeholder"></i> Empty State</a></li>
+          <li><a href="#toast"><i class="ph ph-bell-ringing"></i> Toast</a></li>
           <li><a href="#list-screen"><i class="ph ph-list"></i> Sample List</a></li>
           <li><a href="#form-screen"><i class="ph ph-note-pencil"></i> Sample Form</a></li>
         </ul>
@@ -958,8 +967,548 @@
         </div>
       </section>
 
+      <!-- Breadcrumb & Page Header -->
+      <section class="section" id="page-layout">
+        <h2 class="section-title">Page Layout</h2>
+        <p class="section-desc">Breadcrumbs for navigation context and page headers for consistent page structure.</p>
+
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="component-label">Breadcrumb</div>
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+              <div class="breadcrumb-item">
+                <a href="#" class="breadcrumb-link">Students</a>
+                <span class="breadcrumb-separator"><i class="ph ph-caret-right"></i></span>
+              </div>
+              <div class="breadcrumb-item">
+                <a href="#" class="breadcrumb-link">Emily Martinez</a>
+                <span class="breadcrumb-separator"><i class="ph ph-caret-right"></i></span>
+              </div>
+              <div class="breadcrumb-item">
+                <span class="breadcrumb-current">Edit Profile</span>
+              </div>
+            </nav>
+          </div>
+
+          <div class="component-card">
+            <div class="component-label">Page Header</div>
+            <div class="page-header" style="margin-bottom: 0;">
+              <h1 class="page-title">Students</h1>
+              <div class="page-actions">
+                <button class="btn btn-secondary btn-md">
+                  <i class="ph ph-download-simple"></i> Export
+                </button>
+                <button class="btn btn-primary btn-md">
+                  <i class="ph ph-plus"></i> Add Student
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-label">Page Header with Breadcrumb</div>
+            <div>
+              <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom: var(--space-3);">
+                <div class="breadcrumb-item">
+                  <a href="#" class="breadcrumb-link">Students</a>
+                  <span class="breadcrumb-separator"><i class="ph ph-caret-right"></i></span>
+                </div>
+                <div class="breadcrumb-item">
+                  <span class="breadcrumb-current">Emily Martinez</span>
+                </div>
+              </nav>
+              <div class="page-header" style="margin-bottom: 0;">
+                <h1 class="page-title">Emily Martinez</h1>
+                <div class="page-actions">
+                  <button class="btn btn-ghost btn-md">
+                    <i class="ph ph-pencil-simple"></i> Edit
+                  </button>
+                  <button class="btn btn-secondary btn-md">
+                    <i class="ph ph-dots-three"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Grid -->
+      <section class="section" id="data-grid">
+        <h2 class="section-title">Data Grid</h2>
+        <p class="section-desc">Key-value display for detail views. Use for student profiles, invoices, and other entity details.</p>
+
+        <div class="component-grid">
+          <div class="component-card" style="grid-column: 1 / -1;">
+            <div class="component-label">3-Column Grid (Default)</div>
+            <div class="data-grid">
+              <div class="data-item">
+                <span class="data-label">Full Name</span>
+                <span class="data-value">Emily Martinez</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">Email</span>
+                <span class="data-value"><a href="mailto:emily@email.com">emily@email.com</a></span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">Phone</span>
+                <span class="data-value">(555) 123-4567</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">Subject</span>
+                <span class="data-value">Piano</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">Level</span>
+                <span class="data-value">Intermediate</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">Status</span>
+                <span class="data-value"><span class="badge badge-success">Active</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-label">2-Column Grid</div>
+            <div class="data-grid data-grid--2col">
+              <div class="data-item">
+                <span class="data-label">Balance</span>
+                <span class="data-value font-mono">$240.00</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">Make-up Credits</span>
+                <span class="data-value font-mono">2</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-label">Empty Values</div>
+            <div class="data-grid data-grid--2col">
+              <div class="data-item">
+                <span class="data-label">Secondary Phone</span>
+                <span class="data-value empty">Not provided</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">Notes</span>
+                <span class="data-value empty">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tag List -->
+      <section class="section" id="tag-list">
+        <h2 class="section-title">Tag List</h2>
+        <p class="section-desc">Display multiple tags in a flowing layout. Used for subjects, skills, and categories.</p>
+
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="component-label">Subjects</div>
+            <div class="tag-list">
+              <span class="tag tag-blue">Piano</span>
+              <span class="tag tag-purple">Guitar</span>
+              <span class="tag tag-teal">Violin</span>
+              <span class="tag tag-pink">Voice</span>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-label">Skills/Levels</div>
+            <div class="tag-list">
+              <span class="tag tag-green">Beginner</span>
+              <span class="tag tag-yellow">Intermediate</span>
+              <span class="tag tag-orange">Advanced</span>
+            </div>
+          </div>
+
+          <div class="component-card" style="grid-column: 1 / -1;">
+            <div class="component-label">Custom Tags (Outlined)</div>
+            <div class="tag-list">
+              <span class="tag tag-outline">Recital Prep</span>
+              <span class="tag tag-outline">Competition Ready</span>
+              <span class="tag tag-outline">Summer Student</span>
+              <span class="tag tag-outline">Online Only</span>
+              <span class="tag tag-outline">Scholarship</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Form Grid & Subsections -->
+      <section class="section" id="form-layout">
+        <h2 class="section-title">Form Layout</h2>
+        <p class="section-desc">Form grids, subsections, and action bars for structured form layouts.</p>
+
+        <div class="component-card" style="max-width: 640px;">
+          <div class="component-label">Form Grid with Subsections</div>
+
+          <div class="form-subsection">
+            <h4 class="form-subsection-title">Personal Information</h4>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">First Name <span class="required">*</span></label>
+                <input type="text" class="input w-full" placeholder="Enter first name">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name <span class="required">*</span></label>
+                <input type="text" class="input w-full" placeholder="Enter last name">
+              </div>
+              <div class="form-group full-width">
+                <label class="form-label">Email</label>
+                <input type="email" class="input w-full" placeholder="email@example.com">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-subsection">
+            <h4 class="form-subsection-title">Lesson Details</h4>
+            <div class="form-grid form-grid--3col">
+              <div class="form-group">
+                <label class="form-label">Subject</label>
+                <div class="select-wrapper w-full">
+                  <select class="select w-full">
+                    <option>Piano</option>
+                    <option>Guitar</option>
+                    <option>Violin</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Level</label>
+                <div class="select-wrapper w-full">
+                  <select class="select w-full">
+                    <option>Beginner</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Duration</label>
+                <div class="select-wrapper w-full">
+                  <select class="select w-full">
+                    <option>30 min</option>
+                    <option>45 min</option>
+                    <option>60 min</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-secondary btn-md">Cancel</button>
+            <button class="btn btn-primary btn-md">Save Changes</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tags Input -->
+      <section class="section" id="tags-input">
+        <h2 class="section-title">Tags Input</h2>
+        <p class="section-desc">Multi-value input for selecting or adding tags. Type and press Enter to add.</p>
+
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="component-label">With Existing Tags</div>
+            <div class="form-group">
+              <label class="form-label">Subjects</label>
+              <div class="tags-input" onclick="this.querySelector('input').focus()">
+                <span class="tag tag-blue">
+                  Piano
+                  <button type="button" class="tag-remove"><i class="ph ph-x"></i></button>
+                </span>
+                <span class="tag tag-purple">
+                  Guitar
+                  <button type="button" class="tag-remove"><i class="ph ph-x"></i></button>
+                </span>
+                <input type="text" placeholder="Add subject...">
+              </div>
+              <span class="form-hint">Press Enter to add a new tag</span>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-label">Empty State</div>
+            <div class="form-group">
+              <label class="form-label">Custom Tags</label>
+              <div class="tags-input" onclick="this.querySelector('input').focus()">
+                <input type="text" placeholder="Type and press Enter to add...">
+              </div>
+            </div>
+          </div>
+
+          <div class="component-card" style="grid-column: 1 / -1;">
+            <div class="component-label">Many Tags</div>
+            <div class="form-group">
+              <label class="form-label">Skills</label>
+              <div class="tags-input" onclick="this.querySelector('input').focus()">
+                <span class="tag tag-green">
+                  Sight Reading
+                  <button type="button" class="tag-remove"><i class="ph ph-x"></i></button>
+                </span>
+                <span class="tag tag-yellow">
+                  Scales
+                  <button type="button" class="tag-remove"><i class="ph ph-x"></i></button>
+                </span>
+                <span class="tag tag-orange">
+                  Arpeggios
+                  <button type="button" class="tag-remove"><i class="ph ph-x"></i></button>
+                </span>
+                <span class="tag tag-teal">
+                  Music Theory
+                  <button type="button" class="tag-remove"><i class="ph ph-x"></i></button>
+                </span>
+                <span class="tag tag-pink">
+                  Ear Training
+                  <button type="button" class="tag-remove"><i class="ph ph-x"></i></button>
+                </span>
+                <input type="text" placeholder="Add skill...">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Tabs -->
+      <section class="section" id="filter-tabs">
+        <h2 class="section-title">Filter Tabs</h2>
+        <p class="section-desc">Segmented controls for filtering content. Use for quick status or category filters.</p>
+
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="component-label">Status Filter</div>
+            <div class="filter-tabs">
+              <button class="filter-tab active">All</button>
+              <button class="filter-tab">Active</button>
+              <button class="filter-tab">On Hold</button>
+              <button class="filter-tab">Inactive</button>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-label">Time Range Filter</div>
+            <div class="filter-tabs">
+              <button class="filter-tab active">Today</button>
+              <button class="filter-tab">This Week</button>
+              <button class="filter-tab">This Month</button>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-label">Invoice Status</div>
+            <div class="filter-tabs">
+              <button class="filter-tab active">All</button>
+              <button class="filter-tab">Draft</button>
+              <button class="filter-tab">Sent</button>
+              <button class="filter-tab">Paid</button>
+              <button class="filter-tab">Overdue</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Drawer -->
+      <section class="section" id="drawer">
+        <h2 class="section-title">Drawer</h2>
+        <p class="section-desc">Slide-out panel for secondary content, forms, or detail views without leaving the current context.</p>
+
+        <div class="component-card">
+          <div class="flex gap-3">
+            <button class="btn btn-primary btn-md" onclick="openDrawer()">
+              Open Drawer (Right)
+            </button>
+            <button class="btn btn-secondary btn-md" onclick="openDrawerLeft()">
+              Open Drawer (Left)
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Drawer -->
+        <div class="drawer-backdrop" id="demo-drawer" onclick="closeDrawer(event)">
+          <div class="drawer" onclick="event.stopPropagation()">
+            <div class="drawer-header">
+              <h3 class="drawer-title">Edit Student</h3>
+              <button class="drawer-close" onclick="closeDrawer()">
+                <i class="ph ph-x"></i>
+              </button>
+            </div>
+            <div class="drawer-body">
+              <div class="form-grid" style="grid-template-columns: 1fr;">
+                <div class="form-group">
+                  <label class="form-label">First Name</label>
+                  <input type="text" class="input w-full" value="Emily">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Last Name</label>
+                  <input type="text" class="input w-full" value="Martinez">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="input w-full" value="emily@email.com">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Notes</label>
+                  <textarea class="textarea w-full" rows="4">Preparing for Grade 5 exam.</textarea>
+                </div>
+              </div>
+            </div>
+            <div class="drawer-footer">
+              <button class="btn btn-secondary btn-md" onclick="closeDrawer()">Cancel</button>
+              <button class="btn btn-primary btn-md" onclick="closeDrawer()">Save Changes</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Left Drawer -->
+        <div class="drawer-backdrop" id="demo-drawer-left" onclick="closeDrawerLeft(event)">
+          <div class="drawer drawer--left" onclick="event.stopPropagation()">
+            <div class="drawer-header">
+              <h3 class="drawer-title">Filters</h3>
+              <button class="drawer-close" onclick="closeDrawerLeft()">
+                <i class="ph ph-x"></i>
+              </button>
+            </div>
+            <div class="drawer-body">
+              <div class="form-group mb-4">
+                <label class="form-label">Status</label>
+                <div class="select-wrapper w-full">
+                  <select class="select w-full">
+                    <option>All Statuses</option>
+                    <option>Active</option>
+                    <option>On Hold</option>
+                    <option>Inactive</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group mb-4">
+                <label class="form-label">Subject</label>
+                <div class="select-wrapper w-full">
+                  <select class="select w-full">
+                    <option>All Subjects</option>
+                    <option>Piano</option>
+                    <option>Guitar</option>
+                    <option>Violin</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Level</label>
+                <div class="select-wrapper w-full">
+                  <select class="select w-full">
+                    <option>All Levels</option>
+                    <option>Beginner</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="drawer-footer">
+              <button class="btn btn-ghost btn-md" onclick="closeDrawerLeft()">Reset</button>
+              <button class="btn btn-primary btn-md" onclick="closeDrawerLeft()">Apply Filters</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Empty State -->
+      <section class="section" id="empty-state">
+        <h2 class="section-title">Empty State</h2>
+        <p class="section-desc">Display when a list or section has no content. Include helpful messaging and action.</p>
+
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="empty-state">
+              <div class="empty-state-icon">
+                <i class="ph ph-users"></i>
+              </div>
+              <h3 class="empty-state-title">No students yet</h3>
+              <p class="empty-state-description">Get started by adding your first student to begin managing lessons and invoicing.</p>
+              <div class="empty-state-action">
+                <button class="btn btn-primary btn-md">
+                  <i class="ph ph-plus"></i> Add Student
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="empty-state">
+              <div class="empty-state-icon">
+                <i class="ph ph-magnifying-glass"></i>
+              </div>
+              <h3 class="empty-state-title">No results found</h3>
+              <p class="empty-state-description">Try adjusting your search or filters to find what you're looking for.</p>
+              <div class="empty-state-action">
+                <button class="btn btn-secondary btn-md">Clear Filters</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="empty-state">
+              <div class="empty-state-icon">
+                <i class="ph ph-receipt"></i>
+              </div>
+              <h3 class="empty-state-title">No invoices</h3>
+              <p class="empty-state-description">This student doesn't have any invoices yet.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Toast -->
+      <section class="section" id="toast">
+        <h2 class="section-title">Toast / Notification</h2>
+        <p class="section-desc">Brief messages for feedback on user actions. Auto-dismiss after a few seconds.</p>
+
+        <div class="component-card">
+          <div class="component-label">Trigger Toasts</div>
+          <div class="flex gap-3" style="flex-wrap: wrap;">
+            <button class="btn btn-secondary btn-md" onclick="showToast('default')">Default Toast</button>
+            <button class="btn btn-secondary btn-md" onclick="showToast('success')">Success Toast</button>
+            <button class="btn btn-secondary btn-md" onclick="showToast('error')">Error Toast</button>
+            <button class="btn btn-secondary btn-md" onclick="showToast('warning')">Warning Toast</button>
+            <button class="btn btn-secondary btn-md" onclick="showToast('info')">Info Toast</button>
+          </div>
+        </div>
+
+        <!-- Toast Elements -->
+        <div class="toast" id="toast-default">
+          <span class="toast-content">Changes saved successfully.</span>
+          <button class="toast-close" onclick="hideToast('default')"><i class="ph ph-x"></i></button>
+        </div>
+
+        <div class="toast toast-success" id="toast-success">
+          <i class="ph ph-check-circle toast-icon"></i>
+          <span class="toast-content">Student added successfully!</span>
+          <button class="toast-close" onclick="hideToast('success')"><i class="ph ph-x"></i></button>
+        </div>
+
+        <div class="toast toast-error" id="toast-error">
+          <i class="ph ph-x-circle toast-icon"></i>
+          <span class="toast-content">Failed to save changes. Please try again.</span>
+          <button class="toast-close" onclick="hideToast('error')"><i class="ph ph-x"></i></button>
+        </div>
+
+        <div class="toast toast-warning" id="toast-warning">
+          <i class="ph ph-warning toast-icon"></i>
+          <span class="toast-content">This student has unpaid invoices.</span>
+          <button class="toast-close" onclick="hideToast('warning')"><i class="ph ph-x"></i></button>
+        </div>
+
+        <div class="toast toast-info" id="toast-info">
+          <i class="ph ph-info toast-icon"></i>
+          <span class="toast-content">A new version is available.</span>
+          <button class="toast-close" onclick="hideToast('info')"><i class="ph ph-x"></i></button>
+        </div>
+      </section>
+
       <!-- Sample List Screen -->
-      <section class="section" id="list-screen">
         <h2 class="section-title">Sample List Screen</h2>
         <p class="section-desc">A complete list view with search, filters, table, and pagination.</p>
 
@@ -1429,6 +1978,76 @@
       // Optional: auto-enable dark mode based on system preference
       // setTheme('dark');
     }
+
+    // Drawer (Right)
+    function openDrawer() {
+      document.getElementById('demo-drawer').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer(event) {
+      if (!event || event.target === event.currentTarget) {
+        document.getElementById('demo-drawer').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Drawer (Left)
+    function openDrawerLeft() {
+      document.getElementById('demo-drawer-left').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawerLeft(event) {
+      if (!event || event.target === event.currentTarget) {
+        document.getElementById('demo-drawer-left').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Toast
+    let toastTimeout = null;
+
+    function showToast(type) {
+      // Hide all toasts first
+      document.querySelectorAll('.toast').forEach(t => t.classList.remove('show'));
+
+      // Clear any existing timeout
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+      }
+
+      // Show the selected toast
+      const toast = document.getElementById('toast-' + type);
+      if (toast) {
+        setTimeout(() => toast.classList.add('show'), 10);
+
+        // Auto-hide after 4 seconds
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 4000);
+      }
+    }
+
+    function hideToast(type) {
+      const toast = document.getElementById('toast-' + type);
+      if (toast) {
+        toast.classList.remove('show');
+      }
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+      }
+    }
+
+    // Filter tabs click handler
+    document.querySelectorAll('.filter-tabs').forEach(tabs => {
+      tabs.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          tabs.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    });
 
   </script>
 </body>
