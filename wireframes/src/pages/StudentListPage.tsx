@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../components/layout';
 import {
@@ -21,6 +21,16 @@ import {
   ModalTitle,
   ModalBody,
   ModalFooter,
+  SearchInput,
+  Toolbar,
+  ToolbarRow,
+  BulkActions,
+  FilterTag,
+  ActiveFilters,
+  Dropdown,
+  DropdownHeader,
+  DropdownCheckboxItem,
+  ListContainer,
 } from '../components/design-system';
 import './StudentListPage.css';
 
@@ -162,6 +172,17 @@ const availableTags = ['Piano', 'Beginner', 'Intermediate', 'Advanced', 'Recital
 
 type ColumnKey = 'status' | 'age' | 'family' | 'tags' | 'credits' | 'next-lesson' | 'notes' | 'contact';
 
+const columnLabels: Record<ColumnKey, string> = {
+  status: 'Status',
+  age: 'Age',
+  family: 'Family',
+  tags: 'Tags',
+  credits: 'Credits',
+  'next-lesson': 'Next Lesson',
+  notes: 'Notes',
+  contact: 'Contact',
+};
+
 const defaultVisibleColumns: Record<ColumnKey, boolean> = {
   status: true,
   age: true,
@@ -182,24 +203,10 @@ export function StudentListPage() {
   const [sortColumn, setSortColumn] = useState<SortColumn>('name');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [visibleColumns, setVisibleColumns] = useState(defaultVisibleColumns);
-  const [columnDropdownOpen, setColumnDropdownOpen] = useState(false);
   const [tagModalOpen, setTagModalOpen] = useState(false);
   const [tempSelectedTags, setTempSelectedTags] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
-
-  const columnDropdownRef = useRef<HTMLDivElement>(null);
-
-  // Close column dropdown on outside click
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (columnDropdownRef.current && !columnDropdownRef.current.contains(event.target as Node)) {
-        setColumnDropdownOpen(false);
-      }
-    }
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
 
   // Handlers
   const handleSort = (column: SortColumn) => {
@@ -227,8 +234,8 @@ export function StudentListPage() {
     }
   };
 
-  const toggleColumn = (column: ColumnKey) => {
-    setVisibleColumns({ ...visibleColumns, [column]: !visibleColumns[column] });
+  const toggleColumn = (column: ColumnKey, checked: boolean) => {
+    setVisibleColumns({ ...visibleColumns, [column]: checked });
   };
 
   const openTagModal = () => {
@@ -241,17 +248,9 @@ export function StudentListPage() {
     setTagModalOpen(false);
   };
 
-  const clearSearch = () => {
-    setSearchTerm('');
-  };
-
-  const clearStatusFilter = () => {
-    setActiveStatus('all');
-  };
-
-  const removeTag = (tag: string) => {
-    setActiveTags(activeTags.filter((t) => t !== tag));
-  };
+  const clearSearch = () => setSearchTerm('');
+  const clearStatusFilter = () => setActiveStatus('all');
+  const removeTag = (tag: string) => setActiveTags(activeTags.filter((t) => t !== tag));
 
   const clearAllFilters = () => {
     setSearchTerm('');
@@ -283,21 +282,16 @@ export function StudentListPage() {
         }
       />
 
-      <div className="list-container">
-        {/* Toolbar */}
-        <div className="toolbar">
+      <ListContainer>
+        <Toolbar>
           {/* Search and Controls */}
-          <div className="toolbar-row">
-            <div className="search-container">
-              <i className="ph ph-magnifying-glass search-icon" />
-              <input
-                type="text"
-                className="search-input"
-                placeholder="Search students..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
+          <ToolbarRow>
+            <SearchInput
+              placeholder="Search students..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input-flex"
+            />
 
             <FilterTabs>
               <FilterTab active={activeStatus === 'all'} onClick={() => setActiveStatus('all')}>
@@ -325,85 +319,48 @@ export function StudentListPage() {
               Tags
             </Button>
 
-            <div className="column-selector" ref={columnDropdownRef}>
-              <Button
-                variant="secondary"
-                size="md"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setColumnDropdownOpen(!columnDropdownOpen);
-                }}
-              >
-                <i className="ph ph-dots-three-vertical" />
-                Columns
-              </Button>
-              {columnDropdownOpen && (
-                <div className="column-dropdown">
-                  <div className="column-dropdown-header">Visible Columns</div>
-                  <div className="column-option disabled">
-                    <input type="checkbox" checked disabled />
-                    <label>Name</label>
-                  </div>
-                  {(Object.keys(visibleColumns) as ColumnKey[]).map((col) => (
-                    <div className="column-option" key={col}>
-                      <input
-                        type="checkbox"
-                        id={`col-${col}`}
-                        checked={visibleColumns[col]}
-                        onChange={() => toggleColumn(col)}
-                      />
-                      <label htmlFor={`col-${col}`}>
-                        {col === 'next-lesson' ? 'Next Lesson' : col.charAt(0).toUpperCase() + col.slice(1)}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
+            <Dropdown
+              trigger={
+                <Button variant="secondary" size="md">
+                  <i className="ph ph-dots-three-vertical" />
+                  Columns
+                </Button>
+              }
+            >
+              <DropdownHeader>Visible Columns</DropdownHeader>
+              <DropdownCheckboxItem label="Name" checked disabled onChange={() => {}} />
+              {(Object.keys(visibleColumns) as ColumnKey[]).map((col) => (
+                <DropdownCheckboxItem
+                  key={col}
+                  label={columnLabels[col]}
+                  checked={visibleColumns[col]}
+                  onChange={(checked) => toggleColumn(col, checked)}
+                />
+              ))}
+            </Dropdown>
+          </ToolbarRow>
 
           {/* Active Filters */}
           {hasFilters && (
-            <div className="toolbar-row">
-              <div className="active-filters">
-                {searchTerm && (
-                  <span className="filter-tag">
-                    "{searchTerm}"
-                    <span className="remove" onClick={clearSearch}>
-                      &times;
-                    </span>
-                  </span>
-                )}
+            <ToolbarRow>
+              <ActiveFilters onClearAll={clearAllFilters}>
+                {searchTerm && <FilterTag onRemove={clearSearch}>"{searchTerm}"</FilterTag>}
                 {activeStatus !== 'all' && (
-                  <span className="filter-tag">
-                    {statusLabels[activeStatus]}
-                    <span className="remove" onClick={clearStatusFilter}>
-                      &times;
-                    </span>
-                  </span>
+                  <FilterTag onRemove={clearStatusFilter}>{statusLabels[activeStatus]}</FilterTag>
                 )}
                 {activeTags.map((tag) => (
-                  <span className="filter-tag" key={tag}>
+                  <FilterTag key={tag} onRemove={() => removeTag(tag)}>
                     {tag}
-                    <span className="remove" onClick={() => removeTag(tag)}>
-                      &times;
-                    </span>
-                  </span>
+                  </FilterTag>
                 ))}
-              </div>
-              <button className="clear-filters-btn" onClick={clearAllFilters}>
-                Clear all
-              </button>
-            </div>
+              </ActiveFilters>
+            </ToolbarRow>
           )}
 
           {/* Bulk Actions */}
           {selectedStudents.length > 0 && (
-            <div className="toolbar-row">
-              <div className="bulk-actions">
-                <span className="bulk-actions-label">
-                  <span>{selectedStudents.length}</span> selected
-                </span>
+            <ToolbarRow>
+              <BulkActions selectedCount={selectedStudents.length}>
                 <Button variant="ghost" size="sm" onClick={bulkAssignTag}>
                   Assign Tag
                 </Button>
@@ -416,10 +373,10 @@ export function StudentListPage() {
                 <Button variant="ghost" size="sm" onClick={bulkDownload}>
                   Export
                 </Button>
-              </div>
-            </div>
+              </BulkActions>
+            </ToolbarRow>
           )}
-        </div>
+        </Toolbar>
 
         {/* Desktop Table */}
         <Table>
@@ -462,9 +419,7 @@ export function StudentListPage() {
                   Age
                 </TableHeaderCell>
               )}
-              {visibleColumns.family && (
-                <TableHeaderCell className="col-family">Family</TableHeaderCell>
-              )}
+              {visibleColumns.family && <TableHeaderCell className="col-family">Family</TableHeaderCell>}
               {visibleColumns.tags && <TableHeaderCell className="col-tags">Tags</TableHeaderCell>}
               {visibleColumns.credits && (
                 <TableHeaderCell
@@ -573,7 +528,7 @@ export function StudentListPage() {
                 <div className="card-row">
                   <span className="card-label">Age</span>
                   <span>
-                    {student.age} &middot; {student.tags.map((t) => t.label).join(' &middot; ')}
+                    {student.age} &middot; {student.tags.map((t) => t.label).join(' · ')}
                   </span>
                 </div>
                 <div className="card-row">
@@ -598,7 +553,7 @@ export function StudentListPage() {
           onPageChange={setCurrentPage}
           onPageSizeChange={setPageSize}
         />
-      </div>
+      </ListContainer>
 
       {/* Tag Filter Modal */}
       <Modal open={tagModalOpen} onClose={() => setTagModalOpen(false)}>
