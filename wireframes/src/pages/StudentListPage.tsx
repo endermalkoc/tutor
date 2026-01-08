@@ -338,6 +338,13 @@ export function StudentListPage() {
                 />
               ))}
             </Dropdown>
+
+            {hasFilters && (
+              <Button variant="ghost" size="md" onClick={clearAllFilters}>
+                <i className="ph ph-x" />
+                Clear Filters
+              </Button>
+            )}
           </ToolbarRow>
 
           {/* Active Filters */}
