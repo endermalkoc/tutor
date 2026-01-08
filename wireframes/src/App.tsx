@@ -5,11 +5,12 @@ import { ComponentShowcase } from './pages/ComponentShowcase';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<AppLayout><ComponentShowcase /></AppLayout>} />
+      <Route path="/" element={<AppLayout><PlaceholderPage title="Dashboard" /></AppLayout>} />
       <Route path="/students" element={<AppLayout><PlaceholderPage title="Students" /></AppLayout>} />
       <Route path="/calendar" element={<AppLayout><PlaceholderPage title="Calendar" /></AppLayout>} />
       <Route path="/invoices" element={<AppLayout><PlaceholderPage title="Invoices" /></AppLayout>} />
       <Route path="/settings" element={<AppLayout><PlaceholderPage title="Settings" /></AppLayout>} />
+      <Route path="/design-system" element={<AppLayout><ComponentShowcase /></AppLayout>} />
     </Routes>
   );
 }

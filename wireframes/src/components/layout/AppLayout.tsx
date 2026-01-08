@@ -19,6 +19,7 @@ const defaultNavItems: NavItem[] = [
   { label: 'Calendar', href: '/calendar' },
   { label: 'Invoices', href: '/invoices' },
   { label: 'Settings', href: '/settings' },
+  { label: 'Design System', href: '/design-system' },
 ];
 
 // Default user
