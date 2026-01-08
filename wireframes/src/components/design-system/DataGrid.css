@@ -1,0 +1,88 @@
+/* ============================================
+   DATA GRID COMPONENT
+   Key-value display for detail views
+   ============================================ */
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.data-grid--2col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.data-grid--4col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Data Item */
+.data-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.data-item--full-width {
+  grid-column: 1 / -1;
+}
+
+/* Label */
+.data-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Value */
+.data-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--fg-default);
+  line-height: 1.4;
+}
+
+.data-value--empty {
+  color: var(--fg-faint);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Links in values */
+.data-value a {
+  color: var(--primary-600);
+  text-decoration: none;
+}
+
+.data-value a:hover {
+  text-decoration: underline;
+}
+
+/* Tag list within data value */
+.data-value .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .data-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .data-grid--4col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .data-grid,
+  .data-grid--2col,
+  .data-grid--4col {
+    grid-template-columns: 1fr;
+  }
+}

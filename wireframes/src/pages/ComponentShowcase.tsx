@@ -57,8 +57,10 @@ import {
   Combobox,
   InlineForm,
   TagInput,
+  SectionCard,
+  DataGrid,
 } from '../components/design-system';
-import type { ComboboxOption } from '../components/design-system';
+import type { ComboboxOption, DataItem } from '../components/design-system';
 import { PageHeader, Breadcrumb } from '../components/layout';
 import './ComponentShowcase.css';
 
@@ -81,6 +83,8 @@ export function ComponentShowcase() {
   const [selectedFamily, setSelectedFamily] = useState('');
   const [showInlineForm, setShowInlineForm] = useState(false);
   const [subjectTags, setSubjectTags] = useState<string[]>(['Piano', 'Music Theory']);
+  // SectionCard states
+  const [sectionEditing, setSectionEditing] = useState(false);
 
   return (
     <div className="showcase">
@@ -134,6 +138,117 @@ export function ComponentShowcase() {
                   <Button variant="primary"><i className="ph ph-calendar-plus" /> Schedule Lesson</Button>
                 </>
               }
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Student Detail Components */}
+      <section className="showcase-section">
+        <h2 className="showcase-title">Student Detail Components</h2>
+        <p className="text-secondary body-sm mb-4">Components for the Student Detail page view/edit pattern</p>
+
+        <div className="showcase-grid">
+          <div className="showcase-card full-width">
+            <div className="showcase-label">SectionCard - Primary Variant (Editable)</div>
+            <SectionCard
+              title="Lesson Settings"
+              variant="primary"
+              editable
+              editing={sectionEditing}
+              onEditChange={setSectionEditing}
+              onSave={() => setSectionEditing(false)}
+              onCancel={() => setSectionEditing(false)}
+              editContent={
+                <div>
+                  <FormRow>
+                    <FormGroup>
+                      <FormLabel required>Default Duration</FormLabel>
+                      <Select defaultValue="30">
+                        <Option value="30">30 minutes</Option>
+                        <Option value="45">45 minutes</Option>
+                        <Option value="60">60 minutes</Option>
+                      </Select>
+                    </FormGroup>
+                    <FormGroup>
+                      <FormLabel>Skill Level</FormLabel>
+                      <Select defaultValue="intermediate">
+                        <Option value="beginner">Beginner</Option>
+                        <Option value="intermediate">Intermediate</Option>
+                        <Option value="advanced">Advanced</Option>
+                      </Select>
+                    </FormGroup>
+                  </FormRow>
+                </div>
+              }
+            >
+              <DataGrid
+                items={[
+                  { label: 'Subjects', value: <TagList><Tag color="outline">Piano</Tag><Tag color="outline">Music Theory</Tag></TagList> },
+                  { label: 'Default Duration', value: '30 minutes' },
+                  { label: 'Lesson Category', value: 'Individual' },
+                  { label: 'Skill Level', value: 'Intermediate' },
+                  { label: 'Tags', value: <TagList><Tag color="purple">Competition Ready</Tag></TagList> },
+                ] as DataItem[]}
+              />
+            </SectionCard>
+          </div>
+
+          <div className="showcase-card full-width">
+            <div className="showcase-label">SectionCard - Secondary Variant (Collapsible)</div>
+            <SectionCard
+              title="Personal Details"
+              variant="secondary"
+              collapsible
+              defaultCollapsed
+              collapsedSummary="Emily Chen · Child · Active since Sep 2024"
+            >
+              <DataGrid
+                items={[
+                  { label: 'First Name', value: 'Emily' },
+                  { label: 'Last Name', value: 'Chen' },
+                  { label: 'Type', value: 'Child' },
+                  { label: 'Status', value: <Badge variant="success">Active</Badge> },
+                  { label: 'Gender', value: 'Female' },
+                  { label: 'Birthday', value: 'March 15, 2012' },
+                ] as DataItem[]}
+              />
+            </SectionCard>
+          </div>
+
+          <div className="showcase-card full-width">
+            <div className="showcase-label">DataGrid - 3 Columns (Default)</div>
+            <DataGrid
+              items={[
+                { label: 'Full Name', value: 'Emily Martinez' },
+                { label: 'Email', value: <a href="mailto:emily@email.com">emily@email.com</a> },
+                { label: 'Phone', value: '(555) 123-4567' },
+                { label: 'Subject', value: 'Piano' },
+                { label: 'Level', value: 'Intermediate' },
+                { label: 'Status', value: <Badge variant="success">Active</Badge> },
+              ] as DataItem[]}
+            />
+          </div>
+
+          <div className="showcase-card">
+            <div className="showcase-label">DataGrid - 2 Columns</div>
+            <DataGrid
+              columns={2}
+              items={[
+                { label: 'Balance', value: <span className="mono">$240.00</span> },
+                { label: 'Make-up Credits', value: <span className="mono">2</span> },
+              ] as DataItem[]}
+            />
+          </div>
+
+          <div className="showcase-card">
+            <div className="showcase-label">DataGrid - Empty Values</div>
+            <DataGrid
+              columns={2}
+              items={[
+                { label: 'Secondary Phone', value: '', isEmpty: true },
+                { label: 'Notes', value: null, isEmpty: true },
+              ] as DataItem[]}
             />
           </div>
         </div>

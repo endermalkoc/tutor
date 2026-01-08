@@ -128,3 +128,11 @@ export type {
 // Combobox
 export { Combobox, InlineForm } from './Combobox';
 export type { ComboboxProps, ComboboxOption, InlineFormProps } from './Combobox';
+
+// SectionCard
+export { SectionCard } from './SectionCard';
+export type { SectionCardProps } from './SectionCard';
+
+// DataGrid
+export { DataGrid, DataGridItem } from './DataGrid';
+export type { DataGridProps, DataGridItemProps, DataItem } from './DataGrid';

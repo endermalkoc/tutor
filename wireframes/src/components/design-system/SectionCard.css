@@ -1,0 +1,160 @@
+/* ============================================
+   SECTION CARD COMPONENT
+   Card with view/edit modes and collapsible support
+   ============================================ */
+
+.section-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-5);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Variants */
+.section-card--primary {
+  box-shadow: var(--shadow-md);
+}
+
+.section-card--secondary {
+  box-shadow: none;
+}
+
+/* Collapsed state */
+.section-card--collapsed {
+  border-color: var(--border-subtle);
+}
+
+/* Editing state */
+.section-card--editing {
+  border-color: var(--primary-300);
+  box-shadow: 0 0 0 3px rgba(59, 165, 197, 0.1);
+}
+
+/* Header */
+.section-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.section-card--collapsed .section-card-header {
+  border-bottom: none;
+  cursor: pointer;
+}
+
+.section-card--collapsed .section-card-header:hover {
+  background: var(--bg-subtle);
+}
+
+.section-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg-default);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.section-card-actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+/* Collapse button */
+.section-card-collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.section-card-collapse-btn:hover {
+  background: var(--bg-subtle);
+  color: var(--fg-default);
+}
+
+.section-card-collapse-btn i {
+  font-size: 16px;
+  transition: transform var(--transition-fast);
+}
+
+/* Collapsed Summary */
+.section-card-collapsed-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-5) var(--space-4);
+}
+
+.collapsed-summary-text {
+  font-size: 13px;
+  color: var(--fg-secondary);
+}
+
+.collapsed-summary-link {
+  font-size: 12px;
+  color: var(--primary-600);
+  text-decoration: none;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.collapsed-summary-link:hover {
+  text-decoration: underline;
+}
+
+/* Content */
+.section-card-content {
+  padding: var(--space-5);
+}
+
+/* View mode */
+.section-card-view-mode {
+  /* Default view styling - content provided by children */
+}
+
+/* Edit form */
+.section-card-edit-form {
+  /* Form content provided by editContent prop */
+}
+
+.section-card-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-default);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-card-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .section-card-content {
+    padding: var(--space-4);
+  }
+
+  .section-card-collapsed-summary {
+    padding: 0 var(--space-4) var(--space-3);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+}

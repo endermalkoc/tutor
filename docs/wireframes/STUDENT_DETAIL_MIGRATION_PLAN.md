@@ -55,20 +55,26 @@ This document outlines the plan to convert the HTML wireframe `student-detail.ht
 
 ---
 
-## Phase 3: Section Card Component (Edit/View Pattern)
+## Phase 3: Section Card Component (Edit/View Pattern) ✅ COMPLETE
+
+> **Note:** SectionCard and DataGrid are reusable design system components, so they were created in `components/design-system/` instead of as page-specific components.
 
 ### 3.1 SectionCard Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/SectionCard.tsx`
-- [ ] Props: `title`, `variant: 'primary' | 'secondary'`, `collapsible?`, `defaultCollapsed?`
-- [ ] View mode vs Edit mode toggle
-- [ ] Edit button in header
-- [ ] Collapsed summary display
-- [ ] Form actions (Cancel/Save) for edit mode
+- [x] Create `wireframes/src/components/design-system/SectionCard.tsx`
+- [x] Props: `title`, `variant: 'primary' | 'secondary'`, `collapsible?`, `defaultCollapsed?`
+- [x] View mode vs Edit mode toggle
+- [x] Edit button in header
+- [x] Collapsed summary display
+- [x] Form actions (Cancel/Save) for edit mode
+- [x] Exported from design-system index.ts
+- [x] Added to ComponentShowcase
 
 ### 3.2 DataGrid Component (for view mode display)
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/DataGrid.tsx`
-- [ ] Props: `columns?: 2 | 3 | 4`, `items: { label: string, value: React.ReactNode }[]`
-- [ ] Responsive grid layout
+- [x] Create `wireframes/src/components/design-system/DataGrid.tsx`
+- [x] Props: `columns?: 2 | 3 | 4`, `items: { label: string, value: React.ReactNode }[]`
+- [x] Responsive grid layout
+- [x] Exported from design-system index.ts
+- [x] Added to ComponentShowcase
 
 ---
 
@@ -216,11 +222,11 @@ This document outlines the plan to convert the HTML wireframe `student-detail.ht
 3. ~~StudentHeader component~~
 4. ~~StudentDetailTabs component~~
 
-**Next up (Phase 3):**
-5. SectionCard component (used by multiple sections)
-6. DataGrid component (used in view modes)
+**Phase 3 ✅ Complete:**
+5. ~~SectionCard component~~ (used by multiple sections)
+6. ~~DataGrid component~~ (used in view modes)
 
-**Then Overview sections (Phase 4):**
+**Next up (Phase 4):**
 7. PreLessonCard
 8. LessonSettingsSection
 9. ContactSection
@@ -242,6 +248,12 @@ This document outlines the plan to convert the HTML wireframe `student-detail.ht
 ```
 wireframes/src/
 ├── components/
+│   ├── design-system/
+│   │   ├── SectionCard.tsx ✅ (reusable)
+│   │   ├── SectionCard.css ✅
+│   │   ├── DataGrid.tsx ✅ (reusable)
+│   │   ├── DataGrid.css ✅
+│   │   └── index.ts ✅ (exports all design system components)
 │   └── layout/
 │       ├── PageHeader.tsx (existing - has Breadcrumb + PageHeader)
 │       └── PageHeader.css (existing)
@@ -250,14 +262,10 @@ wireframes/src/
         ├── StudentDetailPage.tsx
         ├── StudentDetailPage.css
         ├── components/
-        │   ├── StudentHeader.tsx
-        │   ├── StudentHeader.css
-        │   ├── StudentDetailTabs.tsx
-        │   ├── StudentDetailTabs.css
-        │   ├── SectionCard.tsx
-        │   ├── SectionCard.css
-        │   ├── DataGrid.tsx
-        │   ├── DataGrid.css
+        │   ├── index.ts ✅
+        │   ├── StudentHeader.tsx ✅
+        │   ├── StudentHeader.css ✅
+        │   ├── StudentDetailTabs.tsx ✅
         │   ├── PreLessonCard.tsx
         │   ├── PreLessonCard.css
         │   ├── LessonSettingsSection.tsx
@@ -288,7 +296,7 @@ wireframes/src/
 |-------|------------|------------|--------|
 | Phase 1 | 2 | Low | ✅ Complete |
 | Phase 2 | 2 | Medium | ✅ Complete |
-| Phase 3 | 2 | Medium | Pending |
+| Phase 3 | 2 | Medium | ✅ Complete |
 | Phase 4 | 8 | Medium-High | Pending |
 | Phase 5 | 2 | Medium | Pending |
 | Phase 6 | 6 | Medium | Pending |
