@@ -16,24 +16,29 @@ Primary contact is visually distinguished with a left border accent (primary col
 
 | Field | Display Format |
 |-------|----------------|
-| Name | Full name |
-| Role | "Primary Contact" |
+| Name | Title + Full name (e.g., "Mrs. Jennifer Chen") |
+| Role | "Primary Contact" (with spacing between name and role) |
 | Relationship | Optional - e.g., "Mother", "Father", "Grandmother", "Aunt", "Foster Parent" |
 | Display Format | "Primary Contact · Mother" (relationship shown inline if provided) |
 | Emergency Badge | Red badge with first-aid icon if marked as emergency contact |
 | Email | Mailto link (or "Not provided") |
-| Phone | Tel link with SMS icon if capable |
+| Phone Numbers | Structured list showing each phone with type label (Mobile/Home/Work) and SMS icon for capable numbers |
 | Address | Full formatted address (or "No address") |
+| Preferences | Badges showing: Invoice Recipient (if enabled), Email Reminders (if enabled), SMS Reminders (if enabled) |
+| Private Note | Yellow highlighted box with lock icon showing private note (only visible to tutor) |
 | Contact Actions | Quick action buttons: Call, Email, Message |
 | Edit Button | Inline Edit button to edit this contact only |
 
 ### Additional Contacts
 
 - Listed below primary contact
-- Same fields as primary contact
-- Role displays as "Contact" with optional relationship inline
+- Same fields as primary contact (Title + Name, phone list, preferences badges, private note)
+- Role displays as "Contact" with optional relationship inline (with spacing between name and role)
 - Each contact has their own address; if same as primary, displays full address with "(same as [Primary Name])" note
+- Phone numbers shown in structured list with type labels (Mobile/Home/Work)
 - Emergency Badge shown if marked as emergency contact
+- Preference badges shown (Invoice Recipient, Email Reminders, SMS Reminders)
+- Private Note shown if present (in yellow highlighted box with lock icon)
 - Quick action buttons (Call, Email, Message) for each contact
 - Overflow menu (⋮) with actions: Set as Primary Contact, Mark as Emergency Contact, Delete Contact
 - Edit button for per-contact editing
@@ -58,15 +63,24 @@ Each contact has its own Edit button. Clicking it expands the edit form inline w
 
 ### Per Contact Fields
 
+**Basic Information** (First Name and Last Name on same row)
+
 | Field | Input Type | Validation |
 |-------|------------|------------|
 | First Name | Text input | Required |
 | Last Name | Text input | Required |
+| Title | Select | Optional - Mr., Mrs., Ms., Dr., Prof. |
 | Relationship | Select + Text | Optional - Mother, Father, Stepmother, Stepfather, Grandmother, Grandfather, Aunt, Uncle, Sibling, Foster Parent, Other. When "Other" is selected, shows text input for custom relationship (e.g., "Au Pair", "Nanny", "Family Friend") |
-| Email | Email input | At least email or phone required |
-| Phone | Tel input | At least email or phone required |
-| SMS Capable | Checkbox | Only shown if phone provided |
-| Emergency Contact | Checkbox | Marks this person as an emergency contact; multiple contacts can be emergency contacts |
+| Email | Email input | At least email or mobile number required |
+
+**Phone Numbers**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| Mobile Number | Tel input | At least email or mobile number required |
+| SMS Capable | Checkbox | Displayed inline next to Mobile Number field |
+| Home Number | Tel input | Optional |
+| Work Number | Tel input | Optional |
 
 ### Address Fields (per contact)
 
@@ -77,6 +91,22 @@ Each contact has its own Edit button. Clicking it expands the edit form inline w
 | City | Text input | Optional |
 | State | Combobox (US) or text input | Optional |
 | Zip | Text input | Optional |
+
+### Preferences
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| Set as Primary Contact | Checkbox | Only shown for non-primary contacts; promotes to primary when saved |
+| Emergency Contact | Checkbox | Marks this person as an emergency contact; multiple contacts can be emergency contacts |
+| Should Receive Invoices | Checkbox | Whether to send invoices to this contact |
+| Send Email Reminders | Checkbox | Whether to send email lesson reminders |
+| Send SMS Reminders | Checkbox | Whether to send SMS lesson reminders (only effective if mobile is SMS capable) |
+
+### Private Note
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| Private Note | Textarea | Optional - confidential notes about this contact (not visible to the contact themselves). Displays helper text: "This note is private and not visible to the contact." |
 
 ---
 
@@ -102,19 +132,50 @@ Inline expandable panel for adding a new contact. Displayed below existing conta
 
 ### Expanded State Fields
 
+**Basic Information** (First Name and Last Name on same row)
+
 | Field | Input Type | Validation |
 |-------|------------|------------|
 | First Name | Text input | Required |
 | Last Name | Text input | Required |
+| Title | Select | Optional - Mr., Mrs., Ms., Dr., Prof. |
 | Relationship | Select + Text | Optional - includes "Other" with custom text input |
-| Email | Email input | At least email or phone required |
-| Phone | Tel input | At least email or phone required |
-| Emergency Contact | Checkbox | Optional |
+| Email | Email input | At least email or mobile number required |
+
+**Phone Numbers**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| Mobile Number | Tel input | At least email or mobile number required |
+| SMS Capable | Checkbox | Displayed inline next to Mobile Number field |
+| Home Number | Tel input | Optional |
+| Work Number | Tel input | Optional |
+
+**Address**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
 | Same as Primary | Checkbox | Default checked; unchecking reveals address fields |
 | Street | Text input | Optional (hidden when "Same as Primary" checked) |
 | City | Text input | Optional |
 | State | Combobox | Optional |
 | Zip | Text input | Optional |
+
+**Preferences**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| Set as Primary Contact | Checkbox | Optional - sets this new contact as the primary contact |
+| Emergency Contact | Checkbox | Optional |
+| Should Receive Invoices | Checkbox | Optional |
+| Send Email Reminders | Checkbox | Optional |
+| Send SMS Reminders | Checkbox | Optional |
+
+**Private Note**
+
+| Field | Input Type | Validation |
+|-------|------------|------------|
+| Private Note | Textarea | Optional - confidential notes about this contact |
 
 ### Actions
 

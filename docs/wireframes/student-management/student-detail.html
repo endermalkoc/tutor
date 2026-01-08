@@ -2048,7 +2048,7 @@
                 <div class="contact-view-mode">
                   <div class="guardian-header">
                     <span class="guardian-name">Mrs. Jennifer Chen</span>
-                    <span class="guardian-role">Primary Contact · Mother</span>
+                    <span class="guardian-role" style="margin-left: var(--space-3);">Primary Contact · Mother</span>
                     <span class="emergency-badge">
                       <i class="ph ph-first-aid-kit"></i>
                       Emergency
@@ -2119,6 +2119,14 @@
                 <div class="contact-edit-mode" style="display: none;">
                   <div class="form-grid">
                     <div class="form-group">
+                      <label class="form-label">First Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Jennifer" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Last Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Chen" />
+                    </div>
+                    <div class="form-group">
                       <label class="form-label">Title</label>
                       <select class="form-select">
                         <option value="">Select...</option>
@@ -2128,14 +2136,6 @@
                         <option value="dr">Dr.</option>
                         <option value="prof">Prof.</option>
                       </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">First Name <span class="required">*</span></label>
-                      <input type="text" class="form-input" value="Jennifer" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Last Name <span class="required">*</span></label>
-                      <input type="text" class="form-input" value="Chen" />
                     </div>
                     <div class="form-group">
                       <label class="form-label">Relationship</label>
@@ -2163,13 +2163,13 @@
                   <div class="form-grid">
                     <div class="form-group">
                       <label class="form-label">Mobile Number</label>
-                      <input type="tel" class="form-input" value="(555) 987-6543" />
-                    </div>
-                    <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: var(--space-2);">
-                      <label class="checkbox-wrapper">
-                        <input type="checkbox" class="checkbox" checked />
-                        <span>SMS Capable</span>
-                      </label>
+                      <div style="display: flex; gap: var(--space-3); align-items: center;">
+                        <input type="tel" class="form-input" value="(555) 987-6543" style="flex: 1;" />
+                        <label class="checkbox-wrapper" style="white-space: nowrap;">
+                          <input type="checkbox" class="checkbox" checked />
+                          <span>SMS Capable</span>
+                        </label>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="form-label">Home Number</label>
@@ -2253,7 +2253,7 @@
                 <div class="contact-view-mode">
                   <div class="guardian-header">
                     <span class="guardian-name">Mr. David Chen</span>
-                    <span class="guardian-role">Contact · Father</span>
+                    <span class="guardian-role" style="margin-left: var(--space-3);">Contact · Father</span>
                     <div class="contact-menu-wrapper">
                       <button class="contact-menu-btn" onclick="toggleContactMenu(this)" title="More options">
                         <i class="ph ph-dots-three-vertical"></i>
@@ -2323,6 +2323,14 @@
                 <div class="contact-edit-mode" style="display: none;">
                   <div class="form-grid">
                     <div class="form-group">
+                      <label class="form-label">First Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="David" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Last Name <span class="required">*</span></label>
+                      <input type="text" class="form-input" value="Chen" />
+                    </div>
+                    <div class="form-group">
                       <label class="form-label">Title</label>
                       <select class="form-select">
                         <option value="">Select...</option>
@@ -2332,14 +2340,6 @@
                         <option value="dr">Dr.</option>
                         <option value="prof">Prof.</option>
                       </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">First Name <span class="required">*</span></label>
-                      <input type="text" class="form-input" value="David" />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Last Name <span class="required">*</span></label>
-                      <input type="text" class="form-input" value="Chen" />
                     </div>
                     <div class="form-group">
                       <label class="form-label">Relationship</label>
@@ -2367,13 +2367,13 @@
                   <div class="form-grid">
                     <div class="form-group">
                       <label class="form-label">Mobile Number</label>
-                      <input type="tel" class="form-input" value="(555) 987-6544" />
-                    </div>
-                    <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: var(--space-2);">
-                      <label class="checkbox-wrapper">
-                        <input type="checkbox" class="checkbox" checked />
-                        <span>SMS Capable</span>
-                      </label>
+                      <div style="display: flex; gap: var(--space-3); align-items: center;">
+                        <input type="tel" class="form-input" value="(555) 987-6544" style="flex: 1;" />
+                        <label class="checkbox-wrapper" style="white-space: nowrap;">
+                          <input type="checkbox" class="checkbox" checked />
+                          <span>SMS Capable</span>
+                        </label>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="form-label">Home Number</label>
@@ -2477,6 +2477,14 @@
                   <div class="add-contact-form" id="addContactPanel">
                     <div class="form-grid">
                       <div class="form-group">
+                        <label class="form-label">First Name <span class="required">*</span></label>
+                        <input type="text" class="form-input" placeholder="Enter first name" />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Last Name <span class="required">*</span></label>
+                        <input type="text" class="form-input" placeholder="Enter last name" />
+                      </div>
+                      <div class="form-group">
                         <label class="form-label">Title</label>
                         <select class="form-select">
                           <option value="">Select...</option>
@@ -2486,14 +2494,6 @@
                           <option value="dr">Dr.</option>
                           <option value="prof">Prof.</option>
                         </select>
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">First Name <span class="required">*</span></label>
-                        <input type="text" class="form-input" placeholder="Enter first name" />
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Last Name <span class="required">*</span></label>
-                        <input type="text" class="form-input" placeholder="Enter last name" />
                       </div>
                       <div class="form-group">
                         <label class="form-label">Relationship</label>
@@ -2524,13 +2524,13 @@
                     <div class="form-grid">
                       <div class="form-group">
                         <label class="form-label">Mobile Number</label>
-                        <input type="tel" class="form-input" placeholder="Enter mobile number" />
-                      </div>
-                      <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: var(--space-2);">
-                        <label class="checkbox-wrapper">
-                          <input type="checkbox" class="checkbox" />
-                          <span>SMS Capable</span>
-                        </label>
+                        <div style="display: flex; gap: var(--space-3); align-items: center;">
+                          <input type="tel" class="form-input" placeholder="Enter mobile number" style="flex: 1;" />
+                          <label class="checkbox-wrapper" style="white-space: nowrap;">
+                            <input type="checkbox" class="checkbox" />
+                            <span>SMS Capable</span>
+                          </label>
+                        </div>
                       </div>
                       <div class="form-group">
                         <label class="form-label">Home Number</label>

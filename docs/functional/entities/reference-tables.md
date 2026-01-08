@@ -71,6 +71,11 @@ All reference tables typically share these common attributes:
 
 ### Contact & Communication
 
+**Title**
+- Purpose: Honorific or professional title prefix
+- Common values: Mr., Mrs., Ms., Dr., Prof.
+- Used by: Contact entity
+
 **Gender**
 - Purpose: Gender classification
 - Common values: Male, Female, Non-binary, Prefer not to say

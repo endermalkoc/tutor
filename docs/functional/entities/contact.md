@@ -8,6 +8,7 @@ The Contact entity is a base entity that stores common personal information. Use
 ### Basic Information
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
+| Title | Reference | No | Reference to Title entity (Mr., Mrs., Ms., Dr., Prof.) |
 | First Name | String | Yes | Contact's first name |
 | Last Name | String | Yes | Contact's last name |
 | Email Address | String | No | Contact's email address |
@@ -40,6 +41,7 @@ The Contact entity is a base entity that stores common personal information. Use
 - **User**: A User references a Contact (one-to-one, required for User)
 - **Phones**: A contact can have multiple Phones through UserPhone junction table (one-to-many)
 - **Address**: A contact may reference an Address (many-to-one, optional)
+- **Title**: A contact may reference a Title (many-to-one, optional)
 - **Gender**: A contact may reference a Gender (many-to-one, optional)
 
 ## Business Rules
@@ -63,6 +65,7 @@ The Contact entity is a base entity that stores common personal information. Use
 - Contact is a base entity that stores personal information separate from role-specific data
 - Phone numbers are managed through the separate Phone entity and UserPhone junction table
 - Addresses are managed through the separate Address entity
+- Title references a Title lookup table (Mr., Mrs., Ms., Dr., Prof.)
 - Gender references a Gender lookup table for standardization
 - Not all Contacts have User accounts - Contact is the base personal information, User adds login capability
 - Communication platform IDs (Skype, FaceTime) enable quick access to online session links
