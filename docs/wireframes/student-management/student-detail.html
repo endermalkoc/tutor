@@ -2776,10 +2776,164 @@
               </div>
 
               <!-- Add Contact Button -->
-              <button class="add-contact-btn" onclick="openAddContactDrawer()">
+              <button class="add-contact-btn" id="addContactBtn" onclick="showAddContactForm()">
                 <i class="ph ph-plus"></i>
                 Add Contact
               </button>
+
+              <!-- Add Contact Inline Form (hidden by default) -->
+              <div class="guardian-card" id="addContactCard" style="display: none; border: 2px dashed var(--primary-300); background: var(--primary-50);">
+                <div class="guardian-header" style="border-bottom: 1px solid var(--primary-200); padding-bottom: var(--space-3); margin-bottom: var(--space-3);">
+                  <span class="guardian-name" style="color: var(--primary-700);">
+                    <i class="ph ph-user-plus" style="margin-right: var(--space-2);"></i>
+                    New Contact
+                  </span>
+                </div>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">First Name <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="newContactFirstName" placeholder="Enter first name" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Last Name <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="newContactLastName" placeholder="Enter last name" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <select class="form-select" id="newContactTitle">
+                      <option value="">Select...</option>
+                      <option value="mr">Mr.</option>
+                      <option value="mrs">Mrs.</option>
+                      <option value="ms">Ms.</option>
+                      <option value="dr">Dr.</option>
+                      <option value="prof">Prof.</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Relationship</label>
+                    <select class="form-select" onchange="handleRelationshipChange(this)">
+                      <option value="">Select relationship...</option>
+                      <option value="mother">Mother</option>
+                      <option value="father">Father</option>
+                      <option value="stepmother">Stepmother</option>
+                      <option value="stepfather">Stepfather</option>
+                      <option value="grandmother">Grandmother</option>
+                      <option value="grandfather">Grandfather</option>
+                      <option value="aunt">Aunt</option>
+                      <option value="uncle">Uncle</option>
+                      <option value="sibling">Sibling</option>
+                      <option value="foster-parent">Foster Parent</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <input type="text" class="form-input relationship-other-input" placeholder="Specify relationship..." style="display: none; margin-top: var(--space-2);" />
+                  </div>
+                  <div class="form-group full-width">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="Enter email address" />
+                    <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">At least email or mobile number is required</span>
+                  </div>
+                </div>
+
+                <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Phone Numbers</h5>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">Mobile Number</label>
+                    <div style="display: flex; gap: var(--space-3); align-items: center;">
+                      <input type="tel" class="form-input" placeholder="Enter mobile number" style="flex: 1;" />
+                      <label class="checkbox-wrapper" style="white-space: nowrap;">
+                        <input type="checkbox" class="checkbox" />
+                        <span>SMS Capable</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Home Number</label>
+                    <input type="tel" class="form-input" placeholder="Enter home number" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Work Number</label>
+                    <input type="tel" class="form-input" placeholder="Enter work number" />
+                  </div>
+                </div>
+
+                <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
+                <div class="form-group" style="margin-bottom: var(--space-3);">
+                  <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox" id="newContactSameAddress" checked onchange="toggleNewContactAddress()" />
+                    <span>Same as primary contact</span>
+                  </label>
+                </div>
+                <div class="form-grid" id="newContactAddressFields" style="display: none;">
+                  <div class="form-group full-width">
+                    <label class="form-label">Street Address</label>
+                    <input type="text" class="form-input" placeholder="Enter street address" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">City</label>
+                    <input type="text" class="form-input" placeholder="Enter city" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">State</label>
+                    <select class="form-select">
+                      <option value="">Select state...</option>
+                      <option value="CA">California</option>
+                      <option value="NY">New York</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Zip Code</label>
+                    <input type="text" class="form-input" placeholder="Enter zip" />
+                  </div>
+                </div>
+
+                <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Preferences</h5>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="checkbox-wrapper">
+                      <input type="checkbox" class="checkbox" />
+                      <span>Set as Primary Contact</span>
+                    </label>
+                  </div>
+                  <div class="form-group">
+                    <label class="checkbox-wrapper">
+                      <input type="checkbox" class="checkbox" />
+                      <span>Emergency Contact</span>
+                    </label>
+                  </div>
+                  <div class="form-group">
+                    <label class="checkbox-wrapper">
+                      <input type="checkbox" class="checkbox" />
+                      <span>Should Receive Invoices</span>
+                    </label>
+                  </div>
+                  <div class="form-group">
+                    <label class="checkbox-wrapper">
+                      <input type="checkbox" class="checkbox" />
+                      <span>Send Email Reminders</span>
+                    </label>
+                  </div>
+                  <div class="form-group">
+                    <label class="checkbox-wrapper">
+                      <input type="checkbox" class="checkbox" />
+                      <span>Send SMS Reminders</span>
+                    </label>
+                  </div>
+                </div>
+
+                <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Private Note</h5>
+                <div class="form-group">
+                  <textarea class="form-textarea" rows="2" placeholder="Add a private note about this contact (only visible to you)..."></textarea>
+                  <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">
+                    <i class="ph ph-lock" style="margin-right: 4px;"></i>
+                    This note is private and not visible to the contact.
+                  </span>
+                </div>
+
+                <div class="form-actions" style="margin-top: var(--space-4);">
+                  <button class="btn btn-secondary" onclick="hideAddContactForm()">Cancel</button>
+                  <button class="btn btn-primary" onclick="saveNewContact()">Add Contact</button>
+                </div>
+              </div>
 
                 <div class="siblings-section">
                   <div class="siblings-title">Other Students in Family</div>
@@ -3568,44 +3722,46 @@
         }
       }
 
-      // Add Contact Drawer
-      function openAddContactDrawer() {
-        const drawer = document.getElementById('addContactDrawer');
-        drawer.classList.add('active');
-        document.body.style.overflow = 'hidden';
+      // Add Contact Inline Form
+      function showAddContactForm() {
+        const card = document.getElementById('addContactCard');
+        const btn = document.getElementById('addContactBtn');
+        card.style.display = 'block';
+        btn.style.display = 'none';
         // Focus first input
         setTimeout(() => {
-          drawer.querySelector('.drawer-body input').focus();
-        }, 200);
+          document.getElementById('newContactFirstName').focus();
+        }, 100);
+        // Scroll to the form
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
-      function closeAddContactDrawer(event) {
-        // If called from overlay click, only close if clicking the overlay itself
-        if (event && event.target !== event.currentTarget) return;
-
-        const drawer = document.getElementById('addContactDrawer');
-        drawer.classList.remove('active');
-        document.body.style.overflow = '';
+      function hideAddContactForm() {
+        const card = document.getElementById('addContactCard');
+        const btn = document.getElementById('addContactBtn');
+        card.style.display = 'none';
+        btn.style.display = 'flex';
         // Clear form
         clearAddContactForm();
       }
 
       function clearAddContactForm() {
-        const drawer = document.getElementById('addContactDrawer');
-        drawer.querySelectorAll('input').forEach(input => {
+        const card = document.getElementById('addContactCard');
+        card.querySelectorAll('input').forEach(input => {
           if (input.type === 'checkbox') {
-            input.checked = input.id === 'drawerSameAddress';
+            input.checked = input.id === 'newContactSameAddress';
           } else {
             input.value = '';
           }
         });
-        drawer.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-        document.getElementById('drawerAddressFields').style.display = 'none';
+        card.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+        card.querySelectorAll('.relationship-other-input').forEach(input => input.style.display = 'none');
+        document.getElementById('newContactAddressFields').style.display = 'none';
       }
 
-      function toggleDrawerAddress() {
-        const checkbox = document.getElementById('drawerSameAddress');
-        const addressFields = document.getElementById('drawerAddressFields');
+      function toggleNewContactAddress() {
+        const checkbox = document.getElementById('newContactSameAddress');
+        const addressFields = document.getElementById('newContactAddressFields');
         if (checkbox.checked) {
           addressFields.style.display = 'none';
         } else {
@@ -3614,16 +3770,16 @@
       }
 
       function saveNewContact() {
-        closeAddContactDrawer();
+        hideAddContactForm();
         alert('Contact added successfully!');
       }
 
-      // Close drawer on Escape key
+      // Close add contact form on Escape key
       document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
-          const drawer = document.getElementById('addContactDrawer');
-          if (drawer.classList.contains('active')) {
-            closeAddContactDrawer();
+          const card = document.getElementById('addContactCard');
+          if (card && card.style.display !== 'none') {
+            hideAddContactForm();
           }
         }
       });
@@ -3640,163 +3796,6 @@
         <div class="modal-actions">
           <button class="btn btn-secondary" onclick="hideDeleteConfirmation()">Cancel</button>
           <button class="btn btn-danger" onclick="confirmDeleteContact()">Delete Contact</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Add Contact Drawer -->
-    <div class="drawer-overlay" id="addContactDrawer" onclick="closeAddContactDrawer(event)">
-      <div class="drawer" onclick="event.stopPropagation()">
-        <div class="drawer-header">
-          <h3 class="drawer-title">Add Contact</h3>
-          <button class="drawer-close" onclick="closeAddContactDrawer()">
-            <i class="ph ph-x" style="font-size: 20px;"></i>
-          </button>
-        </div>
-        <div class="drawer-body">
-          <div class="form-grid">
-            <div class="form-group">
-              <label class="form-label">First Name <span class="required">*</span></label>
-              <input type="text" class="form-input" placeholder="Enter first name" />
-            </div>
-            <div class="form-group">
-              <label class="form-label">Last Name <span class="required">*</span></label>
-              <input type="text" class="form-input" placeholder="Enter last name" />
-            </div>
-            <div class="form-group">
-              <label class="form-label">Title</label>
-              <select class="form-select">
-                <option value="">Select...</option>
-                <option value="mr">Mr.</option>
-                <option value="mrs">Mrs.</option>
-                <option value="ms">Ms.</option>
-                <option value="dr">Dr.</option>
-                <option value="prof">Prof.</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Relationship</label>
-              <select class="form-select" onchange="handleRelationshipChange(this)">
-                <option value="">Select relationship...</option>
-                <option value="mother">Mother</option>
-                <option value="father">Father</option>
-                <option value="stepmother">Stepmother</option>
-                <option value="stepfather">Stepfather</option>
-                <option value="grandmother">Grandmother</option>
-                <option value="grandfather">Grandfather</option>
-                <option value="aunt">Aunt</option>
-                <option value="uncle">Uncle</option>
-                <option value="sibling">Sibling</option>
-                <option value="foster-parent">Foster Parent</option>
-                <option value="other">Other</option>
-              </select>
-              <input type="text" class="form-input relationship-other-input" placeholder="Specify relationship..." style="display: none; margin-top: var(--space-2);" />
-            </div>
-            <div class="form-group full-width">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-input" placeholder="Enter email address" />
-              <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">At least email or mobile number is required</span>
-            </div>
-          </div>
-
-          <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-5) 0 var(--space-3);">Phone Numbers</h5>
-          <div class="form-grid">
-            <div class="form-group">
-              <label class="form-label">Mobile Number</label>
-              <div style="display: flex; gap: var(--space-3); align-items: center;">
-                <input type="tel" class="form-input" placeholder="Enter mobile number" style="flex: 1;" />
-                <label class="checkbox-wrapper" style="white-space: nowrap;">
-                  <input type="checkbox" class="checkbox" />
-                  <span>SMS Capable</span>
-                </label>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Home Number</label>
-              <input type="tel" class="form-input" placeholder="Enter home number" />
-            </div>
-            <div class="form-group">
-              <label class="form-label">Work Number</label>
-              <input type="tel" class="form-input" placeholder="Enter work number" />
-            </div>
-          </div>
-
-          <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-5) 0 var(--space-3);">Address</h5>
-          <div class="form-group" style="margin-bottom: var(--space-3);">
-            <label class="checkbox-wrapper">
-              <input type="checkbox" class="checkbox" id="drawerSameAddress" checked onchange="toggleDrawerAddress()" />
-              <span>Same as primary contact</span>
-            </label>
-          </div>
-          <div class="form-grid" id="drawerAddressFields" style="display: none;">
-            <div class="form-group full-width">
-              <label class="form-label">Street Address</label>
-              <input type="text" class="form-input" placeholder="Enter street address" />
-            </div>
-            <div class="form-group">
-              <label class="form-label">City</label>
-              <input type="text" class="form-input" placeholder="Enter city" />
-            </div>
-            <div class="form-group">
-              <label class="form-label">State</label>
-              <select class="form-select">
-                <option value="">Select state...</option>
-                <option value="CA">California</option>
-                <option value="NY">New York</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Zip Code</label>
-              <input type="text" class="form-input" placeholder="Enter zip" />
-            </div>
-          </div>
-
-          <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-5) 0 var(--space-3);">Preferences</h5>
-          <div class="form-grid">
-            <div class="form-group">
-              <label class="checkbox-wrapper">
-                <input type="checkbox" class="checkbox" />
-                <span>Set as Primary Contact</span>
-              </label>
-            </div>
-            <div class="form-group">
-              <label class="checkbox-wrapper">
-                <input type="checkbox" class="checkbox" />
-                <span>Emergency Contact</span>
-              </label>
-            </div>
-            <div class="form-group">
-              <label class="checkbox-wrapper">
-                <input type="checkbox" class="checkbox" />
-                <span>Should Receive Invoices</span>
-              </label>
-            </div>
-            <div class="form-group">
-              <label class="checkbox-wrapper">
-                <input type="checkbox" class="checkbox" />
-                <span>Send Email Reminders</span>
-              </label>
-            </div>
-            <div class="form-group">
-              <label class="checkbox-wrapper">
-                <input type="checkbox" class="checkbox" />
-                <span>Send SMS Reminders</span>
-              </label>
-            </div>
-          </div>
-
-          <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-5) 0 var(--space-3);">Private Note</h5>
-          <div class="form-group">
-            <textarea class="form-textarea" rows="2" placeholder="Add a private note about this contact (only visible to you)..."></textarea>
-            <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">
-              <i class="ph ph-lock" style="margin-right: 4px;"></i>
-              This note is private and not visible to the contact.
-            </span>
-          </div>
-        </div>
-        <div class="drawer-footer">
-          <button class="btn btn-secondary" onclick="closeAddContactDrawer()">Cancel</button>
-          <button class="btn btn-primary" onclick="saveNewContact()">Add Contact</button>
         </div>
       </div>
     </div>

@@ -55,6 +55,13 @@ The following information is hidden under a "Show details" toggle:
 
 This reduces visual clutter while keeping essential contact info (email + one phone) immediately accessible.
 
+### Add/Edit Pattern
+Both adding and editing guardian contacts use **inline forms** for consistency:
+- **Edit**: Clicking edit on an existing contact transforms the card into an editable form in place
+- **Add**: Clicking "Add Contact" reveals a new inline form card (styled with dashed border to indicate new item)
+
+This maintains spatial consistency—users learn one interaction pattern for managing contacts. The inline approach keeps context visible and avoids disruptive modal/drawer overlays for what are contextual operations within the Family section.
+
 ## Notes
 
 - Guardians inherit all contact information fields from the Contact entity (name, email, phone numbers, etc.)
