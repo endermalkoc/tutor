@@ -14,7 +14,7 @@ export function FilterTag({ children, onRemove, className = '' }: FilterTagProps
       {children}
       {onRemove && (
         <button type="button" className="filter-tag-remove" onClick={onRemove} aria-label="Remove filter">
-          &times;
+          <i className="ph ph-x" />
         </button>
       )}
     </span>
