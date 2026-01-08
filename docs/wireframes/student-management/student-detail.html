@@ -2047,7 +2047,7 @@
               <div class="guardian-card guardian-card--primary" id="contact-jennifer">
                 <div class="contact-view-mode">
                   <div class="guardian-header">
-                    <span class="guardian-name">Jennifer Chen</span>
+                    <span class="guardian-name">Mrs. Jennifer Chen</span>
                     <span class="guardian-role">Primary Contact · Mother</span>
                     <span class="emergency-badge">
                       <i class="ph ph-first-aid-kit"></i>
@@ -2063,14 +2063,46 @@
                       <i class="ph ph-envelope"></i>
                       <a href="mailto:jennifer.chen@example.com">jennifer.chen@example.com</a>
                     </span>
-                    <span>
-                      <i class="ph ph-phone"></i>
-                      <a href="tel:+15559876543">(555) 987-6543</a>
+                  </div>
+                  <div class="guardian-phone-list" style="display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-2);">
+                    <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
+                      <i class="ph ph-device-mobile" style="color: var(--fg-muted);"></i>
+                      <a href="tel:+15559876543" style="color: var(--primary-600); text-decoration: none;">(555) 987-6543</a>
+                      <span style="font-size: 11px; color: var(--fg-muted);">Mobile</span>
+                      <i class="ph ph-chat-circle" title="SMS Capable" style="color: var(--primary-500); font-size: 14px;"></i>
+                    </span>
+                    <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
+                      <i class="ph ph-house" style="color: var(--fg-muted);"></i>
+                      <a href="tel:+15551234567" style="color: var(--primary-600); text-decoration: none;">(555) 123-4567</a>
+                      <span style="font-size: 11px; color: var(--fg-muted);">Home</span>
+                    </span>
+                    <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
+                      <i class="ph ph-briefcase" style="color: var(--fg-muted);"></i>
+                      <a href="tel:+15559998888" style="color: var(--primary-600); text-decoration: none;">(555) 999-8888</a>
+                      <span style="font-size: 11px; color: var(--fg-muted);">Work</span>
                     </span>
                   </div>
                   <div class="guardian-address">
                     <i class="ph ph-map-pin"></i>
                     <span>123 Oak Street, San Francisco, CA 94102</span>
+                  </div>
+                  <div class="guardian-preferences" style="display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3);">
+                    <span class="badge" style="background: var(--info-50); color: var(--info-600);">
+                      <i class="ph ph-receipt" style="margin-right: 4px;"></i>
+                      Invoice Recipient
+                    </span>
+                    <span class="badge" style="background: var(--bg-subtle); color: var(--fg-muted);">
+                      <i class="ph ph-envelope" style="margin-right: 4px;"></i>
+                      Email Reminders
+                    </span>
+                    <span class="badge" style="background: var(--bg-subtle); color: var(--fg-muted);">
+                      <i class="ph ph-chat-circle" style="margin-right: 4px;"></i>
+                      SMS Reminders
+                    </span>
+                  </div>
+                  <div class="guardian-private-note" style="margin-top: var(--space-3); padding: var(--space-2) var(--space-3); background: var(--warning-50); border-radius: var(--radius-sm); font-size: 12px; color: var(--fg-secondary);">
+                    <i class="ph ph-lock" style="color: var(--warning-600); margin-right: 4px;"></i>
+                    <strong>Private Note:</strong> Prefers to be contacted after 5pm on weekdays.
                   </div>
                   <div class="guardian-actions">
                     <button class="guardian-action-btn" title="Call">
@@ -2086,6 +2118,17 @@
                 </div>
                 <div class="contact-edit-mode" style="display: none;">
                   <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">Title</label>
+                      <select class="form-select">
+                        <option value="">Select...</option>
+                        <option value="mr">Mr.</option>
+                        <option value="mrs" selected>Mrs.</option>
+                        <option value="ms">Ms.</option>
+                        <option value="dr">Dr.</option>
+                        <option value="prof">Prof.</option>
+                      </select>
+                    </div>
                     <div class="form-group">
                       <label class="form-label">First Name <span class="required">*</span></label>
                       <input type="text" class="form-input" value="Jennifer" />
@@ -2110,21 +2153,34 @@
                       </select>
                       <input type="text" class="form-input relationship-other-input" placeholder="Specify..." style="display: none; margin-top: var(--space-2);" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group full-width">
                       <label class="form-label">Email</label>
                       <input type="email" class="form-input" value="jennifer.chen@example.com" />
                     </div>
+                  </div>
+
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Phone Numbers</h5>
+                  <div class="form-grid">
                     <div class="form-group">
-                      <label class="form-label">Phone</label>
+                      <label class="form-label">Mobile Number</label>
                       <input type="tel" class="form-input" value="(555) 987-6543" />
                     </div>
-                    <div class="form-group">
-                      <label class="checkbox-label">
-                        <input type="checkbox" checked />
-                        <span>Emergency Contact</span>
+                    <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: var(--space-2);">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" checked />
+                        <span>SMS Capable</span>
                       </label>
                     </div>
+                    <div class="form-group">
+                      <label class="form-label">Home Number</label>
+                      <input type="tel" class="form-input" value="(555) 123-4567" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Work Number</label>
+                      <input type="tel" class="form-input" value="(555) 999-8888" />
+                    </div>
                   </div>
+
                   <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
                   <div class="form-grid">
                     <div class="form-group full-width">
@@ -2147,6 +2203,44 @@
                       <input type="text" class="form-input" value="94102" />
                     </div>
                   </div>
+
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Preferences</h5>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" checked />
+                        <span>Emergency Contact</span>
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" checked />
+                        <span>Should Receive Invoices</span>
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" checked />
+                        <span>Send Email Reminders</span>
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" checked />
+                        <span>Send SMS Reminders</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Private Note</h5>
+                  <div class="form-group">
+                    <textarea class="form-textarea" rows="2" placeholder="Add a private note about this contact (only visible to you)...">Prefers to be contacted after 5pm on weekdays.</textarea>
+                    <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">
+                      <i class="ph ph-lock" style="margin-right: 4px;"></i>
+                      This note is private and not visible to the contact.
+                    </span>
+                  </div>
+
                   <div class="form-actions" style="margin-top: var(--space-4);">
                     <button class="btn btn-secondary" onclick="toggleContactEdit('contact-jennifer')">Cancel</button>
                     <button class="btn btn-primary" onclick="saveContactEdit('contact-jennifer')">Save</button>
@@ -2158,7 +2252,7 @@
               <div class="guardian-card" id="contact-david">
                 <div class="contact-view-mode">
                   <div class="guardian-header">
-                    <span class="guardian-name">David Chen</span>
+                    <span class="guardian-name">Mr. David Chen</span>
                     <span class="guardian-role">Contact · Father</span>
                     <div class="contact-menu-wrapper">
                       <button class="contact-menu-btn" onclick="toggleContactMenu(this)" title="More options">
@@ -2190,14 +2284,29 @@
                       <i class="ph ph-envelope"></i>
                       <a href="mailto:david.chen@example.com">david.chen@example.com</a>
                     </span>
-                    <span>
-                      <i class="ph ph-phone"></i>
-                      <a href="tel:+15559876544">(555) 987-6544</a>
+                  </div>
+                  <div class="guardian-phone-list" style="display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-2);">
+                    <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
+                      <i class="ph ph-device-mobile" style="color: var(--fg-muted);"></i>
+                      <a href="tel:+15559876544" style="color: var(--primary-600); text-decoration: none;">(555) 987-6544</a>
+                      <span style="font-size: 11px; color: var(--fg-muted);">Mobile</span>
+                      <i class="ph ph-chat-circle" title="SMS Capable" style="color: var(--primary-500); font-size: 14px;"></i>
+                    </span>
+                    <span class="guardian-phone-item" style="display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--fg-secondary);">
+                      <i class="ph ph-briefcase" style="color: var(--fg-muted);"></i>
+                      <a href="tel:+15557776666" style="color: var(--primary-600); text-decoration: none;">(555) 777-6666</a>
+                      <span style="font-size: 11px; color: var(--fg-muted);">Work</span>
                     </span>
                   </div>
                   <div class="guardian-address">
                     <i class="ph ph-map-pin"></i>
                     <span>123 Oak Street, San Francisco, CA 94102 <span class="address-note">(same as Jennifer)</span></span>
+                  </div>
+                  <div class="guardian-preferences" style="display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3);">
+                    <span class="badge" style="background: var(--bg-subtle); color: var(--fg-muted);">
+                      <i class="ph ph-envelope" style="margin-right: 4px;"></i>
+                      Email Reminders
+                    </span>
                   </div>
                   <div class="guardian-actions">
                     <button class="guardian-action-btn" title="Call">
@@ -2213,6 +2322,17 @@
                 </div>
                 <div class="contact-edit-mode" style="display: none;">
                   <div class="form-grid">
+                    <div class="form-group">
+                      <label class="form-label">Title</label>
+                      <select class="form-select">
+                        <option value="">Select...</option>
+                        <option value="mr" selected>Mr.</option>
+                        <option value="mrs">Mrs.</option>
+                        <option value="ms">Ms.</option>
+                        <option value="dr">Dr.</option>
+                        <option value="prof">Prof.</option>
+                      </select>
+                    </div>
                     <div class="form-group">
                       <label class="form-label">First Name <span class="required">*</span></label>
                       <input type="text" class="form-input" value="David" />
@@ -2237,25 +2357,38 @@
                       </select>
                       <input type="text" class="form-input relationship-other-input" placeholder="Specify..." style="display: none; margin-top: var(--space-2);" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group full-width">
                       <label class="form-label">Email</label>
                       <input type="email" class="form-input" value="david.chen@example.com" />
                     </div>
+                  </div>
+
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Phone Numbers</h5>
+                  <div class="form-grid">
                     <div class="form-group">
-                      <label class="form-label">Phone</label>
+                      <label class="form-label">Mobile Number</label>
                       <input type="tel" class="form-input" value="(555) 987-6544" />
                     </div>
-                    <div class="form-group">
-                      <label class="checkbox-label">
-                        <input type="checkbox" />
-                        <span>Emergency Contact</span>
+                    <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: var(--space-2);">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" checked />
+                        <span>SMS Capable</span>
                       </label>
                     </div>
+                    <div class="form-group">
+                      <label class="form-label">Home Number</label>
+                      <input type="tel" class="form-input" placeholder="Enter home number" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Work Number</label>
+                      <input type="tel" class="form-input" value="(555) 777-6666" />
+                    </div>
                   </div>
+
                   <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
                   <div class="form-group" style="margin-bottom: var(--space-3);">
-                    <label class="checkbox-label">
-                      <input type="checkbox" checked onchange="toggleSameAsAddress(this, 'contact-david')" />
+                    <label class="checkbox-wrapper">
+                      <input type="checkbox" class="checkbox" checked onchange="toggleSameAsAddress(this, 'contact-david')" />
                       <span>Same as primary contact</span>
                     </label>
                   </div>
@@ -2281,6 +2414,50 @@
                       <input type="text" class="form-input" />
                     </div>
                   </div>
+
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Preferences</h5>
+                  <div class="form-grid">
+                    <div class="form-group">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" />
+                        <span>Set as Primary Contact</span>
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" />
+                        <span>Emergency Contact</span>
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" />
+                        <span>Should Receive Invoices</span>
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" checked />
+                        <span>Send Email Reminders</span>
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" />
+                        <span>Send SMS Reminders</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Private Note</h5>
+                  <div class="form-group">
+                    <textarea class="form-textarea" rows="2" placeholder="Add a private note about this contact (only visible to you)..."></textarea>
+                    <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">
+                      <i class="ph ph-lock" style="margin-right: 4px;"></i>
+                      This note is private and not visible to the contact.
+                    </span>
+                  </div>
+
                   <div class="form-actions" style="margin-top: var(--space-4);">
                     <button class="btn btn-secondary" onclick="toggleContactEdit('contact-david')">Cancel</button>
                     <button class="btn btn-primary" onclick="saveContactEdit('contact-david')">Save</button>
@@ -2299,6 +2476,17 @@
                   </div>
                   <div class="add-contact-form" id="addContactPanel">
                     <div class="form-grid">
+                      <div class="form-group">
+                        <label class="form-label">Title</label>
+                        <select class="form-select">
+                          <option value="">Select...</option>
+                          <option value="mr">Mr.</option>
+                          <option value="mrs">Mrs.</option>
+                          <option value="ms">Ms.</option>
+                          <option value="dr">Dr.</option>
+                          <option value="prof">Prof.</option>
+                        </select>
+                      </div>
                       <div class="form-group">
                         <label class="form-label">First Name <span class="required">*</span></label>
                         <input type="text" class="form-input" placeholder="Enter first name" />
@@ -2325,27 +2513,39 @@
                         </select>
                         <input type="text" class="form-input relationship-other-input" placeholder="Specify relationship..." style="display: none; margin-top: var(--space-2);" />
                       </div>
-                      <div class="form-group">
+                      <div class="form-group full-width">
                         <label class="form-label">Email</label>
                         <input type="email" class="form-input" placeholder="Enter email address" />
-                        <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">At least email or phone is required</span>
+                        <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">At least email or mobile number is required</span>
                       </div>
+                    </div>
+
+                    <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Phone Numbers</h5>
+                    <div class="form-grid">
                       <div class="form-group">
-                        <label class="form-label">Phone</label>
-                        <input type="tel" class="form-input" placeholder="Enter phone number" />
+                        <label class="form-label">Mobile Number</label>
+                        <input type="tel" class="form-input" placeholder="Enter mobile number" />
                       </div>
-                      <div class="form-group">
-                        <label class="checkbox-label">
-                          <input type="checkbox" />
-                          <span>Emergency Contact</span>
+                      <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: var(--space-2);">
+                        <label class="checkbox-wrapper">
+                          <input type="checkbox" class="checkbox" />
+                          <span>SMS Capable</span>
                         </label>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Home Number</label>
+                        <input type="tel" class="form-input" placeholder="Enter home number" />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Work Number</label>
+                        <input type="tel" class="form-input" placeholder="Enter work number" />
                       </div>
                     </div>
 
                     <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
                     <div class="form-group" style="margin-bottom: var(--space-3);">
-                      <label class="checkbox-label">
-                        <input type="checkbox" id="addContactSameAddress" checked onchange="toggleAddContactAddress()" />
+                      <label class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox" id="addContactSameAddress" checked onchange="toggleAddContactAddress()" />
                         <span>Same as primary contact</span>
                       </label>
                     </div>
@@ -2370,6 +2570,49 @@
                         <label class="form-label">Zip Code</label>
                         <input type="text" class="form-input" placeholder="Enter zip" />
                       </div>
+                    </div>
+
+                    <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Preferences</h5>
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label class="checkbox-wrapper">
+                          <input type="checkbox" class="checkbox" />
+                          <span>Set as Primary Contact</span>
+                        </label>
+                      </div>
+                      <div class="form-group">
+                        <label class="checkbox-wrapper">
+                          <input type="checkbox" class="checkbox" />
+                          <span>Emergency Contact</span>
+                        </label>
+                      </div>
+                      <div class="form-group">
+                        <label class="checkbox-wrapper">
+                          <input type="checkbox" class="checkbox" />
+                          <span>Should Receive Invoices</span>
+                        </label>
+                      </div>
+                      <div class="form-group">
+                        <label class="checkbox-wrapper">
+                          <input type="checkbox" class="checkbox" />
+                          <span>Send Email Reminders</span>
+                        </label>
+                      </div>
+                      <div class="form-group">
+                        <label class="checkbox-wrapper">
+                          <input type="checkbox" class="checkbox" />
+                          <span>Send SMS Reminders</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Private Note</h5>
+                    <div class="form-group">
+                      <textarea class="form-textarea" rows="2" placeholder="Add a private note about this contact (only visible to you)..."></textarea>
+                      <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">
+                        <i class="ph ph-lock" style="margin-right: 4px;"></i>
+                        This note is private and not visible to the contact.
+                      </span>
                     </div>
 
                     <div class="form-actions" style="margin-top: var(--space-4);">
