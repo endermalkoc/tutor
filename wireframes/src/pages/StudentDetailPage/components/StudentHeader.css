@@ -24,13 +24,13 @@
   gap: var(--space-1);
 }
 
-.student-name-row {
+.student-header .student-name-row {
   display: flex;
   align-items: center;
   gap: var(--space-4);
 }
 
-.student-name {
+.student-header .student-name {
   font-size: 28px;
   font-weight: 700;
   color: var(--fg-default);
@@ -221,11 +221,11 @@
     gap: var(--space-4);
   }
 
-  .student-name {
+  .student-header .student-name {
     font-size: 22px;
   }
 
-  .student-name-row {
+  .student-header .student-name-row {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-2);
