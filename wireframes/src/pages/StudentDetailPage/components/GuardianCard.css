@@ -219,11 +219,9 @@
 
 /* Action Buttons */
 .guardian-actions {
-  position: absolute;
-  top: var(--space-4);
-  right: var(--space-4);
   display: flex;
   gap: var(--space-1);
+  margin-top: var(--space-2);
 }
 
 .guardian-action-btn {
@@ -374,12 +372,6 @@
 
   .guardian-edit-form .form-grid .full-width {
     grid-column: 1;
-  }
-
-  .guardian-actions {
-    position: static;
-    margin-top: var(--space-3);
-    justify-content: flex-start;
   }
 
   .phone-input-row {

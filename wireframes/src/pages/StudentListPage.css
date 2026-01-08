@@ -18,17 +18,34 @@
   max-width: 320px;
 }
 
-/* Student name link in table */
+/* Student name link in table - with hover underline animation */
 .student-name {
   font-weight: 500;
   color: var(--fg-default);
   text-decoration: none;
-  display: block;
+  display: inline-block;
   font-size: 13px;
+  position: relative;
+}
+
+.student-name::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--primary-500);
+  border-radius: 1px;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .student-name:hover {
   color: var(--primary-600);
+}
+
+.student-name:hover::after {
+  width: 100%;
 }
 
 /* Data values */
@@ -36,6 +53,34 @@
   font-variant-numeric: tabular-nums;
   font-family: var(--font-mono);
   font-size: 12px;
+}
+
+/* Credits display with visual treatment */
+.credits-display {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.credits-value {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-default);
+  transition: transform 0.2s ease;
+}
+
+.credits-zero {
+  color: var(--fg-faint);
+}
+
+.credits-low {
+  color: var(--warning-600);
+}
+
+.credits-good {
+  color: var(--success-600);
 }
 
 /* Notes preview */
@@ -48,7 +93,239 @@
   font-size: 12px;
 }
 
-/* Mobile cards */
+/* ============================================
+   LOADING STATE - Skeleton Animation
+   ============================================ */
+
+.skeleton-container {
+  padding: var(--space-2);
+}
+
+.skeleton-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  animation: skeleton-fade 1.5s ease-in-out infinite;
+}
+
+.skeleton-row:nth-child(1) { animation-delay: 0s; }
+.skeleton-row:nth-child(2) { animation-delay: 0.1s; }
+.skeleton-row:nth-child(3) { animation-delay: 0.2s; }
+.skeleton-row:nth-child(4) { animation-delay: 0.3s; }
+.skeleton-row:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes skeleton-fade {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.skeleton-cell {
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-xs);
+  flex-shrink: 0;
+}
+
+.skeleton-name {
+  width: 140px;
+  height: 14px;
+}
+
+.skeleton-badge {
+  width: 56px;
+  height: 22px;
+  border-radius: var(--radius-full);
+}
+
+.skeleton-text {
+  width: 80px;
+  height: 14px;
+}
+
+.skeleton-text-short {
+  width: 48px;
+  height: 14px;
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-6);
+  text-align: center;
+  animation: empty-fade-in 0.4s ease-out;
+}
+
+@keyframes empty-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.empty-illustration {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  animation: empty-bounce 2s ease-in-out infinite;
+}
+
+@keyframes empty-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.empty-illustration i {
+  font-size: 32px;
+  color: var(--primary-500);
+}
+
+.empty-state h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg-default);
+  margin: 0 0 var(--space-2);
+}
+
+.empty-state p {
+  font-size: 13px;
+  color: var(--fg-muted);
+  margin: 0 0 var(--space-5);
+  max-width: 280px;
+}
+
+/* ============================================
+   ROW ENTRANCE ANIMATION
+   ============================================ */
+
+.table tbody tr {
+  animation: row-enter 0.3s ease-out backwards;
+}
+
+.table tbody tr:nth-child(1) { animation-delay: 0.02s; }
+.table tbody tr:nth-child(2) { animation-delay: 0.04s; }
+.table tbody tr:nth-child(3) { animation-delay: 0.06s; }
+.table tbody tr:nth-child(4) { animation-delay: 0.08s; }
+.table tbody tr:nth-child(5) { animation-delay: 0.10s; }
+.table tbody tr:nth-child(6) { animation-delay: 0.12s; }
+.table tbody tr:nth-child(7) { animation-delay: 0.14s; }
+.table tbody tr:nth-child(8) { animation-delay: 0.16s; }
+.table tbody tr:nth-child(9) { animation-delay: 0.18s; }
+.table tbody tr:nth-child(10) { animation-delay: 0.20s; }
+
+@keyframes row-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   ENHANCED ROW SELECTION
+   ============================================ */
+
+.table tr {
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.table tr:hover {
+  transform: translateX(2px);
+}
+
+.table tr.selected {
+  position: relative;
+}
+
+.table tr.selected td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--primary-500);
+  border-radius: 0 2px 2px 0;
+  animation: selection-indicator 0.2s ease-out;
+}
+
+@keyframes selection-indicator {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   NEXT LESSON INDICATORS
+   ============================================ */
+
+.lesson-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 12px;
+}
+
+.lesson-today {
+  color: var(--primary-600);
+  font-weight: 500;
+}
+
+.lesson-tomorrow {
+  color: var(--fg-secondary);
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary-500);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* ============================================
+   MOBILE CARDS - Enhanced
+   ============================================ */
+
 .mobile-cards {
   display: none;
 }
@@ -56,10 +333,44 @@
 .student-card {
   padding: var(--space-4);
   border-bottom: 1px solid var(--border-default);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  animation: card-enter 0.3s ease-out backwards;
+}
+
+.student-card:nth-child(1) { animation-delay: 0.02s; }
+.student-card:nth-child(2) { animation-delay: 0.04s; }
+.student-card:nth-child(3) { animation-delay: 0.06s; }
+.student-card:nth-child(4) { animation-delay: 0.08s; }
+.student-card:nth-child(5) { animation-delay: 0.10s; }
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .student-card:last-child {
   border-bottom: none;
+}
+
+.student-card:active {
+  background: var(--bg-subtle);
+  transform: scale(0.99);
+}
+
+.student-card.selected {
+  background: var(--primary-50);
+  border-left: 3px solid var(--primary-500);
+  padding-left: calc(var(--space-4) - 3px);
+}
+
+[data-theme="dark"] .student-card.selected {
+  background: rgba(59, 165, 197, 0.08);
 }
 
 .card-header {
@@ -100,7 +411,99 @@
   min-width: 80px;
 }
 
-/* Responsive */
+/* Card lesson indicator */
+.card-lesson-today {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--primary-600);
+  font-weight: 500;
+}
+
+.card-lesson-today .pulse-dot {
+  width: 5px;
+  height: 5px;
+}
+
+/* ============================================
+   BULK ACTIONS ENHANCEMENT
+   ============================================ */
+
+.bulk-actions {
+  animation: bulk-slide-in 0.2s ease-out;
+}
+
+@keyframes bulk-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   FILTER ACTIVE INDICATOR
+   ============================================ */
+
+.filter-tabs {
+  position: relative;
+}
+
+.filter-tab {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.filter-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 2px;
+  background: var(--primary-500);
+  border-radius: 1px;
+  animation: tab-indicator 0.2s ease-out;
+}
+
+@keyframes tab-indicator {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 16px;
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   ACTIVE FILTERS ANIMATION
+   ============================================ */
+
+.filter-tag {
+  animation: filter-tag-in 0.2s ease-out;
+}
+
+@keyframes filter-tag-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
 @media (max-width: 1024px) {
   .search-input-flex {
     max-width: none;
@@ -124,5 +527,44 @@
 
   .dropdown {
     display: none;
+  }
+
+  .empty-state {
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .empty-illustration {
+    width: 64px;
+    height: 64px;
+  }
+
+  .empty-illustration i {
+    font-size: 24px;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .table tbody tr,
+  .student-card,
+  .empty-state,
+  .empty-illustration,
+  .bulk-actions,
+  .filter-tag {
+    animation: none;
+  }
+
+  .student-name::after,
+  .table tr,
+  .filter-tab,
+  .student-card {
+    transition: none;
+  }
+
+  .pulse-dot {
+    animation: none;
   }
 }

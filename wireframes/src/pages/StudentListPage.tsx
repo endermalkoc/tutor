@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../components/layout';
 import {
@@ -194,6 +194,108 @@ const defaultVisibleColumns: Record<ColumnKey, boolean> = {
   contact: false,
 };
 
+// Helper: Format next lesson with visual indicator
+function NextLessonDisplay({ nextLesson }: { nextLesson: string }) {
+  if (nextLesson === '—') {
+    return <span className="text-muted">—</span>;
+  }
+
+  const isToday = nextLesson.toLowerCase().includes('today');
+  const isTomorrow = nextLesson.toLowerCase().includes('tomorrow');
+
+  if (isToday) {
+    return (
+      <span className="lesson-indicator lesson-today">
+        <span className="pulse-dot" />
+        {nextLesson}
+      </span>
+    );
+  }
+
+  if (isTomorrow) {
+    return (
+      <span className="lesson-indicator lesson-tomorrow">
+        {nextLesson}
+      </span>
+    );
+  }
+
+  return <span>{nextLesson}</span>;
+}
+
+// Helper: Format credits with visual treatment
+function CreditsDisplay({ credits }: { credits: number }) {
+  if (credits === 0) {
+    return <span className="credits-value credits-zero">0</span>;
+  }
+
+  const className = credits <= 1 ? 'credits-low' : 'credits-good';
+
+  return (
+    <span className={`credits-value ${className}`}>
+      {credits}
+    </span>
+  );
+}
+
+// Loading skeleton component
+function TableSkeleton() {
+  return (
+    <div className="skeleton-container">
+      {[...Array(5)].map((_, i) => (
+        <div key={i} className="skeleton-row">
+          <div className="skeleton-cell skeleton-checkbox" />
+          <div className="skeleton-cell skeleton-name" />
+          <div className="skeleton-cell skeleton-badge" />
+          <div className="skeleton-cell skeleton-text-short" />
+          <div className="skeleton-cell skeleton-text" />
+          <div className="skeleton-cell skeleton-text" />
+          <div className="skeleton-cell skeleton-text-short" />
+          <div className="skeleton-cell skeleton-text" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Empty state component
+function EmptyState({
+  hasFilters,
+  onClearFilters
+}: {
+  hasFilters: boolean;
+  onClearFilters: () => void;
+}) {
+  if (hasFilters) {
+    return (
+      <div className="empty-state">
+        <div className="empty-illustration">
+          <i className="ph ph-magnifying-glass" />
+        </div>
+        <h3>No students found</h3>
+        <p>Try adjusting your search or filters to find what you're looking for</p>
+        <Button variant="secondary" size="md" onClick={onClearFilters}>
+          Clear Filters
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="empty-state">
+      <div className="empty-illustration">
+        <i className="ph ph-music-notes-simple" />
+      </div>
+      <h3>No students yet</h3>
+      <p>Add your first student to get started with lesson scheduling and progress tracking</p>
+      <Link to="/students/add" className="btn btn-primary btn-md">
+        <i className="ph ph-plus" />
+        Add Student
+      </Link>
+    </div>
+  );
+}
+
 export function StudentListPage() {
   // State
   const [searchTerm, setSearchTerm] = useState('');
@@ -207,6 +309,13 @@ export function StudentListPage() {
   const [tempSelectedTags, setTempSelectedTags] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate loading
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Handlers
   const handleSort = (column: SortColumn) => {
@@ -220,7 +329,7 @@ export function StudentListPage() {
 
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedStudents(students.map((s) => s.id));
+      setSelectedStudents(filteredStudents.map((s) => s.id));
     } else {
       setSelectedStudents([]);
     }
@@ -258,10 +367,38 @@ export function StudentListPage() {
     setActiveTags([]);
   };
 
+  // Filter students
+  const filteredStudents = students.filter((student) => {
+    // Search filter
+    if (searchTerm) {
+      const search = searchTerm.toLowerCase();
+      const matchesSearch =
+        student.name.toLowerCase().includes(search) ||
+        student.family.toLowerCase().includes(search) ||
+        student.email.toLowerCase().includes(search);
+      if (!matchesSearch) return false;
+    }
+
+    // Status filter
+    if (activeStatus !== 'all' && student.status !== activeStatus) {
+      return false;
+    }
+
+    // Tag filter (any match)
+    if (activeTags.length > 0) {
+      const studentTagLabels = student.tags.map(t => t.label);
+      const hasMatchingTag = activeTags.some(tag => studentTagLabels.includes(tag));
+      if (!hasMatchingTag) return false;
+    }
+
+    return true;
+  });
+
   // Computed
-  const hasFilters = searchTerm || activeStatus !== 'all' || activeTags.length > 0;
-  const isAllSelected = selectedStudents.length === students.length;
-  const isIndeterminate = selectedStudents.length > 0 && selectedStudents.length < students.length;
+  const hasFilters = Boolean(searchTerm) || activeStatus !== 'all' || activeTags.length > 0;
+  const isAllSelected = filteredStudents.length > 0 && selectedStudents.length === filteredStudents.length;
+  const isIndeterminate = selectedStudents.length > 0 && selectedStudents.length < filteredStudents.length;
+  const isEmpty = filteredStudents.length === 0;
 
   // Bulk actions (stub)
   const bulkAssignTag = () => alert('Assign tag to selected students');
@@ -385,181 +522,207 @@ export function StudentListPage() {
           )}
         </Toolbar>
 
+        {/* Loading State */}
+        {isLoading && <TableSkeleton />}
+
+        {/* Empty State */}
+        {!isLoading && isEmpty && (
+          <EmptyState hasFilters={hasFilters} onClearFilters={clearAllFilters} />
+        )}
+
         {/* Desktop Table */}
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableHeaderCell checkbox>
-                <Checkbox
-                  checked={isAllSelected}
-                  ref={(el) => {
-                    if (el) el.indeterminate = isIndeterminate;
-                  }}
-                  onChange={(e) => handleSelectAll(e.target.checked)}
-                  aria-label="Select all"
-                />
-              </TableHeaderCell>
-              <TableHeaderCell
-                sortable
-                sortDirection={sortColumn === 'name' ? sortDirection : null}
-                onSort={() => handleSort('name')}
+        {!isLoading && !isEmpty && (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell checkbox>
+                  <Checkbox
+                    checked={isAllSelected}
+                    ref={(el) => {
+                      if (el) el.indeterminate = isIndeterminate;
+                    }}
+                    onChange={(e) => handleSelectAll(e.target.checked)}
+                    aria-label="Select all"
+                  />
+                </TableHeaderCell>
+                <TableHeaderCell
+                  sortable
+                  sortDirection={sortColumn === 'name' ? sortDirection : null}
+                  onSort={() => handleSort('name')}
+                >
+                  Name
+                </TableHeaderCell>
+                {visibleColumns.status && (
+                  <TableHeaderCell
+                    sortable
+                    sortDirection={sortColumn === 'status' ? sortDirection : null}
+                    onSort={() => handleSort('status')}
+                    className="col-status"
+                  >
+                    Status
+                  </TableHeaderCell>
+                )}
+                {visibleColumns.age && (
+                  <TableHeaderCell
+                    sortable
+                    sortDirection={sortColumn === 'age' ? sortDirection : null}
+                    onSort={() => handleSort('age')}
+                    className="col-age"
+                  >
+                    Age
+                  </TableHeaderCell>
+                )}
+                {visibleColumns.family && <TableHeaderCell className="col-family">Family</TableHeaderCell>}
+                {visibleColumns.tags && <TableHeaderCell className="col-tags">Tags</TableHeaderCell>}
+                {visibleColumns.credits && (
+                  <TableHeaderCell
+                    sortable
+                    sortDirection={sortColumn === 'credits' ? sortDirection : null}
+                    onSort={() => handleSort('credits')}
+                    className="col-credits"
+                  >
+                    Credits
+                  </TableHeaderCell>
+                )}
+                {visibleColumns['next-lesson'] && (
+                  <TableHeaderCell
+                    sortable
+                    sortDirection={sortColumn === 'next-lesson' ? sortDirection : null}
+                    onSort={() => handleSort('next-lesson')}
+                    className="col-next-lesson"
+                  >
+                    Next Lesson
+                  </TableHeaderCell>
+                )}
+                {visibleColumns.notes && <TableHeaderCell className="col-notes">Notes</TableHeaderCell>}
+                {visibleColumns.contact && <TableHeaderCell className="col-contact">Contact</TableHeaderCell>}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredStudents.map((student) => (
+                <TableRow key={student.id} selected={selectedStudents.includes(student.id)}>
+                  <TableCell>
+                    <Checkbox
+                      checked={selectedStudents.includes(student.id)}
+                      onChange={(e) => handleSelectStudent(student.id, e.target.checked)}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Link to={`/students/${student.id}`} className="student-name">
+                      {student.name}
+                    </Link>
+                  </TableCell>
+                  {visibleColumns.status && (
+                    <TableCell className="col-status">
+                      <Badge variant={statusBadgeVariant[student.status]}>
+                        {statusLabels[student.status]}
+                      </Badge>
+                    </TableCell>
+                  )}
+                  {visibleColumns.age && (
+                    <TableCell className="col-age">
+                      <span className="data-value">{student.age}</span>
+                    </TableCell>
+                  )}
+                  {visibleColumns.family && <TableCell className="col-family">{student.family}</TableCell>}
+                  {visibleColumns.tags && (
+                    <TableCell className="col-tags">
+                      <TagList>
+                        {student.tags.map((tag) => (
+                          <Tag key={tag.label} color={tag.color}>
+                            {tag.label}
+                          </Tag>
+                        ))}
+                      </TagList>
+                    </TableCell>
+                  )}
+                  {visibleColumns.credits && (
+                    <TableCell className="col-credits">
+                      <CreditsDisplay credits={student.credits} />
+                    </TableCell>
+                  )}
+                  {visibleColumns['next-lesson'] && (
+                    <TableCell className="col-next-lesson">
+                      <NextLessonDisplay nextLesson={student.nextLesson} />
+                    </TableCell>
+                  )}
+                  {visibleColumns.notes && (
+                    <TableCell className="col-notes">
+                      <div className="notes-preview">{student.notes}</div>
+                    </TableCell>
+                  )}
+                  {visibleColumns.contact && (
+                    <TableCell className="col-contact">
+                      <a href={`mailto:${student.email}`}>{student.email}</a>
+                    </TableCell>
+                  )}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
+
+        {/* Mobile Cards */}
+        {!isLoading && !isEmpty && (
+          <div className="mobile-cards">
+            {filteredStudents.map((student) => (
+              <div
+                className={`student-card ${selectedStudents.includes(student.id) ? 'selected' : ''}`}
+                key={student.id}
               >
-                Name
-              </TableHeaderCell>
-              {visibleColumns.status && (
-                <TableHeaderCell
-                  sortable
-                  sortDirection={sortColumn === 'status' ? sortDirection : null}
-                  onSort={() => handleSort('status')}
-                  className="col-status"
-                >
-                  Status
-                </TableHeaderCell>
-              )}
-              {visibleColumns.age && (
-                <TableHeaderCell
-                  sortable
-                  sortDirection={sortColumn === 'age' ? sortDirection : null}
-                  onSort={() => handleSort('age')}
-                  className="col-age"
-                >
-                  Age
-                </TableHeaderCell>
-              )}
-              {visibleColumns.family && <TableHeaderCell className="col-family">Family</TableHeaderCell>}
-              {visibleColumns.tags && <TableHeaderCell className="col-tags">Tags</TableHeaderCell>}
-              {visibleColumns.credits && (
-                <TableHeaderCell
-                  sortable
-                  sortDirection={sortColumn === 'credits' ? sortDirection : null}
-                  onSort={() => handleSort('credits')}
-                  className="col-credits"
-                >
-                  Credits
-                </TableHeaderCell>
-              )}
-              {visibleColumns['next-lesson'] && (
-                <TableHeaderCell
-                  sortable
-                  sortDirection={sortColumn === 'next-lesson' ? sortDirection : null}
-                  onSort={() => handleSort('next-lesson')}
-                  className="col-next-lesson"
-                >
-                  Next Lesson
-                </TableHeaderCell>
-              )}
-              {visibleColumns.notes && <TableHeaderCell className="col-notes">Notes</TableHeaderCell>}
-              {visibleColumns.contact && <TableHeaderCell className="col-contact">Contact</TableHeaderCell>}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {students.map((student) => (
-              <TableRow key={student.id} selected={selectedStudents.includes(student.id)}>
-                <TableCell>
+                <div className="card-header">
+                  <div>
+                    <Link to={`/students/${student.id}`} className="card-name">
+                      {student.name}
+                    </Link>
+                    <Badge variant={statusBadgeVariant[student.status]}>
+                      {statusLabels[student.status]}
+                    </Badge>
+                  </div>
                   <Checkbox
                     checked={selectedStudents.includes(student.id)}
                     onChange={(e) => handleSelectStudent(student.id, e.target.checked)}
                   />
-                </TableCell>
-                <TableCell>
-                  <Link to={`/students/${student.id}`} className="student-name">
-                    {student.name}
-                  </Link>
-                </TableCell>
-                {visibleColumns.status && (
-                  <TableCell className="col-status">
-                    <Badge variant={statusBadgeVariant[student.status]}>
-                      {statusLabels[student.status]}
-                    </Badge>
-                  </TableCell>
-                )}
-                {visibleColumns.age && (
-                  <TableCell className="col-age">
-                    <span className="data-value">{student.age}</span>
-                  </TableCell>
-                )}
-                {visibleColumns.family && <TableCell className="col-family">{student.family}</TableCell>}
-                {visibleColumns.tags && (
-                  <TableCell className="col-tags">
-                    <TagList>
-                      {student.tags.map((tag) => (
-                        <Tag key={tag.label} color={tag.color}>
-                          {tag.label}
-                        </Tag>
-                      ))}
-                    </TagList>
-                  </TableCell>
-                )}
-                {visibleColumns.credits && (
-                  <TableCell className="col-credits">
-                    <span className="data-value">{student.credits}</span>
-                  </TableCell>
-                )}
-                {visibleColumns['next-lesson'] && (
-                  <TableCell className="col-next-lesson">{student.nextLesson}</TableCell>
-                )}
-                {visibleColumns.notes && (
-                  <TableCell className="col-notes">
-                    <div className="notes-preview">{student.notes}</div>
-                  </TableCell>
-                )}
-                {visibleColumns.contact && (
-                  <TableCell className="col-contact">
-                    <a href={`mailto:${student.email}`}>{student.email}</a>
-                  </TableCell>
-                )}
-              </TableRow>
+                </div>
+                <div className="card-details">
+                  <div className="card-row">
+                    <span className="card-label">Age</span>
+                    <span>
+                      {student.age} &middot; {student.tags.map((t) => t.label).join(' · ')}
+                    </span>
+                  </div>
+                  <div className="card-row">
+                    <span className="card-label">Next</span>
+                    {student.nextLesson.toLowerCase().includes('today') ? (
+                      <span className="card-lesson-today">
+                        <span className="pulse-dot" />
+                        {student.nextLesson}
+                      </span>
+                    ) : (
+                      <span>{student.nextLesson}</span>
+                    )}
+                  </div>
+                  <div className="card-row">
+                    <span className="card-label">Credits</span>
+                    <CreditsDisplay credits={student.credits} />
+                  </div>
+                </div>
+              </div>
             ))}
-          </TableBody>
-        </Table>
-
-        {/* Mobile Cards */}
-        <div className="mobile-cards">
-          {students.map((student) => (
-            <div className="student-card" key={student.id}>
-              <div className="card-header">
-                <div>
-                  <Link to={`/students/${student.id}`} className="card-name">
-                    {student.name}
-                  </Link>
-                  <Badge variant={statusBadgeVariant[student.status]}>
-                    {statusLabels[student.status]}
-                  </Badge>
-                </div>
-                <Checkbox
-                  checked={selectedStudents.includes(student.id)}
-                  onChange={(e) => handleSelectStudent(student.id, e.target.checked)}
-                />
-              </div>
-              <div className="card-details">
-                <div className="card-row">
-                  <span className="card-label">Age</span>
-                  <span>
-                    {student.age} &middot; {student.tags.map((t) => t.label).join(' · ')}
-                  </span>
-                </div>
-                <div className="card-row">
-                  <span className="card-label">Next</span>
-                  <span>{student.nextLesson}</span>
-                </div>
-                <div className="card-row">
-                  <span className="card-label">Credits</span>
-                  <span>{student.credits}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+          </div>
+        )}
 
         {/* Pagination */}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={10}
-          totalItems={247}
-          itemsPerPage={pageSize}
-          onPageChange={setCurrentPage}
-          onPageSizeChange={setPageSize}
-        />
+        {!isLoading && !isEmpty && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={10}
+            totalItems={247}
+            itemsPerPage={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+          />
+        )}
       </ListContainer>
 
       {/* Tag Filter Modal */}

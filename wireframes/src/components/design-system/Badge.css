@@ -74,6 +74,21 @@
   color: var(--cyan-500);
 }
 
+/* Badge with icon */
+.badge i {
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* Badge transition for interactions */
+.badge {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.badge:hover {
+  transform: translateY(-1px);
+}
+
 /* Status dot indicator */
 .status-dot {
   width: 8px;
@@ -86,3 +101,34 @@
 .status-dot.warning { background: var(--warning-500); }
 .status-dot.error { background: var(--error-500); }
 .status-dot.neutral { background: var(--fg-faint); }
+
+/* Animated status dot */
+.status-dot.pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .badge {
+    transition: none;
+  }
+
+  .badge:hover {
+    transform: none;
+  }
+
+  .status-dot.pulse {
+    animation: none;
+  }
+}

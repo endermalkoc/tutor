@@ -32,16 +32,70 @@
 
 .table tr:last-child td { border-bottom: none; }
 
+.table tbody tr {
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.table tbody tr:hover {
+  transform: translateX(2px);
+}
+
 .table tr:hover td {
   background: var(--bg-subtle);
+}
+
+.table tr.selected {
+  position: relative;
 }
 
 .table tr.selected td {
   background: var(--primary-50);
 }
 
+.table tr.selected td:first-child {
+  position: relative;
+}
+
+.table tr.selected td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--primary-500);
+  border-radius: 0 2px 2px 0;
+  animation: selection-indicator 0.2s ease-out;
+}
+
+@keyframes selection-indicator {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
 [data-theme="dark"] .table tr.selected td {
   background: rgba(59, 165, 197, 0.1);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .table tbody tr {
+    transition: none;
+  }
+
+  .table tbody tr:hover {
+    transform: none;
+  }
+
+  .table tr.selected td:first-child::before {
+    animation: none;
+  }
 }
 
 .table .mono {

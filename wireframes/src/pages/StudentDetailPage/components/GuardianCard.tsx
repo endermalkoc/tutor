@@ -463,6 +463,18 @@ export function GuardianCard({
           </Button>
         </div>
 
+        <div className="guardian-actions">
+          <button className="guardian-action-btn" title="Call" onClick={() => primaryPhone && onCall?.(primaryPhone.number)}>
+            <i className="ph ph-phone" />
+          </button>
+          <button className="guardian-action-btn" title="Email" onClick={() => guardian.email && onEmail?.(guardian.email)}>
+            <i className="ph ph-envelope" />
+          </button>
+          <button className="guardian-action-btn" title="Message" onClick={() => onMessage?.(guardian.id)}>
+            <i className="ph ph-chat-circle" />
+          </button>
+        </div>
+
         {guardian.email && (
           <div className="guardian-contact">
             <i className="ph ph-envelope" />
@@ -542,18 +554,6 @@ export function GuardianCard({
             )}
           </div>
         )}
-
-        <div className="guardian-actions">
-          <button className="guardian-action-btn" title="Call" onClick={() => primaryPhone && onCall?.(primaryPhone.number)}>
-            <i className="ph ph-phone" />
-          </button>
-          <button className="guardian-action-btn" title="Email" onClick={() => guardian.email && onEmail?.(guardian.email)}>
-            <i className="ph ph-envelope" />
-          </button>
-          <button className="guardian-action-btn" title="Message" onClick={() => onMessage?.(guardian.id)}>
-            <i className="ph ph-chat-circle" />
-          </button>
-        </div>
       </div>
     </div>
   );
