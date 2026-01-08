@@ -1,0 +1,331 @@
+/* ============================================
+   PAGE-SPECIFIC STYLES: Student List
+   Only styles unique to this page that are NOT
+   in the design system should be here.
+   ============================================ */
+
+/* Page subtitle with student count */
+.student-list-page .page-subtitle {
+  font-size: 13px;
+  color: var(--fg-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* List container */
+.list-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+
+/* Toolbar */
+.toolbar {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* Search */
+.search-container {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 320px;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--fg-muted);
+  font-size: 16px;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  padding-left: 36px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  background: var(--bg-surface);
+  color: var(--fg-default);
+  transition: all var(--transition-fast);
+  font-family: var(--font-sans);
+}
+
+.search-input::placeholder {
+  color: var(--fg-muted);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(59, 165, 197, 0.1);
+}
+
+/* Column selector dropdown */
+.column-selector {
+  position: relative;
+}
+
+.column-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-3);
+  min-width: 220px;
+  max-height: 360px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.column-dropdown-header {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-2) var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border-default);
+  margin-bottom: var(--space-2);
+}
+
+.column-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+
+.column-option:hover {
+  background: var(--bg-muted);
+}
+
+.column-option input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: var(--primary-600);
+}
+
+.column-option label {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--fg-secondary);
+  flex: 1;
+}
+
+.column-option.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.column-option.disabled input,
+.column-option.disabled label {
+  cursor: not-allowed;
+}
+
+/* Active filters */
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--fg-secondary);
+}
+
+.filter-tag .remove {
+  cursor: pointer;
+  color: var(--fg-muted);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.filter-tag .remove:hover {
+  color: var(--fg-default);
+}
+
+.clear-filters-btn {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--fg-muted);
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+
+.clear-filters-btn:hover {
+  color: var(--fg-secondary);
+  text-decoration: underline;
+}
+
+/* Bulk actions */
+.bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-muted);
+  border-radius: var(--radius-md);
+}
+
+.bulk-actions-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-secondary);
+}
+
+/* Student name link in table */
+.student-name {
+  font-weight: 500;
+  color: var(--fg-default);
+  text-decoration: none;
+  display: block;
+  font-size: 13px;
+}
+
+.student-name:hover {
+  color: var(--primary-600);
+}
+
+/* Data values */
+.data-value {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+/* Notes preview */
+.notes-preview {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+/* Mobile cards */
+.mobile-cards {
+  display: none;
+}
+
+.student-card {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.student-card:last-child {
+  border-bottom: none;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-3);
+}
+
+.card-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--fg-default);
+  margin-bottom: var(--space-1);
+  text-decoration: none;
+  display: block;
+}
+
+.card-name:hover {
+  color: var(--primary-600);
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.card-row {
+  display: flex;
+  gap: var(--space-2);
+  font-size: 13px;
+  color: var(--fg-secondary);
+}
+
+.card-label {
+  color: var(--fg-muted);
+  min-width: 80px;
+}
+
+/* Modal checkbox styling for tag filter */
+.student-list-page .checkbox-wrapper {
+  margin-bottom: var(--space-2);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .toolbar-row {
+    flex-wrap: wrap;
+  }
+
+  .search-container {
+    max-width: none;
+    flex-basis: 100%;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    display: none;
+  }
+
+  .mobile-cards {
+    display: block;
+  }
+
+  .filter-tabs {
+    flex-wrap: wrap;
+  }
+
+  .toolbar-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-container {
+    max-width: none;
+  }
+
+  .column-selector {
+    display: none;
+  }
+}
