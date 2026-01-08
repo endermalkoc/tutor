@@ -110,3 +110,17 @@ export type {
 // ListContainer
 export { ListContainer } from './ListContainer';
 export type { ListContainerProps } from './ListContainer';
+
+// FormSection
+export { FormSection, ExpandToggle, ExpandableContent, FormRow, Fieldset } from './FormSection';
+export type {
+  FormSectionProps,
+  ExpandToggleProps,
+  ExpandableContentProps,
+  FormRowProps,
+  FieldsetProps,
+} from './FormSection';
+
+// Combobox
+export { Combobox, InlineForm } from './Combobox';
+export type { ComboboxProps, ComboboxOption, InlineFormProps } from './Combobox';
