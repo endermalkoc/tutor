@@ -123,23 +123,32 @@ Each contact has its own Edit button. Clicking it expands the edit form inline w
 
 | Action | Description | Availability |
 |--------|-------------|--------------|
-| Add Contact | Expands inline Add Contact panel | Always available |
+| Add Contact | Opens slide-in drawer from right side | Always available |
 | Delete Contact | Opens confirmation dialog before removing contact | Only for non-primary contacts |
 | Set as Primary | Promotes contact to primary (current primary becomes regular contact) | Only for non-primary contacts |
 | Mark as Emergency | Toggles emergency contact status | All contacts |
 
 ---
 
-## Add Contact Panel
+## Add Contact Drawer
 
-Inline expandable panel for adding a new contact. Displayed below existing contacts with a dashed border to indicate it's an action area.
+Slide-in drawer panel from the right side for adding a new contact. Uses drawer pattern to reduce vertical disruption in the main content area.
 
-### Collapsed State
+### Trigger
 
-- Shows "➕ Add Contact" with expand indicator
-- Clicking expands to reveal the form
+- "Add Contact" button with dashed border style below existing contacts
+- Clicking opens the drawer overlay
 
-### Expanded State Fields
+### Drawer Behavior
+
+- Slides in from the right side of the screen
+- Semi-transparent overlay covers the main content
+- Clicking overlay or pressing Escape closes the drawer
+- Body scroll is disabled while drawer is open
+- Drawer has fixed header (title + close button), scrollable body, and fixed footer (action buttons)
+- Width: 480px (100% on mobile)
+
+### Drawer Fields
 
 **Basic Information** (First Name and Last Name on same row)
 
@@ -186,17 +195,19 @@ Inline expandable panel for adding a new contact. Displayed below existing conta
 |-------|------------|------------|
 | Private Note | Textarea | Optional - confidential notes about this contact |
 
-### Actions
+### Footer Actions
 
-- **Cancel**: Collapses panel, clears form
-- **Add Contact**: Validates and saves new contact, collapses panel
+- **Cancel**: Closes drawer, clears form
+- **Add Contact**: Validates and saves new contact, closes drawer
 
-### Benefits of Inline Panel
+### Benefits of Drawer Pattern
 
-- User can see existing contacts while adding new one
-- No context switch or modal overlay
-- Easier to cancel (just collapse)
-- Better for adding multiple contacts in succession
+- Reduces vertical disruption in the main content area
+- Form has dedicated space without pushing content down
+- Full form is visible without scrolling the main page
+- Easier to focus on the task of adding a contact
+- Overlay provides clear visual separation
+- Escape key and overlay click provide easy dismissal
 
 ---
 

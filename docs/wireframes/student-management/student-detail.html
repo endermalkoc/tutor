@@ -1070,45 +1070,129 @@
         max-width: 560px;
       }
 
-      /* Add Contact Inline Panel */
-      .add-contact-card {
-        background: var(--bg-subtle);
-        border: 1px dashed var(--border-strong);
-        border-radius: var(--radius-md);
-        margin-top: var(--space-4);
-      }
-
-      .add-contact-trigger {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: var(--space-3) var(--space-4);
-        cursor: pointer;
-        transition: background var(--transition-fast);
-      }
-
-      .add-contact-trigger:hover {
-        background: var(--bg-muted);
-      }
-
-      .add-contact-trigger-label {
+      /* Add Contact Button */
+      .add-contact-btn {
         display: flex;
         align-items: center;
         gap: var(--space-2);
+        margin-top: var(--space-4);
+        padding: var(--space-3) var(--space-4);
+        background: var(--bg-subtle);
+        border: 1px dashed var(--border-strong);
+        border-radius: var(--radius-md);
         font-size: 14px;
         font-weight: 500;
         color: var(--fg-secondary);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        width: 100%;
+        justify-content: center;
       }
 
-      .add-contact-trigger-label i {
+      .add-contact-btn:hover {
+        background: var(--primary-50);
+        border-color: var(--primary-200);
+        color: var(--primary-600);
+      }
+
+      .add-contact-btn i {
         font-size: 16px;
         color: var(--primary-600);
       }
 
-      .add-contact-form {
-        padding: var(--space-4);
+      /* Drawer */
+      .drawer-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--transition-normal);
+      }
+
+      .drawer-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 480px;
+        max-width: 100%;
+        background: var(--bg-surface);
+        box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform var(--transition-normal);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .drawer-overlay.active .drawer {
+        transform: translateX(0);
+      }
+
+      .drawer-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-5) var(--space-6);
+        border-bottom: 1px solid var(--border-default);
+        flex-shrink: 0;
+      }
+
+      .drawer-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--fg-default);
+      }
+
+      .drawer-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-md);
+        background: transparent;
+        border: none;
+        color: var(--fg-muted);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+      }
+
+      .drawer-close:hover {
+        background: var(--bg-subtle);
+        color: var(--fg-default);
+      }
+
+      .drawer-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: var(--space-6);
+      }
+
+      .drawer-footer {
+        display: flex;
+        gap: var(--space-3);
+        justify-content: flex-end;
+        padding: var(--space-4) var(--space-6);
         border-top: 1px solid var(--border-default);
-        display: none;
+        background: var(--bg-surface);
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 520px) {
+        .drawer {
+          width: 100%;
+        }
       }
 
       .modal-title {
@@ -2481,162 +2565,11 @@
                 </div>
               </div>
 
-              <!-- Add Contact Inline Panel -->
-                <div class="add-contact-card">
-                  <div class="add-contact-trigger" id="addContactBtn" onclick="toggleAddContactPanel()">
-                    <span class="add-contact-trigger-label">
-                      <i class="ph ph-plus"></i>
-                      Add Contact
-                    </span>
-                    <i class="ph ph-caret-down" style="color: var(--fg-muted);"></i>
-                  </div>
-                  <div class="add-contact-form" id="addContactPanel">
-                    <div class="form-grid">
-                      <div class="form-group">
-                        <label class="form-label">First Name <span class="required">*</span></label>
-                        <input type="text" class="form-input" placeholder="Enter first name" />
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Last Name <span class="required">*</span></label>
-                        <input type="text" class="form-input" placeholder="Enter last name" />
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Title</label>
-                        <select class="form-select">
-                          <option value="">Select...</option>
-                          <option value="mr">Mr.</option>
-                          <option value="mrs">Mrs.</option>
-                          <option value="ms">Ms.</option>
-                          <option value="dr">Dr.</option>
-                          <option value="prof">Prof.</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Relationship</label>
-                        <select class="form-select" onchange="handleRelationshipChange(this)">
-                          <option value="">Select relationship...</option>
-                          <option value="mother">Mother</option>
-                          <option value="father">Father</option>
-                          <option value="stepmother">Stepmother</option>
-                          <option value="stepfather">Stepfather</option>
-                          <option value="grandmother">Grandmother</option>
-                          <option value="grandfather">Grandfather</option>
-                          <option value="aunt">Aunt</option>
-                          <option value="uncle">Uncle</option>
-                          <option value="sibling">Sibling</option>
-                          <option value="foster-parent">Foster Parent</option>
-                          <option value="other">Other</option>
-                        </select>
-                        <input type="text" class="form-input relationship-other-input" placeholder="Specify relationship..." style="display: none; margin-top: var(--space-2);" />
-                      </div>
-                      <div class="form-group full-width">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-input" placeholder="Enter email address" />
-                        <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">At least email or mobile number is required</span>
-                      </div>
-                    </div>
-
-                    <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Phone Numbers</h5>
-                    <div class="form-grid">
-                      <div class="form-group">
-                        <label class="form-label">Mobile Number</label>
-                        <div style="display: flex; gap: var(--space-3); align-items: center;">
-                          <input type="tel" class="form-input" placeholder="Enter mobile number" style="flex: 1;" />
-                          <label class="checkbox-wrapper" style="white-space: nowrap;">
-                            <input type="checkbox" class="checkbox" />
-                            <span>SMS Capable</span>
-                          </label>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Home Number</label>
-                        <input type="tel" class="form-input" placeholder="Enter home number" />
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Work Number</label>
-                        <input type="tel" class="form-input" placeholder="Enter work number" />
-                      </div>
-                    </div>
-
-                    <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Address</h5>
-                    <div class="form-group" style="margin-bottom: var(--space-3);">
-                      <label class="checkbox-wrapper">
-                        <input type="checkbox" class="checkbox" id="addContactSameAddress" checked onchange="toggleAddContactAddress()" />
-                        <span>Same as primary contact</span>
-                      </label>
-                    </div>
-                    <div class="form-grid" id="addContactAddressFields" style="display: none;">
-                      <div class="form-group full-width">
-                        <label class="form-label">Street Address</label>
-                        <input type="text" class="form-input" placeholder="Enter street address" />
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">City</label>
-                        <input type="text" class="form-input" placeholder="Enter city" />
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">State</label>
-                        <select class="form-select">
-                          <option value="">Select state...</option>
-                          <option value="CA">California</option>
-                          <option value="NY">New York</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Zip Code</label>
-                        <input type="text" class="form-input" placeholder="Enter zip" />
-                      </div>
-                    </div>
-
-                    <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Preferences</h5>
-                    <div class="form-grid">
-                      <div class="form-group">
-                        <label class="checkbox-wrapper">
-                          <input type="checkbox" class="checkbox" />
-                          <span>Set as Primary Contact</span>
-                        </label>
-                      </div>
-                      <div class="form-group">
-                        <label class="checkbox-wrapper">
-                          <input type="checkbox" class="checkbox" />
-                          <span>Emergency Contact</span>
-                        </label>
-                      </div>
-                      <div class="form-group">
-                        <label class="checkbox-wrapper">
-                          <input type="checkbox" class="checkbox" />
-                          <span>Should Receive Invoices</span>
-                        </label>
-                      </div>
-                      <div class="form-group">
-                        <label class="checkbox-wrapper">
-                          <input type="checkbox" class="checkbox" />
-                          <span>Send Email Reminders</span>
-                        </label>
-                      </div>
-                      <div class="form-group">
-                        <label class="checkbox-wrapper">
-                          <input type="checkbox" class="checkbox" />
-                          <span>Send SMS Reminders</span>
-                        </label>
-                      </div>
-                    </div>
-
-                    <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-4) 0 var(--space-3);">Private Note</h5>
-                    <div class="form-group">
-                      <textarea class="form-textarea" rows="2" placeholder="Add a private note about this contact (only visible to you)..."></textarea>
-                      <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">
-                        <i class="ph ph-lock" style="margin-right: 4px;"></i>
-                        This note is private and not visible to the contact.
-                      </span>
-                    </div>
-
-                    <div class="form-actions" style="margin-top: var(--space-4);">
-                      <button class="btn btn-secondary" onclick="cancelAddContact()">Cancel</button>
-                      <button class="btn btn-primary" onclick="saveNewContact()">Add Contact</button>
-                    </div>
-                  </div>
-                </div>
+              <!-- Add Contact Button -->
+              <button class="add-contact-btn" onclick="openAddContactDrawer()">
+                <i class="ph ph-plus"></i>
+                Add Contact
+              </button>
 
                 <div class="siblings-section">
                   <div class="siblings-title">Other Students in Family</div>
@@ -3140,46 +3073,44 @@ She responds well to positive reinforcement and enjoys learning about the histor
         }
       }
 
-      // Add Contact Inline Panel
-      function toggleAddContactPanel() {
-        const panel = document.getElementById('addContactPanel');
-        const btn = document.getElementById('addContactBtn');
-        const isExpanded = panel.style.display !== 'none';
-
-        if (isExpanded) {
-          panel.style.display = 'none';
-          btn.querySelector('i').classList.remove('ph-minus');
-          btn.querySelector('i').classList.add('ph-plus');
-        } else {
-          panel.style.display = 'block';
-          btn.querySelector('i').classList.remove('ph-plus');
-          btn.querySelector('i').classList.add('ph-minus');
-          // Focus first input
-          panel.querySelector('input').focus();
-        }
+      // Add Contact Drawer
+      function openAddContactDrawer() {
+        const drawer = document.getElementById('addContactDrawer');
+        drawer.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Focus first input
+        setTimeout(() => {
+          drawer.querySelector('.drawer-body input').focus();
+        }, 200);
       }
 
-      function cancelAddContact() {
-        const panel = document.getElementById('addContactPanel');
-        const btn = document.getElementById('addContactBtn');
-        panel.style.display = 'none';
-        btn.querySelector('i').classList.remove('ph-minus');
-        btn.querySelector('i').classList.add('ph-plus');
+      function closeAddContactDrawer(event) {
+        // If called from overlay click, only close if clicking the overlay itself
+        if (event && event.target !== event.currentTarget) return;
+
+        const drawer = document.getElementById('addContactDrawer');
+        drawer.classList.remove('active');
+        document.body.style.overflow = '';
         // Clear form
-        panel.querySelectorAll('input').forEach(input => {
+        clearAddContactForm();
+      }
+
+      function clearAddContactForm() {
+        const drawer = document.getElementById('addContactDrawer');
+        drawer.querySelectorAll('input').forEach(input => {
           if (input.type === 'checkbox') {
-            input.checked = input.id === 'addContactSameAddress';
+            input.checked = input.id === 'drawerSameAddress';
           } else {
             input.value = '';
           }
         });
-        panel.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-        document.getElementById('addContactAddressFields').style.display = 'none';
+        drawer.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+        document.getElementById('drawerAddressFields').style.display = 'none';
       }
 
-      function toggleAddContactAddress() {
-        const checkbox = document.getElementById('addContactSameAddress');
-        const addressFields = document.getElementById('addContactAddressFields');
+      function toggleDrawerAddress() {
+        const checkbox = document.getElementById('drawerSameAddress');
+        const addressFields = document.getElementById('drawerAddressFields');
         if (checkbox.checked) {
           addressFields.style.display = 'none';
         } else {
@@ -3188,9 +3119,19 @@ She responds well to positive reinforcement and enjoys learning about the histor
       }
 
       function saveNewContact() {
-        cancelAddContact();
+        closeAddContactDrawer();
         alert('Contact added successfully!');
       }
+
+      // Close drawer on Escape key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          const drawer = document.getElementById('addContactDrawer');
+          if (drawer.classList.contains('active')) {
+            closeAddContactDrawer();
+          }
+        }
+      });
     </script>
 
     <!-- Delete Confirmation Modal -->
@@ -3204,6 +3145,163 @@ She responds well to positive reinforcement and enjoys learning about the histor
         <div class="modal-actions">
           <button class="btn btn-secondary" onclick="hideDeleteConfirmation()">Cancel</button>
           <button class="btn btn-danger" onclick="confirmDeleteContact()">Delete Contact</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Contact Drawer -->
+    <div class="drawer-overlay" id="addContactDrawer" onclick="closeAddContactDrawer(event)">
+      <div class="drawer" onclick="event.stopPropagation()">
+        <div class="drawer-header">
+          <h3 class="drawer-title">Add Contact</h3>
+          <button class="drawer-close" onclick="closeAddContactDrawer()">
+            <i class="ph ph-x" style="font-size: 20px;"></i>
+          </button>
+        </div>
+        <div class="drawer-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">First Name <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="Enter first name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="Enter last name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Title</label>
+              <select class="form-select">
+                <option value="">Select...</option>
+                <option value="mr">Mr.</option>
+                <option value="mrs">Mrs.</option>
+                <option value="ms">Ms.</option>
+                <option value="dr">Dr.</option>
+                <option value="prof">Prof.</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Relationship</label>
+              <select class="form-select" onchange="handleRelationshipChange(this)">
+                <option value="">Select relationship...</option>
+                <option value="mother">Mother</option>
+                <option value="father">Father</option>
+                <option value="stepmother">Stepmother</option>
+                <option value="stepfather">Stepfather</option>
+                <option value="grandmother">Grandmother</option>
+                <option value="grandfather">Grandfather</option>
+                <option value="aunt">Aunt</option>
+                <option value="uncle">Uncle</option>
+                <option value="sibling">Sibling</option>
+                <option value="foster-parent">Foster Parent</option>
+                <option value="other">Other</option>
+              </select>
+              <input type="text" class="form-input relationship-other-input" placeholder="Specify relationship..." style="display: none; margin-top: var(--space-2);" />
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" placeholder="Enter email address" />
+              <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">At least email or mobile number is required</span>
+            </div>
+          </div>
+
+          <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-5) 0 var(--space-3);">Phone Numbers</h5>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Mobile Number</label>
+              <div style="display: flex; gap: var(--space-3); align-items: center;">
+                <input type="tel" class="form-input" placeholder="Enter mobile number" style="flex: 1;" />
+                <label class="checkbox-wrapper" style="white-space: nowrap;">
+                  <input type="checkbox" class="checkbox" />
+                  <span>SMS Capable</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Home Number</label>
+              <input type="tel" class="form-input" placeholder="Enter home number" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Work Number</label>
+              <input type="tel" class="form-input" placeholder="Enter work number" />
+            </div>
+          </div>
+
+          <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-5) 0 var(--space-3);">Address</h5>
+          <div class="form-group" style="margin-bottom: var(--space-3);">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="checkbox" id="drawerSameAddress" checked onchange="toggleDrawerAddress()" />
+              <span>Same as primary contact</span>
+            </label>
+          </div>
+          <div class="form-grid" id="drawerAddressFields" style="display: none;">
+            <div class="form-group full-width">
+              <label class="form-label">Street Address</label>
+              <input type="text" class="form-input" placeholder="Enter street address" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">City</label>
+              <input type="text" class="form-input" placeholder="Enter city" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">State</label>
+              <select class="form-select">
+                <option value="">Select state...</option>
+                <option value="CA">California</option>
+                <option value="NY">New York</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Zip Code</label>
+              <input type="text" class="form-input" placeholder="Enter zip" />
+            </div>
+          </div>
+
+          <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-5) 0 var(--space-3);">Preferences</h5>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox" />
+                <span>Set as Primary Contact</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox" />
+                <span>Emergency Contact</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox" />
+                <span>Should Receive Invoices</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox" />
+                <span>Send Email Reminders</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox" />
+                <span>Send SMS Reminders</span>
+              </label>
+            </div>
+          </div>
+
+          <h5 style="font-size: 12px; font-weight: 500; color: var(--fg-muted); margin: var(--space-5) 0 var(--space-3);">Private Note</h5>
+          <div class="form-group">
+            <textarea class="form-textarea" rows="2" placeholder="Add a private note about this contact (only visible to you)..."></textarea>
+            <span style="font-size: 11px; color: var(--fg-muted); margin-top: 4px; display: block;">
+              <i class="ph ph-lock" style="margin-right: 4px;"></i>
+              This note is private and not visible to the contact.
+            </span>
+          </div>
+        </div>
+        <div class="drawer-footer">
+          <button class="btn btn-secondary" onclick="closeAddContactDrawer()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveNewContact()">Add Contact</button>
         </div>
       </div>
     </div>
