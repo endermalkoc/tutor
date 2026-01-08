@@ -20,10 +20,10 @@ This document outlines the phased approach for setting up the Tutor Management S
   - [x] Create root `package.json` with workspace scripts
   - [x] Set `packageManager` field to `pnpm@10.x`
 
-- [ ] Configure Turborepo
-  - [ ] Create `turbo.json` with task pipelines (build, lint, test, dev)
-  - [ ] Define `globalEnv` for shared environment variables
-  - [ ] Configure task dependencies and caching
+- [x] Configure Turborepo
+  - [x] Create `turbo.json` with task pipelines (build, lint, test, dev)
+  - [x] Define `globalEnv` for shared environment variables
+  - [x] Configure task dependencies and caching
 
 - [x] Create folder structure
   ```
