@@ -1,6 +1,6 @@
-# Wireframe Creation Checklist
+# React Wireframe Creation Checklist
 
-Use this checklist when creating new wireframes from functional specifications.
+Use this checklist when creating new React wireframes from functional specifications.
 
 ## Pre-Wireframe: Verify Functional Spec
 
@@ -16,46 +16,47 @@ Use this checklist when creating new wireframes from functional specifications.
 
 ### 1. Setup
 
-- [ ] Create directory: `docs/wireframes/[feature-category]/`
-- [ ] Read functional spec thoroughly
+- [ ] Review functional spec thoroughly
+- [ ] Check design system: `docs/ui-requirements/design-system/design-system.html`
 - [ ] Identify all user workflows (steps 1, 2, 3...)
 - [ ] List all fields (required vs optional)
 - [ ] Note validation rules
 - [ ] Note conditional logic (if/then scenarios)
+- [ ] Create page directory: `wireframes/src/pages/[PageName]/`
 
-### 2. Generate Initial Wireframe
+### 2. Create React Components
 
-**Using Claude Code (Recommended):**
+**Directory Structure:**
 
-```bash
-# Example prompt:
-Generate an interactive HTML wireframe for the feature specified in:
-docs/functional/[path-to-spec].md
-
-Requirements:
-- Include all workflows from the spec
-- Show all required and optional fields
-- Implement validation rules
-- Make it interactive (client-side only)
-- Follow the style of docs/wireframes/student-management/add-student.html
-- Save to docs/wireframes/[category]/[feature-name].html
+```
+wireframes/src/pages/[PageName]/
+├── [PageName].tsx           # Main page component
+├── [PageName].css           # Page-specific styles
+├── components/              # Page-specific components
+│   ├── index.ts
+│   └── [Component].tsx
+└── index.ts                 # Exports
 ```
 
-**Checklist for Generated Wireframe:**
+**Component Checklist:**
 
-- [ ] All workflows from spec are represented
-- [ ] Required fields are marked with asterisk (*)
-- [ ] Optional fields are included (may be hidden/collapsible)
-- [ ] Form sections match functional spec sections
-- [ ] Validation rules are implemented (client-side)
-- [ ] Error messages match business rules
-- [ ] Success confirmation is shown
-- [ ] Mobile-responsive design
-- [ ] Accessible HTML (semantic tags, labels)
+- [ ] Use design system components from `components/design-system/`
+- [ ] Follow existing component patterns
+- [ ] Include proper TypeScript types/interfaces
+- [ ] Handle view mode and edit mode (where applicable)
+- [ ] Implement mock data for demonstration
+- [ ] Add demo controls for testing different states
 
-### 3. Verify Against Functional Spec
+### 3. Design System Compliance
 
-Go through each section of the functional spec and verify:
+- [ ] Import components from `components/design-system/`
+- [ ] Use CSS variables from design system
+- [ ] Follow spacing scale (8px, 16px, 24px, 32px, 48px)
+- [ ] Use typography scale (32px/20px/15px/13px/12px)
+- [ ] Use standard border radius (8px, 12px, 16px, 24px)
+- [ ] Match color system exactly
+
+### 4. Verify Against Functional Spec
 
 **Overview:**
 - [ ] Wireframe shows the feature purpose clearly
@@ -68,40 +69,34 @@ Go through each section of the functional spec and verify:
 - [ ] Step transitions make sense
 
 **Business Rules:**
-- [ ] Conditional logic is implemented (e.g., "If Student Type = Child, show guardian fields")
-- [ ] Constraints are enforced (e.g., "Price must be >= 0")
+- [ ] Conditional logic is implemented
+- [ ] Constraints are enforced
 - [ ] Default values are pre-populated
 
 **Validations:**
-- [ ] Required field validation implemented
-- [ ] Format validation shown (email, phone, etc.)
+- [ ] Required field indicators present
+- [ ] Error states designed
 - [ ] Business logic validation demonstrated
-- [ ] Error messages match spec
 
-**Integration Points:**
-- [ ] Related entities are selectable (dropdowns, autocomplete)
-- [ ] Relationships are clear (e.g., Student → Family → Guardian)
+### 5. Add Routing
 
-**User Experience Features:**
-- [ ] All UX features from spec are present
-- [ ] Smart defaults are set
-- [ ] Progressive disclosure (show/hide) is implemented
-- [ ] Help text and tooltips are included
+- [ ] Add route to `wireframes/src/App.tsx`
+- [ ] Add navigation link to sidebar (if applicable)
+- [ ] Test URL navigation works
+- [ ] Handle route parameters (`:id`, etc.)
 
-### 4. Test Interactions
+### 6. Test Interactions
 
 - [ ] Click through all workflows
-- [ ] Test form submission (happy path)
-- [ ] Test validation errors (sad path)
-- [ ] Test conditional logic (if/then scenarios)
-- [ ] Test "Show More Fields" or collapsible sections
-- [ ] Test cancel/back actions
-- [ ] Test success confirmation
-- [ ] Test on mobile viewport
+- [ ] Test form interactions (inputs, selects, toggles)
+- [ ] Test edit/view mode switching
+- [ ] Test conditional rendering (if/then scenarios)
+- [ ] Test collapsible/expandable sections
+- [ ] Test responsive behavior (resize window)
 - [ ] Test keyboard navigation
-- [ ] Test with screen reader (basic accessibility)
+- [ ] Verify no console errors
 
-### 5. Review & Iterate
+### 7. Review & Iterate
 
 **Self-Review:**
 - [ ] Does the wireframe make sense without reading the spec?
@@ -110,76 +105,49 @@ Go through each section of the functional spec and verify:
 - [ ] Is the layout clean and organized?
 - [ ] Do error messages help the user fix issues?
 
-**Stakeholder Review:**
-- [ ] Share HTML file with product owner
-- [ ] Share with UX designer (if available)
-- [ ] Share with 1-2 developers
-- [ ] Gather feedback on:
-  - Workflow clarity
-  - Missing elements
-  - Confusing interactions
-  - Technical feasibility
+**Code Quality:**
+- [ ] Components are properly typed
+- [ ] No TypeScript errors
+- [ ] CSS follows existing patterns
+- [ ] No unused imports or variables
+- [ ] Consistent naming conventions
 
-**Iterate:**
-- [ ] Address feedback
-- [ ] Update wireframe
-- [ ] Re-test
-- [ ] Get final approval
+### 8. Documentation
 
-### 6. Documentation
+- [ ] Update `docs/wireframes/README.md` with new wireframe
+- [ ] Document any assumptions made
+- [ ] Link wireframe to functional spec
 
-- [ ] Add wireframe to index (update README.md)
-- [ ] Document any deviations from spec (and why)
-- [ ] Note any assumptions made
-- [ ] Link wireframe to functional spec (both ways)
-- [ ] Add status badge (Draft, Review, Approved, Implemented)
-
-### 7. Version Control
+### 9. Version Control
 
 ```bash
-# Commit wireframe
-git add docs/wireframes/[category]/[feature-name].html
+git add wireframes/src/pages/[PageName]/
+git add wireframes/src/App.tsx  # if routing changed
 git add docs/wireframes/README.md  # if updated
 git commit -m "feat: add wireframe for [feature-name]
 
 Based on functional spec: docs/functional/[path-to-spec].md
-Demonstrates workflows: [list key workflows]
-Status: [Draft/Review/Approved]"
+Demonstrates workflows: [list key workflows]"
 ```
-
-- [ ] Commit to git
-- [ ] Reference functional spec commit (if new)
-- [ ] Tag version (if major milestone)
-- [ ] Create PR for review (if required)
-
-## Post-Implementation
-
-After the feature is built:
-
-- [ ] Compare implementation to wireframe
-- [ ] Note any significant deviations
-- [ ] Update wireframe if needed (optional)
-- [ ] Mark wireframe status as "Implemented"
-- [ ] Archive or keep for historical reference
 
 ## Quality Checklist
 
 ### Adherence to CLAUDE.md Philosophy
 
-- [ ] ✅ Wireframe is based ON the functional spec (not the other way around)
-- [ ] ✅ Functional spec remains UI-agnostic (no wireframe-specific language added to spec)
-- [ ] ✅ Wireframe interprets workflows, doesn't define them
-- [ ] ✅ Business logic lives in spec, visual representation in wireframe
-- [ ] ✅ Clear separation: Spec = WHAT, Wireframe = HOW
+- [ ] Wireframe is based ON the functional spec (not the other way around)
+- [ ] Functional spec remains UI-agnostic
+- [ ] Wireframe interprets workflows, doesn't define them
+- [ ] Business logic lives in spec, visual representation in wireframe
+- [ ] Clear separation: Spec = WHAT, Wireframe = HOW
 
 ### Technical Quality
 
-- [ ] Valid HTML5
-- [ ] Semantic markup (proper use of form, label, button, etc.)
-- [ ] Responsive design (mobile-first or adaptive)
+- [ ] Valid TypeScript (no type errors)
+- [ ] Proper React patterns (hooks, state management)
+- [ ] Responsive design
 - [ ] Keyboard accessible
-- [ ] No JavaScript errors in console
-- [ ] Works in modern browsers (Chrome, Firefox, Safari, Edge)
+- [ ] No console errors
+- [ ] Works in modern browsers
 
 ### UX Quality
 
@@ -200,109 +168,78 @@ After the feature is built:
 - [ ] Edge cases considered
 - [ ] Error scenarios handled
 
-## Templates
+## Common Patterns
 
-### Wireframe Prompt Template
+### Editable Sections
 
-```
-Generate an interactive HTML wireframe for [FEATURE_NAME] based on the functional specification at:
+Use `SectionCard` component with edit mode:
 
-docs/functional/[PATH_TO_SPEC].md
-
-Requirements:
-1. Include all user workflows from the spec
-2. Show all required fields (marked with *)
-3. Include optional fields (may be hidden by default)
-4. Implement validation rules (client-side)
-5. Show error messages for validation failures
-6. Include success confirmation
-7. Make it responsive (mobile + desktop)
-8. Follow the style and structure of docs/wireframes/student-management/add-student.html
-9. Save to docs/wireframes/[CATEGORY]/[FEATURE_NAME].html
-
-Key Workflows to Demonstrate:
-- [Workflow 1]
-- [Workflow 2]
-- [Workflow 3]
-
-Business Rules to Implement:
-- [Rule 1]
-- [Rule 2]
-- [Rule 3]
+```tsx
+<SectionCard
+  title="Section Title"
+  variant="secondary"
+  editable
+  onSave={handleSave}
+  onCancel={handleCancel}
+  editContent={<EditForm />}
+>
+  <ViewContent />
+</SectionCard>
 ```
 
-### Commit Message Template
+### Data Display
 
-```
-feat: add wireframe for [feature-name]
+Use `DataGrid` for label/value pairs:
 
-Based on functional spec: docs/functional/[path]
-Demonstrates workflows:
-- [Workflow 1]
-- [Workflow 2]
-
-Status: [Draft/Review/Approved]
-Reviewed by: [Names or N/A]
-```
-
-### README Update Template
-
-```markdown
-#### ✓ [Feature Name] (`category/feature-name.html`)
-
-**Features Demonstrated:**
-- [Feature 1]
-- [Feature 2]
-- [Feature 3]
-
-**Based On:** `docs/functional/[path-to-spec].md`
-
-**Status:** [Draft/Review/Approved/Implemented]
+```tsx
+<DataGrid
+  columns={2}
+  items={[
+    { label: 'Email', value: data.email },
+    { label: 'Phone', value: data.phone },
+  ]}
+/>
 ```
 
-## Common Issues & Solutions
+### Tab Navigation
 
-### Issue: Wireframe doesn't match all workflows in spec
+Use React Router for tab content:
 
-**Solution:** Review spec section by section, check off each workflow, ensure all are present
+```tsx
+<Routes>
+  <Route index element={<OverviewTab />} />
+  <Route path="lessons" element={<LessonsTab />} />
+</Routes>
+```
 
-### Issue: Validation logic is too complex for client-side HTML
+### Demo Controls
 
-**Solution:** Simplify for wireframe purposes, add note that full validation happens server-side
+Add toggle for testing different states:
 
-### Issue: Stakeholder wants different UI than wireframe shows
-
-**Solution:** That's fine! Wireframes are exploration. Update based on feedback. Don't update functional spec unless business logic changes.
-
-### Issue: Functional spec is too vague to create wireframe
-
-**Solution:** Flag this as a documentation gap. Either:
-1. Update functional spec with more detail (recommended)
-2. Make assumptions and document them
-3. Ask spec author for clarification
-
-### Issue: Wireframe is getting too complex/large
-
-**Solution:**
-1. Break into multiple wireframes (wizard steps, tabs, etc.)
-2. Use simplified version for wireframe, note "See full spec for complete details"
-3. Consider if spec itself is too complex (needs breaking down)
+```tsx
+<div className="demo-controls">
+  <label>
+    <input
+      type="checkbox"
+      checked={isAdult}
+      onChange={(e) => setIsAdult(e.target.checked)}
+    />
+    Adult Student View
+  </label>
+</div>
+```
 
 ## Success Criteria
 
 A wireframe is complete when:
 
-✅ **All boxes checked** in this checklist
-✅ **Stakeholders approve** (or N/A for solo projects)
-✅ **Developers understand** what to build
-✅ **Workflows are clear** and testable
-✅ **Functional spec is unchanged** (no UI prescription added)
-✅ **Version controlled** and documented
+- [ ] All boxes checked in this checklist
+- [ ] Stakeholders can click through workflows
+- [ ] Developers understand what to build
+- [ ] Workflows are clear and testable
+- [ ] Functional spec is unchanged (no UI prescription added)
+- [ ] Version controlled and documented
 
 ---
 
-**Remember:** Wireframes are a design tool, not a contract. They explore solutions to the problems defined in functional specs. Iterate freely, but keep functional specs stable and UI-agnostic.
-
----
-
-**Last Updated:** 2026-01-04
+**Last Updated:** 2026-01-08
