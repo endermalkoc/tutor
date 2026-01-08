@@ -50,12 +50,13 @@ export function TableRow({ children, selected = false, className = '', onClick }
 export type SortDirection = 'asc' | 'desc' | null;
 
 export interface TableHeaderCellProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   sortable?: boolean;
   sortDirection?: SortDirection;
   onSort?: () => void;
   className?: string;
   checkbox?: boolean;
+  style?: React.CSSProperties;
 }
 
 export function TableHeaderCell({
@@ -65,6 +66,7 @@ export function TableHeaderCell({
   onSort,
   className = '',
   checkbox = false,
+  style,
 }: TableHeaderCellProps) {
   const classNames = [
     sortable && 'sortable',
@@ -77,7 +79,7 @@ export function TableHeaderCell({
     .join(' ');
 
   return (
-    <th className={classNames} onClick={sortable ? onSort : undefined}>
+    <th className={classNames} onClick={sortable ? onSort : undefined} style={style}>
       {children}
     </th>
   );

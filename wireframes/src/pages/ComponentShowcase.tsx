@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import {
   Button,
+  ButtonLink,
   Badge,
+  StatusDot,
   Input,
   Textarea,
   FormGroup,
   FormLabel,
   FormHint,
+  FormError,
   Select,
   Option,
   Checkbox,
@@ -19,6 +22,7 @@ import {
   CardHeader,
   CardTitle,
   CardBody,
+  CardFooter,
   MetricCard,
   Table,
   TableHead,
@@ -26,6 +30,8 @@ import {
   TableRow,
   TableHeaderCell,
   TableCell,
+  TableActions,
+  TableActionButton,
   Modal,
   ModalHeader,
   ModalTitle,
@@ -82,9 +88,32 @@ export function ComponentShowcase() {
             </div>
           </div>
           <div className="showcase-card">
+            <div className="showcase-label">With Icons</div>
+            <div className="showcase-row">
+              <Button variant="primary">
+                <i className="ph ph-plus" /> Add Student
+              </Button>
+              <Button variant="secondary">
+                <i className="ph ph-download-simple" /> Export
+              </Button>
+              <Button variant="ghost">
+                <i className="ph ph-gear" /> Settings
+              </Button>
+            </div>
+          </div>
+          <div className="showcase-card">
             <div className="showcase-label">States</div>
             <div className="showcase-row">
-              <Button disabled>Disabled</Button>
+              <Button disabled>Disabled Primary</Button>
+              <Button variant="secondary" disabled>Disabled Secondary</Button>
+            </div>
+          </div>
+          <div className="showcase-card">
+            <div className="showcase-label">Button Links</div>
+            <div className="showcase-row">
+              <ButtonLink href="#" variant="primary">Primary Link</ButtonLink>
+              <ButtonLink href="#" variant="secondary">Secondary Link</ButtonLink>
+              <ButtonLink href="#" variant="ghost">Ghost Link</ButtonLink>
             </div>
           </div>
         </div>
@@ -104,6 +133,36 @@ export function ComponentShowcase() {
               <Badge variant="error">Error</Badge>
               <Badge variant="indigo">Indigo</Badge>
               <Badge variant="cyan">Cyan</Badge>
+            </div>
+          </div>
+          <div className="showcase-card">
+            <div className="showcase-label">Badges with Icons</div>
+            <div className="showcase-row">
+              <Badge variant="success"><i className="ph ph-check-circle" /> Paid</Badge>
+              <Badge variant="warning"><i className="ph ph-clock" /> Pending</Badge>
+              <Badge variant="error"><i className="ph ph-x-circle" /> Overdue</Badge>
+              <Badge variant="primary"><i className="ph ph-star" /> Featured</Badge>
+            </div>
+          </div>
+          <div className="showcase-card">
+            <div className="showcase-label">Status Dots</div>
+            <div className="showcase-row">
+              <div className="flex items-center gap-2">
+                <StatusDot variant="success" />
+                <span>Active</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <StatusDot variant="warning" />
+                <span>On Hold</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <StatusDot variant="error" />
+                <span>Cancelled</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <StatusDot variant="neutral" />
+                <span>Inactive</span>
+              </div>
             </div>
           </div>
           <div className="showcase-card">
@@ -139,7 +198,16 @@ export function ComponentShowcase() {
               <FormGroup error>
                 <FormLabel>Error State</FormLabel>
                 <Input error placeholder="Invalid input" />
+                <FormError>Please enter a valid email address.</FormError>
               </FormGroup>
+            </div>
+          </div>
+          <div className="showcase-card">
+            <div className="showcase-label">Input Sizes</div>
+            <div className="showcase-stack">
+              <Input inputSize="sm" placeholder="Small input" />
+              <Input inputSize="md" placeholder="Medium input (default)" />
+              <Input inputSize="lg" placeholder="Large input" />
             </div>
           </div>
           <div className="showcase-card">
@@ -157,6 +225,7 @@ export function ComponentShowcase() {
               <FormGroup>
                 <FormLabel>Textarea</FormLabel>
                 <Textarea placeholder="Enter description..." />
+                <FormHint>Optional. Maximum 500 characters.</FormHint>
               </FormGroup>
             </div>
           </div>
@@ -164,9 +233,12 @@ export function ComponentShowcase() {
             <div className="showcase-label">Checkbox, Radio & Switch</div>
             <div className="showcase-stack">
               <Checkbox label="Checkbox option" />
+              <Checkbox label="Checked checkbox" defaultChecked />
+              <Checkbox label="Disabled checkbox" disabled />
               <RadioGroup>
                 <Radio name="demo" label="Radio option 1" defaultChecked />
                 <Radio name="demo" label="Radio option 2" />
+                <Radio name="demo" label="Radio option 3" />
               </RadioGroup>
               <div className="flex items-center gap-2">
                 <Switch checked={switchOn} onChange={setSwitchOn} />
@@ -183,21 +255,52 @@ export function ComponentShowcase() {
         <div className="showcase-grid showcase-grid-3">
           <Card>
             <CardHeader>
-              <CardTitle>Card Title</CardTitle>
+              <CardTitle>Basic Card</CardTitle>
             </CardHeader>
             <CardBody>
-              <p className="text-secondary">This is the card body content.</p>
+              <p className="text-secondary">This is a basic card with header and body sections.</p>
             </CardBody>
           </Card>
+          <Card hoverable style={{ cursor: 'pointer' }}>
+            <CardBody>
+              <div className="flex items-center gap-3 mb-4">
+                <Avatar initials="JS" size="lg" />
+                <div>
+                  <div style={{ fontWeight: 600 }}>John Smith</div>
+                  <div className="caption">Piano • Intermediate</div>
+                </div>
+              </div>
+              <p className="body-sm text-secondary">Next lesson: Today at 3:00 PM</p>
+            </CardBody>
+          </Card>
+          <Card>
+            <CardHeader className="flex items-center justify-between">
+              <CardTitle>With Footer</CardTitle>
+              <Badge variant="success">Active</Badge>
+            </CardHeader>
+            <CardBody>
+              <p className="text-secondary body-sm">Card with header, body, and footer sections.</p>
+            </CardBody>
+            <CardFooter>
+              <div className="flex items-center justify-between">
+                <span className="caption">Last updated 2h ago</span>
+                <Button variant="ghost" size="sm">View Details</Button>
+              </div>
+            </CardFooter>
+          </Card>
           <MetricCard
-            label="Active Students"
+            label="Total Students"
             value="247"
             change={{ value: '+12%', positive: true }}
           />
           <MetricCard
-            label="Monthly Revenue"
-            value="$4,250"
+            label="Revenue (MTD)"
+            value="$12,450"
             change={{ value: '-3%', positive: false }}
+          />
+          <MetricCard
+            label="Lessons This Week"
+            value="42"
           />
         </div>
       </section>
@@ -272,26 +375,104 @@ export function ComponentShowcase() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeaderCell>Name</TableHeaderCell>
-              <TableHeaderCell sortable sortDirection="asc">Status</TableHeaderCell>
-              <TableHeaderCell>Email</TableHeaderCell>
+              <TableHeaderCell checkbox>
+                <Checkbox />
+              </TableHeaderCell>
+              <TableHeaderCell sortable sortDirection="asc">Student</TableHeaderCell>
+              <TableHeaderCell>Subject</TableHeaderCell>
+              <TableHeaderCell sortable>Status</TableHeaderCell>
+              <TableHeaderCell>Next Lesson</TableHeaderCell>
+              <TableHeaderCell className="text-right">Balance</TableHeaderCell>
+              <TableHeaderCell style={{ width: 100 }}></TableHeaderCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell>Emily Chen</TableCell>
+              <TableCell><Checkbox /></TableCell>
+              <TableCell>
+                <div className="flex items-center gap-3">
+                  <Avatar initials="EM" size="sm" />
+                  <div>
+                    <div style={{ fontWeight: 500 }}>Emily Martinez</div>
+                    <div className="caption mono">STU_2847</div>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>Piano</TableCell>
               <TableCell><Badge variant="success">Active</Badge></TableCell>
-              <TableCell mono>emily@example.com</TableCell>
+              <TableCell>
+                <div>Today, 3:00 PM</div>
+                <div className="caption">In 2 hours</div>
+              </TableCell>
+              <TableCell className="text-right" mono>$240.00</TableCell>
+              <TableCell>
+                <TableActions>
+                  <TableActionButton title="Edit">
+                    <i className="ph ph-pencil-simple" />
+                  </TableActionButton>
+                  <TableActionButton title="More">
+                    <i className="ph ph-dots-three" />
+                  </TableActionButton>
+                </TableActions>
+              </TableCell>
+            </TableRow>
+            <TableRow selected>
+              <TableCell><Checkbox defaultChecked /></TableCell>
+              <TableCell>
+                <div className="flex items-center gap-3">
+                  <Avatar initials="JC" size="sm" />
+                  <div>
+                    <div style={{ fontWeight: 500 }}>James Chen</div>
+                    <div className="caption mono">STU_2853</div>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>Guitar</TableCell>
+              <TableCell><Badge variant="warning">On Hold</Badge></TableCell>
+              <TableCell>
+                <div>Jan 20, 4:00 PM</div>
+                <div className="caption">In 5 days</div>
+              </TableCell>
+              <TableCell className="text-right" mono>$0.00</TableCell>
+              <TableCell>
+                <TableActions>
+                  <TableActionButton title="Edit">
+                    <i className="ph ph-pencil-simple" />
+                  </TableActionButton>
+                  <TableActionButton title="More">
+                    <i className="ph ph-dots-three" />
+                  </TableActionButton>
+                </TableActions>
+              </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Marcus Williams</TableCell>
-              <TableCell><Badge variant="indigo">Trial</Badge></TableCell>
-              <TableCell mono>marcus@example.com</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Sophie Martinez</TableCell>
-              <TableCell><Badge variant="warning">Waiting</Badge></TableCell>
-              <TableCell mono>sophie@example.com</TableCell>
+              <TableCell><Checkbox /></TableCell>
+              <TableCell>
+                <div className="flex items-center gap-3">
+                  <Avatar initials="SW" size="sm" />
+                  <div>
+                    <div style={{ fontWeight: 500 }}>Sarah Wilson</div>
+                    <div className="caption mono">STU_2801</div>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>Violin</TableCell>
+              <TableCell><Badge variant="success">Active</Badge></TableCell>
+              <TableCell>
+                <div>Tomorrow, 10:00 AM</div>
+                <div className="caption">In 18 hours</div>
+              </TableCell>
+              <TableCell className="text-right" mono>$480.00</TableCell>
+              <TableCell>
+                <TableActions>
+                  <TableActionButton title="Edit">
+                    <i className="ph ph-pencil-simple" />
+                  </TableActionButton>
+                  <TableActionButton title="More">
+                    <i className="ph ph-dots-three" />
+                  </TableActionButton>
+                </TableActions>
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>

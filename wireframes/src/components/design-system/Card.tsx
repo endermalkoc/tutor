@@ -5,13 +5,14 @@ export interface CardProps {
   children: React.ReactNode;
   hoverable?: boolean;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export function Card({ children, hoverable = false, className = '' }: CardProps) {
+export function Card({ children, hoverable = false, className = '', style }: CardProps) {
   const classNames = ['card', hoverable && 'card-hoverable', className]
     .filter(Boolean)
     .join(' ');
-  return <div className={classNames}>{children}</div>;
+  return <div className={classNames} style={style}>{children}</div>;
 }
 
 export interface CardHeaderProps {
