@@ -9,6 +9,7 @@ import {
   Option,
   FormGroup,
   FormLabel,
+  Input,
 } from '../../../components/design-system';
 import type { TagColor } from '../../../components/design-system';
 
@@ -31,6 +32,7 @@ const durationOptions = [
   { value: 45, label: '45 minutes' },
   { value: 60, label: '60 minutes' },
   { value: 90, label: '90 minutes' },
+  { value: 'custom', label: 'Custom' },
 ];
 
 const categoryOptions = [
@@ -44,8 +46,11 @@ const skillLevelOptions = [
   { value: 'advanced', label: 'Advanced' },
 ];
 
+const standardDurations = [30, 45, 60, 90];
+
 export function LessonSettingsSection({ data, onSave, className = '' }: LessonSettingsSectionProps) {
   const [editData, setEditData] = useState<LessonSettingsData>(data);
+  const [useCustomDuration, setUseCustomDuration] = useState(!standardDurations.includes(data.duration));
 
   const handleSave = () => {
     onSave?.(editData);
@@ -53,6 +58,7 @@ export function LessonSettingsSection({ data, onSave, className = '' }: LessonSe
 
   const handleCancel = () => {
     setEditData(data);
+    setUseCustomDuration(!standardDurations.includes(data.duration));
   };
 
   const getDurationLabel = (value: number) => {
@@ -124,13 +130,31 @@ export function LessonSettingsSection({ data, onSave, className = '' }: LessonSe
         <FormGroup>
           <FormLabel required>Default Duration</FormLabel>
           <Select
-            value={String(editData.duration)}
-            onChange={(e) => setEditData({ ...editData, duration: Number(e.target.value) })}
+            value={useCustomDuration ? 'custom' : String(editData.duration)}
+            onChange={(e) => {
+              if (e.target.value === 'custom') {
+                setUseCustomDuration(true);
+              } else {
+                setUseCustomDuration(false);
+                setEditData({ ...editData, duration: Number(e.target.value) });
+              }
+            }}
           >
             {durationOptions.map(opt => (
               <Option key={opt.value} value={String(opt.value)}>{opt.label}</Option>
             ))}
           </Select>
+          {useCustomDuration && (
+            <Input
+              type="number"
+              min={1}
+              max={480}
+              value={editData.duration}
+              onChange={(e) => setEditData({ ...editData, duration: Number(e.target.value) || 60 })}
+              placeholder="Enter minutes"
+              style={{ marginTop: '8px' }}
+            />
+          )}
         </FormGroup>
         <FormGroup>
           <FormLabel required>Lesson Category</FormLabel>
