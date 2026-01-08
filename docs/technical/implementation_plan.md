@@ -1,6 +1,6 @@
 # Implementation Plan: Project Scaffolding
 
-**Last Updated:** 2026-01-07
+**Last Updated:** 2026-01-08
 
 **Location:** All scaffolding code lives in `src/`
 
@@ -72,14 +72,14 @@ This document outlines the phased approach for setting up the Tutor Management S
   - [x] Create `drizzle.config.ts`
   - [x] Document connection strings in `.env.example`
 
-- [ ] Configure Supabase
-  - [ ] Initialize Supabase project (`supabase init`)
-  - [ ] Configure `supabase/config.toml`
+- [x] Configure Supabase
+  - [x] Initialize Supabase project (`supabase init`)
+  - [x] Configure `supabase/config.toml`
   - [ ] Create production Supabase project (dashboard)
 
-- [ ] Validate setup
-  - [ ] Start local Supabase (`supabase start`)
-  - [ ] Verify connection works
+- [x] Validate setup
+  - [x] Start local Supabase (`supabase start`)
+  - [x] Verify connection works
 
 ---
 
