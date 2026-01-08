@@ -96,6 +96,9 @@ export function StudentHeader({
                   <a href={`mailto:${student.email}`} className="meta-link">{student.email}</a>
                 </span>
               )}
+              {student.email && student.phone && (
+                <span className="meta-divider" />
+              )}
               {student.phone && (
                 <span className="meta-item">
                   <i className="ph ph-phone" />
