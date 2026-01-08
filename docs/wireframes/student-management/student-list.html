@@ -12,52 +12,25 @@
          PAGE-SPECIFIC STYLES: Student List
          ============================================ */
 
-      /* Compatibility aliases for legacy variable names */
-      :root {
-        --bg-page: var(--bg-base);
-        --text-primary: var(--fg-default);
-        --text-secondary: var(--fg-secondary);
-        --text-muted: var(--fg-muted);
-        --text-faint: var(--fg-faint);
-        --border: var(--border-default);
-        --border-strong: var(--gray-300);
-        --accent: var(--primary-500);
-        --accent-hover: var(--primary-600);
-        --accent-subtle: var(--primary-50);
-
-        /* Status colors */
-        --status-active: var(--success-600);
-        --status-active-bg: var(--success-50);
-        --status-trial: var(--indigo-600);
-        --status-trial-bg: var(--indigo-50);
-        --status-waiting: var(--warning-600);
-        --status-waiting-bg: var(--warning-50);
-        --status-lead: var(--cyan-600);
-        --status-lead-bg: var(--cyan-50);
-        --status-inactive: var(--fg-muted);
-        --status-inactive-bg: var(--bg-subtle);
-        --radius: var(--radius-md);
-      }
-
       /* Page-specific: Page subtitle */
       .page-subtitle {
         font-size: 13px;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         font-variant-numeric: tabular-nums;
       }
 
       /* List container */
       .list-container {
         background: var(--bg-surface);
-        border: 1px solid var(--border);
+        border: 1px solid var(--border-default);
         border-radius: var(--radius-lg);
-        box-shadow: var(--shadow);
+        box-shadow: var(--shadow-md);
       }
 
       /* Toolbar */
       .toolbar {
         padding: var(--space-4);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--border-default);
         display: flex;
         flex-direction: column;
         gap: var(--space-3);
@@ -82,27 +55,27 @@
         width: 100%;
         padding: var(--space-2) var(--space-3) var(--space-2) 36px;
         border: 1px solid var(--border-strong);
-        border-radius: var(--radius);
+        border-radius: var(--radius-md);
         font-size: 13px;
         font-family: inherit;
-        color: var(--text-primary);
+        color: var(--fg-default);
         background: var(--bg-surface);
         transition: border-color 150ms ease, box-shadow 150ms ease;
         min-height: 32px;
       }
 
       .search-input:hover {
-        border-color: var(--text-faint);
+        border-color: var(--fg-faint);
       }
 
       .search-input:focus {
         outline: none;
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px var(--accent-subtle);
+        border-color: var(--primary-500);
+        box-shadow: 0 0 0 3px var(--primary-50);
       }
 
       .search-input::placeholder {
-        color: var(--text-faint);
+        color: var(--fg-faint);
       }
 
       .search-icon {
@@ -110,41 +83,11 @@
         left: var(--space-3);
         top: 50%;
         transform: translateY(-50%);
-        color: var(--text-faint);
+        color: var(--fg-faint);
         width: 14px;
         height: 14px;
       }
 
-      /* Status filters */
-      .status-filters {
-        display: flex;
-        gap: var(--space-1);
-        background: var(--bg-subtle);
-        padding: var(--space-1);
-        border-radius: var(--radius);
-      }
-
-      .status-chip {
-        padding: var(--space-1) var(--space-3);
-        border-radius: var(--radius-sm);
-        font-size: 12px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 150ms ease;
-        border: none;
-        background: transparent;
-        color: var(--text-muted);
-      }
-
-      .status-chip:hover {
-        color: var(--text-secondary);
-      }
-
-      .status-chip.active {
-        background: var(--bg-surface);
-        color: var(--text-primary);
-        box-shadow: var(--shadow-sm);
-      }
 
       /* Filter tags */
       .active-filters {
@@ -159,8 +102,8 @@
         align-items: center;
         gap: var(--space-1);
         padding: var(--space-1) var(--space-2);
-        background: var(--accent-subtle);
-        color: var(--accent);
+        background: var(--primary-50);
+        color: var(--primary-500);
         border-radius: var(--radius-sm);
         font-size: 12px;
         font-weight: 500;
@@ -178,7 +121,7 @@
 
       .clear-filters-btn {
         font-size: 12px;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         text-decoration: underline;
         cursor: pointer;
         background: none;
@@ -187,7 +130,7 @@
       }
 
       .clear-filters-btn:hover {
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
       }
 
       /* Bulk actions */
@@ -196,36 +139,35 @@
         gap: var(--space-2);
         align-items: center;
         padding: var(--space-2) var(--space-3);
-        background: var(--accent-subtle);
-        border-radius: var(--radius);
+        background: var(--primary-50);
+        border-radius: var(--radius-md);
       }
 
       .bulk-actions-label {
         font-size: 12px;
         font-weight: 500;
-        color: var(--accent);
+        color: var(--primary-500);
         margin-right: var(--space-2);
       }
 
-      /* Column selector */
+      /* Column selector - page-specific multi-select dropdown */
       .column-selector {
         position: relative;
       }
 
       .column-dropdown {
         position: absolute;
-        top: 100%;
+        top: calc(100% + 4px);
         right: 0;
-        margin-top: var(--space-2);
         background: var(--bg-surface);
-        border: 1px solid var(--border-strong);
+        border: 1px solid var(--border-default);
         border-radius: var(--radius-lg);
-        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12);
+        box-shadow: var(--shadow-lg);
         padding: var(--space-3);
         min-width: 220px;
         max-height: 360px;
         overflow-y: auto;
-        z-index: 1000;
+        z-index: 100;
         display: none;
       }
 
@@ -236,11 +178,11 @@
       .column-dropdown-header {
         font-size: 11px;
         font-weight: 600;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         text-transform: uppercase;
         letter-spacing: 0.05em;
         padding: var(--space-2) var(--space-2) var(--space-3);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--border-default);
         margin-bottom: var(--space-2);
       }
 
@@ -251,24 +193,24 @@
         padding: var(--space-2);
         cursor: pointer;
         border-radius: var(--radius-sm);
-        transition: background 150ms ease;
+        transition: background var(--transition-fast);
       }
 
       .column-option:hover {
-        background: var(--bg-subtle);
+        background: var(--bg-muted);
       }
 
       .column-option input[type="checkbox"] {
         width: 14px;
         height: 14px;
         cursor: pointer;
-        accent-color: var(--accent);
+        accent-color: var(--primary-600);
       }
 
       .column-option label {
         cursor: pointer;
         font-size: 13px;
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
         flex: 1;
       }
 
@@ -277,77 +219,39 @@
         cursor: not-allowed;
       }
 
-      /* Table */
-      .table-wrapper {
-        overflow-x: auto;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-
-      thead {
-        background: var(--bg-subtle);
-        border-bottom: 1px solid var(--border);
-      }
-
-      th {
-        padding: var(--space-3) var(--space-4);
-        text-align: left;
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        white-space: nowrap;
-        user-select: none;
-      }
-
-      th.sortable {
+      /* Table - sortable columns extension */
+      .table th.sortable {
         cursor: pointer;
       }
 
-      th.sortable:hover {
-        color: var(--text-secondary);
+      .table th.sortable:hover {
+        color: var(--fg-secondary);
       }
 
-      th.sortable::after {
+      .table th.sortable::after {
         content: "";
         display: inline-block;
         width: 12px;
         margin-left: var(--space-1);
       }
 
-      th.sorted-asc::after {
+      .table th.sorted-asc::after {
         content: "↑";
-        color: var(--accent);
+        color: var(--primary-600);
       }
 
-      th.sorted-desc::after {
+      .table th.sorted-desc::after {
         content: "↓";
-        color: var(--accent);
+        color: var(--primary-600);
       }
 
-      th.checkbox-col {
+      .table th.checkbox-col {
         width: 40px;
         padding-left: var(--space-4);
       }
 
-      td {
-        padding: var(--space-3) var(--space-4);
-        border-bottom: 1px solid var(--border);
-        font-size: 13px;
-        color: var(--text-secondary);
-        vertical-align: middle;
-      }
-
-      tr:hover {
-        background: var(--bg-subtle);
-      }
-
-      tr.selected {
-        background: var(--accent-subtle);
+      .table tr.selected td {
+        background: var(--primary-50);
       }
 
       /* Table checkbox */
@@ -355,57 +259,21 @@
         width: 14px;
         height: 14px;
         cursor: pointer;
-        accent-color: var(--accent);
+        accent-color: var(--primary-500);
       }
 
       /* Student name */
       .student-name {
         font-weight: 500;
-        color: var(--text-primary);
+        color: var(--fg-default);
         text-decoration: none;
         display: block;
       }
 
       .student-name:hover {
-        color: var(--accent);
+        color: var(--primary-500);
       }
 
-      /* Status badges - minimal, typography-driven */
-      .status-badge {
-        display: inline-flex;
-        align-items: center;
-        padding: var(--space-1) var(--space-2);
-        border-radius: var(--radius-sm);
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-      }
-
-      .status-active {
-        background: var(--status-active-bg);
-        color: var(--status-active);
-      }
-
-      .status-trial {
-        background: var(--status-trial-bg);
-        color: var(--status-trial);
-      }
-
-      .status-waiting {
-        background: var(--status-waiting-bg);
-        color: var(--status-waiting);
-      }
-
-      .status-lead {
-        background: var(--status-lead-bg);
-        color: var(--status-lead);
-      }
-
-      .status-inactive {
-        background: var(--status-inactive-bg);
-        color: var(--status-inactive);
-      }
 
       /* Notes preview */
       .notes-preview {
@@ -413,18 +281,18 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        color: var(--text-muted);
+        color: var(--fg-muted);
         font-size: 12px;
       }
 
       /* Contact info */
       .contact-info {
         font-size: 12px;
-        color: var(--text-muted);
+        color: var(--fg-muted);
       }
 
       .contact-info a {
-        color: var(--accent);
+        color: var(--primary-500);
         text-decoration: none;
       }
 
@@ -442,7 +310,7 @@
       /* Pagination */
       .pagination {
         padding: var(--space-4);
-        border-top: 1px solid var(--border);
+        border-top: 1px solid var(--border-default);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -452,7 +320,7 @@
 
       .pagination-info {
         font-size: 13px;
-        color: var(--text-muted);
+        color: var(--fg-muted);
       }
 
       .pagination-controls {
@@ -469,7 +337,7 @@
 
       .page-size-selector label {
         font-size: 12px;
-        color: var(--text-muted);
+        color: var(--fg-muted);
       }
 
       .page-size-selector select {
@@ -478,7 +346,7 @@
         border-radius: var(--radius-sm);
         font-size: 12px;
         background: var(--bg-surface);
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
         cursor: pointer;
       }
 
@@ -487,35 +355,16 @@
         gap: var(--space-1);
       }
 
-      .page-btn {
-        padding: var(--space-1) var(--space-2);
-        border: 1px solid var(--border-strong);
-        border-radius: var(--radius-sm);
-        background: var(--bg-surface);
-        color: var(--text-muted);
-        font-size: 12px;
-        cursor: pointer;
-        min-width: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 150ms ease;
-      }
-
-      .page-btn:hover:not(:disabled) {
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-
-      .page-btn:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-      }
-
-      .page-btn.active {
-        background: var(--accent);
+      /* Pagination button active state extension */
+      .pagination-btn.active {
+        background: var(--primary-600);
         color: white;
-        border-color: var(--accent);
+        border-color: var(--primary-600);
+      }
+
+      .pagination-btn.active:hover {
+        background: var(--primary-700);
+        border-color: var(--primary-700);
       }
 
       /* Mobile cards */
@@ -525,7 +374,7 @@
 
       .student-card {
         padding: var(--space-4);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--border-default);
       }
 
       .student-card:last-child {
@@ -542,14 +391,14 @@
       .card-name {
         font-size: 15px;
         font-weight: 500;
-        color: var(--text-primary);
+        color: var(--fg-default);
         margin-bottom: var(--space-1);
         text-decoration: none;
         display: block;
       }
 
       .card-name:hover {
-        color: var(--accent);
+        color: var(--primary-500);
       }
 
       .card-details {
@@ -562,32 +411,15 @@
         display: flex;
         gap: var(--space-2);
         font-size: 13px;
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
       }
 
       .card-label {
-        color: var(--text-muted);
+        color: var(--fg-muted);
         min-width: 80px;
       }
 
-      /* Modal - page specific additions */
-      .modal-header {
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--fg-default);
-        margin-bottom: var(--space-4);
-      }
-
-      .modal-description {
-        font-size: 13px;
-        color: var(--fg-muted);
-        margin-bottom: var(--space-4);
-      }
-
-      .modal-section {
-        margin-bottom: var(--space-4);
-      }
-
+      /* Modal checkbox group - specific styling for tag selection */
       .checkbox-group {
         display: flex;
         align-items: center;
@@ -621,13 +453,13 @@
       .empty-state {
         padding: var(--space-8);
         text-align: center;
-        color: var(--text-muted);
+        color: var(--fg-muted);
       }
 
       .empty-state-title {
         font-size: 16px;
         font-weight: 500;
-        color: var(--text-secondary);
+        color: var(--fg-secondary);
         margin-bottom: var(--space-2);
       }
 
@@ -666,7 +498,7 @@
           max-width: 100%;
         }
 
-        .status-filters {
+        .filter-tabs {
           flex-wrap: wrap;
         }
 
@@ -763,27 +595,27 @@
                 />
               </div>
 
-              <div class="status-filters">
+              <div class="filter-tabs">
                 <button
-                  class="status-chip active"
+                  class="filter-tab active"
                   onclick="filterByStatus('all')"
                 >
                   All
                 </button>
-                <button class="status-chip" onclick="filterByStatus('active')">
+                <button class="filter-tab" onclick="filterByStatus('active')">
                   Active
                 </button>
-                <button class="status-chip" onclick="filterByStatus('trial')">
+                <button class="filter-tab" onclick="filterByStatus('trial')">
                   Trial
                 </button>
-                <button class="status-chip" onclick="filterByStatus('waiting')">
+                <button class="filter-tab" onclick="filterByStatus('waiting')">
                   Waiting
                 </button>
-                <button class="status-chip" onclick="filterByStatus('lead')">
+                <button class="filter-tab" onclick="filterByStatus('lead')">
                   Lead
                 </button>
                 <button
-                  class="status-chip"
+                  class="filter-tab"
                   onclick="filterByStatus('inactive')"
                 >
                   Inactive
@@ -931,7 +763,7 @@
 
           <!-- Desktop Table -->
           <div class="table-wrapper">
-            <table>
+            <table class="table">
               <thead>
                 <tr>
                   <th class="checkbox-col">
@@ -981,7 +813,7 @@
                   </td>
                   <td><a href="student-detail.html" class="student-name">Emily Chen</a></td>
                   <td class="col-status">
-                    <span class="status-badge status-active">Active</span>
+                    <span class="badge badge-success">Active</span>
                   </td>
                   <td class="col-age"><span class="data-value">14</span></td>
                   <td class="col-family">Chen Family</td>
@@ -1014,7 +846,7 @@
                   </td>
                   <td><a href="student-detail.html" class="student-name">Marcus Williams</a></td>
                   <td class="col-status">
-                    <span class="status-badge status-trial">Trial</span>
+                    <span class="badge badge-indigo">Trial</span>
                   </td>
                   <td class="col-age"><span class="data-value">12</span></td>
                   <td class="col-family">Williams Family</td>
@@ -1045,7 +877,7 @@
                   </td>
                   <td><a href="student-detail.html" class="student-name">Sophie Martinez</a></td>
                   <td class="col-status">
-                    <span class="status-badge status-active">Active</span>
+                    <span class="badge badge-success">Active</span>
                   </td>
                   <td class="col-age"><span class="data-value">16</span></td>
                   <td class="col-family">Martinez Family</td>
@@ -1076,7 +908,7 @@
                   </td>
                   <td><a href="student-detail.html" class="student-name">Alex Thompson</a></td>
                   <td class="col-status">
-                    <span class="status-badge status-waiting">Waiting</span>
+                    <span class="badge badge-warning">Waiting</span>
                   </td>
                   <td class="col-age"><span class="data-value">10</span></td>
                   <td class="col-family">Thompson Family</td>
@@ -1107,7 +939,7 @@
                   </td>
                   <td><a href="student-detail.html" class="student-name">Ada Malkoc</a></td>
                   <td class="col-status">
-                    <span class="status-badge status-active">Active</span>
+                    <span class="badge badge-success">Active</span>
                   </td>
                   <td class="col-age"><span class="data-value">13</span></td>
                   <td class="col-family">Garcia Family</td>
@@ -1140,7 +972,7 @@
                   </td>
                   <td><a href="student-detail.html" class="student-name">James Lee</a></td>
                   <td class="col-status">
-                    <span class="status-badge status-lead">Lead</span>
+                    <span class="badge badge-cyan">Lead</span>
                   </td>
                   <td class="col-age"><span class="data-value">15</span></td>
                   <td class="col-family">Lee Family</td>
@@ -1170,7 +1002,7 @@
                   </td>
                   <td><a href="student-detail.html" class="student-name">Olivia Brown</a></td>
                   <td class="col-status">
-                    <span class="status-badge status-active">Active</span>
+                    <span class="badge badge-success">Active</span>
                   </td>
                   <td class="col-age"><span class="data-value">11</span></td>
                   <td class="col-family">Brown Family</td>
@@ -1201,7 +1033,7 @@
                   </td>
                   <td><a href="student-detail.html" class="student-name">Ethan Davis</a></td>
                   <td class="col-status">
-                    <span class="status-badge status-inactive">Inactive</span>
+                    <span class="badge badge-default">Inactive</span>
                   </td>
                   <td class="col-age"><span class="data-value">17</span></td>
                   <td class="col-family">Davis Family</td>
@@ -1232,7 +1064,7 @@
               <div class="card-header">
                 <div>
                   <a href="student-detail.html" class="card-name">Emily Chen</a>
-                  <span class="status-badge status-active">Active</span>
+                  <span class="badge badge-success">Active</span>
                 </div>
                 <input
                   type="checkbox"
@@ -1260,7 +1092,7 @@
               <div class="card-header">
                 <div>
                   <a href="student-detail.html" class="card-name">Marcus Williams</a>
-                  <span class="status-badge status-trial">Trial</span>
+                  <span class="badge badge-indigo">Trial</span>
                 </div>
                 <input
                   type="checkbox"
@@ -1300,13 +1132,13 @@
                 </select>
               </div>
               <div class="page-nav">
-                <button class="page-btn" disabled>←</button>
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">…</button>
-                <button class="page-btn">10</button>
-                <button class="page-btn">→</button>
+                <button class="pagination-btn" disabled>←</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">…</button>
+                <button class="pagination-btn">10</button>
+                <button class="pagination-btn">→</button>
               </div>
             </div>
           </div>
@@ -1315,14 +1147,19 @@
     </div>
 
     <!-- Tag Filter Modal -->
-    <div class="modal-overlay" id="tagModal">
-      <div class="modal">
-        <div class="modal-header">Filter by Tags</div>
-        <p class="modal-description">
-          Select tags to filter students. Students with any of the selected tags
-          will be shown.
-        </p>
-        <div class="modal-section">
+    <div class="modal-backdrop" id="tagModal" onclick="closeTagModal(event)">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h3 class="modal-title">Filter by Tags</h3>
+          <button class="modal-close" onclick="closeTagModal()">
+            <i class="ph ph-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="text-secondary mb-4">
+            Select tags to filter students. Students with any of the selected tags
+            will be shown.
+          </p>
           <div class="checkbox-group">
             <input type="checkbox" id="tag-piano" value="Piano" />
             <label for="tag-piano">Piano</label>
@@ -1344,11 +1181,11 @@
             <label for="tag-recital">Recital Prep</label>
           </div>
         </div>
-        <div class="modal-actions">
-          <button class="btn btn-secondary" onclick="closeTagModal()">
+        <div class="modal-footer">
+          <button class="btn btn-secondary btn-md" onclick="closeTagModal()">
             Cancel
           </button>
-          <button class="btn btn-primary" onclick="applyTagFilters()">
+          <button class="btn btn-primary btn-md" onclick="applyTagFilters()">
             Apply
           </button>
         </div>
@@ -1404,7 +1241,7 @@
 
       function filterByStatus(status) {
         activeStatus = status;
-        const chips = document.querySelectorAll(".status-chip");
+        const chips = document.querySelectorAll(".filter-tab");
         chips.forEach((chip) => chip.classList.remove("active"));
         event.target.classList.add("active");
         updateActiveFiltersDisplay();
@@ -1414,11 +1251,15 @@
       let activeTags = [];
 
       function toggleTagModal() {
-        document.getElementById("tagModal").classList.add("active");
+        document.getElementById("tagModal").classList.add("open");
+        document.body.style.overflow = "hidden";
       }
 
-      function closeTagModal() {
-        document.getElementById("tagModal").classList.remove("active");
+      function closeTagModal(event) {
+        if (!event || event.target === event.currentTarget) {
+          document.getElementById("tagModal").classList.remove("open");
+          document.body.style.overflow = "";
+        }
       }
 
       function applyTagFilters() {
@@ -1492,8 +1333,8 @@
 
       function clearStatusFilter() {
         activeStatus = "all";
-        document.querySelector(".status-chip").classList.add("active");
-        document.querySelectorAll(".status-chip").forEach((chip, i) => {
+        document.querySelector(".filter-tab").classList.add("active");
+        document.querySelectorAll(".filter-tab").forEach((chip, i) => {
           if (i > 0) chip.classList.remove("active");
         });
         updateActiveFiltersDisplay();
