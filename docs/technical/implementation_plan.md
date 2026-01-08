@@ -2,9 +2,12 @@
 
 **Last Updated:** 2026-01-07
 
+**Location:** All scaffolding code lives in `src/`
+
 This document outlines the phased approach for setting up the Tutor Management SaaS platform scaffolding. Each phase builds upon the previous one, allowing for incremental progress and validation.
 
 ---
+
 
 ## Phase 1: Monorepo Foundation
 
@@ -12,19 +15,19 @@ This document outlines the phased approach for setting up the Tutor Management S
 
 ### Checklist
 
-- [ ] Initialize pnpm workspace
-  - [ ] Create `pnpm-workspace.yaml` defining apps and packages
-  - [ ] Create root `package.json` with workspace scripts
-  - [ ] Set `packageManager` field to `pnpm@10.x`
+- [x] Initialize pnpm workspace
+  - [x] Create `pnpm-workspace.yaml` defining apps and packages
+  - [x] Create root `package.json` with workspace scripts
+  - [x] Set `packageManager` field to `pnpm@10.x`
 
 - [ ] Configure Turborepo
   - [ ] Create `turbo.json` with task pipelines (build, lint, test, dev)
   - [ ] Define `globalEnv` for shared environment variables
   - [ ] Configure task dependencies and caching
 
-- [ ] Create folder structure
+- [x] Create folder structure
   ```
-  tutor/
+  src/
   ├── apps/
   │   ├── marketing/     # (placeholder)
   │   ├── web/           # (placeholder)
@@ -36,7 +39,7 @@ This document outlines the phased approach for setting up the Tutor Management S
   │   ├── constants/     # (placeholder)
   │   ├── config/        # Shared configurations
   │   └── e2e/           # (placeholder)
-  └── tooling/           # Build tooling configs
+  └── (tooling to be added)
   ```
 
 - [ ] Set up shared configurations (`packages/config`)
