@@ -60,63 +60,26 @@ This document outlines the phased approach for setting up the Tutor Management S
 
 ---
 
-## Phase 2: Database Layer
+## Phase 2: Database Package Setup
 
-**Goal:** Set up Supabase with Drizzle ORM, create the initial schema, and configure migrations.
+**Goal:** Set up Supabase and Drizzle ORM package scaffolding (schema comes later in Phase 9).
 
 ### Checklist
 
-- [ ] Initialize `packages/database`
-  - [ ] Create `package.json` with Drizzle dependencies
-  - [ ] Set up TypeScript configuration
-  - [ ] Create `drizzle.config.ts`
+- [x] Initialize `packages/database`
+  - [x] Create `package.json` with Drizzle dependencies
+  - [x] Set up TypeScript configuration
+  - [x] Create `drizzle.config.ts`
+  - [x] Document connection strings in `.env.example`
 
 - [ ] Configure Supabase
   - [ ] Initialize Supabase project (`supabase init`)
   - [ ] Configure `supabase/config.toml`
   - [ ] Create production Supabase project (dashboard)
-  - [ ] Document connection strings in `.env.example`
-
-- [ ] Create Drizzle schema (`packages/database/src/schema/`)
-  - [ ] `organizations.ts` - Multi-tenancy foundation
-  - [ ] `users.ts` - User profiles
-  - [ ] `tutors.ts` - Tutor-specific data
-  - [ ] `students.ts` - Student-specific data
-  - [ ] `sessions.ts` - Tutoring sessions
-  - [ ] `reviews.ts` - Session feedback
-  - [ ] `payments.ts` - Payment records
-  - [ ] `subscriptions.ts` - Subscription management
-  - [ ] `index.ts` - Export all schemas
-
-- [ ] Set up database utilities
-  - [ ] Create database client (`src/client.ts`)
-  - [ ] Export typed query helpers
-  - [ ] Configure connection pooling
-
-- [ ] Create migration workflow
-  - [ ] Generate initial migration (`db:generate`)
-  - [ ] Create migration apply script (`db:migrate`)
-  - [ ] Create migration status script (`db:status`)
-
-- [ ] Create seed script
-  - [ ] Default organization (required first)
-  - [ ] Sample tutors (5)
-  - [ ] Sample students (10)
-  - [ ] Sample sessions (20)
-  - [ ] Sample reviews and payments
-
-- [ ] Add package scripts
-  - [ ] `db:generate` - Generate migrations from schema
-  - [ ] `db:migrate` - Apply pending migrations
-  - [ ] `db:seed` - Seed development data
-  - [ ] `db:studio` - Open Drizzle Studio
-  - [ ] `db:reset` - Reset and reseed database
 
 - [ ] Validate setup
   - [ ] Start local Supabase (`supabase start`)
-  - [ ] Run migrations successfully
-  - [ ] Seed data successfully
-  - [ ] Query data via Drizzle Studio
+  - [ ] Verify connection works
 
 ---
 
@@ -425,13 +388,62 @@ This document outlines the phased approach for setting up the Tutor Management S
 
 ---
 
+## Phase 9: Database Schema & Data
+
+**Goal:** Define all database entities, create migrations, and seed development data.
+
+### Checklist
+
+- [ ] Create Drizzle schema (`packages/database/src/schema/`)
+  - [ ] `organizations.ts` - Multi-tenancy foundation
+  - [ ] `users.ts` - User profiles
+  - [ ] `tutors.ts` - Tutor-specific data
+  - [ ] `students.ts` - Student-specific data
+  - [ ] `families.ts` - Family groupings
+  - [ ] `guardians.ts` - Guardian contacts
+  - [ ] `sessions.ts` - Tutoring sessions
+  - [ ] `invoices.ts` - Billing records
+  - [ ] `transactions.ts` - Payment transactions
+  - [ ] `subscriptions.ts` - Subscription management
+  - [ ] `index.ts` - Export all schemas
+
+- [ ] Set up database utilities
+  - [ ] Create database client (`src/client.ts`)
+  - [ ] Export typed query helpers
+  - [ ] Configure connection pooling
+
+- [ ] Create migration workflow
+  - [ ] Generate initial migration (`db:generate`)
+  - [ ] Apply migrations (`db:migrate`)
+  - [ ] Test rollback capability
+
+- [ ] Create seed script
+  - [ ] Default organization (required first)
+  - [ ] Sample tutors
+  - [ ] Sample students with families
+  - [ ] Sample sessions
+  - [ ] Sample invoices and transactions
+
+- [ ] Create tRPC routers for entities
+  - [ ] Update `packages/api` with entity routers
+  - [ ] Add CRUD operations
+  - [ ] Implement search/filtering
+
+- [ ] Validate setup
+  - [ ] Run migrations successfully
+  - [ ] Seed data successfully
+  - [ ] Query data via Drizzle Studio
+  - [ ] tRPC endpoints work end-to-end
+
+---
+
 ## Phase Dependencies
 
 ```
 Phase 1 (Foundation)
     │
     ▼
-Phase 2 (Database)
+Phase 2 (Database Package)
     │
     ▼
 Phase 3 (API)
@@ -449,6 +461,9 @@ Phase 4 (Web)    Phase 5 (Mobile)
                │
                ▼
         Phase 8 (Polish)
+               │
+               ▼
+        Phase 9 (Schema & Data)
 ```
 
 ---
@@ -475,3 +490,4 @@ Phase 4 (Web)    Phase 5 (Mobile)
 | 6 | Supabase Auth, Lemon Squeezy, Resend, React Email, Inngest |
 | 7 | Sentry, Axiom, PostHog, Better Stack, GitHub Actions |
 | 8 | Vitest, Playwright |
+| 9 | Drizzle schema, migrations, seed data |
