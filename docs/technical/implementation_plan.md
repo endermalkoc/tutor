@@ -42,11 +42,11 @@ This document outlines the phased approach for setting up the Tutor Management S
   └── (tooling to be added)
   ```
 
-- [ ] Set up shared configurations (`packages/config`)
-  - [ ] TypeScript base config (`tsconfig.base.json`)
-  - [ ] ESLint shared config
-  - [ ] Prettier config (`.prettierrc`)
-  - [ ] Tailwind preset for web apps
+- [x] Set up shared configurations (`packages/config`)
+  - [x] TypeScript base config (`tsconfig.base.json`)
+  - [x] ESLint shared config
+  - [x] Prettier config (`.prettierrc`)
+  - [x] Tailwind preset for web apps
 
 - [ ] Create root development files
   - [ ] `.gitignore` (node_modules, .env.local, .turbo, etc.)
