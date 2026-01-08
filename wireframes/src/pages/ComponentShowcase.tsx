@@ -54,6 +54,7 @@ import {
   ExpandableContent,
   Combobox,
   InlineForm,
+  TagInput,
 } from '../components/design-system';
 import type { ComboboxOption } from '../components/design-system';
 import { PageHeader } from '../components/layout';
@@ -77,6 +78,7 @@ export function ComponentShowcase() {
   const [expandedSection, setExpandedSection] = useState(false);
   const [selectedFamily, setSelectedFamily] = useState('');
   const [showInlineForm, setShowInlineForm] = useState(false);
+  const [subjectTags, setSubjectTags] = useState<string[]>(['Piano', 'Music Theory']);
 
   return (
     <div className="showcase">
@@ -194,6 +196,17 @@ export function ComponentShowcase() {
               <Tag color="outline">Outline</Tag>
               <Tag color="red" onRemove={() => {}}>Removable</Tag>
             </TagList>
+          </div>
+          <div className="showcase-card">
+            <div className="showcase-label">Tag Input</div>
+            <div style={{ maxWidth: 400 }}>
+              <TagInput
+                value={subjectTags}
+                onChange={setSubjectTags}
+                placeholder="Add subjects..."
+              />
+            </div>
+            <p className="body-sm text-secondary mt-2">Type and press Enter or comma to add tags</p>
           </div>
         </div>
       </section>

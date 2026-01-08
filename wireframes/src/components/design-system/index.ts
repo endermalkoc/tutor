@@ -30,6 +30,10 @@ export type { CheckboxProps, RadioProps, RadioGroupProps, SwitchProps } from './
 export { Tag, TagList } from './Tag';
 export type { TagProps, TagColor, TagListProps } from './Tag';
 
+// TagInput
+export { TagInput } from './TagInput';
+export type { TagInputProps } from './TagInput';
+
 // Card
 export { Card, CardHeader, CardTitle, CardBody, CardFooter, MetricCard } from './Card';
 export type { CardProps, CardHeaderProps, CardTitleProps, CardBodyProps, CardFooterProps, MetricCardProps } from './Card';

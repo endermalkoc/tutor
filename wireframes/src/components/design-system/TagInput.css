@@ -1,0 +1,58 @@
+/* Tag Input Container */
+.tag-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 36px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  cursor: text;
+  transition: all var(--transition-fast);
+}
+
+.tag-input-container:hover {
+  border-color: var(--border-strong);
+}
+
+.tag-input-container:focus-within {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.tag-input-container.disabled {
+  background: var(--bg-muted);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Tags inside input */
+.tag-input-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Input field */
+.tag-input-field {
+  flex: 1;
+  min-width: 120px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--fg-default);
+  outline: none;
+}
+
+.tag-input-field::placeholder {
+  color: var(--fg-faint);
+}
+
+.tag-input-field:disabled {
+  cursor: not-allowed;
+}

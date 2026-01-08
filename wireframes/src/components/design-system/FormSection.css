@@ -16,7 +16,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: var(--space-3);
   margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-default);
 }
 
 .form-section-title {
