@@ -1,5 +1,24 @@
 # Project Documentation Goals & Guidelines
 
+## CRITICAL: Keep All Artifacts in Sync
+
+**Functional Specifications, Wireframes, API Code, UI Code, Components, Design Systems, Unit Tests, and End-to-End Tests must ALWAYS be kept in sync.**
+
+When updating ANY of these artifacts:
+1. **Check related artifacts** - Identify what else needs to change
+2. **Update together** - Don't leave artifacts out of sync
+3. **Verify consistency** - Ensure behavior matches across all layers
+
+| If you change... | Also update... |
+|------------------|----------------|
+| Functional Spec | Wireframes, UI Code, Tests |
+| Wireframe | React Components, Functional Spec (if behavior changed) |
+| Design System | All wireframes and UI components using that pattern |
+| API Code | Functional Spec, UI Code, Tests |
+| UI Code | Tests, Wireframes (if behavior visible) |
+
+---
+
 ## CRITICAL: Design System Compliance
 
 **ALL wireframes, UI prototypes, and interface implementations MUST conform to the design system.**

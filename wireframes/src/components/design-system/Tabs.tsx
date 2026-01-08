@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './Tabs.css';
 
 // Standard Tabs (underline style)
@@ -52,5 +53,43 @@ export function FilterTab({ active = false, onClick, children, className = '' }:
     <button type="button" className={classNames} onClick={onClick}>
       {children}
     </button>
+  );
+}
+
+// Navigation Tabs (router-aware, uses NavLink)
+export interface NavTabsProps {
+  children: React.ReactNode;
+  className?: string;
+  'aria-label'?: string;
+}
+
+export function NavTabs({ children, className = '', 'aria-label': ariaLabel }: NavTabsProps) {
+  const classNames = ['nav-tabs', className].filter(Boolean).join(' ');
+  return (
+    <nav className={classNames} role="tablist" aria-label={ariaLabel}>
+      {children}
+    </nav>
+  );
+}
+
+export interface LinkTabProps {
+  to: string;
+  end?: boolean;
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function LinkTab({ to, end = false, children, className = '' }: LinkTabProps) {
+  return (
+    <NavLink
+      to={to}
+      end={end}
+      className={({ isActive }) =>
+        ['link-tab', isActive && 'active', className].filter(Boolean).join(' ')
+      }
+      role="tab"
+    >
+      {children}
+    </NavLink>
   );
 }

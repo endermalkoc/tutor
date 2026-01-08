@@ -66,8 +66,8 @@ export { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from './Modal'
 export type { ModalProps, ModalHeaderProps, ModalTitleProps, ModalBodyProps, ModalFooterProps } from './Modal';
 
 // Tabs
-export { Tabs, Tab, FilterTabs, FilterTab } from './Tabs';
-export type { TabsProps, TabProps, FilterTabsProps, FilterTabProps } from './Tabs';
+export { Tabs, Tab, FilterTabs, FilterTab, NavTabs, LinkTab } from './Tabs';
+export type { TabsProps, TabProps, FilterTabsProps, FilterTabProps, NavTabsProps, LinkTabProps } from './Tabs';
 
 // Avatar
 export { Avatar, AvatarStack } from './Avatar';

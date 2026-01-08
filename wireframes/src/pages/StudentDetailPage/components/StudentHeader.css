@@ -1,0 +1,241 @@
+/* Student Header */
+.student-header {
+  background: var(--bg-surface);
+  padding: var(--space-6) var(--space-8);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.student-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+}
+
+.student-identity {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.student-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.student-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.student-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--fg-default);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.student-badges {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+/* Next Lesson Badge */
+.next-lesson-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: var(--primary-50);
+  color: var(--primary-700);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.next-lesson-badge i {
+  font-size: 14px;
+}
+
+.next-lesson-badge.today {
+  background: var(--success-50);
+  color: var(--success-700);
+}
+
+/* Meta Row */
+.student-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--fg-secondary);
+  font-size: 13px;
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.meta-item i {
+  color: var(--fg-muted);
+  font-size: 14px;
+}
+
+.meta-link {
+  color: var(--primary-600);
+  text-decoration: none;
+}
+
+.meta-link:hover {
+  text-decoration: underline;
+}
+
+.sms-icon {
+  color: var(--primary-500);
+  margin-left: var(--space-1);
+}
+
+.meta-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border-strong);
+}
+
+.student-family {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--fg-secondary);
+  font-size: 13px;
+  padding: var(--space-1) var(--space-2);
+  margin: calc(var(--space-1) * -1) calc(var(--space-2) * -1);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.student-family:hover {
+  background: var(--primary-50);
+}
+
+.family-link {
+  color: var(--primary-600);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.family-link:hover {
+  text-decoration: underline;
+}
+
+.relationship-duration {
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+/* Header Actions */
+.header-actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.btn-icon {
+  padding: var(--space-2);
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + var(--space-1));
+  right: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  min-width: 200px;
+  z-index: 100;
+  padding: var(--space-1) 0;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-size: 13px;
+  color: var(--fg-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background: var(--bg-subtle);
+}
+
+.dropdown-item i {
+  font-size: 16px;
+  color: var(--fg-muted);
+}
+
+.dropdown-item.danger {
+  color: var(--error-600);
+}
+
+.dropdown-item.danger:hover {
+  background: var(--error-50);
+}
+
+.dropdown-item.danger i {
+  color: var(--error-600);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--border-default);
+  margin: var(--space-1) 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .student-header {
+    padding: var(--space-4);
+  }
+
+  .student-header-content {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .student-name {
+    font-size: 22px;
+  }
+
+  .student-name-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .header-actions > button:first-child {
+    flex: 1;
+  }
+}

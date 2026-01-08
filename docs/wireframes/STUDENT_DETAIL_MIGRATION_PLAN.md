@@ -35,22 +35,23 @@ This document outlines the plan to convert the HTML wireframe `student-detail.ht
 
 ---
 
-## Phase 2: Student Detail Layout Components
+## Phase 2: Student Detail Layout Components ✅ COMPLETE
 
 ### 2.1 StudentHeader Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/StudentHeader.tsx`
-- [ ] Large avatar with initials
-- [ ] Student name with next lesson badge
-- [ ] Status badges (Child/Adult, Active/Trial/etc.)
-- [ ] Meta row: email, phone, family link, teaching duration
-- [ ] Action buttons: Schedule Lesson (primary), More actions dropdown
-- [ ] Support Adult vs Child view toggle
+- [x] Create `wireframes/src/pages/StudentDetailPage/components/StudentHeader.tsx`
+- [x] Large avatar with initials (uses Avatar component)
+- [x] Student name with next lesson badge
+- [x] Status badges (Child/Adult, Active/Trial/etc.)
+- [x] Meta row: email, phone, family link, teaching duration
+- [x] Action buttons: Schedule Lesson (primary), More actions dropdown
+- [x] Support Adult vs Child view toggle
+- [x] Added to ComponentShowcase
 
 ### 2.2 StudentDetailTabs Component
-- [ ] Create `wireframes/src/pages/StudentDetailPage/components/StudentDetailTabs.tsx`
-- [ ] Tab items: Overview, Lessons, Homework, Messages, Billing & Invoices, Transactions, Files
-- [ ] Use React Router `NavLink` for active states
-- [ ] Leverage existing Tabs design system component
+- [x] Create `wireframes/src/pages/StudentDetailPage/components/StudentDetailTabs.tsx`
+- [x] Tab items: Overview, Lessons, Homework, Messages, Billing & Invoices, Transactions, Files
+- [x] Use React Router `NavLink` for active states
+- [x] Added to ComponentShowcase
 
 ---
 
@@ -211,9 +212,11 @@ This document outlines the plan to convert the HTML wireframe `student-detail.ht
 1. ~~Breadcrumb component~~ (already existed)
 2. ~~PageHeader component~~ (already existed)
 
-**Next up (Phase 2-3):**
-3. StudentHeader component
-4. StudentDetailTabs component
+**Phase 2 ✅ Complete:**
+3. ~~StudentHeader component~~
+4. ~~StudentDetailTabs component~~
+
+**Next up (Phase 3):**
 5. SectionCard component (used by multiple sections)
 6. DataGrid component (used in view modes)
 
@@ -284,7 +287,7 @@ wireframes/src/
 | Phase | Components | Complexity | Status |
 |-------|------------|------------|--------|
 | Phase 1 | 2 | Low | ✅ Complete |
-| Phase 2 | 2 | Medium | Pending |
+| Phase 2 | 2 | Medium | ✅ Complete |
 | Phase 3 | 2 | Medium | Pending |
 | Phase 4 | 8 | Medium-High | Pending |
 | Phase 5 | 2 | Medium | Pending |

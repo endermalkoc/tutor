@@ -41,6 +41,8 @@ import {
   Tab,
   FilterTabs,
   FilterTab,
+  NavTabs,
+  LinkTab,
   Avatar,
   AvatarStack,
   Alert,
@@ -529,6 +531,17 @@ export function ComponentShowcase() {
               <FilterTab active={activeFilter === 'trial'} onClick={() => setActiveFilter('trial')}>Trial</FilterTab>
               <FilterTab active={activeFilter === 'inactive'} onClick={() => setActiveFilter('inactive')}>Inactive</FilterTab>
             </FilterTabs>
+          </div>
+          <div className="showcase-card full-width">
+            <div className="showcase-label">Navigation Tabs (Router-aware)</div>
+            <NavTabs aria-label="Example navigation">
+              <LinkTab to="/design-system" end>Overview</LinkTab>
+              <LinkTab to="/design-system/details">Details</LinkTab>
+              <LinkTab to="/design-system/lessons">Lessons</LinkTab>
+              <LinkTab to="/design-system/billing">Billing & Invoices</LinkTab>
+              <LinkTab to="/design-system/files">Files</LinkTab>
+            </NavTabs>
+            <p className="body-sm text-secondary mt-3">Uses React Router NavLink for active state detection</p>
           </div>
         </div>
       </section>
