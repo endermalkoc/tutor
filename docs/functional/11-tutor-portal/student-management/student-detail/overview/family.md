@@ -24,21 +24,30 @@ Primary contact is visually distinguished with a left border accent (primary col
 | Email | Mailto link (or "Not provided") |
 | Phone Numbers | Structured list showing each phone with type label (Mobile/Home/Work) and SMS icon for capable numbers |
 | Address | Full formatted address (or "No address") |
-| Preferences | Badges showing: Invoice Recipient (if enabled), Email Reminders (if enabled), SMS Reminders (if enabled) |
-| Private Note | Yellow highlighted box with lock icon showing private note (only visible to tutor) |
+| Show Details Toggle | Expandable link to reveal preferences and private note (reduces visual clutter) |
 | Contact Actions | Quick action buttons: Call, Email, Message |
 | Edit Button | Inline Edit button to edit this contact only |
+
+#### Show Details (collapsed by default)
+
+When "Show details" is clicked, reveals:
+
+| Field | Display Format |
+|-------|----------------|
+| Preferences | Badges showing: Invoice Recipient (if enabled), Email Reminders (if enabled), SMS Reminders (if enabled) |
+| Private Note | Yellow highlighted box with lock icon showing private note (only visible to tutor) |
+
+Toggle text changes to "Hide details" when expanded. Caret icon rotates to indicate state.
 
 ### Additional Contacts
 
 - Listed below primary contact
-- Same fields as primary contact (Title + Name, phone list, preferences badges, private note)
+- Same fields as primary contact (Title + Name, phone list, Show details toggle)
 - Role displays as "Contact" with optional relationship inline (with spacing between name and role)
 - Each contact has their own address; if same as primary, displays full address with "(same as [Primary Name])" note
 - Phone numbers shown in structured list with type labels (Mobile/Home/Work)
 - Emergency Badge shown if marked as emergency contact
-- Preference badges shown (Invoice Recipient, Email Reminders, SMS Reminders)
-- Private Note shown if present (in yellow highlighted box with lock icon)
+- "Show details" toggle to reveal preferences and private note (same behavior as primary contact)
 - Quick action buttons (Call, Email, Message) for each contact
 - Overflow menu (⋮) with actions: Set as Primary Contact, Mark as Emergency Contact, Delete Contact
 - Edit button for per-contact editing
