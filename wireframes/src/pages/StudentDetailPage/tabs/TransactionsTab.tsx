@@ -12,17 +12,19 @@ import {
 } from '../../../components/design-system';
 import './TransactionsTab.css';
 
-type TransactionType = 'payment' | 'charge' | 'credit' | 'adjustment' | 'refund';
+type TransactionType = 'payment' | 'refund' | 'charge' | 'discount';
 
 interface Transaction {
   id: string;
   date: string;
   type: TransactionType;
+  student: string;
   description: string;
-  reference?: string;
+  category?: string;
   amount: number;
   balance: number;
   balanceType: 'credit' | 'owing' | 'zero';
+  isRecurring?: boolean;
 }
 
 interface TransactionStats {
@@ -38,13 +40,14 @@ interface AccountBalance {
 
 // Mock data
 const mockTransactions: Transaction[] = [
-  { id: 't1', date: 'Jan 6, 2025', type: 'payment', description: 'Payment received', reference: 'Check #1234', amount: 200, balance: 50, balanceType: 'credit' },
-  { id: 't2', date: 'Jan 1, 2025', type: 'charge', description: 'INV-0042 - January lessons (Emily)', reference: 'INV-0042', amount: -200, balance: 150, balanceType: 'owing' },
-  { id: 't3', date: 'Jan 1, 2025', type: 'charge', description: 'INV-0041 - January lessons (Michael)', reference: 'INV-0041', amount: -200, balance: 50, balanceType: 'credit' },
-  { id: 't4', date: 'Dec 15, 2024', type: 'payment', description: 'Payment received', reference: 'Card ending 4242', amount: 400, balance: 250, balanceType: 'credit' },
-  { id: 't5', date: 'Dec 10, 2024', type: 'credit', description: 'Holiday discount credit', reference: undefined, amount: 50, balance: 150, balanceType: 'owing' },
-  { id: 't6', date: 'Dec 1, 2024', type: 'charge', description: 'INV-0038 - December lessons (Emily)', reference: 'INV-0038', amount: -200, balance: 200, balanceType: 'owing' },
-  { id: 't7', date: 'Dec 1, 2024', type: 'charge', description: 'INV-0037 - December lessons (Michael)', reference: 'INV-0037', amount: -200, balance: 0, balanceType: 'zero' },
+  { id: 't1', date: 'Jan 6, 2025', type: 'payment', student: 'Emily Chen', description: 'Check #1234', amount: 200, balance: 50, balanceType: 'credit' },
+  { id: 't2', date: 'Jan 1, 2025', type: 'charge', student: 'Emily Chen', description: 'January lessons', category: 'Lessons', amount: 200, balance: 150, balanceType: 'owing', isRecurring: true },
+  { id: 't3', date: 'Jan 1, 2025', type: 'charge', student: 'Michael Chen', description: 'January lessons', category: 'Lessons', amount: 200, balance: 50, balanceType: 'credit', isRecurring: true },
+  { id: 't4', date: 'Dec 15, 2024', type: 'payment', student: 'Emily Chen', description: 'Card ending 4242', amount: 400, balance: 250, balanceType: 'credit' },
+  { id: 't5', date: 'Dec 10, 2024', type: 'discount', student: 'Emily Chen', description: 'Holiday discount', category: 'Seasonal', amount: 50, balance: 150, balanceType: 'owing' },
+  { id: 't6', date: 'Dec 1, 2024', type: 'charge', student: 'Emily Chen', description: 'December lessons', category: 'Lessons', amount: 200, balance: 200, balanceType: 'owing', isRecurring: true },
+  { id: 't7', date: 'Dec 1, 2024', type: 'charge', student: 'Michael Chen', description: 'December lessons', category: 'Lessons', amount: 200, balance: 0, balanceType: 'zero', isRecurring: true },
+  { id: 't8', date: 'Nov 20, 2024', type: 'refund', student: 'Emily Chen', description: 'Cancelled lesson refund', amount: 50, balance: 200, balanceType: 'owing' },
 ];
 
 const mockStats: TransactionStats = {
@@ -58,22 +61,15 @@ const mockAccountBalance: AccountBalance = {
   type: 'credit',
 };
 
-const typeConfig: Record<TransactionType, { label: string; className: string; icon?: string }> = {
-  payment: { label: 'Payment', className: 'type-badge--payment', icon: 'check' },
-  charge: { label: 'Charge', className: 'type-badge--charge' },
-  credit: { label: 'Credit', className: 'type-badge--credit', icon: 'plus' },
-  adjustment: { label: 'Adjustment', className: 'type-badge--adjustment' },
-  refund: { label: 'Refund', className: 'type-badge--refund' },
+const typeConfig: Record<TransactionType, { label: string; className: string; icon: string }> = {
+  payment: { label: 'Payment', className: 'type-badge--payment', icon: 'arrow-down-left' },
+  refund: { label: 'Refund', className: 'type-badge--refund', icon: 'arrow-up-right' },
+  charge: { label: 'Charge', className: 'type-badge--charge', icon: 'receipt' },
+  discount: { label: 'Discount', className: 'type-badge--discount', icon: 'tag' },
 };
 
 function formatCurrency(amount: number): string {
-  const absAmount = Math.abs(amount);
-  return `$${absAmount.toFixed(2)}`;
-}
-
-function formatAmount(amount: number): string {
-  const prefix = amount > 0 ? '+' : '';
-  return `${prefix}${formatCurrency(amount)}`;
+  return `$${amount.toFixed(2)}`;
 }
 
 function formatBalance(amount: number, type: 'credit' | 'owing' | 'zero'): string {
@@ -118,10 +114,9 @@ export function TransactionsTab() {
         >
           <option value="">All Types</option>
           <option value="payment">Payments</option>
-          <option value="charge">Charges</option>
-          <option value="credit">Credits</option>
-          <option value="adjustment">Adjustments</option>
           <option value="refund">Refunds</option>
+          <option value="charge">Charges</option>
+          <option value="discount">Discounts</option>
         </Select>
 
         <Select
@@ -176,8 +171,8 @@ export function TransactionsTab() {
             <TableRow>
               <TableHeaderCell sortable sortDirection="desc">Date</TableHeaderCell>
               <TableHeaderCell>Type</TableHeaderCell>
+              <TableHeaderCell>Student</TableHeaderCell>
               <TableHeaderCell>Description</TableHeaderCell>
-              <TableHeaderCell>Reference</TableHeaderCell>
               <TableHeaderCell sortable>Amount</TableHeaderCell>
               <TableHeaderCell>Balance</TableHeaderCell>
               <TableHeaderCell className="actions-col" />
@@ -189,17 +184,26 @@ export function TransactionsTab() {
                 <TableCell>{tx.date}</TableCell>
                 <TableCell>
                   <span className={`type-badge ${typeConfig[tx.type].className}`}>
-                    {typeConfig[tx.type].icon && (
-                      <i className={`ph ph-${typeConfig[tx.type].icon}`} />
-                    )}
+                    <i className={`ph ph-${typeConfig[tx.type].icon}`} />
                     {typeConfig[tx.type].label}
                   </span>
                 </TableCell>
-                <TableCell>{tx.description}</TableCell>
-                <TableCell>{tx.reference || '-'}</TableCell>
+                <TableCell>{tx.student}</TableCell>
                 <TableCell>
-                  <span className={`amount ${tx.amount > 0 ? 'amount--positive' : 'amount--negative'}`}>
-                    {formatAmount(tx.amount)}
+                  <div className="description-cell">
+                    <span className="description-text">{tx.description}</span>
+                    {tx.category && (
+                      <span className="category-tag">{tx.category}</span>
+                    )}
+                    {tx.isRecurring && (
+                      <i className="ph ph-repeat recurring-icon" title="Recurring" />
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <span className={`amount amount--${tx.type}`}>
+                    {tx.type === 'charge' ? '-' : tx.type === 'refund' ? '-' : '+'}
+                    {formatCurrency(tx.amount)}
                   </span>
                 </TableCell>
                 <TableCell>
@@ -225,7 +229,7 @@ export function TransactionsTab() {
         {/* Pagination */}
         <div className="pagination">
           <div className="pagination-info">
-            Showing <strong>1-7</strong> of <strong>24</strong>
+            Showing <strong>1-8</strong> of <strong>24</strong>
           </div>
           <div className="pagination-controls">
             <div className="page-size-selector">

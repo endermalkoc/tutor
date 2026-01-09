@@ -153,24 +153,44 @@
   color: var(--success-600);
 }
 
-.type-badge--charge {
-  background: var(--bg-subtle);
-  color: var(--fg-muted);
-}
-
-.type-badge--credit {
-  background: var(--indigo-50);
-  color: var(--indigo-600);
-}
-
-.type-badge--adjustment {
+.type-badge--refund {
   background: var(--warning-50);
   color: var(--warning-600);
 }
 
-.type-badge--refund {
-  background: var(--error-50);
-  color: var(--error-600);
+.type-badge--charge {
+  background: var(--bg-subtle);
+  color: var(--fg-secondary);
+}
+
+.type-badge--discount {
+  background: var(--indigo-50);
+  color: var(--indigo-600);
+}
+
+/* Description Cell */
+.description-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.description-text {
+  color: var(--fg-default);
+}
+
+.category-tag {
+  display: inline-flex;
+  padding: 2px var(--space-2);
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  color: var(--fg-muted);
+}
+
+.recurring-icon {
+  color: var(--fg-faint);
+  font-size: 14px;
 }
 
 /* Amount */
@@ -180,12 +200,20 @@
   font-weight: 500;
 }
 
-.amount--positive {
+.amount--payment {
   color: var(--success-600);
 }
 
-.amount--negative {
+.amount--discount {
+  color: var(--success-600);
+}
+
+.amount--charge {
   color: var(--error-600);
+}
+
+.amount--refund {
+  color: var(--warning-600);
 }
 
 /* Balance */
