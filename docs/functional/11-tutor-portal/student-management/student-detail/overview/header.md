@@ -30,3 +30,13 @@ The header provides identity and key context, remaining visible while scrolling.
 |--------|------|----------|
 | Schedule Lesson | Primary button | Opens lesson scheduling flow |
 | More Actions | Icon button with dropdown | Edit Student, Change Status, Send Message, Archive, Delete |
+
+### More Actions Menu
+
+| Action | Behavior |
+|--------|----------|
+| Edit Student | Scrolls to Personal Details section and enters edit mode |
+| Change Status | Opens status change flow |
+| Send Message | Opens message composer |
+| Archive | Archives the student (with confirmation) |
+| Delete | Deletes the student (with confirmation) |

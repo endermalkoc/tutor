@@ -24,6 +24,10 @@ Single line summary if data exists:
 
 ## Edit Mode
 
+Edit mode can be triggered by:
+- Clicking the "Edit" button within the Personal Details section
+- Selecting "Edit Student" from the header's More Actions menu (scrolls to section automatically)
+
 | Field | Input Type | Validation |
 |-------|------------|------------|
 | First Name | Text input | Required |

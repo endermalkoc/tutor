@@ -15,9 +15,13 @@ The Overview tab serves as the **relationship portal** for a student, helping tu
 
 ## Layout
 
+### Desktop (Two Columns)
+
+On screens wider than 1024px, the overview displays in a two-column layout:
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ STUDENT HEADER (Sticky)                                         │
+│ STUDENT HEADER                                                   │
 │ ┌─────────────────────────────────────────────────────────────┐ │
 │ │ Avatar | Name | Badges | Next Lesson | Contact | Family     │ │
 │ └─────────────────────────────────────────────────────────────┘ │
@@ -26,33 +30,37 @@ The Overview tab serves as the **relationship portal** for a student, helping tu
 │ ┌─────────────────────────────────────────────────────────────┐ │
 │ │ Last lesson recap | Homework status | Today's focus         │ │
 │ └─────────────────────────────────────────────────────────────┘ │
-├─────────────────────────────────────────────────────────────────┤
-│ LESSON SETTINGS (Primary)                               [Edit]  │
-│ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Subjects, duration, category, skill level                   │ │
-│ └─────────────────────────────────────────────────────────────┘ │
-├─────────────────────────────────────────────────────────────────┤
-│ CONTACT & NOTIFICATIONS (Secondary)                     [Edit]  │
-│ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Email, phone, notification preferences                      │ │
-│ └─────────────────────────────────────────────────────────────┘ │
-├─────────────────────────────────────────────────────────────────┤
-│ FAMILY (Secondary, Child only)                          [Edit]  │
-│ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Guardian info + Address + Siblings + Billing indicator      │ │
-│ └─────────────────────────────────────────────────────────────┘ │
-├─────────────────────────────────────────────────────────────────┤
-│ NOTES                                            [+ Quick Add]  │
-│ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Private tutor notes with inline add                         │ │
-│ └─────────────────────────────────────────────────────────────┘ │
-├─────────────────────────────────────────────────────────────────┤
-│ PERSONAL DETAILS (Collapsed by default)              [Expand]   │
-│ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Birthday, school, referrer, student since                   │ │
-│ └─────────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
+├───────────────────────────────────┬─────────────────────────────┤
+│ LEFT COLUMN                       │ RIGHT COLUMN                │
+├───────────────────────────────────┼─────────────────────────────┤
+│ LESSON SETTINGS (Primary) [Edit]  │ NOTES          [+ Quick Add]│
+│ ┌───────────────────────────────┐ │ ┌─────────────────────────┐ │
+│ │ Subjects, duration, category  │ │ │ Private tutor notes     │ │
+│ └───────────────────────────────┘ │ └─────────────────────────┘ │
+├───────────────────────────────────┼─────────────────────────────┤
+│ CONTACT & NOTIFICATIONS    [Edit] │ PERSONAL DETAILS   [Expand] │
+│ ┌───────────────────────────────┐ │ ┌─────────────────────────┐ │
+│ │ Email, phone, preferences     │ │ │ Birthday, school, etc.  │ │
+│ └───────────────────────────────┘ │ │ (Collapsed by default)  │ │
+├───────────────────────────────────┤ └─────────────────────────┘ │
+│ FAMILY (Child only)        [Edit] │                             │
+│ ┌───────────────────────────────┐ │                             │
+│ │ Guardians, siblings, billing  │ │                             │
+│ └───────────────────────────────┘ │                             │
+└───────────────────────────────────┴─────────────────────────────┘
 ```
+
+### Mobile (Single Column)
+
+On screens 1024px and narrower, sections stack in this order:
+
+1. Student Header
+2. Pre-Lesson Context
+3. Lesson Settings
+4. Contact & Notifications
+5. Family (Child only)
+6. Notes
+7. Personal Details
 
 ---
 

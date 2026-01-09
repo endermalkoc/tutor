@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import {
   SectionCard,
   DataGrid,
@@ -25,6 +25,10 @@ export interface PersonalDetailsData {
 export interface PersonalDetailsSectionProps {
   data: PersonalDetailsData;
   onSave?: (data: PersonalDetailsData) => void;
+  /** Controlled editing state */
+  editing?: boolean;
+  /** Callback when edit mode changes */
+  onEditChange?: (editing: boolean) => void;
   className?: string;
 }
 
@@ -51,7 +55,8 @@ const statusVariantMap: Record<string, 'success' | 'indigo' | 'warning' | 'cyan'
   inactive: 'default',
 };
 
-export function PersonalDetailsSection({ data, onSave, className = '' }: PersonalDetailsSectionProps) {
+export const PersonalDetailsSection = forwardRef<HTMLDivElement, PersonalDetailsSectionProps>(
+  function PersonalDetailsSection({ data, onSave, editing, onEditChange, className = '' }, ref) {
   const [editData, setEditData] = useState<PersonalDetailsData>(data);
 
   const handleSave = () => {
@@ -244,19 +249,23 @@ export function PersonalDetailsSection({ data, onSave, className = '' }: Persona
   );
 
   return (
-    <SectionCard
-      title="Personal Details"
-      variant="secondary"
-      collapsible
-      defaultCollapsed
-      collapsedSummary={getCollapsedSummary()}
-      editable
-      onSave={handleSave}
-      onCancel={handleCancel}
-      editContent={editContent}
-      className={className}
-    >
-      {viewContent}
-    </SectionCard>
+    <div ref={ref}>
+      <SectionCard
+        title="Personal Details"
+        variant="secondary"
+        collapsible
+        defaultCollapsed
+        collapsedSummary={getCollapsedSummary()}
+        editable
+        editing={editing}
+        onEditChange={onEditChange}
+        onSave={handleSave}
+        onCancel={handleCancel}
+        editContent={editContent}
+        className={className}
+      >
+        {viewContent}
+      </SectionCard>
+    </div>
   );
-}
+});

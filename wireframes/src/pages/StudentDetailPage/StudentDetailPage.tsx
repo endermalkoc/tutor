@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useParams, Routes, Route } from 'react-router-dom';
 import { Breadcrumb } from '../../components/layout';
 import {
@@ -199,8 +199,20 @@ const adultPersonalDetailsData: PersonalDetailsData = {
   studentSince: '2024-01',
 };
 
+interface OverviewTabProps {
+  isAdult: boolean;
+  personalDetailsRef: React.RefObject<HTMLDivElement>;
+  personalDetailsEditing: boolean;
+  onPersonalDetailsEditChange: (editing: boolean) => void;
+}
+
 // Overview Tab Component
-function OverviewTab({ isAdult }: { isAdult: boolean }) {
+function OverviewTab({
+  isAdult,
+  personalDetailsRef,
+  personalDetailsEditing,
+  onPersonalDetailsEditChange,
+}: OverviewTabProps) {
   const [lessonSettings, setLessonSettings] = useState(lessonSettingsData);
   const [contactInfo, setContactInfo] = useState(isAdult ? adultContactData : childContactData);
   const [personalDetails, setPersonalDetails] = useState(
@@ -283,7 +295,10 @@ function OverviewTab({ isAdult }: { isAdult: boolean }) {
               }}
             />
           )}
+        </div>
 
+        {/* Right Column */}
+        <div className="overview-column overview-column--right">
           <NotesSection
             notes={notes.filter(n => !n.isPinned).slice(0, 3)}
             pinnedNote={pinnedNote}
@@ -294,13 +309,13 @@ function OverviewTab({ isAdult }: { isAdult: boolean }) {
             onDeleteNote={handleDeleteNote}
             onEditNote={handleEditNote}
           />
-        </div>
 
-        {/* Right Column */}
-        <div className="overview-column overview-column--right">
           <PersonalDetailsSection
+            ref={personalDetailsRef}
             data={personalDetails}
             onSave={setPersonalDetails}
+            editing={personalDetailsEditing}
+            onEditChange={onPersonalDetailsEditChange}
           />
         </div>
       </div>
@@ -312,8 +327,16 @@ function OverviewTab({ isAdult }: { isAdult: boolean }) {
 export function StudentDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [isAdult, setIsAdult] = useState(false);
+  const [personalDetailsEditing, setPersonalDetailsEditing] = useState(false);
+  const personalDetailsRef = useRef<HTMLDivElement>(null);
 
   const studentData = isAdult ? adultStudentData : childStudentData;
+
+  const handleEditStudent = () => {
+    // Scroll to personal details section and trigger edit mode
+    personalDetailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setPersonalDetailsEditing(true);
+  };
 
   return (
     <div className="student-detail-page">
@@ -341,7 +364,7 @@ export function StudentDetailPage() {
       <StudentHeader
         student={studentData}
         onScheduleLesson={() => console.log('Schedule lesson')}
-        onEdit={() => console.log('Edit student')}
+        onEdit={handleEditStudent}
         onSendMessage={() => console.log('Send message')}
         onChangeStatus={() => console.log('Change status')}
         onArchive={() => console.log('Archive')}
@@ -354,7 +377,14 @@ export function StudentDetailPage() {
       {/* Tab Content */}
       <div className="tab-content">
         <Routes>
-          <Route index element={<OverviewTab isAdult={isAdult} />} />
+          <Route index element={
+            <OverviewTab
+              isAdult={isAdult}
+              personalDetailsRef={personalDetailsRef}
+              personalDetailsEditing={personalDetailsEditing}
+              onPersonalDetailsEditChange={setPersonalDetailsEditing}
+            />
+          } />
           <Route path="lessons" element={<LessonsTab />} />
           <Route path="homework" element={<HomeworkTab />} />
           <Route path="messages" element={<MessagesTab />} />

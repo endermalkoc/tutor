@@ -60,6 +60,15 @@
   .overview-columns {
     grid-template-columns: 1fr;
   }
+
+  /* In single column, keep original order: left column content first, then right column */
+  .overview-column--left {
+    order: 1;
+  }
+
+  .overview-column--right {
+    order: 2;
+  }
 }
 
 @media (max-width: 768px) {
