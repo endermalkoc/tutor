@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "TutorStudio",
+    "slug": "tutor-studio",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#3ba5c5"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tutorstudio.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#3ba5c5"
+      },
+      "package": "com.tutorstudio.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "name": "TutorStudio"
+    },
+    "plugins": [
+      "expo-font"
+    ]
+  }
+}
