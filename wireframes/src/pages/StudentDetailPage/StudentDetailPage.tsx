@@ -10,7 +10,6 @@ import {
   FamilySection,
   NotesSection,
   PersonalDetailsSection,
-  RecentLessonsSection,
 } from './components';
 import {
   LessonsTab,
@@ -26,7 +25,6 @@ import type {
   PersonalDetailsData,
   GuardianData,
   Note,
-  Lesson,
   Sibling,
   BillingInfo,
 } from './components';
@@ -201,14 +199,6 @@ const adultPersonalDetailsData: PersonalDetailsData = {
   studentSince: '2024-01',
 };
 
-const recentLessonsData: Lesson[] = [
-  { id: 'l1', date: 'Jan 6, 2025', time: '3:00 PM', duration: '30 min', status: 'attended', notes: 'Worked on dynamics' },
-  { id: 'l2', date: 'Jan 3, 2025', time: '3:00 PM', duration: '30 min', status: 'attended', notes: 'Scale practice' },
-  { id: 'l3', date: 'Dec 28, 2024', time: '3:00 PM', duration: '30 min', status: 'attended' },
-  { id: 'l4', date: 'Dec 21, 2024', time: '3:00 PM', duration: '30 min', status: 'cancelled', notes: 'Holiday break' },
-  { id: 'l5', date: 'Dec 14, 2024', time: '3:00 PM', duration: '30 min', status: 'attended', notes: 'Recital prep' },
-];
-
 // Overview Tab Component
 function OverviewTab({ isAdult }: { isAdult: boolean }) {
   const [lessonSettings, setLessonSettings] = useState(lessonSettingsData);
@@ -311,11 +301,6 @@ function OverviewTab({ isAdult }: { isAdult: boolean }) {
           <PersonalDetailsSection
             data={personalDetails}
             onSave={setPersonalDetails}
-          />
-
-          <RecentLessonsSection
-            lessons={recentLessonsData}
-            viewAllLink="lessons"
           />
         </div>
       </div>

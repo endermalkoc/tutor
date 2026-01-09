@@ -34,6 +34,3 @@ export type { NotesSectionProps, Note } from './NotesSection';
 export { PersonalDetailsSection } from './PersonalDetailsSection';
 export type { PersonalDetailsSectionProps, PersonalDetailsData } from './PersonalDetailsSection';
 
-// Recent Lessons Section
-export { RecentLessonsSection } from './RecentLessonsSection';
-export type { RecentLessonsSectionProps, Lesson, LessonStatus } from './RecentLessonsSection';
