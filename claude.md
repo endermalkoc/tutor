@@ -1,5 +1,71 @@
 # Project Documentation Goals & Guidelines
 
+---
+
+## ⚠️ STOP: UPDATE SPECS FIRST ⚠️
+
+**Before writing ANY code or modifying ANY wireframe, you MUST update the relevant spec.**
+
+This is NON-NEGOTIABLE. The order is always:
+1. **FIRST** → Update the spec in `docs/functional/`
+2. **THEN** → Implement in wireframes/code
+
+If you find yourself writing code without having updated a spec, STOP and update the spec first.
+
+---
+
+## Project Folder Structure
+
+```
+project/
+├── docs/
+│   ├── functional/                     # ← SPECS LIVE HERE (update FIRST)
+│   │   ├── entities/                   #    Entity definitions (student.md, guardian.md, etc.)
+│   │   └── 11-tutor-portal/            #    Feature specs organized by area
+│   │       ├── student-management/
+│   │       │   ├── student-list.md
+│   │       │   ├── add-student.md
+│   │       │   └── student-detail/     #    Nested specs for complex features
+│   │       │       ├── index.md
+│   │       │       ├── overview/
+│   │       │       │   ├── _index.md   #    Layout and section overview
+│   │       │       │   ├── header.md
+│   │       │       │   ├── personal-details.md
+│   │       │       │   └── ...
+│   │       │       └── lessons.md
+│   │       ├── scheduling/
+│   │       ├── invoicing/
+│   │       └── ...
+│   └── ui-requirements/
+│       └── design-system/
+│           └── design-system.html      # ← Visual component reference
+│
+└── wireframes/
+    └── src/
+        ├── components/                 # ← Reusable UI components
+        │   └── design-system/
+        └── pages/                      # ← Page implementations
+            ├── StudentListPage/
+            ├── StudentDetailPage/
+            │   ├── StudentDetailPage.tsx
+            │   ├── components/         #    Page-specific components
+            │   └── tabs/
+            └── ...
+```
+
+### Finding the Right Spec
+
+| If you're changing... | Look in... |
+|-----------------------|------------|
+| Student detail page | `docs/functional/11-tutor-portal/student-management/student-detail/` |
+| Student list | `docs/functional/11-tutor-portal/student-management/student-list.md` |
+| Adding a student | `docs/functional/11-tutor-portal/student-management/add-student.md` |
+| Entity definitions | `docs/functional/entities/` |
+| Scheduling features | `docs/functional/11-tutor-portal/scheduling/` |
+| Invoicing features | `docs/functional/11-tutor-portal/invoicing/` |
+
+---
+
 ## CRITICAL: Keep All Artifacts in Sync
 
 **Functional Specifications, Wireframes, API Code, UI Code, Components, Design Systems, Unit Tests, and End-to-End Tests must ALWAYS be kept in sync.**
@@ -41,9 +107,10 @@ If a component doesn't exist in the design system, add it to the design system F
 
 ### Workflow
 
-1. **Check the spec** - Read the relevant functional spec (`docs/functional/`) for the feature being modified
-2. **Update if needed** - If the spec doesn't sufficiently describe the behavior you're implementing, update it first
-3. **Then implement** - Only after the spec is complete, make changes to wireframes or code
+1. **Find the spec** - Use the folder structure above to locate the relevant spec
+2. **Read the spec** - Understand what's currently documented
+3. **Update the spec** - If behavior is new or changed, document it FIRST
+4. **Then implement** - Only after the spec is complete, make changes to wireframes or code
 
 ### Why Spec-First?
 
@@ -54,9 +121,14 @@ If a component doesn't exist in the design system, add it to the design system F
 
 ### Examples
 
-**Changing phone number display behavior:**
-1. First update `docs/functional/entities/guardian.md` with display priority rules
-2. Then modify the wireframe HTML
+**Adding "Edit Student" behavior from header:**
+1. First update `docs/functional/11-tutor-portal/student-management/student-detail/overview/header.md` with the action behavior
+2. Update `docs/functional/11-tutor-portal/student-management/student-detail/overview/personal-details.md` to mention the trigger
+3. Then modify the wireframe code
+
+**Changing layout (e.g., two-column):**
+1. First update `docs/functional/11-tutor-portal/student-management/student-detail/overview/_index.md` with new layout
+2. Then implement in wireframes
 
 **Adding a new validation rule:**
 1. First document the rule in the relevant entity or workflow spec
