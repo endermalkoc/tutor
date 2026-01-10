@@ -42,7 +42,7 @@ When updating ANY of these artifacts:
 
 **ALL wireframes, UI prototypes, and interface implementations MUST conform to the design system.**
 
-**Design System Location**: `docs/ui-requirements/design-system/design-system.html`
+**Design System Location**: `wireframes/src/components/design-system/`
 
 Before creating or modifying ANY UI:
 1. **ALWAYS** open and review `design-system.html` first
@@ -122,8 +122,8 @@ If a component doesn't exist in the design system, add it to the design system F
 
 1. **Functional Specs** (`docs/functional/`) - Business logic, workflows, rules
 2. **UI Requirements** (`docs/ui-requirements/`) - UI specifications for forms, lists, and other interfaces
-3. **Design System** (`docs/ui-requirements/design-system/`) - Complete visual design system
-4. **Wireframes** (`docs/wireframes/`) - Interactive HTML prototypes
+3. **Design System** (`wireframes/src/components/design-system/`) - React components and design tokens
+4. **Wireframes** (`wireframes/`) - React/Vite-based interactive prototypes
 
 ### Keep Specs DRY
 
@@ -159,24 +159,25 @@ When a feature is removed or consolidated elsewhere:
 
 ### Design System as Source of Truth
 
-**Location**: `docs/ui-requirements/design-system/design-system.html`
+**Location**: `wireframes/src/components/design-system/`
 
-This single HTML file contains ALL component styles, colors, spacing, and patterns. It is the authoritative reference for all UI work.
+This directory contains React components with their CSS files. Design tokens are in `wireframes/src/styles/design-tokens.css`. The component showcase is at `wireframes/src/pages/ComponentShowcase.tsx`. These are the authoritative reference for all UI work.
 
 ### When Creating New Wireframes or UI
 
 **MANDATORY WORKFLOW**:
-1. Open `design-system.html` in browser
-2. Find the component you need (button, input, select, dropdown, card, etc.)
-3. Copy the HTML structure and CSS exactly
-4. Do NOT modify colors, spacing, border-radius, or typography
+1. Run the wireframes app (`cd wireframes && pnpm dev`) to view ComponentShowcase
+2. Find the component you need (Button, Input, Select, Dropdown, Card, etc.)
+3. Import and use the React component from `@/components/design-system`
+4. Do NOT modify colors, spacing, border-radius, or typography - use design tokens
 
 ### Wireframe Creation Checklist
 
 Before creating a new wireframe:
-- [ ] Open and review `design-system.html`
+- [ ] Run wireframes app and review ComponentShowcase
 - [ ] Identify which existing components to use
-- [ ] Copy component HTML/CSS from design system
+- [ ] Import React components from `@/components/design-system`
+- [ ] Use design tokens from `@/styles/design-tokens.css`
 - [ ] Ensure WCAG AA accessibility compliance
 - [ ] Include proper ARIA attributes and keyboard navigation
 - [ ] Test responsive behavior (mobile breakpoint: 768px)
@@ -240,14 +241,16 @@ student-list.html (with success toast)
 
 ### Creating New Components
 
-**Only create new components when** no existing component in `design-system.html` meets the need.
+**Only create new components when** no existing component in `wireframes/src/components/design-system/` meets the need.
 
 **REQUIRED: Add to design system FIRST**:
-1. Add the new component to `design-system.html` with all states (default, hover, focus, active, disabled, error)
-2. Use existing color variables, spacing scale, and typography
-3. Follow the minimalist philosophy (clarity, simplicity, efficiency)
-4. Include accessibility requirements (ARIA, keyboard navigation)
-5. THEN copy to wireframes
+1. Create the new component in `wireframes/src/components/design-system/` with its CSS file
+2. Include all states (default, hover, focus, active, disabled, error)
+3. Use existing design tokens from `design-tokens.css`
+4. Follow the minimalist philosophy (clarity, simplicity, efficiency)
+5. Include accessibility requirements (ARIA, keyboard navigation)
+6. Export from `wireframes/src/components/design-system/index.ts`
+7. Add showcase example in `ComponentShowcase.tsx`
 
 ### Design System Compliance
 
@@ -319,4 +322,4 @@ User initiates delete action. System prompts for confirmation before executing t
 - Refactoring existing functional specifications to align with interaction-focused approach
 - Applying design system to all new wireframes and UI work
 
-**Design System Location**: `docs/ui-requirements/design-system/design-system.html`
+**Design System Location**: `wireframes/src/components/design-system/`
